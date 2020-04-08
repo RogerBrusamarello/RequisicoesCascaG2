@@ -1,0 +1,97 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+
+	<style type="text/css">
+.ui-layout-north {
+	z-index: 20 !important;
+	overflow: visible !important;
+}
+
+.ui-layout-north .ui-layout-unit-content {
+	overflow: visible !important;
+}
+</style>
+
+</h:head>
+<h:body>
+	<p:layout fullPage="true">
+		<p:layoutUnit position="north" size="140" resizable="false">
+			<h:form>
+				<p:menubar>
+					<p:menuitem value="Home" url="Home.xhtml" />
+					<p:submenu label="Cadastros" icon="ui-icon-document">
+						<p:menuitem value="Cidades" url="CidadeCrud.xhtml" target="centro"
+							icon="ui-icon-document" />
+						<p:menuitem value="Usuario" url="UsuarioCrud.xhtml" target="centro"
+							icon="ui-icon-document" />
+						<p:separator />
+						<p:submenu label="Popups" icon="ui-icon-document">
+							<p:menuitem value="Cidade"
+								actionListener="#{homeCon.abrirPopup('CidadeCrud.xhtml', 600, 400, false)}" />
+								<p:menuitem value="Usuario"
+								actionListener="#{homeCon.abrirPopup('UsuarioCrud.xhtml', 600, 400, false)}" />
+						</p:submenu>
+
+						<p:separator />
+
+						<p:submenu label="Outros cadastros" icon="ui-icon-document">
+							<p:menuitem value="Cadastro A" url="#" icon="ui-icon-document" />
+							<p:menuitem value="Cadastro B" url="#" icon="ui-icon-document" />
+							<p:menuitem value="Cadastro C" url="#" icon="ui-icon-document" />
+						</p:submenu>
+					</p:submenu>
+				</p:menubar>
+				<p:toolbar>
+					<p:toolbarGroup align="left">
+						<p:commandButton icon="ui-icon-home" ajax="false"
+							title="Ir para o início" action="Home.xhtml"
+							onclick="this.form.target='_self'" />
+						<p:commandButton icon="ui-icon-document" ajax="false"
+							title="Abrir CRUD de Cidades" action="CidadeCrud.xhtml"
+							onclick="this.form.target='centro'" />
+						<p:commandButton icon="ui-icon-document" ajax="false"
+							title="Abrir CRUD de Usuarios" action="UsuarioCrud.xhtml"
+							onclick="this.form.target='centro'" />
+						<p:separator />
+						<p:commandButton type="button" title="Save" icon="ui-icon-disk" />
+						<p:commandButton type="button" title="Delete" icon="ui-icon-trash" />
+						<p:commandButton type="button" title="Print" icon="ui-icon-print" />
+					</p:toolbarGroup>
+					<p:toolbarGroup align="right">
+						<p:menuButton value="Options">
+							<p:menuitem value="Home" url="http://www.primefaces.org" />
+							<p:menuitem value="ShowCase"
+								url="http://www.primefaces.org/showcase" />
+						</p:menuButton>
+					</p:toolbarGroup>
+				</p:toolbar>
+			</h:form>
+		</p:layoutUnit>
+		<p:layoutUnit position="west" size="250" header="Menu"
+			resizable="true">
+			<h:form>
+				<p:menu>
+					<p:submenu label="Cadastros">
+						<p:menuitem value="Cidades" url="CidadeCrud.xhtml" target="centro"
+							icon="ui-icon-document" />
+							<p:menuitem value="Usuario" url="UsuarioCrud.xhtml" target="centro"
+							icon="ui-icon-document" />
+
+					</p:submenu>
+				</p:menu>
+			</h:form>
+
+		</p:layoutUnit>
+		<p:layoutUnit position="center">
+			<iframe name="centro" id="centro"
+				style="width: 100%; height: 100%; background-color: #FFFFFF;"
+				frameborder="0" />
+
+		</p:layoutUnit>
+	</p:layout>
+</h:body>
+</html>

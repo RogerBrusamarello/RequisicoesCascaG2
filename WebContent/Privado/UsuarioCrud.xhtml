@@ -1,0 +1,81 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<h:body onload="#{usuarioCrud.carregarLista()}">
+	<!-- Painel de consulta -->
+	<p:panel id="consulta" visible="#{!usuarioCrud.editando}">
+		<h:form>
+			<p:commandButton value="Incluir" action="#{usuarioCrud.incluir}"
+				icon="ui-icon-plusthick" update="consulta edicao"></p:commandButton>
+			<p:commandButton value="Alterar" action="#{usuarioCrud.alterar}"
+				icon="ui-icon-pencil" disabled="#{usuarioCrud.selecionado==null}" update="consulta edicao"></p:commandButton>
+			<p:commandButton value="Excluir" action="#{usuarioCrud.excluir}"
+				icon="ui-icon-trash" onclick="return confirm('Excluir?')" disabled="#{usuarioCrud.selecionado==null}" update="consulta"></p:commandButton>
+			<p:dataTable var="o" value="#{usuarioCrud.lista}"
+				emptyMessage="Nada para mostrar!" selectionMode="single" selection="#{usuarioCrud.selecionado}" rowKey="#{o.id}"
+				rows="5" paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
+				{LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15"
+				currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}">
+				<p:ajax event="rowSelect" update="consulta" />
+				<p:ajax event="rowUnselect" update="consulta" />
+				<p:column headerText="Código">
+					<p:outputLabel value="#{o.id}"></p:outputLabel>
+				</p:column>
+				<p:column headerText="Nome">
+					<p:outputLabel value="#{o.nome}"></p:outputLabel>
+				</p:column>
+				<p:column headerText="E-mail">
+					<p:outputLabel value="#{o.email}"></p:outputLabel>
+				</p:column>
+				
+				<p:column headerText="Login">
+					<p:outputLabel value="#{o.login}"></p:outputLabel>
+				</p:column>
+				
+				<p:column headerText="Senha">
+					<p:outputLabel value="#{o.senha}"></p:outputLabel>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</p:panel>
+
+	<!-- Painel de edição -->
+	<p:panel id="edicao" visible="#{usuarioCrud.editando}">
+		<h:form>
+		<p:growl></p:growl>
+			<p:panelGrid columns="2">
+				<p:outputLabel value="Código"></p:outputLabel>
+				<p:inputNumber value="#{usuarioCrud.selecionado.id}"></p:inputNumber>
+
+
+				<p:outputLabel value="Nome"></p:outputLabel>
+				<p:inputText value="#{usuarioCrud.selecionado.nome}"></p:inputText>
+				
+				<p:outputLabel value="Login"></p:outputLabel>
+				<p:inputText value="#{usuarioCrud.selecionado.login}"></p:inputText>
+
+				<p:outputLabel value="Senha"></p:outputLabel>
+				<p:inputText value="#{usuarioCrud.selecionado.senha}"></p:inputText>
+
+				<p:outputLabel value="Email"></p:outputLabel>
+				<p:inputText value="#{usuarioCrud.selecionado.email}"></p:inputText>
+
+			</p:panelGrid>
+
+			<p:commandButton value="Salvar" action="#{usuarioCrud.salvar}"
+				update="consulta edicao"></p:commandButton>
+			<p:commandButton value="Cancelar" action="#{usuarioCrud.cancelar}" immediate="true"
+				update="consulta edicao"></p:commandButton>
+		</h:form>
+	</p:panel>
+
+</h:body>
+
+</html>
