@@ -19,6 +19,7 @@
 </h:head>
 <h:body>
 	<p:layout fullPage="true">
+		<!-- Menu horizontal -->
 		<p:layoutUnit position="north" size="140" resizable="false">
 			<h:form>
 				<p:menubar>
@@ -45,6 +46,8 @@
 						</p:submenu>
 					</p:submenu>
 				</p:menubar>
+				
+				<!-- Barra de ferramentas -->
 				<p:toolbar>
 					<p:toolbarGroup align="left">
 						<p:commandButton icon="ui-icon-home" ajax="false"
@@ -71,6 +74,8 @@
 				</p:toolbar>
 			</h:form>
 		</p:layoutUnit>
+		
+		<!-- Menu vertical -->
 		<p:layoutUnit position="west" size="250" header="Menu"
 			resizable="true">
 			<h:form>
@@ -84,8 +89,9 @@
 					</p:submenu>
 				</p:menu>
 			</h:form>
-
 		</p:layoutUnit>
+		
+		<!-- Área para carregar os progras -->
 		<p:layoutUnit position="center">
 			<iframe name="centro" id="centro"
 				style="width: 100%; height: 100%; background-color: #FFFFFF;"
