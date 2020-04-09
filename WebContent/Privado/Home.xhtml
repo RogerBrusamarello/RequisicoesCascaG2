@@ -2,19 +2,19 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
+
 <h:head>
 
-
 	<style type="text/css">
-.ui-layout-north {
-	z-index: 20 !important;
-	overflow: visible !important;
-}
-
-.ui-layout-north .ui-layout-unit-content {
-	overflow: visible !important;
-}
-</style>
+		.ui-layout-north {
+			z-index: 20 !important;
+			overflow: visible !important;
+		}
+		
+		.ui-layout-north .ui-layout-unit-content {
+			overflow: visible !important;
+		}
+	</style>
 
 </h:head>
 <h:body>
@@ -26,13 +26,13 @@
 					<p:submenu label="Cadastros" icon="ui-icon-document">
 						<p:menuitem value="Cidades" url="CidadeCrud.xhtml" target="centro"
 							icon="ui-icon-document" />
-						<p:menuitem value="Usuario" url="UsuarioCrud.xhtml" target="centro"
-							icon="ui-icon-document" />
+						<p:menuitem value="Usuario" url="UsuarioCrud.xhtml"
+							target="centro" icon="ui-icon-document" />
 						<p:separator />
 						<p:submenu label="Popups" icon="ui-icon-document">
 							<p:menuitem value="Cidade"
 								actionListener="#{homeCon.abrirPopup('CidadeCrud.xhtml', 600, 400, false)}" />
-								<p:menuitem value="Usuario"
+							<p:menuitem value="Usuario"
 								actionListener="#{homeCon.abrirPopup('UsuarioCrud.xhtml', 600, 400, false)}" />
 						</p:submenu>
 
@@ -78,8 +78,8 @@
 					<p:submenu label="Cadastros">
 						<p:menuitem value="Cidades" url="CidadeCrud.xhtml" target="centro"
 							icon="ui-icon-document" />
-							<p:menuitem value="Usuario" url="UsuarioCrud.xhtml" target="centro"
-							icon="ui-icon-document" />
+						<p:menuitem value="Usuario" url="UsuarioCrud.xhtml"
+							target="centro" icon="ui-icon-document" />
 
 					</p:submenu>
 				</p:menu>
