@@ -4,24 +4,37 @@ import java.io.Serializable;
 import java.lang.Long;
 import java.lang.String;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.Length;
 
 /**
  * Entity implementation class for Entity: Projeto
  *
  */
-@Entity
 
+@Entity
 public class Projeto implements Serializable {
 
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ProjetoId")
+	@SequenceGenerator(name = "ProjetoId", sequenceName = "ProjetoId", allocationSize = 1)
 	private Long id;
+	
+	@NotBlank(message = "Informe o nome do projeto")
+	@Length(min = 10, max = 200, message = "O nome do projeto deve ter entre {min} e {max} caracteres")
 	private String nome;
+	
+	@NotBlank(message = "Informe a descrição")
+	@Length(min = 15, max = 280, message = "A desrição deve ser entre {min} e {max} caracteres")
 	private String descricao;
+	
 	private static final long serialVersionUID = 1L;
 
 	public Projeto() {
 		super();
 	}   
+	
 	public Long getId() {
 		return this.id;
 	}
@@ -29,13 +42,15 @@ public class Projeto implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}   
+	
 	public String getNome() {
 		return this.nome;
 	}
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}   
+	}
+	
 	public String getDescricao() {
 		return this.descricao;
 	}
