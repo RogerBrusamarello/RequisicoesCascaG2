@@ -1,13 +1,19 @@
 package br.upf.ads.tedw.beans;
 
 import java.io.Serializable;
-import java.lang.Integer;
-import java.lang.Long;
-import java.lang.String;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
@@ -41,7 +47,7 @@ public class Requisicao implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date prazoLimite;
 
-	@NotBlank(message = "Informe a priorida")
+	@NotBlank(message = "Informe a prioriedade")
 	@Length(min = 0, max = 10, message = "A prioridade deve ser entre {min} e {max}")
 	private Integer prioridade;
 
@@ -57,9 +63,9 @@ public class Requisicao implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dataFinalizada;
 
-	@ManyToMany(mappedBy = "requisicoes")
+	@ManyToOne(cascade = CascadeType.ALL)
 	@NotBlank(message = "Selecione um projeto")
-	private List<Projeto> projetos;
+	private Projeto projeto;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "requisicao")
 	@NotBlank(message = "Selecione um anexo")
@@ -143,12 +149,12 @@ public class Requisicao implements Serializable {
 		this.dataFinalizada = dataFinalizada;
 	}
 
-	public List<Projeto> getProjetos() {
-		return projetos;
+	public Projeto getProjeto() {
+		return projeto;
 	}
 
-	public void setProjetos(List<Projeto> projetos) {
-		this.projetos = projetos;
+	public void setProjetos(Projeto projeto) {
+		this.projeto = projeto;
 	}
 
 	public List<RequisicaoAnexo> getAnexo() {
