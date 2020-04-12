@@ -13,13 +13,13 @@ import br.upf.ads.tedw.jsf.JSFUtil;
 
 @ManagedBean
 @ViewScoped
-public class RequisicaoCurd implements Serializable {
+public class RequisicaoCrud implements Serializable {
 	
 	private Boolean editando;
 	private List<Requisicao> lista;
 	private Requisicao selecionado;
 	
-	public RequisicaoCurd() {
+	public RequisicaoCrud() {
 		editando = false;
 	}
 	
