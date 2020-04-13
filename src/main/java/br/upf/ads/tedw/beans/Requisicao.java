@@ -88,6 +88,16 @@ public class Requisicao implements Serializable {
 	@NotBlank(message = "Selecione o projeto")
 	@NotNull
 	private Projeto projeto;
+	
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@NotBlank(message = "Selecione a pessoa solicitante")
+	@NotNull
+	private Pessoa solicitante;
+	
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@NotBlank(message = "Selecione a pessoa responsável pela criação desta requisição")
+	@NotNull
+	private Pessoa criador;
 
 	private static final long serialVersionUID = 1L;
 
@@ -172,6 +182,26 @@ public class Requisicao implements Serializable {
 	}
 
 	public void setProjetos(Projeto projeto) {
+		this.projeto = projeto;
+	}
+
+	public Pessoa getSolicitante() {
+		return solicitante;
+	}
+
+	public void setSolicitante(Pessoa solicitante) {
+		this.solicitante = solicitante;
+	}
+
+	public Pessoa getCriador() {
+		return criador;
+	}
+
+	public void setCriador(Pessoa criador) {
+		this.criador = criador;
+	}
+
+	public void setProjeto(Projeto projeto) {
 		this.projeto = projeto;
 	}
 
