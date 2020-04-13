@@ -1,1 +1,4 @@
 /target/
+target
+target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
+target/m2e-wtp/web-resources/META-INF/maven/br.upf.ads/tedw/pom.properties
