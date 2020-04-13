@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +14,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * Entity implementation class for Entity: RequisicaoProgramada
@@ -27,28 +29,32 @@ public class RequisicaoProgramada implements Serializable {
 	@SequenceGenerator(name = "RequisicaoProgramadaId", sequenceName = "RequisicaoProgramadaId", allocationSize = 1)
 	private long id;
 
+	@Temporal(TemporalType.DATE)
+	// Tornar Campo não editável ?
+	@NotNull
+	@Column(nullable = false)
 	private Date data;
 
-	@NotBlank(message = "Informe a data de inicio")
-	@Temporal(TemporalType.DATE)
+	@NotBlank(message = "Informe a data de início, caso exista")
 	private Date dataInicio;
 
-	@NotBlank(message = "Informe a data de termino")
-	@Temporal(TemporalType.DATE)
+	@NotBlank(message = "Informe a data de término, caso exista")
 	private Date dataTermino;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@NotBlank(message = "Selecione uma requisição")
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@NotBlank(message = "Selecione a requisição")
+	@NotNull
 	private Requisicao requisicao;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@NotBlank(message = "Selecione uma pessoa")
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@NotBlank(message = "Selecione a pessoa")
+	@NotNull
 	private Pessoa pessoa;
 
 	private static final long serialVersionUID = 1L;
 
 	public RequisicaoProgramada() {
-		super();
+
 	}
 
 	public long getId() {
@@ -97,6 +103,28 @@ public class RequisicaoProgramada implements Serializable {
 
 	public void setDataTermino(Date dataTermino) {
 		this.dataTermino = dataTermino;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RequisicaoProgramada other = (RequisicaoProgramada) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
 }

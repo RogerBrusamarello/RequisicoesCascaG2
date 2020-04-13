@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +15,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -32,42 +36,62 @@ public class Requisicao implements Serializable {
 	private Long id;
 
 	@NotBlank(message = "Informe o título")
-	@Length(min = 5, max = 250, message = "O titulo deve ter entre {min} e {max} caracteres")
+	@Length(min = 2, max = 100, message = "O titulo deve ter entre {min} e {max} caracteres")
+	@NotNull
+	@Column(length = 100, nullable = false)
 	private String titulo;
 
 	@NotBlank(message = "Informe a descrição")
-	@Length(min = 20, max = 250, message = "O descrição deve ter entre {min} e {max} caracteres")
 	private String descricao;
 
 	@NotBlank(message = "Informe a data de criação")
 	@Temporal(TemporalType.DATE)
+	// Tornar Campo não editável ?
+	@NotNull
 	private Date dataCriada;
 
-	@NotBlank(message = "Informe o data limite")
-	@Temporal(TemporalType.DATE)
+	@NotBlank(message = "Informe o data limite, caso tenha")
 	private Date prazoLimite;
 
-	@NotBlank(message = "Informe a prioriedade")
+	@NotBlank(message = "Informe a prioridade")
 	@Length(min = 0, max = 10, message = "A prioridade deve ser entre {min} e {max}")
+	@Min(0)
+	@Max(10)
+	@NotNull // Se usar valor default, este pode ser tirado
+	// @Column(precision = 0, columnDefinition = "NOT NULL DEFAULT 0")
+	@Column(nullable = false) // Forma acima não aceita. Valor Default = 0 ?
 	private Integer prioridade;
 
 	@NotBlank(message = "Informe a quantidade de horas previstas")
-	@Length(min = 1, message = "As horas devem ser superior a {min}")
+	@Length(min = 0, message = "As horas devem ser ser iguais ou superiores a {min}")
+	@Min(0)
+	@NotNull
+	@Column(nullable = false)
 	private Integer horasPrevistas;
 
 	@NotBlank(message = "Informe a quantidade de horas realizadas")
-	@Length(min = 1, message = "As horas devem ser superior a {min}")
+	// @Length(min = 1, message = "As horas devem superior a {min}")
+	// Deve inicializar com zero quando uma requisição é inserida.
+	// Não deve ser atualizado na base junto com os demais dados do objeto.
+	// Deve ser atualizado na base por implementação de regra de negócio sempre que
+	// houver registro de horas realizadas em requisição finalizada.
+	// @Column(columnDefinition = "DEFAULT 0") // <== Não aceita desta forma
 	private Integer horasRealizadas;
 
 	@NotBlank(message = "Informe a data finalizada")
-	@Temporal(TemporalType.DATE)
+	// Quando inserido inicializa com Null
+	// Não deve ser atualizado com os outros dados do objeto
+	// Será atualizada via implementação de regra de negócio a ser implementada para
+	// quando registrar um andamento com status de finalização da requisição
+	// @Column(columnDefinition = "DEFAULT NULL")
 	private Date dataFinalizada;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@NotBlank(message = "Selecione um projeto")
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@NotBlank(message = "Selecione o projeto")
+	@NotNull
 	private Projeto projeto;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "requisicao")
+	@OneToMany(cascade = CascadeType.ALL)
 	@NotBlank(message = "Selecione um anexo")
 	private List<RequisicaoAnexo> anexo;
 

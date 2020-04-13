@@ -11,8 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -33,37 +31,44 @@ public class RequisicaoAndamento implements Serializable {
 	private Long id;
 
 	@NotBlank(message = "Informe a data")
-	@Temporal(TemporalType.DATE)
+	@NotNull
+	@Column(nullable = false)
 	private Date data;
 
 	@NotBlank(message = "Informe o título")
-	@Length(min = 10, max = 100, message = "A prioridade deve ser entre {min} e {max}")
+	@Length(min = 10, max = 100, message = "O título precisa ter entre {min} e {max} caracteres")
+	@NotNull(message = "O nome do título não pode estar em branco")
+	@Column(length = 100, nullable = false)
 	private String titulo;
 
-	@Length(min = 0, max = 255, message = "A prioridade deve ser entre {min} e {max}")
+	@NotBlank(message = "Informe a descrição:")
 	private String descricao;
 
+	@NotBlank(message = "Informe a quantidade de horas realizadas no atendimento:")
 	@Min(value = 1, message = "Deve ter pelo menos 1 hora realizada")
-	@NotNull(message = "Você deve informar o número de horas realizadas")
-	@Column(nullable = false)
 	private Integer horasRealizadas;
 
-	@NotNull(message = "Você deve informar o status da requisição")
+	@NotNull(message = "Informe o status da requisição (F se Finalizada ou N se Não Finalizada)")
+	// Definir validação para F ou N
+	// Se informou N deve setar a data de finalização na requisição
+	// para null, reabrindo a requisição
 	@Column(nullable = false)
 	private Character status;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
 	@NotBlank(message = "Selecione uma pessoa")
+	@NotNull
 	private Pessoa pessoa;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
 	@NotBlank(message = "Selecione uma requisição")
+	@NotNull
 	private Requisicao requisicao;
 
 	private static final long serialVersionUID = 1L;
 
 	public RequisicaoAndamento() {
-		super();
+
 	}
 
 	public Long getId() {
@@ -128,6 +133,31 @@ public class RequisicaoAndamento implements Serializable {
 
 	public void setRequisicao(Requisicao requisicao) {
 		this.requisicao = requisicao;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RequisicaoAndamento other = (RequisicaoAndamento) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 }

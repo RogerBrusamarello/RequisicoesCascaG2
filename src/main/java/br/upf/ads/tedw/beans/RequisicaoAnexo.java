@@ -1,10 +1,17 @@
 package br.upf.ads.tedw.beans;
 
 import java.io.Serializable;
-import java.lang.Long;
-import java.lang.String;
-import javax.persistence.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -22,20 +29,24 @@ public class RequisicaoAnexo implements Serializable {
 	private Long id;
 
 	@NotBlank(message = "Informe a descrição do arquivo")
-	@Length(min = 10, max = 250, message = "A descrição deve ter entre {min} e {max} caracteres")
+	@Length(min = 2, max = 100, message = "A descrição deve ter entre {min} e {max} caracteres")
+	@NotNull
+	@Column(length = 100, nullable = false)
 	private String descricao;
 
-	@NotBlank(message = "Informe o arquivo")
-	@Length(min = 5, max = 100, message = "O arquivo deve ter entre {min} e {max}")
+	@NotBlank(message = "Selecione o arquivo")
+	// Armazenar no banco com um tipo Lob ?
 	private String arquivo;
 
-	@ManyToOne(optional = false)
+	@NotBlank(message = "Selecione o projeto")
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@NotNull
 	private Requisicao requisicao;
 
 	private static final long serialVersionUID = 1L;
 
 	public RequisicaoAnexo() {
-		
+
 	}
 
 	public Long getId() {

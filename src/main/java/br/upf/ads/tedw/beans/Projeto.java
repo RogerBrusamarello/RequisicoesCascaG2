@@ -1,12 +1,20 @@
 package br.upf.ads.tedw.beans;
 
 import java.io.Serializable;
-import java.lang.Long;
-import java.lang.String;
-import javax.persistence.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
+
+import com.sun.istack.NotNull;
 
 /**
  * Entity implementation class for Entity: Projeto
@@ -23,11 +31,20 @@ public class Projeto implements Serializable {
 
 	@NotBlank(message = "Informe o nome do projeto")
 	@Length(min = 10, max = 200, message = "O nome do projeto deve ter entre {min} e {max} caracteres")
+	@NotNull
+	@Column(length = 200, nullable = false)
 	private String nome;
 
 	@NotBlank(message = "Informe a descrição")
-	@Length(min = 15, max = 280, message = "A desrição deve ser entre {min} e {max} caracteres")
 	private String descricao;
+
+	@NotBlank(message = "Selecione o usuário")
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	private Usuario usuario;
+
+	@NotBlank(message = "Selecione o cliente")
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	private Cliente cliente;
 
 	private static final long serialVersionUID = 1L;
 

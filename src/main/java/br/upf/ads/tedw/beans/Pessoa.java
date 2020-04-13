@@ -2,6 +2,7 @@ package br.upf.ads.tedw.beans;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,12 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.SequenceGenerator;
-import javax.validation.constraints.NotBlank;
-import org.hibernate.validator.constraints.br.CPF;
 import javax.validation.constraints.Email;
-import javax.persistence.Column;
+import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.UniqueElements;
+import org.hibernate.validator.constraints.br.CPF;
+
+import com.sun.istack.NotNull;
 
 /**
  * Entity implementation class for Entity: Pessoa
@@ -34,27 +37,46 @@ public abstract class Pessoa implements Serializable {
 	private Long id;
 
 	@NotBlank(message = "Informe o nome da pessoa.")
-	@Length(min = 2, max = 70, message = "O nome da pessoa deve ter entre {min} e {max} caracteres.")
+	@Length(min = 2, max = 60, message = "O nome da pessoa deve ter entre {min} e {max} caracteres.")
+	@NotNull
+	@Column(length = 60, nullable = false)
 	private String nome;
 
 	@NotBlank(message = "Informe o CPF.")
-	@Length(min = 2, max = 14, message = "O número precisa ser de um CPF válido e deve ter no máximo {max} caracteres.")
+	@Length(min = 11, max = 14, message = "O número precisa ser de um CPF válido e deve ter no máximo {max} caracteres.")
 	@CPF
-	@Column(nullable = false, unique = true)
+	@NotNull
+	@UniqueElements
+	@Column(length = 14, nullable = false, unique = true)
 	private String cpf;
 
 	@NotBlank(message = "Informe o RG.")
-	@Length(min = 2, max = 20, message = "O número do RG precisa ser válido.")
+	@Length(min = 5, max = 15, message = "O número do RG precisa ser válido.")
+	@NotNull
+	@UniqueElements
+	@Column(length = 15, nullable = false, unique = true)
 	private String rg;
 
 	@NotBlank(message = "Informe o E-mail.")
-	@Length(min = 10, max = 80, message = "O e-mail precisa ter formato válido")
+	@Length(min = 5, max = 100, message = "O e-mail precisa ter formato válido")
 	@Email
+	@NotNull
+	@UniqueElements
+	@Column(length = 100, nullable = false, unique = true)
 	private String email;
 
 	@NotBlank(message = "Informe o número do telefone celular.")
-	@Length(min = 11, max = 11, message = "O número do celular deve ter {max} caracteres")
+	// @Length(min = 9, max = 11, message = "O número do celular deve ter {max}
+	// caracteres")
+	// @Column(length = 11)
 	private String celular;
+
+	@NotBlank(message = "Informe uma senha.")
+	@Length(min = 6, message = "A senha deve conter no mínimo {min} caracteres")
+	@NotNull
+	// Criptografar em MD5
+	@Column(nullable = false)
+	private String senha;
 
 	@NotBlank(message = "Outras informações.")
 	@Length(min = 0, max = 255)
@@ -65,7 +87,7 @@ public abstract class Pessoa implements Serializable {
 	}
 
 	public Long getId() {
-		return this.id;
+		return id;
 	}
 
 	public void setId(Long id) {
@@ -73,7 +95,7 @@ public abstract class Pessoa implements Serializable {
 	}
 
 	public String getNome() {
-		return this.nome;
+		return nome;
 	}
 
 	public void setNome(String nome) {
@@ -81,7 +103,7 @@ public abstract class Pessoa implements Serializable {
 	}
 
 	public String getCpf() {
-		return this.cpf;
+		return cpf;
 	}
 
 	public void setCpf(String cpf) {
@@ -89,7 +111,7 @@ public abstract class Pessoa implements Serializable {
 	}
 
 	public String getRg() {
-		return this.rg;
+		return rg;
 	}
 
 	public void setRg(String rg) {
@@ -97,7 +119,7 @@ public abstract class Pessoa implements Serializable {
 	}
 
 	public String getEmail() {
-		return this.email;
+		return email;
 	}
 
 	public void setEmail(String email) {
@@ -105,15 +127,23 @@ public abstract class Pessoa implements Serializable {
 	}
 
 	public String getCelular() {
-		return this.celular;
+		return celular;
 	}
 
 	public void setCelular(String celular) {
 		this.celular = celular;
 	}
 
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
 	public String getOutrasInformacoes() {
-		return this.outrasInformacoes;
+		return outrasInformacoes;
 	}
 
 	public void setOutrasInformacoes(String outrasInformacoes) {

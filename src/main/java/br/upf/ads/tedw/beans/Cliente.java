@@ -1,9 +1,10 @@
 package br.upf.ads.tedw.beans;
 
 import java.io.Serializable;
-import java.lang.String;
+
 import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
+
 import org.hibernate.validator.constraints.Length;
 
 /**
@@ -15,7 +16,7 @@ import org.hibernate.validator.constraints.Length;
 public class Cliente extends Pessoa implements Serializable {
 
 	@NotBlank(message = "Informe a função que o cliente executa.")
-	@Length(min = 2, max = 30, message = "A função precisa ter entre {min} e {max} caracteres.")
+	@Length(min = 2, max = 80, message = "A função pode ter no {max} caracteres.")
 	private String funcao;
 
 	public Cliente() {
