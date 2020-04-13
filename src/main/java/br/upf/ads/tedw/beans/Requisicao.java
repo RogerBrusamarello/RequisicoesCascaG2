@@ -2,7 +2,6 @@ package br.upf.ads.tedw.beans;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -90,10 +88,6 @@ public class Requisicao implements Serializable {
 	@NotBlank(message = "Selecione o projeto")
 	@NotNull
 	private Projeto projeto;
-
-	@OneToMany(cascade = CascadeType.ALL)
-	@NotBlank(message = "Selecione um anexo")
-	private List<RequisicaoAnexo> anexo;
 
 	private static final long serialVersionUID = 1L;
 
@@ -179,14 +173,6 @@ public class Requisicao implements Serializable {
 
 	public void setProjetos(Projeto projeto) {
 		this.projeto = projeto;
-	}
-
-	public List<RequisicaoAnexo> getAnexo() {
-		return anexo;
-	}
-
-	public void setAnexo(List<RequisicaoAnexo> anexo) {
-		this.anexo = anexo;
 	}
 
 	@Override
