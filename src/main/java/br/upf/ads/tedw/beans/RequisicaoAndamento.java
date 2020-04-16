@@ -19,6 +19,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import br.upf.ads.tedw.annotation.EnumValidate;
+
 /**
  * Entity implementation class for Entity: RequisicaoAndamento
  *
@@ -55,6 +57,7 @@ public class RequisicaoAndamento implements Serializable {
 	// para null, reabrindo a requisição
 	// @StringOptionsValid(message = "Status valido", opcoes= {"F", "N"})
 	@Column(nullable = false)
+	@EnumValidate(enumClass = Letra.class, message = "Você deve informar um status válido.")
 	private Character status;
 
 	@ManyToOne(optional = false)
