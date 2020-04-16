@@ -3,7 +3,6 @@ package br.upf.ads.tedw.beans;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -35,26 +33,24 @@ public class RequisicaoProgramada implements Serializable {
 	@Column(nullable = false)
 	private Date data;
 
-	@NotBlank(message = "Informe a data de início, caso exista")
+	@Temporal(TemporalType.DATE)
 	private Date dataInicio;
 
-	@NotBlank(message = "Informe a data de término, caso exista")
+	@Temporal(TemporalType.DATE)
 	private Date dataTermino;
 
-	@ManyToOne(optional = false, cascade = CascadeType.ALL)
-	@NotBlank(message = "Selecione a requisição")
+	@ManyToOne(optional = false)
 	@NotNull
 	private Requisicao requisicao;
 
-	@ManyToOne(optional = false, cascade = CascadeType.ALL)
-	@NotBlank(message = "Selecione a pessoa")
+	@ManyToOne(optional = false)
 	@NotNull
 	private Pessoa pessoa;
 
 	private static final long serialVersionUID = 1L;
 
 	public RequisicaoProgramada() {
-
+		data = new Date();
 	}
 
 	public long getId() {

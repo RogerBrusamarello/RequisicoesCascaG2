@@ -3,14 +3,16 @@ package br.upf.ads.tedw.beans;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -30,38 +32,36 @@ public class RequisicaoAndamento implements Serializable {
 	@SequenceGenerator(name = "RequisicaoAndamentoId", sequenceName = "RequisicaoAndamentoId", allocationSize = 1)
 	private Long id;
 
-	@NotBlank(message = "Informe a data")
 	@NotNull
+	@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
 	private Date data;
 
 	@NotBlank(message = "Informe o título")
 	@Length(min = 10, max = 100, message = "O título precisa ter entre {min} e {max} caracteres")
-	@NotNull(message = "O nome do título não pode estar em branco")
 	@Column(length = 100, nullable = false)
 	private String titulo;
 
-	@NotBlank(message = "Informe a descrição:")
+	@Lob
 	private String descricao;
 
-	@NotBlank(message = "Informe a quantidade de horas realizadas no atendimento:")
-	@Min(value = 1, message = "Deve ter pelo menos 1 hora realizada")
+	@NotNull(message = "Informe a quantidade de horas realizadas no atendimento:")
+	@Min(value = 0, message = "Deve ter pelo menos 1 hora realizada")
 	private Integer horasRealizadas;
 
 	@NotNull(message = "Informe o status da requisição (F se Finalizada ou N se Não Finalizada)")
 	// Definir validação para F ou N
 	// Se informou N deve setar a data de finalização na requisição
 	// para null, reabrindo a requisição
+	// @StringOptionsValid(message = "Status valido", opcoes= {"F", "N"})
 	@Column(nullable = false)
 	private Character status;
 
-	@ManyToOne(optional = false, cascade = CascadeType.ALL)
-	@NotBlank(message = "Selecione uma pessoa")
+	@ManyToOne(optional = false)
 	@NotNull
 	private Pessoa pessoa;
 
-	@ManyToOne(optional = false, cascade = CascadeType.ALL)
-	@NotBlank(message = "Selecione uma requisição")
+	@ManyToOne(optional = false)
 	@NotNull
 	private Requisicao requisicao;
 
