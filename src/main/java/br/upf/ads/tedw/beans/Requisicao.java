@@ -94,8 +94,8 @@ public class Requisicao implements Serializable {
 	private Pessoa criou;
 	
 	//VER
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<RequisicaoAnexo> anexo;
+	//@OneToMany(mappedBy = "requisicao", cascade = CascadeType.ALL)
+	//private List<RequisicaoAnexo> anexo;
 
 	private static final long serialVersionUID = 1L;
 
