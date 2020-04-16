@@ -20,6 +20,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 import br.upf.ads.tedw.annotation.EnumValidate;
+import br.upf.ads.tedw.suport.Letra;
 
 /**
  * Entity implementation class for Entity: RequisicaoAndamento

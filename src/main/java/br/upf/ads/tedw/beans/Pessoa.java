@@ -1,6 +1,7 @@
 package br.upf.ads.tedw.beans;
 
 import java.io.Serializable;
+import java.text.ParseException;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,10 +15,11 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.UniqueElements;
 import org.hibernate.validator.constraints.br.CPF;
 
-import com.sun.istack.NotNull;
+import br.upf.ads.tedw.suport.Encrypt;
+import br.upf.ads.tedw.suport.charRemove;
+import br.upf.ads.tedw.suport.stringFormat;
 
 /**
  * Entity implementation class for Entity: Pessoa
@@ -33,57 +35,49 @@ public abstract class Pessoa implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PessoaId")
-	@SequenceGenerator(name = "PessoaID", sequenceName = "PessoaId", allocationSize = 1)
+	@SequenceGenerator(name = "PessoaId", sequenceName = "PessoaId", allocationSize = 1)
 	private Long id;
 
 	@NotBlank(message = "Informe o nome da pessoa.")
 	@Length(min = 2, max = 60, message = "O nome da pessoa deve ter entre {min} e {max} caracteres.")
-	@NotNull
 	@Column(length = 60, nullable = false)
 	private String nome;
 
-	@NotBlank(message = "Informe o CPF.")
-	@Length(min = 11, max = 14, message = "O número precisa ser de um CPF válido e deve ter no máximo {max} caracteres.")
-	@CPF
-	@NotNull
-	@UniqueElements
-	@Column(length = 14, nullable = false, unique = true)
+	@NotBlank(message = "Informe um CPF válido")
+	@Length(min = 14, max = 14, message = "O CPF precisa deve ter {max} caracteres e ter esse formato: XXX.XXX.XXX-XX")
+	@CPF(message = "CPF inválido. Precisa ter número válido e esse formato: XXX.XXX.XXX-XX")
+	@Column(length = 14, nullable = false, unique = true) // Validar no formulário de cadastro antes de persistir
 	private String cpf;
 
-	@NotBlank(message = "Informe o RG.")
-	@Length(min = 5, max = 15, message = "O número do RG precisa ser válido.")
-	@NotNull
-	@UniqueElements
-	@Column(length = 15, nullable = false, unique = true)
+	@NotBlank(message = "Informe um RG válido.")
+	@Length(min = 5, max = 11, message = "O número do RG precisa ser válido.")
+	@Column(length = 11, nullable = false, unique = false)
 	private String rg;
 
-	@NotBlank(message = "Informe o E-mail.")
+	@NotBlank(message = "Informe um E-mail válido.")
 	@Length(min = 5, max = 100, message = "O e-mail precisa ter formato válido")
-	@Email
-	@NotNull
-	@UniqueElements
-	@Column(length = 100, nullable = false, unique = true)
+	@Email(message = "Formato de e-mail inválido!")
+	@Column(length = 100, nullable = false, unique = true) // Validar no formulário de cadastro antes de persistir
 	private String email;
 
 	@NotBlank(message = "Informe o número do telefone celular.")
-	// @Length(min = 9, max = 11, message = "O número do celular deve ter {max}
-	// caracteres")
-	// @Column(length = 11)
+	@Length(min = 11, max = 15, message = "O número do celular deve ter no máximo {max} caracteres, sendo {min} números")
+	// Alteração no valor de "min", implica na necessidade de alteração no método de
+	// formatação do setCelular também
+	@Column(length = 15)
 	private String celular;
 
 	@NotBlank(message = "Informe uma senha.")
 	@Length(min = 6, message = "A senha deve conter no mínimo {min} caracteres")
-	@NotNull
-	// Criptografar em MD5
 	@Column(nullable = false)
 	private String senha;
 
-	@NotBlank(message = "Outras informações.")
-	@Length(min = 0, max = 255)
+	@Length(min = 0, message = "Outras informações (Opcional)")
+	@Column(columnDefinition = "text")
 	private String outrasInformacoes;
 
 	public Pessoa() {
-
+		super();
 	}
 
 	public Long getId() {
@@ -130,8 +124,10 @@ public abstract class Pessoa implements Serializable {
 		return celular;
 	}
 
-	public void setCelular(String celular) {
-		this.celular = celular;
+	public void setCelular(String celular) throws ParseException, com.sun.el.parser.ParseException {
+		// Desta forma, formata os 11 últimos caracteres númericos informados
+		this.celular = stringFormat.freeStringFormat(charRemove.specialCharRemoveFromString(celular, 3),
+				"(##) #####-####", 11, 1);
 	}
 
 	public String getSenha() {
@@ -139,7 +135,7 @@ public abstract class Pessoa implements Serializable {
 	}
 
 	public void setSenha(String senha) {
-		this.senha = senha;
+		this.senha = Encrypt.encryptMd5(senha);
 	}
 
 	public String getOutrasInformacoes() {

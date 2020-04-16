@@ -6,21 +6,21 @@
 <h:head>
 </h:head>
 
-<h:body onload="#{usuarioCrud.carregarLista()}">
+<h:body onload="#{administradorCrud.carregarLista()}">
 	<!-- Painel de consulta -->
-	<p:panel id="consulta" visible="#{!usuarioCrud.editando}">
+	<p:panel id="consulta" visible="#{!administradorCrud.editando}">
 		<h:form>
-			<p:commandButton value="Incluir" action="#{usuarioCrud.incluir}"
+			<p:commandButton value="Incluir" action="#{administradorCrud.incluir}"
 				icon="ui-icon-plusthick" update="consulta edicao"></p:commandButton>
-			<p:commandButton value="Alterar" action="#{usuarioCrud.alterar}"
-				icon="ui-icon-pencil" disabled="#{usuarioCrud.selecionado==null}"
+			<p:commandButton value="Alterar" action="#{administradorCrud.alterar}"
+				icon="ui-icon-pencil" disabled="#{administradorCrud.selecionado==null}"
 				update="consulta edicao"></p:commandButton>
-			<p:commandButton value="Excluir" action="#{usuarioCrud.excluir}"
+			<p:commandButton value="Excluir" action="#{administradorCrud.excluir}"
 				icon="ui-icon-trash" onclick="return confirm('Excluir?')"
-				disabled="#{usuarioCrud.selecionado==null}" update="consulta"></p:commandButton>
-			<p:dataTable var="o" value="#{usuarioCrud.lista}"
+				disabled="#{administradorCrud.selecionado==null}" update="consulta"></p:commandButton>
+			<p:dataTable var="o" value="#{administradorCrud.lista}"
 				emptyMessage="Nada para mostrar!" selectionMode="single"
-				selection="#{usuarioCrud.selecionado}" rowKey="#{o.id}" rows="5"
+				selection="#{administradorCrud.selecionado}" rowKey="#{o.id}" rows="5"
 				paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
 				{LastPageLink} {RowsPerPageDropdown}"
@@ -31,7 +31,7 @@
 				<p:column headerText="Código">
 					<p:outputLabel value="#{o.id}"></p:outputLabel>
 				</p:column>
-				<p:column headerText="Nome Usuário">
+				<p:column headerText="Nome Administrador">
 					<p:outputLabel value="#{o.nome}"></p:outputLabel>
 				</p:column>
 				<p:column headerText="CPF">
@@ -63,39 +63,39 @@
 	</p:panel>
 
 	<!-- Painel de edição -->
-	<p:panel id="edicao" visible="#{usuarioCrud.editando}">
+	<p:panel id="edicao" visible="#{administradorCrud.editando}">
 		<h:form>
 			<p:growl></p:growl>
 			<p:panelGrid columns="2">
 				<p:outputLabel value="Código"></p:outputLabel>
-				<p:inputNumber value="#{usuarioCrud.selecionado.id}"></p:inputNumber>
+				<p:inputNumber value="#{administradorCrud.selecionado.id}"></p:inputNumber>
 
-				<p:outputLabel value="Nome Usuário"></p:outputLabel>
-				<p:inputText value="#{usuarioCrud.selecionado.nome}"></p:inputText>
+				<p:outputLabel value="Nome Administrador"></p:outputLabel>
+				<p:inputText value="#{administradorCrud.selecionado.nome}"></p:inputText>
 
 				<p:outputLabel value="CPF"></p:outputLabel>
-				<p:inputText value="#{usuarioCrud.selecionado.cpf}"></p:inputText>
+				<p:inputText value="#{administradorCrud.selecionado.cpf}"></p:inputText>
 
 				<p:outputLabel value="RG"></p:outputLabel>
-				<p:inputText value="#{usuarioCrud.selecionado.rg}"></p:inputText>
+				<p:inputText value="#{administradorCrud.selecionado.rg}"></p:inputText>
 
 				<p:outputLabel value="Email"></p:outputLabel>
-				<p:inputText value="#{usuarioCrud.selecionado.email}"></p:inputText>
+				<p:inputText value="#{administradorCrud.selecionado.email}"></p:inputText>
 				
 				<p:outputLabel value="Celular"></p:outputLabel>
-				<p:inputText value="#{usuarioCrud.selecionado.celular}"></p:inputText>
+				<p:inputText value="#{administradorCrud.selecionado.celular}"></p:inputText>
 				
 				<p:outputLabel value="Outras Informações"></p:outputLabel>
-				<p:inputText value="#{usuarioCrud.selecionado.outrasInformacoes}"></p:inputText>
+				<p:inputText value="#{administradorCrud.selecionado.outrasInformacoes}"></p:inputText>
 				
 				<p:outputLabel value="Senha"></p:outputLabel>
-				<p:inputText value="#{usuarioCrud.selecionado.senha}"></p:inputText>
+				<p:inputText value="#{administradorCrud.selecionado.senha}"></p:inputText>
 				
 			</p:panelGrid>
 
-			<p:commandButton value="Salvar" action="#{usuarioCrud.salvar}"
+			<p:commandButton value="Salvar" action="#{administradorCrud.salvar}"
 				update="consulta edicao"></p:commandButton>
-			<p:commandButton value="Cancelar" action="#{usuarioCrud.cancelar}"
+			<p:commandButton value="Cancelar" action="#{administradorCrud.cancelar}"
 				immediate="true" update="consulta edicao"></p:commandButton>
 		</h:form>
 	</p:panel>

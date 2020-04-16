@@ -1,4 +1,4 @@
-package br.upf.ads.tedw.beans;
+package br.upf.ads.tedw.suport;
 
 public enum Letra {
 

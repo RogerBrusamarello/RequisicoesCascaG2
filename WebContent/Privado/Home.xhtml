@@ -29,12 +29,20 @@
 							icon="ui-icon-document" />
 						<p:menuitem value="Usuario" url="UsuarioCrud.xhtml"
 							target="centro" icon="ui-icon-document" />
+						<p:menuitem value="Administrador" url="AdministradorCrud.xhtml"
+							target="centro" icon="ui-icon-document" />
+						<p:menuitem value="Cliente" url="ClienteCrud.xhtml"
+							target="centro" icon="ui-icon-document" />
 						<p:separator />
 						<p:submenu label="Popups" icon="ui-icon-document">
 							<p:menuitem value="Cidade"
 								actionListener="#{homeCon.abrirPopup('CidadeCrud.xhtml', 600, 400, false)}" />
 							<p:menuitem value="Usuario"
 								actionListener="#{homeCon.abrirPopup('UsuarioCrud.xhtml', 600, 400, false)}" />
+							<p:menuitem value="Administrador"
+								actionListener="#{homeCon.abrirPopup('AdministradorCrud.xhtml', 600, 400, false)}" />
+							<p:menuitem value="Cliente"
+								actionListener="#{homeCon.abrirPopup('ClienteCrud.xhtml', 600, 400, false)}" />
 						</p:submenu>
 
 						<p:separator />
@@ -43,6 +51,7 @@
 							<p:menuitem value="Cadastro A" url="#" icon="ui-icon-document" />
 							<p:menuitem value="Cadastro B" url="#" icon="ui-icon-document" />
 							<p:menuitem value="Cadastro C" url="#" icon="ui-icon-document" />
+							<p:menuitem value="Cadastro D" url="#" icon="ui-icon-document" />
 						</p:submenu>
 					</p:submenu>
 				</p:menubar>
@@ -58,6 +67,12 @@
 							onclick="this.form.target='centro'" />
 						<p:commandButton icon="ui-icon-document" ajax="false"
 							title="Abrir CRUD de Usuarios" action="UsuarioCrud.xhtml"
+							onclick="this.form.target='centro'" />
+						<p:commandButton icon="ui-icon-document" ajax="false"
+							title="Abrir CRUD de Administrador" action="AdministradorCrud.xhtml"
+							onclick="this.form.target='centro'" />
+						<p:commandButton icon="ui-icon-document" ajax="false"
+							title="Abrir CRUD de Cliente" action="ClienteCrud.xhtml"
 							onclick="this.form.target='centro'" />
 						<p:separator />
 						<p:commandButton type="button" title="Save" icon="ui-icon-disk" />
@@ -85,7 +100,10 @@
 							icon="ui-icon-document" />
 						<p:menuitem value="Usuario" url="UsuarioCrud.xhtml"
 							target="centro" icon="ui-icon-document" />
-
+						<p:menuitem value="Administrador" url="AdministradorCrud.xhtml"
+							target="centro" icon="ui-icon-document" />
+						<p:menuitem value="Cliente" url="ClienteCrud.xhtml"
+							target="centro" icon="ui-icon-document" />
 					</p:submenu>
 				</p:menu>
 			</h:form>

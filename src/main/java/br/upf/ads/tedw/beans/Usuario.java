@@ -1,6 +1,7 @@
 package br.upf.ads.tedw.beans;
 
 import java.io.Serializable;
+
 import javax.persistence.Entity;
 
 /**
@@ -11,9 +12,9 @@ import javax.persistence.Entity;
 @Entity
 
 public class Usuario extends Pessoa implements Serializable {
-	
+
 	public Usuario() {
-		
+		super();
 	}
 
 }

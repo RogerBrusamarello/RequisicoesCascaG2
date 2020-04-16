@@ -28,7 +28,6 @@ public class RequisicaoProgramada implements Serializable {
 	private long id;
 
 	@Temporal(TemporalType.DATE)
-	// Tornar Campo não editável ?
 	@NotNull
 	@Column(nullable = false)
 	private Date data;
