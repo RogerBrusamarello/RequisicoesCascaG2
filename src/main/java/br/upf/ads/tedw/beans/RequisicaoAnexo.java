@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotBlank;
@@ -29,18 +30,15 @@ public class RequisicaoAnexo implements Serializable {
 	private Long id;
 
 	@NotBlank(message = "Informe a descrição do arquivo")
-	@Length(min = 2, max = 100, message = "A descrição deve ter entre {min} e {max} caracteres")
-	@NotNull
-	@Column(length = 100, nullable = false)
+	@Lob
+	@Column(nullable = false)
 	private String descricao;
 
-	@NotBlank(message = "Selecione o arquivo")
-	// Armazenar no banco com um tipo Lob ?
+	@Lob
 	private String arquivo;
 
-	@NotBlank(message = "Selecione o projeto")
-	@ManyToOne(optional = false, cascade = CascadeType.ALL)
-	@NotNull
+	@ManyToOne(optional = false)
+	@NotNull(message = "Selecione o projeto")
 	private Requisicao requisicao;
 
 	private static final long serialVersionUID = 1L;

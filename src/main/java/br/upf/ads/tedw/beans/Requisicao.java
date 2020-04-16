@@ -2,6 +2,7 @@ package br.upf.ads.tedw.beans;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,7 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,74 +38,69 @@ public class Requisicao implements Serializable {
 
 	@NotBlank(message = "Informe o título")
 	@Length(min = 2, max = 100, message = "O titulo deve ter entre {min} e {max} caracteres")
-	@NotNull
 	@Column(length = 100, nullable = false)
 	private String titulo;
 
 	@NotBlank(message = "Informe a descrição")
+	@Lob
 	private String descricao;
 
-	@NotBlank(message = "Informe a data de criação")
 	@Temporal(TemporalType.DATE)
 	// Tornar Campo não editável ?
-	@NotNull
+	@NotNull(message = "Informe a data de criação")
 	private Date dataCriada;
 
-	@NotBlank(message = "Informe o data limite, caso tenha")
+	@Temporal(TemporalType.DATE)
 	private Date prazoLimite;
 
-	@NotBlank(message = "Informe a prioridade")
-	@Length(min = 0, max = 10, message = "A prioridade deve ser entre {min} e {max}")
-	@Min(0)
-	@Max(10)
-	@NotNull // Se usar valor default, este pode ser tirado
+	@Min(value = 0, message = "A prioridade deve ser igual ou superior a {value}")
+	@Max(value = 10, message = "A prioridade deve ser igual ou inferior a {value}")
+	@NotNull(message = "Informe a prioridade") // Se usar valor default, este pode ser tirado
 	// @Column(precision = 0, columnDefinition = "NOT NULL DEFAULT 0")
-	@Column(nullable = false) // Forma acima não aceita. Valor Default = 0 ?
+	@Column(nullable = false)
 	private Integer prioridade;
 
-	@NotBlank(message = "Informe a quantidade de horas previstas")
-	@Length(min = 0, message = "As horas devem ser ser iguais ou superiores a {min}")
-	@Min(0)
-	@NotNull
+	@Min(value = 0, message = "As horas previstas devem ser igual ou superior a {value}")
+	@NotNull(message = "Informe as horas previstas")
 	@Column(nullable = false)
 	private Integer horasPrevistas;
 
-	@NotBlank(message = "Informe a quantidade de horas realizadas")
+	@NotNull(message = "Informe as horas que foram realizadas")
 	// @Length(min = 1, message = "As horas devem superior a {min}")
 	// Deve inicializar com zero quando uma requisição é inserida.
 	// Não deve ser atualizado na base junto com os demais dados do objeto.
 	// Deve ser atualizado na base por implementação de regra de negócio sempre que
 	// houver registro de horas realizadas em requisição finalizada.
-	// @Column(columnDefinition = "DEFAULT 0") // <== Não aceita desta forma
+	@Column(updatable = false)
 	private Integer horasRealizadas;
 
-	@NotBlank(message = "Informe a data finalizada")
 	// Quando inserido inicializa com Null
 	// Não deve ser atualizado com os outros dados do objeto
 	// Será atualizada via implementação de regra de negócio a ser implementada para
 	// quando registrar um andamento com status de finalização da requisição
-	// @Column(columnDefinition = "DEFAULT NULL")
+	@Column(updatable = false)
 	private Date dataFinalizada;
 
 	@ManyToOne(optional = false, cascade = CascadeType.ALL)
-	@NotBlank(message = "Selecione o projeto")
-	@NotNull
+	@NotNull(message = "Selecione o projeto")
 	private Projeto projeto;
 	
-	@ManyToOne(optional = false, cascade = CascadeType.ALL)
-	@NotBlank(message = "Selecione a pessoa solicitante")
-	@NotNull
-	private Pessoa solicitante;
+	@ManyToOne(optional = false)
+	@NotNull(message = "Selecione a pessoa solicitante")
+	private Pessoa solicitou;
 	
-	@ManyToOne(optional = false, cascade = CascadeType.ALL)
-	@NotBlank(message = "Selecione a pessoa responsável pela criação desta requisição")
-	@NotNull
-	private Pessoa criador;
+	@ManyToOne(optional = false)
+	@NotNull(message = "Selecione a pessoa responsável pela criação desta requisição")
+	private Pessoa criou;
+	
+	//VER
+	//@OneToMany(cascade = CascadeType.ALL)
+	//private List<RequisicaoAnexo> anexo;
 
 	private static final long serialVersionUID = 1L;
 
 	public Requisicao() {
-
+		dataCriada = new Date();
 	}
 
 	public Long getId() {
@@ -185,20 +183,20 @@ public class Requisicao implements Serializable {
 		this.projeto = projeto;
 	}
 
-	public Pessoa getSolicitante() {
-		return solicitante;
+	public Pessoa getSolicitou() {
+		return solicitou;
 	}
 
-	public void setSolicitante(Pessoa solicitante) {
-		this.solicitante = solicitante;
+	public void setSolicitou(Pessoa solicitou) {
+		this.solicitou = solicitou;
 	}
 
-	public Pessoa getCriador() {
-		return criador;
+	public Pessoa getCriou() {
+		return criou;
 	}
 
-	public void setCriador(Pessoa criador) {
-		this.criador = criador;
+	public void setCriou(Pessoa criou) {
+		this.criou = criou;
 	}
 
 	public void setProjeto(Projeto projeto) {
