@@ -1,6 +1,6 @@
 package br.upf.ads.tedw.suport;
 
-public class charRemove {
+public class SpecialCharRemove {
 
 	/**
 	 * 

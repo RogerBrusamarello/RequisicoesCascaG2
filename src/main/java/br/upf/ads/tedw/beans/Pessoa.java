@@ -18,8 +18,8 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
 import br.upf.ads.tedw.suport.Encrypt;
-import br.upf.ads.tedw.suport.charRemove;
-import br.upf.ads.tedw.suport.stringFormat;
+import br.upf.ads.tedw.suport.SpecialCharRemove;
+import br.upf.ads.tedw.suport.StringFormat;
 
 /**
  * Entity implementation class for Entity: Pessoa
@@ -126,7 +126,7 @@ public abstract class Pessoa implements Serializable {
 
 	public void setCelular(String celular) throws ParseException, com.sun.el.parser.ParseException {
 		// Desta forma, formata os 11 últimos caracteres númericos informados
-		this.celular = stringFormat.freeStringFormat(charRemove.specialCharRemoveFromString(celular, 3),
+		this.celular = StringFormat.freeStringFormat(SpecialCharRemove.specialCharRemoveFromString(celular, 3),
 				"(##) #####-####", 11, 1);
 	}
 

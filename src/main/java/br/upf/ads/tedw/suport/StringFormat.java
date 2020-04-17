@@ -4,7 +4,7 @@ import javax.swing.text.MaskFormatter;
 
 import com.sun.el.parser.ParseException;
 
-public class stringFormat {
+public class StringFormat {
 
 	/**
 	 * 
