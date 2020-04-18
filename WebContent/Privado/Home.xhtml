@@ -33,6 +33,8 @@
 							target="centro" icon="ui-icon-document" />
 						<p:menuitem value="Cliente" url="ClienteCrud.xhtml"
 							target="centro" icon="ui-icon-document" />
+						<p:menuitem value="Projeto" url="ProjetoCrud.xhtml"
+							target="centro" icon="ui-icon-document" />
 						<p:separator />
 						<p:submenu label="Popups" icon="ui-icon-document">
 							<p:menuitem value="Cidade"
@@ -43,6 +45,8 @@
 								actionListener="#{homeCon.abrirPopup('AdministradorCrud.xhtml', 600, 400, false)}" />
 							<p:menuitem value="Cliente"
 								actionListener="#{homeCon.abrirPopup('ClienteCrud.xhtml', 600, 400, false)}" />
+							<p:menuitem value="Projeto"
+								actionListener="#{homeCon.abrirPopup('ProjetoCrud.xhtml', 600, 400, false)}" />
 						</p:submenu>
 
 						<p:separator />
@@ -74,6 +78,9 @@
 						<p:commandButton icon="ui-icon-document" ajax="false"
 							title="Abrir CRUD de Cliente" action="ClienteCrud.xhtml"
 							onclick="this.form.target='centro'" />
+						<p:commandButton icon="ui-icon-document" ajax="false"
+							title="Abrir CRUD de Projeto" action="ProjetoCrud.xhtml"
+							onclick="this.form.target='centro'" />
 						<p:separator />
 						<p:commandButton type="button" title="Save" icon="ui-icon-disk" />
 						<p:commandButton type="button" title="Delete" icon="ui-icon-trash" />
@@ -104,12 +111,14 @@
 							target="centro" icon="ui-icon-document" />
 						<p:menuitem value="Cliente" url="ClienteCrud.xhtml"
 							target="centro" icon="ui-icon-document" />
+						<p:menuitem value="Projeto" url="ProjetoCrud.xhtml"
+							target="centro" icon="ui-icon-document" />
 					</p:submenu>
 				</p:menu>
 			</h:form>
 		</p:layoutUnit>
 		
-		<!-- Área para carregar os progras -->
+		<!-- Área para carregar os programas -->
 		<p:layoutUnit position="center">
 			<iframe name="centro" id="centro"
 				style="width: 100%; height: 100%; background-color: #FFFFFF;"
