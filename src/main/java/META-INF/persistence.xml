@@ -15,6 +15,7 @@
 		<class>br.upf.ads.tedw.beans.RequisicaoAnexo</class>
 		<class>br.upf.ads.tedw.beans.RequisicaoProgramada</class>
 		<class>br.upf.ads.tedw.beans.RequisicaoAndamento</class>
+		<class>br.upf.ads.tedw.beans.Estado</class>
 		
 		<properties>
 			<property name="javax.persistence.jdbc.url"

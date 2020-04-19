@@ -171,4 +171,9 @@ public abstract class Pessoa implements Serializable {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return nome;
+	}
+
 }

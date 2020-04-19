@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 
 public class Usuario extends Pessoa implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	public Usuario() {
 		super();
 	}

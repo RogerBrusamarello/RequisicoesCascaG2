@@ -1,29 +1,29 @@
 package br.upf.ads.tedw.controller;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 
-import br.upf.ads.tedw.beans.Cidade;
 import br.upf.ads.tedw.beans.Estado;
 import br.upf.ads.tedw.jpa.JPAUtil;
 import br.upf.ads.tedw.jsf.JSFUtil;
 
 @ManagedBean
 @ViewScoped
-public class CidadeCrud implements Serializable {
+public class EstadoCrud implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Boolean editando;
-	private List<Cidade> lista;
-	private Cidade selecionado;
-	private List<SelectItem> estados;
- 
-	public CidadeCrud() {
+	private List<Estado> lista;
+	private Estado selecionado;
+
+	public EstadoCrud() {
 		editando = false;
 	}
 
@@ -35,46 +35,31 @@ public class CidadeCrud implements Serializable {
 		this.editando = editando;
 	}
 
-	public List<Cidade> getLista() {
+	public List<Estado> getLista() {
 		return lista;
 	}
 
-	public void setLista(List<Cidade> lista) {
+	public void setLista(List<Estado> lista) {
 		this.lista = lista;
 	}
 
-	public Cidade getSelecionado() {
+	public Estado getSelecionado() {
 		return selecionado;
 	}
 
-	public void setSelecionado(Cidade selecionado) {
+	public void setSelecionado(Estado selecionado) {
 		this.selecionado = selecionado;
 	}
 
-	public List<SelectItem> getEstados() {
-		return estados;
-	}
-
-	public void setEstados(List<SelectItem> estados) {
-		this.estados = estados;
-	}
-
-	@SuppressWarnings("unchecked")
 	public void carregarLista() {
 		EntityManager em = JPAUtil.getEntityManager();
-		lista = em.createQuery("from Cidade").getResultList();
-		
-		estados = new ArrayList<>();
-		List<Estado> listaDeEstados = em.createQuery("from Estado").getResultList();
-		for (Estado estado : listaDeEstados) {
-			estados.add(new SelectItem(estado.getId(), estado.getNome()));
-		}
+		lista = em.createQuery("from Estado").getResultList();
 		em.close();
 	}
 
 	public void incluir() {
 		editando = true;
-		selecionado = new Cidade();
+		selecionado = new Estado();
 	}
 
 	public void alterar() {
@@ -101,7 +86,7 @@ public class CidadeCrud implements Serializable {
 			editando = false;
 			EntityManager em = JPAUtil.getEntityManager();
 			em.getTransaction().begin();
-			em.remove(em.merge(selecionado));
+			em.remove(selecionado);
 			em.getTransaction().commit();
 			em.close();
 			carregarLista();
@@ -117,3 +102,4 @@ public class CidadeCrud implements Serializable {
 	}
 
 }
+

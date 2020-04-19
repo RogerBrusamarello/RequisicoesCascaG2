@@ -15,6 +15,8 @@ import org.hibernate.validator.constraints.Length;
 
 public class Cliente extends Pessoa implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	@NotBlank(message = "Informe a função que o cliente executa.")
 	@Length(min = 2, max = 80, message = "A função pode ter no {max} caracteres.")
 	private String funcao;

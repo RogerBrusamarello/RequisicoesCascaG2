@@ -1,0 +1,66 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<h:body onload="#{estadoCrud.carregarLista()}">
+	<!-- Painel de consulta -->
+	<p:panel id="consulta" visible="#{!estadoCrud.editando}">
+		<h:form>
+			<p:commandButton value="Incluir" action="#{estadoCrud.incluir}"
+				icon="ui-icon-plusthick" update="consulta edicao"></p:commandButton>
+			<p:commandButton value="Alterar" action="#{estadoCrud.alterar}"
+				icon="ui-icon-pencil" disabled="#{estadoCrud.selecionado==null}" update="consulta edicao"></p:commandButton>
+			<p:commandButton value="Excluir" action="#{estadoCrud.excluir}"
+				icon="ui-icon-trash" onclick="return confirm('Excluir?')" disabled="#{estadoCrud.selecionado==null}" update="consulta"></p:commandButton>
+			<p:dataTable var="o" value="#{estadoCrud.lista}"
+				emptyMessage="Nada para mostrar!" selectionMode="single" selection="#{estadoCrud.selecionado}" rowKey="#{o.id}"
+				rows="5" paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
+				{LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15"
+				currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}">
+				<p:ajax event="rowSelect" update="consulta" />
+				<p:ajax event="rowUnselect" update="consulta" />
+				<p:column headerText="Código">
+					<p:outputLabel value="#{o.id}"></p:outputLabel>
+				</p:column>
+				<p:column headerText="Nome">
+					<p:outputLabel value="#{o.nome}"></p:outputLabel>
+				</p:column>
+				<p:column headerText="UF">
+					<p:outputLabel value="#{o.uf}"></p:outputLabel>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</p:panel>
+
+	<!-- Painel de edição -->
+	<p:panel id="edicao" visible="#{estadoCrud.editando}">
+		<h:form>
+		<p:growl></p:growl>
+			<p:panelGrid columns="2">
+				<p:outputLabel value="Código"></p:outputLabel>
+				<p:inputNumber value="#{estadoCrud.selecionado.id}"></p:inputNumber>
+
+				<p:outputLabel value="Nome"></p:outputLabel>
+				<p:inputText value="#{estadoCrud.selecionado.nome}"></p:inputText>
+
+				<p:outputLabel value="UF"></p:outputLabel>
+				<p:inputText value="#{estadoCrud.selecionado.uf}"></p:inputText>
+
+			</p:panelGrid>
+
+			<p:commandButton value="Salvar" action="#{estadoCrud.salvar}"
+				update="consulta edicao"></p:commandButton>
+			<p:commandButton value="Cancelar" action="#{estadoCrud.cancelar}" immediate="true"
+				update="consulta edicao"></p:commandButton>
+		</h:form>
+	</p:panel>
+
+</h:body>
+
+</html>

@@ -25,6 +25,8 @@
 				<p:menubar>
 					<p:menuitem value="Home" url="Home.xhtml" />
 					<p:submenu label="Cadastros" icon="ui-icon-document">
+						<p:menuitem value="Estados" url="EstadoCrud.xhtml" target="centro"
+							icon="ui-icon-document" />
 						<p:menuitem value="Cidades" url="CidadeCrud.xhtml" target="centro"
 							icon="ui-icon-document" />
 						<p:menuitem value="Usuario" url="UsuarioCrud.xhtml"
@@ -37,6 +39,8 @@
 							target="centro" icon="ui-icon-document" />
 						<p:separator />
 						<p:submenu label="Popups" icon="ui-icon-document">
+							<p:menuitem value="Estado"
+								actionListener="#{homeCon.abrirPopup('EstadoCrud.xhtml', 600, 400, false)}" />
 							<p:menuitem value="Cidade"
 								actionListener="#{homeCon.abrirPopup('CidadeCrud.xhtml', 600, 400, false)}" />
 							<p:menuitem value="Usuario"
@@ -66,6 +70,9 @@
 						<p:commandButton icon="ui-icon-home" ajax="false"
 							title="Ir para o início" action="Home.xhtml"
 							onclick="this.form.target='_self'" />
+						<p:commandButton icon="ui-icon-document" ajax="false"
+							title="Abrir CRUD de Estados" action="EstadoCrud.xhtml"
+							onclick="this.form.target='centro'" />
 						<p:commandButton icon="ui-icon-document" ajax="false"
 							title="Abrir CRUD de Cidades" action="CidadeCrud.xhtml"
 							onclick="this.form.target='centro'" />
@@ -103,6 +110,8 @@
 			<h:form>
 				<p:menu>
 					<p:submenu label="Cadastros">
+						<p:menuitem value="Estados" url="EstadoCrud.xhtml" target="centro"
+							icon="ui-icon-document" />
 						<p:menuitem value="Cidades" url="CidadeCrud.xhtml" target="centro"
 							icon="ui-icon-document" />
 						<p:menuitem value="Usuario" url="UsuarioCrud.xhtml"
