@@ -7,7 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.persistence.EntityManager;
 
-import br.upf.ads.tedw.beans.Projeto;
+import br.upf.ads.tedw.beans.Requisicao;
 import br.upf.ads.tedw.beans.RequisicaoAnexo;
 import br.upf.ads.tedw.jpa.JPAUtil;
 import br.upf.ads.tedw.jsf.JSFUtil;
@@ -16,9 +16,11 @@ import br.upf.ads.tedw.jsf.JSFUtil;
 @ViewScoped
 public class RequisicaoAnexoCrud implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Boolean editando;
 	private List<RequisicaoAnexo> lista;
 	private RequisicaoAnexo selecionado;
+	private List<Requisicao> requisicoes;
 	
 	public RequisicaoAnexoCrud() {
 		editando = false;
@@ -48,9 +50,20 @@ public class RequisicaoAnexoCrud implements Serializable {
 		this.selecionado = selecionado;
 	}
 	
+	
+	public List<Requisicao> getRequisicoes() {
+		return requisicoes;
+	}
+
+	public void setRequisicoes(List<Requisicao> requisicoes) {
+		this.requisicoes = requisicoes;
+	}
+
+	@SuppressWarnings("unchecked")
 	public void carregarLista() {
 		EntityManager em = JPAUtil.getEntityManager();
 		lista = em.createQuery("from RequisicaoAnexo").getResultList();
+		requisicoes = em.createQuery("from Requisicao order by titulo").getResultList();
 		em.close();
 	}
 	

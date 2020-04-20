@@ -28,13 +28,13 @@
 				currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}">
 				<p:ajax event="rowSelect" update="consulta" />
 				<p:ajax event="rowUnselect" update="consulta" />
-				<p:column headerText="Código">
+				<p:column headerText="Código" style="width:70px">
 					<p:outputLabel value="#{o.id}"></p:outputLabel>
 				</p:column>
 				<p:column headerText="Nome">
 					<p:outputLabel value="#{o.nome}"></p:outputLabel>
 				</p:column>
-				<p:column headerText="Sigla">
+				<p:column headerText="Sigla" style="width:70px">
 					<p:outputLabel value="#{o.estado}"></p:outputLabel>
 				</p:column>
 			</p:dataTable>
@@ -53,25 +53,19 @@
 				<p:outputLabel value="Nome"></p:outputLabel>
 				<p:inputText value="#{cidadeCrud.selecionado.nome}"></p:inputText>
 
-				<p:outputLabel value="Sigla" />
-	            <p:selectOneMenu converter="EstadoConverter" value="#{cidadeCrud.selecionado.estado}" >
-	                <f:selectItems value="#{cidadeCrud.estados}" />
-	            </p:selectOneMenu>
+				<p:outputLabel value="Estado" for="inputEstado" />
+				<p:selectOneMenu id="inputEstado"
+					value="#{cidadeCrud.selecionado.estado}"
+					converter="EstadoConverter">
+					<f:selectItems value="#{cidadeCrud.estados}"
+						noSelectionLabel="Selecione um item" var="obj" itemValue="#{obj}"
+						itemLabel="#{obj.nome} - #{obj.uf}" />
+				</p:selectOneMenu>
 
-				<!-- 
-				
-				<p:outputLabel value="UF"></p:outputLabel>
-				<p:selectOneMenu converter="EstadoConverter" value="#{cidadeCrud.selecionado.estado}">
-					<f:selectItems value="#{cidadeCrud.estados}" var="c"
-						itemLabel="#{c.nome}" itemValue="#{c.id}" /> 
-				</p:selectOneMenu> 
-				
-				-->
-				
 			</p:panelGrid>
 
 			<p:commandButton value="Salvar" action="#{cidadeCrud.salvar}"
-				update="consulta edicao"></p:commandButton>
+				update="consulta edicao" ajax="false"></p:commandButton>
 			<p:commandButton value="Cancelar" action="#{cidadeCrud.cancelar}"
 				immediate="true" update="consulta edicao"></p:commandButton>
 		</h:form>

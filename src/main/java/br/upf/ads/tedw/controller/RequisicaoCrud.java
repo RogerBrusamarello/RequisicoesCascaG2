@@ -7,6 +7,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.persistence.EntityManager;
 
+import br.upf.ads.tedw.beans.Pessoa;
+import br.upf.ads.tedw.beans.Projeto;
 import br.upf.ads.tedw.beans.Requisicao;
 import br.upf.ads.tedw.jpa.JPAUtil;
 import br.upf.ads.tedw.jsf.JSFUtil;
@@ -15,9 +17,12 @@ import br.upf.ads.tedw.jsf.JSFUtil;
 @ViewScoped
 public class RequisicaoCrud implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	private Boolean editando;
 	private List<Requisicao> lista;
 	private Requisicao selecionado;
+	private List<Projeto> projetos;
+	private List<Pessoa> pessoas;
 	
 	public RequisicaoCrud() {
 		editando = false;
@@ -47,9 +52,28 @@ public class RequisicaoCrud implements Serializable {
 		this.selecionado = selecionado;
 	}
 	
+	public List<Projeto> getProjetos() {
+		return projetos;
+	}
+
+	public void setProjetos(List<Projeto> projetos) {
+		this.projetos = projetos;
+	}
+
+	public List<Pessoa> getPessoas() {
+		return pessoas;
+	}
+
+	public void setPessoas(List<Pessoa> pessoas) {
+		this.pessoas = pessoas;
+	}
+
+	@SuppressWarnings("unchecked")
 	public void carregarLista() {
 		EntityManager em = JPAUtil.getEntityManager();
-		lista = em.createQuery("from Requisicao").getResultList();
+		lista = em.createQuery("from Requisicao order by titulo").getResultList();
+		projetos = em.createQuery("from Projeto order by nome").getResultList();
+		pessoas = em.createQuery("from Pessoa order by nome").getResultList();
 		em.close();
 	}
 	

@@ -15,9 +15,6 @@ import br.upf.ads.tedw.jsf.JSFUtil;
 @ViewScoped
 public class EstadoCrud implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private Boolean editando;
 	private List<Estado> lista;
@@ -53,7 +50,7 @@ public class EstadoCrud implements Serializable {
 
 	public void carregarLista() {
 		EntityManager em = JPAUtil.getEntityManager();
-		lista = em.createQuery("from Estado").getResultList();
+		lista = em.createQuery("from Estado order by nome").getResultList();
 		em.close();
 	}
 

@@ -1,12 +1,10 @@
 package br.upf.ads.tedw.controller;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 
 import br.upf.ads.tedw.beans.Cidade;
@@ -18,10 +16,11 @@ import br.upf.ads.tedw.jsf.JSFUtil;
 @ViewScoped
 public class CidadeCrud implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Boolean editando;
 	private List<Cidade> lista;
 	private Cidade selecionado;
-	private List<SelectItem> estados;
+	private List<Estado> estados;
  
 	public CidadeCrud() {
 		editando = false;
@@ -51,24 +50,19 @@ public class CidadeCrud implements Serializable {
 		this.selecionado = selecionado;
 	}
 
-	public List<SelectItem> getEstados() {
+	public List<Estado> getEstados() {
 		return estados;
 	}
 
-	public void setEstados(List<SelectItem> estados) {
+	public void setEstados(List<Estado> estados) {
 		this.estados = estados;
 	}
 
 	@SuppressWarnings("unchecked")
 	public void carregarLista() {
 		EntityManager em = JPAUtil.getEntityManager();
-		lista = em.createQuery("from Cidade").getResultList();
-		
-		estados = new ArrayList<>();
-		List<Estado> listaDeEstados = em.createQuery("from Estado").getResultList();
-		for (Estado estado : listaDeEstados) {
-			estados.add(new SelectItem(estado.getId(), estado.getNome()));
-		}
+		lista = em.createQuery("from Cidade order by nome").getResultList();
+		estados = em.createQuery("from Estado order by nome").getResultList();
 		em.close();
 	}
 

@@ -15,6 +15,7 @@ import br.upf.ads.tedw.jsf.JSFUtil;
 @ViewScoped
 public class AdministradorCrud implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Boolean editando;
 	private List<Administrador> lista;
 	private Administrador selecionado;
@@ -47,6 +48,7 @@ public class AdministradorCrud implements Serializable {
 		this.selecionado = selecionado;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void carregarLista() {
 		EntityManager em = JPAUtil.getEntityManager();
 		lista = em.createQuery("from Administrador").getResultList();

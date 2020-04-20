@@ -7,6 +7,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.persistence.EntityManager;
 
+import br.upf.ads.tedw.beans.Pessoa;
+import br.upf.ads.tedw.beans.Requisicao;
 import br.upf.ads.tedw.beans.RequisicaoAndamento;
 import br.upf.ads.tedw.jpa.JPAUtil;
 import br.upf.ads.tedw.jsf.JSFUtil;
@@ -15,9 +17,12 @@ import br.upf.ads.tedw.jsf.JSFUtil;
 @ViewScoped
 public class RequisicaoAndamentoCrud implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Boolean editando;
 	private List<RequisicaoAndamento> lista;
 	private RequisicaoAndamento selecionado;
+	private List<Pessoa> pessoas;
+	private List<Requisicao> requisicoes;
 
 	public RequisicaoAndamentoCrud() {
 		editando = false;
@@ -47,9 +52,12 @@ public class RequisicaoAndamentoCrud implements Serializable {
 		this.selecionado = selecionado;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void carregarLista() {
 		EntityManager em = JPAUtil.getEntityManager();
 		lista = em.createQuery("from RequisicaoAndamento").getResultList();
+		requisicoes = em.createQuery("from Requisicao order by titulo").getResultList();
+		pessoas = em.createQuery("from Pessoa order by nome").getResultList();
 		em.close();
 	}
 
@@ -60,6 +68,22 @@ public class RequisicaoAndamentoCrud implements Serializable {
 
 	public void alterar() {
 		editando = true;
+	}
+
+	public List<Pessoa> getPessoas() {
+		return pessoas;
+	}
+
+	public void setPessoas(List<Pessoa> pessoas) {
+		this.pessoas = pessoas;
+	}
+
+	public List<Requisicao> getRequisicoes() {
+		return requisicoes;
+	}
+
+	public void setRequisicoes(List<Requisicao> requisicoes) {
+		this.requisicoes = requisicoes;
 	}
 
 	public void salvar() {

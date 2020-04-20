@@ -7,7 +7,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.persistence.EntityManager;
 
+import br.upf.ads.tedw.beans.Cliente;
 import br.upf.ads.tedw.beans.Projeto;
+import br.upf.ads.tedw.beans.Usuario;
 import br.upf.ads.tedw.jpa.JPAUtil;
 import br.upf.ads.tedw.jsf.JSFUtil;
 
@@ -15,9 +17,12 @@ import br.upf.ads.tedw.jsf.JSFUtil;
 @ViewScoped
 public class ProjetoCrud implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	private Boolean editando;
 	private List<Projeto> lista;
 	private Projeto selecionado;
+	private List<Usuario> usuarios;
+	private List<Cliente> clientes;
 	
 	public ProjetoCrud() {
 		editando = false;
@@ -47,9 +52,28 @@ public class ProjetoCrud implements Serializable {
 		this.selecionado = selecionado;
 	}
 	
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
+	public List<Cliente> getClientes() {
+		return clientes;
+	}
+
+	public void setClientes(List<Cliente> clientes) {
+		this.clientes = clientes;
+	}
+
+	@SuppressWarnings({ "unchecked"})
 	public void carregarLista() {
 		EntityManager em = JPAUtil.getEntityManager();
-		lista = em.createQuery("from Projeto").getResultList();
+		lista = em.createQuery("from Projeto order by nome").getResultList();
+		usuarios = em.createQuery("from Usuario order by nome").getResultList();
+		clientes = em.createQuery("from Cliente order by nome").getResultList();
 		em.close();
 	}
 	

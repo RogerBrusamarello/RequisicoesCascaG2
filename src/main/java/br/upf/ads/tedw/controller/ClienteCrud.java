@@ -15,6 +15,7 @@ import br.upf.ads.tedw.jsf.JSFUtil;
 @ViewScoped
 public class ClienteCrud implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Boolean editando;
 	private List<Cliente> lista;
 	private Cliente selecionado;
@@ -47,6 +48,7 @@ public class ClienteCrud implements Serializable {
 		this.selecionado = selecionado;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void carregarLista() {
 		EntityManager em = JPAUtil.getEntityManager();
 		lista = em.createQuery("from Cliente").getResultList();
