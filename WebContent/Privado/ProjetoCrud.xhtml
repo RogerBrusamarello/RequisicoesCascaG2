@@ -35,10 +35,10 @@
 					<p:outputLabel value="#{o.descricao}"></p:outputLabel>
 				</p:column>
 				<p:column headerText="Usuario">
-					<p:outputLabel value="o.usuario"></p:outputLabel>
+					<p:outputLabel value="#{o.usuario}"></p:outputLabel>
 				</p:column>
 				<p:column headerText="Cliente">
-					<p:outputLabel value="o.cliente"></p:outputLabel>
+					<p:outputLabel value="#{o.cliente}"></p:outputLabel>
 				</p:column>
 			</p:dataTable>
 		</h:form>
@@ -50,13 +50,13 @@
 		<p:growl></p:growl>
 			<p:panelGrid columns="2">
 				<p:outputLabel value="Código"></p:outputLabel>
-				<p:inputNumber value="#{projetoCrud.selecionado.id}"></p:inputNumber>
+				<p:inputNumber value="#{projetoCrud.selecionado.id}" size="3"/>
 				
 				<p:outputLabel value="Nome"></p:outputLabel>
-				<p:inputText value="#{projetoCrud.selecionado.nome}"></p:inputText>
+				<p:inputText value="#{projetoCrud.selecionado.nome}"/>
 
 				<p:outputLabel value="Descrição"></p:outputLabel>
-				<p:inputText value="#{projetoCrud.selecionado.descricao}"></p:inputText>
+				<h:inputTextarea value="#{projetoCrud.selecionado.descricao}" cols="21" rows="3"/>
 				
 				<p:outputLabel value="Usuário" for="inputUsuario" />
 				<p:selectOneMenu id="inputUsuario"
@@ -75,14 +75,6 @@
 						noSelectionLabel="Selecione um item" var="obj" itemValue="#{obj}"
 						itemLabel="#{obj.nome}" />
 				</p:selectOneMenu>
-				
-				<!--  
-				<p:outputLabel value="Usuário"></p:outputLabel>
-				<p:inputText value=""></p:inputText>
-				
-				<p:outputLabel value="Cliente"></p:outputLabel>
-				<p:inputText value=""></p:inputText>
-				-->
 				
 			</p:panelGrid>
 

@@ -43,7 +43,6 @@ public class Requisicao implements Serializable {
 	private String descricao;
 
 	@Temporal(TemporalType.DATE)
-	// Tornar Campo não editável ?
 	@NotNull(message = "Informe a data de criação")
 	private Date dataCriada;
 
@@ -57,28 +56,25 @@ public class Requisicao implements Serializable {
 	@Column(nullable = false)
 	private Integer prioridade;
 
-	@Min(value = 0, message = "As horas previstas devem ser igual ou superior a {value}")
+	@Min(value = 0, message = "As horas previstas devem ser iguais ou superiores a {value}")
 	@NotNull(message = "Informe as horas previstas")
 	@Column(nullable = false)
 	private Integer horasPrevistas;
 
 	@NotNull(message = "Informe as horas que foram realizadas")
-	// @Length(min = 1, message = "As horas devem superior a {min}")
-	// Deve inicializar com zero quando uma requisição é inserida.
 	// Não deve ser atualizado na base junto com os demais dados do objeto.
 	// Deve ser atualizado na base por implementação de regra de negócio sempre que
 	// houver registro de horas realizadas em requisição finalizada.
 	@Column(updatable = false)
 	private Integer horasRealizadas;
 
-	// Quando inserido inicializa com Null
 	// Não deve ser atualizado com os outros dados do objeto
 	// Será atualizada via implementação de regra de negócio a ser implementada para
 	// quando registrar um andamento com status de finalização da requisição
 	@Column(updatable = false)
 	private Date dataFinalizada;
 
-	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@ManyToOne(optional = false)
 	@NotNull(message = "Selecione o projeto")
 	private Projeto projeto;
 	
@@ -97,7 +93,10 @@ public class Requisicao implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public Requisicao() {
+		super();
 		dataCriada = new Date();
+		horasRealizadas = 0;
+		dataFinalizada = null;
 	}
 
 	public Long getId() {

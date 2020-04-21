@@ -49,6 +49,7 @@ public class RequisicaoProgramada implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public RequisicaoProgramada() {
+		super();
 		data = new Date();
 	}
 

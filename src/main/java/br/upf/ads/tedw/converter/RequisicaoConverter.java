@@ -19,7 +19,7 @@ public class RequisicaoConverter implements Converter, Serializable {
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		try {
-			return JPAUtil.getEntityManager().find(Requisicao.class, Integer.valueOf(value));
+			return JPAUtil.getEntityManager().find(Requisicao.class, Long.valueOf(value));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new ConverterException("Não foi possível converter o valor [" + value + "] no componente [" + component.getId() + "]", ex);

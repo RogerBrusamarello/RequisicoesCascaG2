@@ -22,7 +22,7 @@ public class Cliente extends Pessoa implements Serializable {
 	private String funcao;
 
 	public Cliente() {
-
+		super();
 	}
 
 	public String getFuncao() {

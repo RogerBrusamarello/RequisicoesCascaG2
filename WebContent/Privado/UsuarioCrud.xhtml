@@ -68,28 +68,28 @@
 			<p:growl></p:growl>
 			<p:panelGrid columns="2">
 				<p:outputLabel value="Código"></p:outputLabel>
-				<p:inputNumber value="#{usuarioCrud.selecionado.id}"></p:inputNumber>
+				<p:inputNumber value="#{usuarioCrud.selecionado.id}" size="3"/>
 
 				<p:outputLabel value="Nome Usuário"></p:outputLabel>
-				<p:inputText value="#{usuarioCrud.selecionado.nome}"></p:inputText>
+				<p:inputText value="#{usuarioCrud.selecionado.nome}"/>
 
 				<p:outputLabel value="CPF"></p:outputLabel>
-				<p:inputText value="#{usuarioCrud.selecionado.cpf}"></p:inputText>
+				<p:inputMask mask="999.999.999-99" value="#{usuarioCrud.selecionado.cpf}" size="11"/>
 
 				<p:outputLabel value="RG"></p:outputLabel>
-				<p:inputText value="#{usuarioCrud.selecionado.rg}"></p:inputText>
+				<p:inputText value="#{usuarioCrud.selecionado.rg}" size="10"/>
 
 				<p:outputLabel value="Email"></p:outputLabel>
-				<p:inputText value="#{usuarioCrud.selecionado.email}"></p:inputText>
+				<p:inputText value="#{usuarioCrud.selecionado.email}"/>
 				
 				<p:outputLabel value="Celular"></p:outputLabel>
-				<p:inputText value="#{usuarioCrud.selecionado.celular}"></p:inputText>
+				<p:inputMask mask="(99) 99999-9999" value="#{usuarioCrud.selecionado.celular}" size="11"/>
 				
 				<p:outputLabel value="Outras Informações"></p:outputLabel>
-				<p:inputText value="#{usuarioCrud.selecionado.outrasInformacoes}"></p:inputText>
+				<h:inputTextarea value="#{usuarioCrud.selecionado.outrasInformacoes}" cols="21" rows="3"/>
 				
 				<p:outputLabel value="Senha"></p:outputLabel>
-				<p:inputText value="#{usuarioCrud.selecionado.senha}"></p:inputText>
+				<h:inputSecret value="#{usuarioCrud.selecionado.senha}"/>
 				
 			</p:panelGrid>
 

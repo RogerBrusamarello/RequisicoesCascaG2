@@ -42,7 +42,7 @@ public class RequisicaoAnexo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public RequisicaoAnexo() {
-
+		super();
 	}
 
 	public Long getId() {

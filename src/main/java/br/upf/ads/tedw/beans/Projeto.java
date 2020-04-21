@@ -49,11 +49,11 @@ public class Projeto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public Projeto() {
-
+		super();
 	}
 
 	public Long getId() {
-		return this.id;
+		return id;
 	}
 
 	public void setId(Long id) {
@@ -61,7 +61,7 @@ public class Projeto implements Serializable {
 	}
 
 	public String getNome() {
-		return this.nome;
+		return nome;
 	}
 
 	public void setNome(String nome) {
@@ -69,7 +69,7 @@ public class Projeto implements Serializable {
 	}
 
 	public String getDescricao() {
-		return this.descricao;
+		return descricao;
 	}
 
 	public void setDescricao(String descricao) {
@@ -117,4 +117,9 @@ public class Projeto implements Serializable {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return nome;
+	}
+	
 }
