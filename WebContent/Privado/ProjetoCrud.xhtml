@@ -11,7 +11,7 @@
 	<p:panel id="consulta" visible="#{!projetoCurd.editando}">
 		<h:form>
 			<p:commandButton value="Incluir" action="#{projetoCrud.incluir}"
-				icon="ui-icon-plusthisk" update="consulta edicao"></p:commandButton>
+				icon="ui-icon-plusthick" update="consulta edicao"></p:commandButton>
 			<p:commandButton value="Alterar" action="#{projetoCrud.alterar}"
 				icon="ui-icon-pencil" disabled="#{projetoCrud.selecionado==null}" update="consulta edicao"></p:commandButton>
 			<p:commandButton value="Excluir" action="#{projetoCrud.excluir}"
