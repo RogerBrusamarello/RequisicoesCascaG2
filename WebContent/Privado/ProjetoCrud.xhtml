@@ -2,10 +2,10 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-	
+
 <h:head>
 </h:head>
-	
+
 <h:body onload="#{projetoCrud.carregarLista()}">
 	<!-- Painel de consulta -->
 	<p:panel id="consulta" visible="#{!projetoCurd.editando}">
@@ -13,75 +13,73 @@
 			<p:commandButton value="Incluir" action="#{projetoCrud.incluir}"
 				icon="ui-icon-plusthick" update="consulta edicao"></p:commandButton>
 			<p:commandButton value="Alterar" action="#{projetoCrud.alterar}"
-				icon="ui-icon-pencil" disabled="#{projetoCrud.selecionado==null}" update="consulta edicao"></p:commandButton>
+				icon="ui-icon-pencil" disabled="#{projetoCrud.selecionado==null}"
+				update="consulta edicao"></p:commandButton>
 			<p:commandButton value="Excluir" action="#{projetoCrud.excluir}"
-				icon="ui-icon-trash" onclick="return confirm('Excluir?')" disabled="#{projetoCrud.selecionado==null}" update="consulta"></p:commandButton>
+				icon="ui-icon-trash" onclick="return confirm('Excluir?')"
+				disabled="#{projetoCrud.selecionado==null}" update="consulta"></p:commandButton>
 			<p:dataTable var="o" value="#{projetoCrud.lista}"
-				emptyMessage="Nada para mostrar!" selectionMode="single" selection="#{projetoCrud.selecionado}" rowKey="#{o.id}"
-				rows="5" paginator="true"
+				emptyMessage="Nada para mostrar!" selectionMode="single"
+				selection="#{projetoCrud.selecionado}" rowKey="#{o.id}" rows="5"
+				paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
 				{LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15"
 				currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}">
-				<p:ajax event="rowSelect" update="consulta"/>
+				<p:ajax event="rowSelect" update="consulta" />
 				<p:ajax event="rowUnselect" update="consulta" />
 				<p:column headerText="Código">
-					<p:outputLabel value="#{o.id}"></p:outputLabel>
+					<p:outputLabel value="#{o.id}" />
 				</p:column>
 				<p:column headerText="Nome">
-					<p:outputLabel value="#{o.nome}"></p:outputLabel>
+					<p:outputLabel value="#{o.nome}" />
 				</p:column>
 				<p:column headerText="Descrição">
-					<p:outputLabel value="#{o.descricao}"></p:outputLabel>
+					<p:outputLabel value="#{o.descricao}" />
 				</p:column>
 				<p:column headerText="Usuario">
-					<p:outputLabel value="#{o.usuario}"></p:outputLabel>
+					<p:outputLabel value="#{o.usuario}" />
 				</p:column>
 				<p:column headerText="Cliente">
-					<p:outputLabel value="#{o.cliente}"></p:outputLabel>
+					<p:outputLabel value="#{o.cliente}" />
 				</p:column>
 			</p:dataTable>
 		</h:form>
-	</p:panel>	
-	
+	</p:panel>
+
 	<!-- Painel de edição -->
 	<p:panel id="edicao" visible="#{projetoCrud.editando}">
 		<h:form>
-		<p:growl></p:growl>
+			<p:growl></p:growl>
 			<p:panelGrid columns="2">
-				<p:outputLabel value="Código"></p:outputLabel>
-				<p:inputNumber value="#{projetoCrud.selecionado.id}" size="3"/>
-				
-				<p:outputLabel value="Nome"></p:outputLabel>
-				<p:inputText value="#{projetoCrud.selecionado.nome}"/>
 
-				<p:outputLabel value="Descrição"></p:outputLabel>
-				<h:inputTextarea value="#{projetoCrud.selecionado.descricao}" cols="21" rows="3"/>
-				
+				<p:outputLabel value="Nome" />
+				<p:inputText value="#{projetoCrud.selecionado.nome}" />
+
+				<p:outputLabel value="Descrição" />
+				<h:inputTextarea value="#{projetoCrud.selecionado.descricao}"
+					cols="21" rows="3" />
+
 				<p:outputLabel value="Usuário" for="inputUsuario" />
-				<p:selectOneMenu id="inputUsuario"
-					value="#{projetoCrud.selecionado.usuario}"
-					converter="UsuarioConverter">
-					<f:selectItems value="#{projetoCrud.usuarios}"
-						noSelectionLabel="Selecione um item" var="obj" itemValue="#{obj}"
-						itemLabel="#{obj.nome}" />
-				</p:selectOneMenu>
-				
+				<p:autoComplete id="inputUsuario" dropdown="true" multiple="false"
+					forceSelection="true" var="obj" itemLabel="#{obj.nome}"
+					itemValue="#{obj}" value="#{projetoCrud.selecionado.usuario}"
+					converter="UsuarioConverter"
+					completeMethod="#{projetoCrud.completeUsuario}" />
+
 				<p:outputLabel value="Cliente" for="inputCliente" />
-				<p:selectOneMenu id="inputCliente"
-					value="#{projetoCrud.selecionado.cliente}"
-					converter="ClienteConverter">
-					<f:selectItems value="#{projetoCrud.clientes}"
-						noSelectionLabel="Selecione um item" var="obj" itemValue="#{obj}"
-						itemLabel="#{obj.nome}" />
-				</p:selectOneMenu>
-				
+				<p:autoComplete id="inputCliente" dropdown="true" multiple="false"
+					forceSelection="true" var="obj" itemLabel="#{obj.nome}"
+					itemValue="#{obj}" value="#{projetoCrud.selecionado.cliente}"
+					converter="ClienteConverter"
+					completeMethod="#{projetoCrud.completeCliente}" />
+
 			</p:panelGrid>
 
 			<p:commandButton value="Salvar" action="#{projetoCrud.salvar}"
-				update="consulta edicao"></p:commandButton>
-			<p:commandButton value="Cancelar" action="#{projetoCrud.cancelar}" immediate="true"
-				update="consulta edicao"></p:commandButton>
+				update="consulta edicao" />
+			<p:commandButton value="Cancelar" action="#{projetoCrud.cancelar}"
+				immediate="true" update="consulta edicao" />
 		</h:form>
 	</p:panel>
 </h:body>

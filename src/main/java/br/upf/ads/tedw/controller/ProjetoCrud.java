@@ -115,6 +115,26 @@ public class ProjetoCrud implements Serializable {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Usuario> completeUsuario(String query) {
+		EntityManager em = JPAUtil.getEntityManager();
+		List<Usuario> results = em.createQuery(
+				"from Usuario where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by nome")
+				.getResultList();
+		em.close();
+		return results;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Cliente> completeCliente(String query) {
+		EntityManager em = JPAUtil.getEntityManager();
+		List<Cliente> results = em.createQuery(
+				"from Cliente where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by nome")
+				.getResultList();
+		em.close();
+		return results;
+	}
+	
 	public void cancelar() {
 		editando = false;
 		selecionado = null;

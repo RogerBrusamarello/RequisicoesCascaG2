@@ -57,7 +57,7 @@ public class Requisicao implements Serializable {
 	private Integer prioridade;
 
 	@Min(value = 0, message = "As horas previstas devem ser iguais ou superiores a {value}")
-	@NotNull(message = "Informe as horas previstas")
+	@NotNull(message = "Informe o número de horas previstas")
 	@Column(nullable = false)
 	private Integer horasPrevistas;
 
@@ -77,18 +77,18 @@ public class Requisicao implements Serializable {
 	@ManyToOne(optional = false)
 	@NotNull(message = "Selecione o projeto")
 	private Projeto projeto;
-	
+
 	@ManyToOne(optional = false)
 	@NotNull(message = "Selecione a pessoa solicitante")
 	private Pessoa solicitou;
-	
+
 	@ManyToOne(optional = false)
 	@NotNull(message = "Selecione a pessoa responsável pela criação desta requisição")
 	private Pessoa criou;
-	
-	//VER
-	//@OneToMany(mappedBy = "requisicao", cascade = CascadeType.ALL)
-	//private List<RequisicaoAnexo> anexo;
+
+	// VER
+	// @OneToMany(mappedBy = "requisicao", cascade = CascadeType.ALL)
+	// private List<RequisicaoAnexo> anexo;
 
 	private static final long serialVersionUID = 1L;
 

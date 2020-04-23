@@ -116,6 +116,25 @@ public class RequisicaoProgramadaCrud implements Serializable {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Pessoa> completePessoa(String query) {
+		EntityManager em = JPAUtil.getEntityManager();
+		List<Pessoa> results = em.createQuery(
+				"from Pessoa where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by nome")
+				.getResultList();
+		em.close();
+		return results;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Requisicao> completeRequisicao(String query) {
+		EntityManager em = JPAUtil.getEntityManager();
+		List<Requisicao> results = em.createQuery("from Requisicao where upper(titulo) like " + "'"
+				+ query.trim().toUpperCase() + "%' " + "order by nome").getResultList();
+		em.close();
+		return results;
+	}
+
 	public void cancelar() {
 		editando = false;
 		selecionado = null;

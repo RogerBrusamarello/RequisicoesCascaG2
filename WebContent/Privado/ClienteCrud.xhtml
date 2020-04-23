@@ -29,38 +29,30 @@
 				<p:ajax event="rowSelect" update="consulta" />
 				<p:ajax event="rowUnselect" update="consulta" />
 				<p:column headerText="Código">
-					<p:outputLabel value="#{o.id}"></p:outputLabel>
+					<p:outputLabel value="#{o.id}" />
 				</p:column>
 				<p:column headerText="Nome Cliente">
-					<p:outputLabel value="#{o.nome}"></p:outputLabel>
+					<p:outputLabel value="#{o.nome}" />
 				</p:column>
 				<p:column headerText="Função">
-					<p:outputLabel value="#{o.funcao}"></p:outputLabel>
+					<p:outputLabel value="#{o.funcao}" />
 				</p:column>
 				<p:column headerText="CPF">
-					<p:outputLabel value="#{o.cpf}"></p:outputLabel>
+					<p:outputLabel value="#{o.cpf}" />
 				</p:column>
 				<p:column headerText="RG">
-					<p:outputLabel value="#{o.rg}"></p:outputLabel>
+					<p:outputLabel value="#{o.rg}" />
 				</p:column>
 				<p:column headerText="E-mail">
-					<p:outputLabel value="#{o.email}"></p:outputLabel>
+					<p:outputLabel value="#{o.email}" />
 				</p:column>
 				<p:column headerText="Celular">
-					<p:outputLabel value="#{o.celular}"></p:outputLabel>
+					<p:outputLabel value="#{o.celular}" />
 				</p:column>
 				<p:column headerText="Outras Informações">
-					<p:outputLabel value="#{o.outrasInformacoes}"></p:outputLabel>
+					<p:outputLabel value="#{o.outrasInformacoes}" />
 				</p:column>
-				
-				
-				<!-- Exibir para teste. Excluir depois... -->
-				<p:column headerText="Senha">
-					<p:outputLabel value="#{o.senha}"></p:outputLabel>
-				</p:column>
-				<!-- ... até aqui -->
-				
-				
+
 			</p:dataTable>
 		</h:form>
 	</p:panel>
@@ -70,39 +62,50 @@
 		<h:form>
 			<p:growl></p:growl>
 			<p:panelGrid columns="2">
-				<p:outputLabel value="Código"></p:outputLabel>
-				<p:inputNumber value="#{clienteCrud.selecionado.id}" size="3"/>
 
-				<p:outputLabel value="Nome Cliente"></p:outputLabel>
-				<p:inputText value="#{clienteCrud.selecionado.nome}"/>
-				
-				<p:outputLabel value="Função"></p:outputLabel>
-				<p:inputText value="#{clienteCrud.selecionado.funcao}"/>
+				<p:outputLabel value="Nome Cliente" />
+				<p:inputText value="#{clienteCrud.selecionado.nome}" />
 
-				<p:outputLabel value="CPF"></p:outputLabel>
-				<p:inputMask mask="999.999.999-99" value="#{clienteCrud.selecionado.cpf}" size="11"/>
+				<p:outputLabel value="Função" />
+				<p:inputText value="#{clienteCrud.selecionado.funcao}" />
 
-				<p:outputLabel value="RG"></p:outputLabel>
-				<p:inputText value="#{clienteCrud.selecionado.rg}" size="10"/>
+				<p:outputLabel value="CPF" />
+				<p:inputMask mask="999.999.999-99"
+					value="#{clienteCrud.selecionado.cpf}" size="11" />
 
-				<p:outputLabel value="Email"></p:outputLabel>
-				<p:inputText value="#{clienteCrud.selecionado.email}"/>
-				
-				<p:outputLabel value="Celular"></p:outputLabel>
-				<p:inputMask mask="(99) 99999-9999" value="#{clienteCrud.selecionado.celular}" size="11"/>
-				
-				<p:outputLabel value="Outras Informações"></p:outputLabel>
-				<h:inputTextarea value="#{clienteCrud.selecionado.outrasInformacoes}" cols="21" rows="3"/>
-				
-				<p:outputLabel value="Senha"></p:outputLabel>
-				<h:inputSecret value="#{clienteCrud.selecionado.senha}"/>
-				
+				<p:outputLabel value="RG" />
+				<p:inputText value="#{clienteCrud.selecionado.rg}" size="10" />
+
+				<p:outputLabel value="Email" />
+				<p:inputText value="#{clienteCrud.selecionado.email}" />
+
+				<p:outputLabel value="Celular" />
+				<p:inputMask mask="(99) 99999-9999"
+					value="#{clienteCrud.selecionado.celular}" size="11" />
+
+				<p:outputLabel value="Outras Informações" />
+				<h:inputTextarea
+					value="#{clienteCrud.selecionado.outrasInformacoes}" cols="21"
+					rows="3" />
+
+				<p:outputLabel for="pwd1" value="Senha"
+					rendered="#{clienteCrud.selecionado.id == null}" />
+				<p:password id="pwd1" value="#{clienteCrud.selecionado.senha}"
+					match="pwd2" label="Password 1" required="true"
+					rendered="#{clienteCrud.selecionado.id == null}" />
+
+				<p:outputLabel for="pwd2" value="Confirma Senha"
+					rendered="#{clienteCrud.selecionado.id == null}" />
+				<p:password id="pwd2" value="#{clienteCrud.selecionado.senha}"
+					label="Password 2" required="true"
+					rendered="#{clienteCrud.selecionado.id == null}" />
+
 			</p:panelGrid>
 
 			<p:commandButton value="Salvar" action="#{clienteCrud.salvar}"
-				update="consulta edicao"></p:commandButton>
+				update="consulta edicao" />
 			<p:commandButton value="Cancelar" action="#{clienteCrud.cancelar}"
-				immediate="true" update="consulta edicao"></p:commandButton>
+				immediate="true" update="consulta edicao" />
 		</h:form>
 	</p:panel>
 

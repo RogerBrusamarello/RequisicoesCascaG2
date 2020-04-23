@@ -44,26 +44,26 @@ public abstract class Pessoa implements Serializable {
 	private String nome;
 
 	@NotBlank(message = "Informe um CPF válido")
-	@Length(min = 14, max = 14, message = "O CPF precisa deve ter {max} caracteres e ter esse formato: XXX.XXX.XXX-XX")
-	@CPF(message = "CPF inválido. Precisa ter número válido e esse formato: XXX.XXX.XXX-XX")
-	@Column(length = 14, nullable = false, unique = true) // Validar no formulário de cadastro antes de persistir
+	@Length(min = 14, max = 14, message = "O CPF precisa deve ter {max} caracteres e esse formato: XXX.XXX.XXX-XX")
+	@CPF(message = "CPF inválido. Precisa ter número válido e estar neste formato: XXX.XXX.XXX-XX")
+	@Column(length = 14, nullable = false, unique = true) // Exibir erro de duplicidade no navegador
 	private String cpf;
 
 	@NotBlank(message = "Informe um RG válido.")
-	@Length(min = 5, max = 11, message = "O número do RG precisa ser válido.")
+	@Length(min = 5, max = 11, message = "O número do RG precisa ser válido e ter entre {min} e {max} dígitos")
 	@Column(length = 11, nullable = false, unique = false)
 	private String rg;
 
 	@NotBlank(message = "Informe um E-mail válido.")
 	@Length(min = 5, max = 100, message = "O e-mail precisa ter formato válido")
 	@Email(message = "Formato de e-mail inválido!")
-	@Column(length = 100, nullable = false, unique = true) // Validar no formulário de cadastro antes de persistir
+	@Column(length = 100, nullable = false, unique = true)
 	private String email;
 
 	@NotBlank(message = "Informe o número do telefone celular.")
 	@Length(min = 11, max = 15, message = "O número do celular deve ter no máximo {max} caracteres, sendo {min} números")
 	// Alteração no valor de "min", implica na necessidade de alteração no método de
-	// formatação do setCelular também
+	// formatação do método setCelular também
 	@Column(length = 15)
 	private String celular;
 
@@ -125,9 +125,8 @@ public abstract class Pessoa implements Serializable {
 	}
 
 	public void setCelular(String celular) throws ParseException, com.sun.el.parser.ParseException {
-		// Desta forma, formata os 11 últimos caracteres númericos informados
 		this.celular = StringFormat.freeStringFormat(SpecialCharRemove.specialCharRemoveFromString(celular, 3),
-				"(##) #####-####", 11, 1);
+				"(##) #####-####", 11, 1); // Desta forma, formata os 11 últimos caracteres númericos informados
 	}
 
 	public String getSenha() {

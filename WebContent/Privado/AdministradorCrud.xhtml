@@ -10,18 +10,21 @@
 	<!-- Painel de consulta -->
 	<p:panel id="consulta" visible="#{!administradorCrud.editando}">
 		<h:form>
-			<p:commandButton value="Incluir" action="#{administradorCrud.incluir}"
-				icon="ui-icon-plusthick" update="consulta edicao"></p:commandButton>
-			<p:commandButton value="Alterar" action="#{administradorCrud.alterar}"
-				icon="ui-icon-pencil" disabled="#{administradorCrud.selecionado==null}"
+			<p:commandButton value="Incluir"
+				action="#{administradorCrud.incluir}" icon="ui-icon-plusthick"
 				update="consulta edicao"></p:commandButton>
-			<p:commandButton value="Excluir" action="#{administradorCrud.excluir}"
-				icon="ui-icon-trash" onclick="return confirm('Excluir?')"
+			<p:commandButton value="Alterar"
+				action="#{administradorCrud.alterar}" icon="ui-icon-pencil"
+				disabled="#{administradorCrud.selecionado==null}"
+				update="consulta edicao"></p:commandButton>
+			<p:commandButton value="Excluir"
+				action="#{administradorCrud.excluir}" icon="ui-icon-trash"
+				onclick="return confirm('Excluir?')"
 				disabled="#{administradorCrud.selecionado==null}" update="consulta"></p:commandButton>
 			<p:dataTable var="o" value="#{administradorCrud.lista}"
 				emptyMessage="Nada para mostrar!" selectionMode="single"
-				selection="#{administradorCrud.selecionado}" rowKey="#{o.id}" rows="5"
-				paginator="true"
+				selection="#{administradorCrud.selecionado}" rowKey="#{o.id}"
+				rows="5" paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
 				{LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15"
@@ -29,35 +32,27 @@
 				<p:ajax event="rowSelect" update="consulta" />
 				<p:ajax event="rowUnselect" update="consulta" />
 				<p:column headerText="Código">
-					<p:outputLabel value="#{o.id}"></p:outputLabel>
+					<p:outputLabel value="#{o.id}" />
 				</p:column>
 				<p:column headerText="Nome Administrador">
-					<p:outputLabel value="#{o.nome}"></p:outputLabel>
+					<p:outputLabel value="#{o.nome}" />
 				</p:column>
 				<p:column headerText="CPF">
-					<p:outputLabel value="#{o.cpf}"></p:outputLabel>
+					<p:outputLabel value="#{o.cpf}" />
 				</p:column>
 				<p:column headerText="RG">
-					<p:outputLabel value="#{o.rg}"></p:outputLabel>
+					<p:outputLabel value="#{o.rg}" />
 				</p:column>
 				<p:column headerText="E-mail">
-					<p:outputLabel value="#{o.email}"></p:outputLabel>
+					<p:outputLabel value="#{o.email}" />
 				</p:column>
 				<p:column headerText="Celular">
-					<p:outputLabel value="#{o.celular}"></p:outputLabel>
+					<p:outputLabel value="#{o.celular}" />
 				</p:column>
 				<p:column headerText="Outras Informações">
-					<p:outputLabel value="#{o.outrasInformacoes}"></p:outputLabel>
+					<p:outputLabel value="#{o.outrasInformacoes}" />
 				</p:column>
-				
-				
-				<!-- Exibir para teste. Excluir depois... -->
-				<p:column headerText="Senha">
-					<p:outputLabel value="#{o.senha}"></p:outputLabel>
-				</p:column>
-				<!-- ... até aqui -->
-				
-				
+
 			</p:dataTable>
 		</h:form>
 	</p:panel>
@@ -67,36 +62,48 @@
 		<h:form>
 			<p:growl></p:growl>
 			<p:panelGrid columns="2">
-				<p:outputLabel value="Código"></p:outputLabel>
-				<p:inputNumber value="#{administradorCrud.selecionado.id}" size="3"/>
 
-				<p:outputLabel value="Nome Administrador"></p:outputLabel>
-				<p:inputText value="#{administradorCrud.selecionado.nome}"/>
+				<p:outputLabel value="Nome Administrador" />
+				<p:inputText value="#{administradorCrud.selecionado.nome}" />
 
-				<p:outputLabel value="CPF"></p:outputLabel>
-				<p:inputMask mask="999.999.999-99" value="#{administradorCrud.selecionado.cpf}" size="11"/>
+				<p:outputLabel value="CPF" />
+				<p:inputMask mask="999.999.999-99"
+					value="#{administradorCrud.selecionado.cpf}" size="11" />
 
-				<p:outputLabel value="RG"></p:outputLabel>
-				<p:inputText value="#{administradorCrud.selecionado.rg}" size="10"/>
+				<p:outputLabel value="RG" />
+				<p:inputText value="#{administradorCrud.selecionado.rg}" size="10" />
 
-				<p:outputLabel value="Email"></p:outputLabel>
-				<p:inputText value="#{administradorCrud.selecionado.email}"/>
-				
-				<p:outputLabel value="Celular"></p:outputLabel>
-				<p:inputMask mask="(99) 99999-9999" value="#{administradorCrud.selecionado.celular}" size="11"/>
-				
-				<p:outputLabel value="Outras Informações"></p:outputLabel>
-				<h:inputTextarea value="#{administradorCrud.selecionado.outrasInformacoes}" cols="21" rows="3"/>
-				
-				<p:outputLabel value="Senha"></p:outputLabel>
-				<h:inputSecret value="#{administradorCrud.selecionado.senha}"/>
-				
+				<p:outputLabel value="Email" />
+				<p:inputText value="#{administradorCrud.selecionado.email}" />
+
+				<p:outputLabel value="Celular" />
+				<p:inputMask mask="(99) 99999-9999"
+					value="#{administradorCrud.selecionado.celular}" size="11" />
+
+				<p:outputLabel value="Outras Informações" />
+				<h:inputTextarea
+					value="#{administradorCrud.selecionado.outrasInformacoes}"
+					cols="21" rows="3" />
+
+				<p:outputLabel for="pwd1" value="Senha"
+					rendered="#{administradorCrud.selecionado.id == null}" />
+				<p:password id="pwd1" value="#{administradorCrud.selecionado.senha}"
+					match="pwd2" label="Password 1" required="true"
+					rendered="#{administradorCrud.selecionado.id == null}" />
+
+				<p:outputLabel for="pwd2" value="Confirma Senha"
+					rendered="#{administradorCrud.selecionado.id == null}" />
+				<p:password id="pwd2" value="#{administradorCrud.selecionado.senha}"
+					label="Password 2" required="true"
+					rendered="#{administradorCrud.selecionado.id == null}" />
+
 			</p:panelGrid>
 
 			<p:commandButton value="Salvar" action="#{administradorCrud.salvar}"
-				update="consulta edicao"></p:commandButton>
-			<p:commandButton value="Cancelar" action="#{administradorCrud.cancelar}"
-				immediate="true" update="consulta edicao"></p:commandButton>
+				update="consulta edicao" />
+			<p:commandButton value="Cancelar"
+				action="#{administradorCrud.cancelar}" immediate="true"
+				update="consulta edicao" />
 		</h:form>
 	</p:panel>
 
