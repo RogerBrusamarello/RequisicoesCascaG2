@@ -31,10 +31,10 @@
 				currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}">
 				<p:ajax event="rowSelect" update="consulta" />
 				<p:ajax event="rowUnselect" update="consulta" />
-				<p:column headerText="Código">
+				<p:column headerText="Código" style="width: 50px">
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
-				<p:column headerText="Data">
+				<p:column headerText="Data" style="width: 75px" >
 					<h:outputText value="#{o.data}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
@@ -88,7 +88,6 @@
 					<f:convertDateTime pattern="dd/MM/yyyy" />
 				</p:inputText>
 
-
 				<p:outputLabel value="Titulo" />
 				<p:inputText value="#{requisicaoAndamentoCrud.selecionado.titulo}" />
 
@@ -103,7 +102,8 @@
 					readonly="false" size="3" />
 
 				<p:outputLabel value="Status" />
-				<p:selectOneMenu value="#{requisicaoAndamentoCrud.selecionado.status}">
+				<p:selectOneMenu
+					value="#{requisicaoAndamentoCrud.selecionado.status}">
 					<f:selectItem itemLabel="N - Não Finalizada" itemValue="N" />
 					<f:selectItem itemLabel="F - Finalizada" itemValue="F" />
 				</p:selectOneMenu>

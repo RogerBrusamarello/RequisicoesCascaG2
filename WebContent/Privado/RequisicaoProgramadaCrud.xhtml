@@ -31,20 +31,20 @@
 				currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}">
 				<p:ajax event="rowSelect" update="consulta" />
 				<p:ajax event="rowUnselect" update="consulta" />
-				<p:column headerText="Código">
+				<p:column headerText="Código" style="width: 50px">
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
-				<p:column headerText="Data">
+				<p:column headerText="Data" style="width: 75px" >
 					<h:outputText value="#{o.data}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
-				<p:column headerText="Data Inicio">
+				<p:column headerText="Data Inicio" style="width: 75px" >
 					<h:outputText value="#{o.dataInicio}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
-				<p:column headerText="Data Termino">
+				<p:column headerText="Data Termino" style="width: 75px" >
 					<h:outputText value="#{o.dataTermino}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
