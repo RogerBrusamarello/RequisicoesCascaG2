@@ -127,15 +127,6 @@ public class RequisicaoCrud implements Serializable {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Pessoa> completeRequisicao(String query) {
-		EntityManager em = JPAUtil.getEntityManager();
-		List<Pessoa> results = em.createQuery("from Requisicao where upper(titulo) like " + "'"
-				+ query.trim().toUpperCase() + "%' " + "order by titulo").getResultList();
-		em.close();
-		return results;
-	}
-
-	@SuppressWarnings("unchecked")
 	public List<Projeto> completeProjeto(String query) {
 		EntityManager em = JPAUtil.getEntityManager();
 		List<Projeto> results = em.createQuery(
