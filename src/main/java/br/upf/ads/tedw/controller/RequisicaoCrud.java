@@ -16,42 +16,42 @@ import br.upf.ads.tedw.jsf.JSFUtil;
 @ManagedBean
 @ViewScoped
 public class RequisicaoCrud implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 	private Boolean editando;
 	private List<Requisicao> lista;
 	private Requisicao selecionado;
 	private List<Projeto> projetos;
 	private List<Pessoa> pessoas;
-	
+
 	public RequisicaoCrud() {
 		editando = false;
 	}
-	
+
 	public Boolean getEditando() {
-		return editando;	
+		return editando;
 	}
-	
+
 	public void setEditando(Boolean editando) {
 		this.editando = editando;
 	}
-	
+
 	public List<Requisicao> getLista(){
 		return lista;
 	}
-	
+
 	public void setLista (List<Requisicao> lista) {
 		this.lista = lista;
 	}
-	
+
 	public Requisicao getSelecionado() {
 		return selecionado;
 	}
-	
+
 	public void setSelecionado (Requisicao selecionado) {
 		this.selecionado = selecionado;
 	}
-	
+
 	public List<Projeto> getProjetos() {
 		return projetos;
 	}
@@ -76,16 +76,16 @@ public class RequisicaoCrud implements Serializable {
 		pessoas = em.createQuery("from Pessoa order by nome").getResultList();
 		em.close();
 	}
-	
+
 	public void incluir() {
 		editando = true;
 		selecionado = new Requisicao();
 	}
-	
+
 	public void alterar() {
 		editando = true;
 	}
-	
+
 	public void salvar() {
 		try {
 			editando = false;
@@ -100,7 +100,7 @@ public class RequisicaoCrud implements Serializable {
 			JSFUtil.messagemDeErro("Ocorreu um erro ao salvar os dados.");
 		}
 	}
-	
+
 	public void excluir() {
 		try {
 			editando = false;
@@ -115,13 +115,22 @@ public class RequisicaoCrud implements Serializable {
 			JSFUtil.messagemDeErro("Ocorreu um erro ao remover os dados.");
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Pessoa> completePessoa(String query) {
 		EntityManager em = JPAUtil.getEntityManager();
 		List<Pessoa> results = em.createQuery(
 				"from Pessoa where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by nome")
 				.getResultList();
+		em.close();
+		return results;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Pessoa> completeRequisicao(String query) {
+		EntityManager em = JPAUtil.getEntityManager();
+		List<Pessoa> results = em.createQuery("from Requisicao where upper(titulo) like " + "'"
+				+ query.trim().toUpperCase() + "%' " + "order by titulo").getResultList();
 		em.close();
 		return results;
 	}
@@ -135,7 +144,7 @@ public class RequisicaoCrud implements Serializable {
 		em.close();
 		return results;
 	}
-	
+
 	public void cancelar() {
 		editando = false;
 		selecionado = null;

@@ -1,0 +1,158 @@
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:p="http://primefaces.org/ui"
+>
+  <h:head> </h:head>
+
+  <h:body onload="#{requisicaoCrud.carregarLista()}">
+    <!-- Painel de consulta -->
+    <p:panel id="consulta" visible="#{!requisicaoCrud.editando}">
+      <h:form>
+        <p:commandButton
+          value="Incluir"
+          action="#{requisicaoCrud.incluir}"
+          icon="ui-icon-plusthick"
+          update="consulta edicao"
+        ></p:commandButton>
+        <p:commandButton
+          value="Alterar"
+          action="#{requisicaoCrud.alterar}"
+          icon="ui-icon-pencil"
+          disabled="#{requisicaoCrud.selecionado==null}"
+          update="consulta edicao"
+        ></p:commandButton>
+        <p:commandButton
+          value="Excluir"
+          action="#{requisicaoCrud.excluir}"
+          icon="ui-icon-trash"
+          onclick="return confirm('Excluir?')"
+          disabled="#{requisicaoCrud.selecionado==null}"
+          update="consulta"
+        ></p:commandButton>
+        <p:dataTable
+          var="o"
+          value="#{requisicaoCrud.lista}"
+          emptyMessage="Nada para mostrar!"
+          selectionMode="single"
+          selection="#{requisicaoCrud.selecionado}"
+          rowKey="#{o.id}"
+          rows="5"
+          paginator="true"
+          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
+				{LastPageLink} {RowsPerPageDropdown}"
+          rowsPerPageTemplate="5,10,15"
+          currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}"
+        >
+          <p:ajax event="rowSelect" update="consulta" />
+          <p:ajax event="rowUnselect" update="consulta" />
+          <p:column headerText="Código">
+            <p:outputLabel value="#{o.id}" />
+          </p:column>
+          <p:column headerText="Título">
+            <p:outputLabel value="#{o.titulo}" />
+          </p:column>
+          <p:column headerText="Descrição">
+            <p:outputLabel value="#{o.descricao}" />
+          </p:column>
+          <p:column headerText="Data Criada">
+            <h:outputText value="#{o.dataCriada}">
+              <f:convertDateTime pattern="dd/MM/yyyy" />
+            </h:outputText>
+          </p:column>
+          <p:column headerText="Prazo Limite">
+            <h:outputText value="#{o.prazoLimite}">
+              <f:convertDateTime pattern="dd/MM/yyyy" />
+            </h:outputText>
+          </p:column>
+          <p:column headerText="Prioridade">
+            <p:outputLabel value="#{o.prioridade}" />
+          </p:column>
+          <p:column headerText="Horas Previstas">
+            <p:outputLabel value="#{o.horasPrevistas}" />
+          </p:column>
+          <p:column headerText="Horas Realizadas">
+            <p:outputLabel value="#{o.horasRealizadas}" />
+          </p:column>
+          <p:column headerText="Data Finalizada">
+            <h:outputText value="#{o.dataFinalizada}">
+              <f:convertDateTime pattern="dd/MM/yyyy" />
+            </h:outputText>
+          </p:column>
+          <p:column headerText="Projeto">
+            <p:outputLabel value="#{o.projeto}" />
+          </p:column>
+          <p:column headerText="Solicitante">
+            <p:outputLabel value="#{o.solicitou}" />
+          </p:column>
+          <p:column headerText="Criador">
+            <p:outputLabel value="#{o.criou}" />
+          </p:column>
+        </p:dataTable>
+      </h:form>
+    </p:panel>
+
+    <!-- Painel de edição -->
+    <p:panel id="edicao" visible="#{requisicaoCrud.editando}">
+      <h:form>
+        <p:growl></p:growl>
+        <p:panelGrid columns="2">
+          <p:outputLabel value="Requisicao" for="inputRequisicao" />
+          <p:autoComplete
+            id="inputRequisicao"
+            dropdown="true"
+            multiple="false"
+            forceSelection="true"
+            var="obj"
+            itemLabel="#{obj.nome}"
+            itemValue="#{obj}"
+            value="#{requisicaoCrud.selecionado.requisicao}"
+            converter="RequisicaoConverter"
+            completeMethod="#{requisicaoCrud.completeRequisicao}"
+          />
+
+          <p:outputLabel value="Solicitou" for="inputSolicitou" />
+          <p:autoComplete
+            id="inputSolicitou"
+            dropdown="true"
+            multiple="false"
+            forceSelection="true"
+            var="obj"
+            itemLabel="#{obj.nome}"
+            itemValue="#{obj}"
+            value="#{requisicaoCrud.selecionado.solicitou}"
+            converter="PessoaConverter"
+            completeMethod="#{requisicaoCrud.completePessoa}"
+          />
+
+          <p:outputLabel value="Criou" for="inputCriou" />
+          <p:autoComplete
+            id="inputCriou"
+            dropdown="true"
+            multiple="false"
+            forceSelection="true"
+            var="obj"
+            itemLabel="#{obj.nome}"
+            itemValue="#{obj}"
+            value="#{requisicaoCrud.selecionado.criou}"
+            converter="PessoaConverter"
+            completeMethod="#{requisicaoCrud.completePessoa}"
+          />
+        </p:panelGrid>
+
+        <p:commandButton
+          value="Salvar"
+          action="#{requisicaoCrud.salvar}"
+          update="consulta edicao"
+        />
+        <p:commandButton
+          value="Cancelar"
+          action="#{requisicaoCrud.cancelar}"
+          immediate="true"
+          update="consulta edicao"
+        />
+      </h:form>
+    </p:panel>
+  </h:body>
+</html>
