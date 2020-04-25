@@ -11,13 +11,13 @@
 	<p:panel id="consulta" visible="#{!requisicaoCrud.editando}">
 		<h:form>
 			<p:commandButton value="Incluir" action="#{requisicaoCrud.incluir}"
-				icon="ui-icon-plusthick" update="consulta edicao"></p:commandButton>
+				icon="ui-icon-plusthick" update="consulta edicao" />
 			<p:commandButton value="Alterar" action="#{requisicaoCrud.alterar}"
 				icon="ui-icon-pencil" disabled="#{requisicaoCrud.selecionado==null}"
-				update="consulta edicao"></p:commandButton>
+				update="consulta edicao" />
 			<p:commandButton value="Excluir" action="#{requisicaoCrud.excluir}"
 				icon="ui-icon-trash" onclick="return confirm('Excluir?')"
-				disabled="#{requisicaoCrud.selecionado==null}" update="consulta"></p:commandButton>
+				disabled="#{requisicaoCrud.selecionado==null}" update="consulta" />
 			<p:dataTable var="o" value="#{requisicaoCrud.lista}"
 				emptyMessage="Nada para mostrar!" selectionMode="single"
 				selection="#{requisicaoCrud.selecionado}" rowKey="#{o.id}" rows="5"
@@ -28,7 +28,7 @@
 				currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}">
 				<p:ajax event="rowSelect" update="consulta" />
 				<p:ajax event="rowUnselect" update="consulta" />
-				<p:column headerText="Código">
+				<p:column headerText="Código" style="width: 50px">
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
 				<p:column headerText="Título">
@@ -79,8 +79,6 @@
 		<h:form>
 			<p:growl></p:growl>
 			<p:panelGrid columns="2">
-				<p:outputLabel value="Código" />
-				<p:inputNumber value="#{requisicaoCrud.selecionado.id}" size="3" />
 
 				<p:outputLabel value="Titulo" />
 				<p:inputText value="#{requisicaoCrud.selecionado.titulo}" />
@@ -157,6 +155,7 @@
 				update="consulta edicao" />
 			<p:commandButton value="Cancelar" action="#{requisicaoCrud.cancelar}"
 				immediate="true" update="consulta edicao" />
+				
 		</h:form>
 	</p:panel>
 </h:body>

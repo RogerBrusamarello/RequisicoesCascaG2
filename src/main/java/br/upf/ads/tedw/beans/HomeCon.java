@@ -12,6 +12,9 @@ import org.primefaces.PrimeFaces;
 @ManagedBean
 @SessionScoped
 public class HomeCon implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+
 	public HomeCon() {
 		super();
 	}

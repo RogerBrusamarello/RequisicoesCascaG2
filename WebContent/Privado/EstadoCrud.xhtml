@@ -11,13 +11,13 @@
 	<p:panel id="consulta" visible="#{!estadoCrud.editando}">
 		<h:form>
 			<p:commandButton value="Incluir" action="#{estadoCrud.incluir}"
-				icon="ui-icon-plusthick" update="consulta edicao"></p:commandButton>
+				icon="ui-icon-plusthick" update="consulta edicao" />
 			<p:commandButton value="Alterar" action="#{estadoCrud.alterar}"
 				icon="ui-icon-pencil" disabled="#{estadoCrud.selecionado==null}"
-				update="consulta edicao"></p:commandButton>
+				update="consulta edicao" />
 			<p:commandButton value="Excluir" action="#{estadoCrud.excluir}"
 				icon="ui-icon-trash" onclick="return confirm('Excluir?')"
-				disabled="#{estadoCrud.selecionado==null}" update="consulta"></p:commandButton>
+				disabled="#{estadoCrud.selecionado==null}" update="consulta" />
 			<p:dataTable var="o" value="#{estadoCrud.lista}"
 				emptyMessage="Nada para mostrar!" selectionMode="single"
 				selection="#{estadoCrud.selecionado}" rowKey="#{o.id}" rows="5"
@@ -28,14 +28,14 @@
 				currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}">
 				<p:ajax event="rowSelect" update="consulta" />
 				<p:ajax event="rowUnselect" update="consulta" />
-				<p:column headerText="Código" style="width:70px">
-					<p:outputLabel value="#{o.id}"></p:outputLabel>
+				<p:column headerText="Código" style="width: 50px">
+					<p:outputLabel value="#{o.id}" />
 				</p:column>
 				<p:column headerText="Nome">
-					<p:outputLabel value="#{o.nome}"></p:outputLabel>
+					<p:outputLabel value="#{o.nome}" />
 				</p:column>
 				<p:column headerText="Sigla" style="width:70px">
-					<p:outputLabel value="#{o.uf}"></p:outputLabel>
+					<p:outputLabel value="#{o.uf}" />
 				</p:column>
 			</p:dataTable>
 		</h:form>
@@ -46,21 +46,22 @@
 		<h:form>
 			<p:growl></p:growl>
 			<p:panelGrid columns="2">
-				<p:outputLabel value="Código"></p:outputLabel>
-				<p:inputNumber value="#{estadoCrud.selecionado.id}" size="3"/>
+				<p:outputLabel value="Código" />
+				<p:inputNumber value="#{estadoCrud.selecionado.id}" size="3" />
 
-				<p:outputLabel value="Nome"></p:outputLabel>
-				<p:inputText value="#{estadoCrud.selecionado.nome}"/>
+				<p:outputLabel value="Nome" />
+				<p:inputText value="#{estadoCrud.selecionado.nome}" />
 
-				<p:outputLabel value="Sigla"></p:outputLabel>
-				<p:inputText value="#{estadoCrud.selecionado.uf}" maxlength="2" size="1"/>
+				<p:outputLabel value="Sigla" />
+				<p:inputText value="#{estadoCrud.selecionado.uf}" maxlength="2"
+					size="1" />
 
 			</p:panelGrid>
 
 			<p:commandButton value="Salvar" action="#{estadoCrud.salvar}"
-				update="consulta edicao"></p:commandButton>
+				update="consulta edicao" />
 			<p:commandButton value="Cancelar" action="#{estadoCrud.cancelar}"
-				immediate="true" update="consulta edicao"></p:commandButton>
+				immediate="true" update="consulta edicao" />
 		</h:form>
 	</p:panel>
 

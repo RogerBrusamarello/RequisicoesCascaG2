@@ -11,13 +11,13 @@
 	<p:panel id="consulta" visible="#{!usuarioCrud.editando}">
 		<h:form>
 			<p:commandButton value="Incluir" action="#{usuarioCrud.incluir}"
-				icon="ui-icon-plusthick" update="consulta edicao"></p:commandButton>
+				icon="ui-icon-plusthick" update="consulta edicao" />
 			<p:commandButton value="Alterar" action="#{usuarioCrud.alterar}"
 				icon="ui-icon-pencil" disabled="#{usuarioCrud.selecionado==null}"
-				update="consulta edicao"></p:commandButton>
+				update="consulta edicao" />
 			<p:commandButton value="Excluir" action="#{usuarioCrud.excluir}"
 				icon="ui-icon-trash" onclick="return confirm('Excluir?')"
-				disabled="#{usuarioCrud.selecionado==null}" update="consulta"></p:commandButton>
+				disabled="#{usuarioCrud.selecionado==null}" update="consulta" />
 			<p:dataTable var="o" value="#{usuarioCrud.lista}"
 				emptyMessage="Nada para mostrar!" selectionMode="single"
 				selection="#{usuarioCrud.selecionado}" rowKey="#{o.id}" rows="5"
@@ -28,13 +28,13 @@
 				currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}">
 				<p:ajax event="rowSelect" update="consulta" />
 				<p:ajax event="rowUnselect" update="consulta" />
-				<p:column headerText="Código">
+				<p:column headerText="Código" style="width: 50px">
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
 				<p:column headerText="Nome Usuário">
 					<p:outputLabel value="#{o.nome}" />
 				</p:column>
-				<p:column headerText="CPF">
+				<p:column headerText="CPF" style="width: 115px">
 					<p:outputLabel value="#{o.cpf}" />
 				</p:column>
 				<p:column headerText="RG">
@@ -43,7 +43,7 @@
 				<p:column headerText="E-mail">
 					<p:outputLabel value="#{o.email}" />
 				</p:column>
-				<p:column headerText="Celular">
+				<p:column headerText="Celular" style="width: 120px">
 					<p:outputLabel value="#{o.celular}" />
 				</p:column>
 				<p:column headerText="Outras Informações">
