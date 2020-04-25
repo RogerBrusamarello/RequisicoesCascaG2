@@ -36,11 +36,11 @@ public class RequisicaoCrud implements Serializable {
 		this.editando = editando;
 	}
 
-	public List<Requisicao> getLista(){
+	public List<Requisicao> getLista() {
 		return lista;
 	}
 
-	public void setLista (List<Requisicao> lista) {
+	public void setLista(List<Requisicao> lista) {
 		this.lista = lista;
 	}
 
@@ -48,7 +48,7 @@ public class RequisicaoCrud implements Serializable {
 		return selecionado;
 	}
 
-	public void setSelecionado (Requisicao selecionado) {
+	public void setSelecionado(Requisicao selecionado) {
 		this.selecionado = selecionado;
 	}
 

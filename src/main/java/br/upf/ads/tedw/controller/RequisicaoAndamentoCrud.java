@@ -130,7 +130,7 @@ public class RequisicaoAndamentoCrud implements Serializable {
 	public List<Requisicao> completeRequisicao(String query) {
 		EntityManager em = JPAUtil.getEntityManager();
 		List<Requisicao> results = em.createQuery("from Requisicao where upper(titulo) like " + "'"
-				+ query.trim().toUpperCase() + "%' " + "order by nome").getResultList();
+				+ query.trim().toUpperCase() + "%' " + "order by titulo").getResultList();
 		em.close();
 		return results;
 	}
