@@ -1,0 +1,121 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+
+<h:body onload="#{requisicaoAndamentoCrud.carregarLista()}">
+	<!-- Painel de consulta -->
+	<p:panel id="consulta" visible="#{!requisicaoAndamentoCrud.editando}">
+		<h:form>
+			<p:commandButton value="Incluir"
+				action="#{requisicaoAndamentoCrud.incluir}" icon="ui-icon-plusthick"
+				update="consulta edicao"></p:commandButton>
+			<p:commandButton value="Alterar"
+				action="#{requisicaoAndamentoCrud.alterar}" icon="ui-icon-pencil"
+				disabled="#{requisicaoAndamentoCrud.selecionado==null}"
+				update="consulta edicao"></p:commandButton>
+			<p:commandButton value="Excluir"
+				action="#{requisicaoAndamentoCrud.excluir}" icon="ui-icon-trash"
+				onclick="return confirm('Excluir?')"
+				disabled="#{requisicaoAndamentoCrud.selecionado==null}"
+				update="consulta"></p:commandButton>
+			<p:dataTable var="o" value="#{requisicaoAndamentoCrud.lista}"
+				emptyMessage="Nada para mostrar!" selectionMode="single"
+				selection="#{requisicaoAndamentoCrud.selecionado}" rowKey="#{o.id}"
+				rows="5" paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
+				{LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15"
+				currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}">
+				<p:ajax event="rowSelect" update="consulta" />
+				<p:ajax event="rowUnselect" update="consulta" />
+				<p:column headerText="Código">
+					<p:outputLabel value="#{o.id}" />
+				</p:column>
+				<p:column headerText="Data">
+					<h:outputText value="#{o.data}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Requisição">
+					<p:outputLabel value="#{o.requisicao}" />
+				</p:column>
+				<p:column headerText="Pessoa">
+					<p:outputLabel value="#{o.pessoa}" />
+				</p:column>
+				<p:column headerText="Título">
+					<p:outputLabel value="#{o.titulo}" />
+				</p:column>
+				<p:column headerText="Descrição">
+					<p:outputLabel value="#{o.descricao}" />
+				</p:column>
+				<p:column headerText="Horas realizadas">
+					<p:outputLabel value="#{o.horasRealizadas}" />
+				</p:column>
+				<p:column headerText="Status">
+					<p:outputLabel value="#{o.status}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</p:panel>
+
+	<!-- Painel de edição -->
+	<p:panel id="edicao" visible="#{requisicaoAndamentoCrud.editando}">
+		<h:form>
+			<p:growl></p:growl>
+			<p:panelGrid columns="2">
+				<p:outputLabel value="Requisicao" for="inputRequisicao" />
+				<p:autoComplete id="inputRequisicao" dropdown="true"
+					multiple="false" forceSelection="true" var="obj"
+					itemLabel="#{obj.titulo}" itemValue="#{obj}"
+					value="#{requisicaoAndamentoCrud.selecionado.requisicao}"
+					converter="RequisicaoConverter"
+					completeMethod="#{requisicaoAndamentoCrud.completeRequisicao}" />
+
+				<p:outputLabel value="Pessoa" for="inputPessoa" />
+				<p:autoComplete id="inputPessoa" dropdown="true" multiple="false"
+					forceSelection="true" var="obj" itemLabel="#{obj.nome}"
+					itemValue="#{obj}"
+					value="#{requisicaoAndamentoCrud.selecionado.pessoa}"
+					converter="PessoaConverter"
+					completeMethod="#{requisicaoAndamentoCrud.completePessoa}" />
+
+				<p:outputLabel value="Data" />
+				<p:inputText value="#{requisicaoAndamentoCrud.selecionado.data}"
+					readonly="false" size="7">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</p:inputText>
+
+
+				<p:outputLabel value="Titulo" />
+				<p:inputText value="#{requisicaoAndamentoCrud.selecionado.titulo}" />
+
+				<p:outputLabel value="Descrição" />
+				<h:inputTextarea
+					value="#{requisicaoAndamentoCrud.selecionado.descricao}" cols="21"
+					rows="3" />
+
+				<p:outputLabel value="Horas Realizadas" />
+				<p:inputText
+					value="#{requisicaoAndamentoCrud.selecionado.horasRealizadas}"
+					readonly="false" size="3" />
+
+				<p:outputLabel value="Status" />
+				<p:selectOneMenu value="#{requisicaoAndamentoCrud.selecionado.status}">
+					<f:selectItem itemLabel="N - Não Finalizada" itemValue="N" />
+					<f:selectItem itemLabel="F - Finalizada" itemValue="F" />
+				</p:selectOneMenu>
+
+			</p:panelGrid>
+
+			<p:commandButton value="Salvar"
+				action="#{requisicaoAndamentoCrud.salvar}" update="consulta edicao" />
+			<p:commandButton value="Cancelar"
+				action="#{requisicaoAndamentoCrud.cancelar}" immediate="true"
+				update="consulta edicao" />
+		</h:form>
+	</p:panel>
+</h:body>
+</html>

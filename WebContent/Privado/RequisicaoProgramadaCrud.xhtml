@@ -1,0 +1,108 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+
+<h:body onload="#{requisicaoProgramadaCrud.carregarLista()}">
+	<!-- Painel de consulta -->
+	<p:panel id="consulta" visible="#{!requisicaoProgramadaCrud.editando}">
+		<h:form>
+			<p:commandButton value="Incluir"
+				action="#{requisicaoProgramadaCrud.incluir}"
+				icon="ui-icon-plusthick" update="consulta edicao"></p:commandButton>
+			<p:commandButton value="Alterar"
+				action="#{requisicaoProgramadaCrud.alterar}" icon="ui-icon-pencil"
+				disabled="#{requisicaoProgramadaCrud.selecionado==null}"
+				update="consulta edicao"></p:commandButton>
+			<p:commandButton value="Excluir"
+				action="#{requisicaoProgramadaCrud.excluir}" icon="ui-icon-trash"
+				onclick="return confirm('Excluir?')"
+				disabled="#{requisicaoProgramadaCrud.selecionado==null}"
+				update="consulta"></p:commandButton>
+			<p:dataTable var="o" value="#{requisicaoProgramadaCrud.lista}"
+				emptyMessage="Nada para mostrar!" selectionMode="single"
+				selection="#{requisicaoProgramadaCrud.selecionado}" rowKey="#{o.id}"
+				rows="5" paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
+				{LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15"
+				currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}">
+				<p:ajax event="rowSelect" update="consulta" />
+				<p:ajax event="rowUnselect" update="consulta" />
+				<p:column headerText="Código">
+					<p:outputLabel value="#{o.id}" />
+				</p:column>
+				<p:column headerText="Data">
+					<h:outputText value="#{o.data}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Data Inicio">
+					<h:outputText value="#{o.dataInicio}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Data Termino">
+					<h:outputText value="#{o.dataTermino}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Requisição">
+					<p:outputLabel value="#{o.requisicao}" />
+				</p:column>
+				<p:column headerText="Pessoa">
+					<p:outputLabel value="#{o.pessoa}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</p:panel>
+
+	<!-- Painel de edição -->
+	<p:panel id="edicao" visible="#{requisicaoProgramadaCrud.editando}">
+		<h:form>
+			<p:growl></p:growl>
+			<p:panelGrid columns="2">
+				<p:outputLabel value="Requisicao" for="inputRequisicao" />
+				<p:autoComplete id="inputRequisicao" dropdown="true"
+					multiple="false" forceSelection="true" var="obj"
+					itemLabel="#{obj.titulo}" itemValue="#{obj}"
+					value="#{requisicaoProgramadaCrud.selecionado.requisicao}"
+					converter="RequisicaoConverter"
+					completeMethod="#{requisicaoProgramadaCrud.completeRequisicao}" />
+
+				<p:outputLabel value="Pessoa" for="inputPessoa" />
+				<p:autoComplete id="inputPessoa" dropdown="true" multiple="false"
+					forceSelection="true" var="obj" itemLabel="#{obj.nome}"
+					itemValue="#{obj}"
+					value="#{requisicaoProgramadaCrud.selecionado.pessoa}"
+					converter="PessoaConverter"
+					completeMethod="#{requisicaoProgramadaCrud.completePessoa}" />
+
+				<p:outputLabel value="Data" />
+				<p:inputText value="#{requisicaoProgramadaCrud.selecionado.data}"
+					readonly="false" size="7">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</p:inputText>
+				<p:outputLabel value="Data Inicio" />
+				<p:inputText value="#{requisicaoProgramadaCrud.selecionado.dataInicio}"
+					readonly="false" size="7">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</p:inputText>
+				<p:outputLabel value="Data Termino" />
+				<p:inputText value="#{requisicaoProgramadaCrud.selecionado.dataTermino}"
+					readonly="false" size="7">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</p:inputText>
+			</p:panelGrid>
+
+			<p:commandButton value="Salvar"
+				action="#{requisicaoProgramadaCrud.salvar}" update="consulta edicao" />
+			<p:commandButton value="Cancelar"
+				action="#{requisicaoProgramadaCrud.cancelar}" immediate="true"
+				update="consulta edicao" />
+		</h:form>
+	</p:panel>
+</h:body>
+</html>

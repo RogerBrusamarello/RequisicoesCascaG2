@@ -2,7 +2,7 @@ package br.upf.ads.tedw.suport;
 
 public enum Letra {
 
-	LETRA_N("A"), LETRA_F("B");
+	LETRA_N("N"), LETRA_F("F");
 
 	private String descricao;
 
