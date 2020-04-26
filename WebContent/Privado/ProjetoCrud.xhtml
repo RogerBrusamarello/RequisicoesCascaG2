@@ -67,9 +67,9 @@
 					converter="UsuarioConverter"
 					completeMethod="#{projetoCrud.completeUsuario}" />
 
-				<p:commandLink value="Cliente" oncomplete="PF('dlg1').show();"
-					ajax="true" action="#{clienteCrud.incluir}"
-					update="consulta edicao" />
+				<p:commandLink value="Cliente"
+					oncomplete="PF('dlgInsertCliente').show();" ajax="true"
+					action="#{clienteCrud.incluir}" update="consulta edicao" />
 				<p:autoComplete id="inputCliente" dropdown="true" multiple="false"
 					forceSelection="true" var="obj" itemLabel="#{obj.nome}"
 					itemValue="#{obj}" value="#{projetoCrud.selecionado.cliente}"
@@ -87,7 +87,8 @@
 	</p:panel>
 
 	<!-- Modal para inserir cliente -->
-	<p:dialog modal="true" header="Cadastro de Cliente" widgetVar="dlg1"
+	<p:dialog id="modalCliente" visible="#{clienteCrud.editando}"
+		modal="true" header="Cadastro de Cliente" widgetVar="dlgInsertCliente"
 		minHeight="40">
 		<h:form>
 			<p:panelGrid columns="2">
@@ -113,8 +114,9 @@
 					value="#{clienteCrud.selecionado.celular}" size="11" />
 
 				<p:outputLabel value="Outras Informações" />
-				<h:inputTextarea value="#{clienteCrud.selecionado.outrasInformacoes}"
-					cols="21" rows="3" />
+				<h:inputTextarea
+					value="#{clienteCrud.selecionado.outrasInformacoes}" cols="21"
+					rows="3" />
 
 				<p:outputLabel for="pwd1" value="Senha" />
 				<p:password id="pwd1" value="#{clienteCrud.selecionado.senha}"
@@ -127,9 +129,10 @@
 			</p:panelGrid>
 
 			<p:commandButton value="Salvar" action="#{clienteCrud.salvar}"
-				update="consulta edicao" />
+				update="consulta edicao" oncomplete="PF('dlgInsertCliente').hide();" />
 			<p:commandButton value="Cancelar" action="#{clienteCrud.cancelar}"
-				immediate="true" update="consulta edicao" />
+				immediate="true" update="consulta edicao"
+				oncomplete="PF('dlgInsertCliente').hide();" />
 
 		</h:form>
 	</p:dialog>
