@@ -164,4 +164,9 @@ public class RequisicaoAndamento implements Serializable {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return titulo;
+	}
+
 }

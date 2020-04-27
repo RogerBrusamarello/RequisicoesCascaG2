@@ -123,4 +123,9 @@ public class RequisicaoProgramada implements Serializable {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return id + " - " + requisicao + " - " + pessoa;
+	}
+
 }
