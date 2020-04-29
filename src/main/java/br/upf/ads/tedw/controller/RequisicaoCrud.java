@@ -123,6 +123,7 @@ public class RequisicaoCrud implements Serializable {
 				"from Pessoa where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by nome")
 				.getResultList();
 		em.close();
+		system.out.println('teste');
 		return results;
 	}
 
