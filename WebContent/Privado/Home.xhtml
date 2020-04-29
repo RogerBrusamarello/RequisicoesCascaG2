@@ -6,15 +6,15 @@
 <h:head>
 
 	<style type="text/css">
-		.ui-layout-north {
-			z-index: 20 !important;
-			overflow: visible !important;
-		}
-		
-		.ui-layout-north .ui-layout-unit-content {
-			overflow: visible !important;
-		}
-	</style>
+.ui-layout-north {
+	z-index: 20 !important;
+	overflow: visible !important;
+}
+
+.ui-layout-north .ui-layout-unit-content {
+	overflow: visible !important;
+}
+</style>
 
 </h:head>
 <h:body>
@@ -25,7 +25,7 @@
 				<p:menubar>
 					<p:menuitem value="Home" url="Home.xhtml" />
 					<p:submenu label="Cadastros" icon="ui-icon-document">
-					
+
 						<p:menuitem value="Usuario" url="UsuarioCrud.xhtml"
 							target="centro" icon="ui-icon-document" />
 						<p:menuitem value="Administrador" url="AdministradorCrud.xhtml"
@@ -60,7 +60,7 @@
 						</p:submenu>
 					</p:submenu>
 				</p:menubar>
-				
+
 				<!-- Barra de ferramentas -->
 				<p:toolbar>
 					<p:toolbarGroup align="left">
@@ -71,7 +71,8 @@
 							title="Abrir CRUD de Usuarios" action="UsuarioCrud.xhtml"
 							onclick="this.form.target='centro'" />
 						<p:commandButton icon="ui-icon-document" ajax="false"
-							title="Abrir CRUD de Administrador" action="AdministradorCrud.xhtml"
+							title="Abrir CRUD de Administrador"
+							action="AdministradorCrud.xhtml"
 							onclick="this.form.target='centro'" />
 						<p:commandButton icon="ui-icon-document" ajax="false"
 							title="Abrir CRUD de Cliente" action="ClienteCrud.xhtml"
@@ -98,7 +99,7 @@
 				</p:toolbar>
 			</h:form>
 		</p:layoutUnit>
-		
+
 		<!-- Menu vertical -->
 		<p:layoutUnit position="west" size="250" header="Menu"
 			resizable="true">
@@ -125,12 +126,11 @@
 				</p:menu>
 			</h:form>
 		</p:layoutUnit>
-		
+
 		<!-- Área para carregar os programas -->
 		<p:layoutUnit position="center">
 			<iframe name="centro" id="centro"
-				style="width: 100%; height: 100%; background-color: #FFFFFF;"
-				frameborder="0" />
+				style="width: 100%; height: 100%; background-color: #FFFFFF;" />
 
 		</p:layoutUnit>
 	</p:layout>

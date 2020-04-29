@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -28,6 +29,9 @@ import org.hibernate.validator.constraints.Length;
 @Entity
 public class Requisicao implements Serializable {
 
+	@Version
+	private Integer version;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RequisicaoId")
 	@SequenceGenerator(name = "RequisicaoId", sequenceName = "RequisicaoId", allocationSize = 1)
@@ -205,6 +209,14 @@ public class Requisicao implements Serializable {
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
+	}
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
 
 	@Override

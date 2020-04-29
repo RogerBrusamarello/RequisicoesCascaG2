@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Version;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
@@ -30,6 +31,9 @@ import br.upf.ads.tedw.suport.StringFormat;
 @Inheritance(strategy = InheritanceType.JOINED)
 
 public abstract class Pessoa implements Serializable {
+
+	@Version
+	private Integer version;
 
 	private static final long serialVersionUID = 1L;
 
@@ -143,6 +147,14 @@ public abstract class Pessoa implements Serializable {
 
 	public void setOutrasInformacoes(String outrasInformacoes) {
 		this.outrasInformacoes = outrasInformacoes;
+	}
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Version;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -22,6 +23,9 @@ import org.hibernate.validator.constraints.Length;
 public class Cidade implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
+	@Version
+	private Integer version;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CidadeId")
@@ -68,6 +72,18 @@ public class Cidade implements Serializable {
 		this.estado = estado;
 	}
 
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -109,5 +125,5 @@ public class Cidade implements Serializable {
 	public String toString() {
 		return nome;
 	}
-	
+
 }

@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Version;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -24,6 +25,9 @@ import org.hibernate.validator.constraints.Length;
 @Entity
 public class Projeto implements Serializable {
 
+	@Version
+	private Integer version;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ProjetoId")
 	@SequenceGenerator(name = "ProjetoId", sequenceName = "ProjetoId", allocationSize = 1)
@@ -90,6 +94,14 @@ public class Projeto implements Serializable {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
 
 	@Override
