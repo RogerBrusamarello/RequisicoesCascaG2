@@ -67,9 +67,8 @@
 					converter="UsuarioConverter"
 					completeMethod="#{projetoCrud.completeUsuario}" />
 
-				<p:commandLink value="Cliente"
-					oncomplete="PF('dlgInsertCliente').show();" ajax="true"
-					action="#{clienteCrud.incluir}" update="consulta edicao" />
+				<p:commandLink value="Cliente" immediate="true" ajax="true"
+					action="#{homeCon.abrirPopup('ClienteCrud.xhtml', 600, 400, true)}" />
 				<p:autoComplete id="inputCliente" dropdown="true" multiple="false"
 					forceSelection="true" var="obj" itemLabel="#{obj.nome}"
 					itemValue="#{obj}" value="#{projetoCrud.selecionado.cliente}"
@@ -86,56 +85,6 @@
 		</h:form>
 	</p:panel>
 
-	<!-- Modal para inserir cliente -->
-	<p:dialog id="modalCliente" visible="#{clienteCrud.editando}"
-		modal="true" header="Cadastro de Cliente" widgetVar="dlgInsertCliente"
-		minHeight="40">
-		<h:form>
-			<p:panelGrid columns="2">
-
-				<p:outputLabel value="Nome Cliente" />
-				<p:inputText value="#{clienteCrud.selecionado.nome}" />
-
-				<p:outputLabel value="Função" />
-				<p:inputText value="#{clienteCrud.selecionado.funcao}" />
-
-				<p:outputLabel value="CPF" />
-				<p:inputMask mask="999.999.999-99"
-					value="#{clienteCrud.selecionado.cpf}" size="11" />
-
-				<p:outputLabel value="RG" />
-				<p:inputText value="#{clienteCrud.selecionado.rg}" size="10" />
-
-				<p:outputLabel value="Email" />
-				<p:inputText value="#{clienteCrud.selecionado.email}" />
-
-				<p:outputLabel value="Celular" />
-				<p:inputMask mask="(99) 99999-9999"
-					value="#{clienteCrud.selecionado.celular}" size="11" />
-
-				<p:outputLabel value="Outras Informações" />
-				<h:inputTextarea
-					value="#{clienteCrud.selecionado.outrasInformacoes}" cols="21"
-					rows="3" />
-
-				<p:outputLabel for="pwd1" value="Senha" />
-				<p:password id="pwd1" value="#{clienteCrud.selecionado.senha}"
-					match="pwd2" label="Password 1" required="true" />
-
-				<p:outputLabel for="pwd2" value="Confirma Senha" />
-				<p:password id="pwd2" value="#{clienteCrud.selecionado.senha}"
-					label="Password 2" required="true" />
-
-			</p:panelGrid>
-
-			<p:commandButton value="Salvar" action="#{clienteCrud.salvar}"
-				update="consulta edicao" oncomplete="PF('dlgInsertCliente').hide();" />
-			<p:commandButton value="Cancelar" action="#{clienteCrud.cancelar}"
-				immediate="true" update="consulta edicao"
-				oncomplete="PF('dlgInsertCliente').hide();" />
-
-		</h:form>
-	</p:dialog>
 </h:body>
 
 </html>
