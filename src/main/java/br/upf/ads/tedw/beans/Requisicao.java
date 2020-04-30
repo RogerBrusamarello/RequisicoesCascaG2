@@ -2,7 +2,7 @@ package br.upf.ads.tedw.beans;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,7 +31,7 @@ public class Requisicao implements Serializable {
 
 	@Version
 	private Integer version;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RequisicaoId")
 	@SequenceGenerator(name = "RequisicaoId", sequenceName = "RequisicaoId", allocationSize = 1)
@@ -69,13 +69,13 @@ public class Requisicao implements Serializable {
 	// Não deve ser atualizado na base junto com os demais dados do objeto.
 	// Deve ser atualizado na base por implementação de regra de negócio sempre que
 	// houver registro de horas realizadas em requisição finalizada.
-	@Column(updatable = false)
+	@Column(updatable = true)
 	private Integer horasRealizadas;
 
 	// Não deve ser atualizado com os outros dados do objeto
 	// Será atualizada via implementação de regra de negócio a ser implementada para
 	// quando registrar um andamento com status de finalização da requisição
-	@Column(updatable = false)
+	@Column(updatable = true)
 	private Date dataFinalizada;
 
 	@ManyToOne(optional = false)
@@ -240,5 +240,5 @@ public class Requisicao implements Serializable {
 	public String toString() {
 		return titulo;
 	}
-	
+
 }

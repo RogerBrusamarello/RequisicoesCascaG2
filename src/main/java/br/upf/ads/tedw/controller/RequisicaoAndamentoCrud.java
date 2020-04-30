@@ -24,6 +24,8 @@ public class RequisicaoAndamentoCrud implements Serializable {
 	private List<Pessoa> pessoas;
 	private List<Requisicao> requisicoes;
 
+	private Integer horasAnt;
+
 	public RequisicaoAndamentoCrud() {
 		editando = false;
 	}
@@ -64,10 +66,12 @@ public class RequisicaoAndamentoCrud implements Serializable {
 	public void incluir() {
 		editando = true;
 		selecionado = new RequisicaoAndamento();
+		horasAnt = 0;
 	}
 
 	public void alterar() {
 		editando = true;
+		horasAnt = selecionado.getHorasRealizadas();
 	}
 
 	public List<Pessoa> getPessoas() {
@@ -91,7 +95,18 @@ public class RequisicaoAndamentoCrud implements Serializable {
 			editando = false;
 			EntityManager em = JPAUtil.getEntityManager();
 			em.getTransaction().begin();
+
+			selecionado.getRequisicao().setHorasRealizadas(
+					selecionado.getRequisicao().getHorasRealizadas() - horasAnt + selecionado.getHorasRealizadas());
+
+			if (selecionado.getStatus().equals('F')) {
+				selecionado.getRequisicao().setDataFinalizada(selecionado.getData());
+			} else {
+				selecionado.getRequisicao().setDataFinalizada(null);
+			}
+
 			em.merge(selecionado);
+			em.merge(selecionado.getRequisicao());
 			em.getTransaction().commit();
 			em.close();
 			carregarLista();
@@ -106,6 +121,10 @@ public class RequisicaoAndamentoCrud implements Serializable {
 			editando = false;
 			EntityManager em = JPAUtil.getEntityManager();
 			em.getTransaction().begin();
+
+			selecionado.getRequisicao().setHorasRealizadas(
+					selecionado.getRequisicao().getHorasRealizadas() - selecionado.getHorasRealizadas());
+
 			em.remove(selecionado);
 			em.getTransaction().commit();
 			em.close();

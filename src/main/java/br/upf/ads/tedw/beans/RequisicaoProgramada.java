@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -21,6 +22,9 @@ import javax.validation.constraints.NotNull;
 @Entity
 
 public class RequisicaoProgramada implements Serializable {
+
+	@Version
+	private Integer version;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RequisicaoProgramadaId")
@@ -51,6 +55,14 @@ public class RequisicaoProgramada implements Serializable {
 	public RequisicaoProgramada() {
 		super();
 		data = new Date();
+	}
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
 
 	public long getId() {

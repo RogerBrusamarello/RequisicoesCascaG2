@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -29,6 +30,9 @@ import br.upf.ads.tedw.suport.Letra;
 @Entity
 
 public class RequisicaoAndamento implements Serializable {
+
+	@Version
+	private Integer version;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RequisicaoAndamentoId")
@@ -73,6 +77,14 @@ public class RequisicaoAndamento implements Serializable {
 
 	public RequisicaoAndamento() {
 		super();
+	}
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
 
 	public Long getId() {
