@@ -20,11 +20,11 @@
 <h:body>
 	<p:layout fullPage="true">
 		<!-- Menu horizontal -->
-		<p:layoutUnit position="north" size="140" resizable="false">
+		<p:layoutUnit position="north" size="110" resizable="false">
 			<h:form>
-				<p:menubar>
+				<p:menubar >
 					<p:menuitem value="Home" url="Home.xhtml" />
-					<p:submenu label="Cadastros" icon="ui-icon-document">
+					<p:submenu label="Cadastros" icon="ui-icon-document" style="width: 50px;">
 
 						<p:menuitem value="Usuario" url="UsuarioCrud.xhtml"
 							target="centro" icon="ui-icon-document" />
@@ -35,6 +35,10 @@
 						<p:menuitem value="Projeto" url="ProjetoCrud.xhtml"
 							target="centro" icon="ui-icon-document" />
 						<p:menuitem value="Requisição" url="RequisicaoCrud.xhtml"
+							target="centro" icon="ui-icon-document" />
+						<p:menuitem value="Requisição Andamento" url="RequisicaoAndamentoCrud.xhtml"
+							target="centro" icon="ui-icon-document" />
+						<p:menuitem value="Requisição Programada" url="RequisicaoProgramadaCrud.xhtml"
 							target="centro" icon="ui-icon-document" />
 						<p:separator />
 						<p:submenu label="Popups" icon="ui-icon-document">
@@ -101,6 +105,9 @@
 		</p:layoutUnit>
 
 		<!-- Menu vertical -->
+		
+		<!--
+		
 		<p:layoutUnit position="west" size="250" header="Menu"
 			resizable="true">
 			<h:form>
@@ -126,6 +133,8 @@
 				</p:menu>
 			</h:form>
 		</p:layoutUnit>
+		
+		-->
 
 		<!-- Área para carregar os programas -->
 		<p:layoutUnit position="center">
