@@ -1,4 +1,4 @@
-package br.upf.ads.tedw.beans;
+package br.upf.ads.tedw.controller;
 
 import java.io.Serializable;
 import java.util.HashMap;
