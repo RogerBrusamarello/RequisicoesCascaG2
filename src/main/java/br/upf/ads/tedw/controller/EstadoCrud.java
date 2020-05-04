@@ -48,6 +48,7 @@ public class EstadoCrud implements Serializable {
 		this.selecionado = selecionado;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void carregarLista() {
 		EntityManager em = JPAUtil.getEntityManager();
 		lista = em.createQuery("from Estado order by nome").getResultList();
