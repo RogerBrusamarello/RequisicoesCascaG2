@@ -89,15 +89,15 @@
 
 				<p:outputLabel value="Data Criada" />
 				<p:inputText value="#{requisicaoCrud.selecionado.dataCriada}"
-					readonly="true" size="7">
+					readonly="false" size="8">
 					<f:convertDateTime pattern="dd/MM/yyyy" />
 				</p:inputText>
 
 				<p:outputLabel value="Prazo Limite" />
-				<p:inputText value="#{requisicaoCrud.selecionado.prazoLimite}"
+				<p:inputMask mask = "99/99/9999" value="#{requisicaoCrud.selecionado.prazoLimite}"
 					size="7">
 					<f:convertDateTime pattern="dd/MM/yyyy" />
-				</p:inputText>
+				</p:inputMask>
 
 				<p:outputLabel value="Prioridade" />
 				<p:selectOneMenu value="#{requisicaoCrud.selecionado.prioridade}">
@@ -124,7 +124,7 @@
 
 				<p:outputLabel value="Data Finalizada" />
 				<p:inputText value="#{requisicaoCrud.selecionado.dataFinalizada}"
-					readonly="true" size="7">
+					readonly="false" size="8">
 					<f:convertDateTime pattern="dd/MM/yyyy" />
 				</p:inputText>
 

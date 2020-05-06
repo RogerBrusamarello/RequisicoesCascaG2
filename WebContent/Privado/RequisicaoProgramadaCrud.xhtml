@@ -81,20 +81,20 @@
 					completeMethod="#{requisicaoProgramadaCrud.completePessoa}" />
 
 				<p:outputLabel value="Data" />
-				<p:inputText value="#{requisicaoProgramadaCrud.selecionado.data}"
-					readonly="false" size="7">
+				<p:inputMask mask = "99/99/9999" value="#{requisicaoProgramadaCrud.selecionado.data}"
+					readonly="false" size="8">
 					<f:convertDateTime pattern="dd/MM/yyyy" />
-				</p:inputText>
+				</p:inputMask>
 				<p:outputLabel value="Data Inicio" />
-				<p:inputText value="#{requisicaoProgramadaCrud.selecionado.dataInicio}"
-					readonly="false" size="7">
+				<p:inputMask mask = "99/99/9999" value="#{requisicaoProgramadaCrud.selecionado.dataInicio}"
+					readonly="false" size="8">
 					<f:convertDateTime pattern="dd/MM/yyyy" />
-				</p:inputText>
+				</p:inputMask>
 				<p:outputLabel value="Data Termino" />
-				<p:inputText value="#{requisicaoProgramadaCrud.selecionado.dataTermino}"
-					readonly="false" size="7">
+				<p:inputMask mask = "99/99/9999" value="#{requisicaoProgramadaCrud.selecionado.dataTermino}"
+					readonly="false" size="8">
 					<f:convertDateTime pattern="dd/MM/yyyy" />
-				</p:inputText>
+				</p:inputMask>
 			</p:panelGrid>
 
 			<p:commandButton value="Salvar"

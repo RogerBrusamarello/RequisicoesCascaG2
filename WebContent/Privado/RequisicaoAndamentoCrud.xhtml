@@ -83,10 +83,10 @@
 					completeMethod="#{requisicaoAndamentoCrud.completePessoa}" />
 
 				<p:outputLabel value="Data" />
-				<p:inputText value="#{requisicaoAndamentoCrud.selecionado.data}"
-					readonly="false" size="7">
+				<p:inputMask mask = "99/99/9999" value="#{requisicaoAndamentoCrud.selecionado.data}"
+					readonly="false" size="8">
 					<f:convertDateTime pattern="dd/MM/yyyy" />
-				</p:inputText>
+				</p:inputMask>
 
 				<p:outputLabel value="Titulo" />
 				<p:inputText value="#{requisicaoAndamentoCrud.selecionado.titulo}" />
