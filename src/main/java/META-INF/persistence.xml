@@ -16,7 +16,7 @@
 		<class>br.upf.ads.tedw.beans.RequisicaoProgramada</class>
 		<class>br.upf.ads.tedw.beans.RequisicaoAndamento</class>
 		<class>br.upf.ads.tedw.beans.Estado</class>
-		
+
 		<properties>
 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:postgresql://localhost:5432/aula" />
@@ -26,6 +26,9 @@
 				value="masterkey" />
 			<property name="javax.persistence.jdbc.driver"
 				value="org.postgresql.Driver" />
+			<property
+				name="javax.persistence.schema-generation.database.action"
+				value="drop-and-create" />
 		</properties>
 	</persistence-unit>
 </persistence>
