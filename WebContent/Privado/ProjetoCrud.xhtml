@@ -54,7 +54,7 @@
 			<p:panelGrid columns="2">
 
 				<p:outputLabel value="Nome do Projeto" />
-				<p:inputText value="#{projetoCrud.selecionado.nome}" />
+				<p:inputText value="#{projetoCrud.selecionado.nome}" required="true" />
 
 				<p:outputLabel value="Descrição" />
 				<h:inputTextarea value="#{projetoCrud.selecionado.descricao}"
@@ -65,7 +65,7 @@
 					forceSelection="true" var="obj" itemLabel="#{obj.nome}"
 					itemValue="#{obj}" value="#{projetoCrud.selecionado.usuario}"
 					converter="UsuarioConverter"
-					completeMethod="#{projetoCrud.completeUsuario}" />
+					completeMethod="#{projetoCrud.completeUsuario}" required="true"/>
 
 				<p:commandLink value="Cliente" immediate="true" ajax="true"
 					action="#{homeCon.abrirPopup('ClienteCrud.xhtml', 600, 400, true)}" />
@@ -73,7 +73,7 @@
 					forceSelection="true" var="obj" itemLabel="#{obj.nome}"
 					itemValue="#{obj}" value="#{projetoCrud.selecionado.cliente}"
 					converter="ClienteConverter"
-					completeMethod="#{projetoCrud.completeCliente}" ajax="false" />
+					completeMethod="#{projetoCrud.completeCliente}" ajax="false" required="true"/>
 
 			</p:panelGrid>
 

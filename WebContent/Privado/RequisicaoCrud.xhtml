@@ -81,7 +81,7 @@
 			<p:panelGrid columns="2">
 
 				<p:outputLabel value="Titulo" />
-				<p:inputText value="#{requisicaoCrud.selecionado.titulo}" />
+				<p:inputText value="#{requisicaoCrud.selecionado.titulo}" required="true"/>
 
 				<p:outputLabel value="Descrição" />
 				<h:inputTextarea value="#{requisicaoCrud.selecionado.descricao}"
@@ -89,7 +89,7 @@
 
 				<p:outputLabel value="Data Criada" />
 				<p:inputText value="#{requisicaoCrud.selecionado.dataCriada}"
-					readonly="false" size="8">
+					readonly="false" size="8" required="true">
 					<f:convertDateTime pattern="dd/MM/yyyy" />
 				</p:inputText>
 
@@ -100,7 +100,7 @@
 				</p:inputMask>
 
 				<p:outputLabel value="Prioridade" />
-				<p:selectOneMenu value="#{requisicaoCrud.selecionado.prioridade}">
+				<p:selectOneMenu value="#{requisicaoCrud.selecionado.prioridade}" required="true">
 					<f:selectItem itemLabel="0" itemValue="0" />
 					<f:selectItem itemLabel="1" itemValue="1" />
 					<f:selectItem itemLabel="2" itemValue="2" />
@@ -114,13 +114,13 @@
 					<f:selectItem itemLabel="10" itemValue="10" />
 				</p:selectOneMenu>
 
-				<p:outputLabel value="Horas Previstas" />
+				<p:outputLabel value="Horas Previstas""/>
 				<p:inputText value="#{requisicaoCrud.selecionado.horasPrevistas}"
-					size="3" />
+					size="3" required="true"/>
 
 				<p:outputLabel value="Horas Realizadas" />
 				<p:inputText value="#{requisicaoCrud.selecionado.horasRealizadas}"
-					readonly="true" size="3" />
+					readonly="true" size="3" required="true"/>
 
 				<p:outputLabel value="Data Finalizada" />
 				<p:inputText value="#{requisicaoCrud.selecionado.dataFinalizada}"
@@ -133,14 +133,14 @@
 					forceSelection="true" var="obj" itemLabel="#{obj.nome}"
 					itemValue="#{obj}" value="#{requisicaoCrud.selecionado.projeto}"
 					converter="ProjetoConverter"
-					completeMethod="#{requisicaoCrud.completeProjeto}" />
+					completeMethod="#{requisicaoCrud.completeProjeto}" required="true"/>
 
 				<p:outputLabel value="Solicitou" for="inputSolicitou" />
 				<p:autoComplete id="inputSolicitou" dropdown="true" multiple="false"
 					forceSelection="true" var="obj" itemLabel="#{obj.nome}"
 					itemValue="#{obj}" value="#{requisicaoCrud.selecionado.solicitou}"
 					converter="PessoaConverter"
-					completeMethod="#{requisicaoCrud.completePessoa}" />
+					completeMethod="#{requisicaoCrud.completePessoa}" required="true"/>
 
 				<p:outputLabel value="Criou" for="inputCriou" />
 				<p:autoComplete id="inputCriou" dropdown="true" multiple="false"
