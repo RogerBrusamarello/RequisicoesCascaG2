@@ -48,18 +48,19 @@
 			<p:panelGrid columns="2">
 
 				<p:outputLabel value="Código" />
-				<p:inputNumber value="#{cidadeCrud.selecionado.id}" size="3" />
+				<p:inputNumber readonly="true" value="#{cidadeCrud.selecionado.id}" size="3" />
 
-				<p:outputLabel value="Nome" />
-				<p:inputText value="#{cidadeCrud.selecionado.nome}" size="21" />
+				<p:outputLabel for="nome" value="Nome" />
+				<p:inputText id="nome" required="true" value="#{cidadeCrud.selecionado.nome}" size="30" />
 
-				<p:outputLabel value="Estado" for="inputEstado" />
-				<p:selectOneMenu id="inputEstado"
+				<p:outputLabel for="inputEstado" value="Estado"/>
+				<p:selectOneMenu id="inputEstado" required="true"
 					value="#{cidadeCrud.selecionado.estado}"
 					converter="EstadoConverter" size="14">
 					<f:selectItems value="#{cidadeCrud.estados}"
 						noSelectionLabel="Selecione um item" var="obj" itemValue="#{obj}"
-						itemLabel="#{obj.nome} (#{obj.uf})" />
+						itemLabel="#{obj.nome}" />
+						<!-- itemLabel="#{obj.nome} (#{obj.uf})" /> -->
 				</p:selectOneMenu>
 
 			</p:panelGrid>

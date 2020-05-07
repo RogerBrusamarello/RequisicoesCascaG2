@@ -81,12 +81,12 @@
 					value="#{requisicaoAndamentoCrud.selecionado.pessoa}"
 					converter="PessoaConverter"
 					completeMethod="#{requisicaoAndamentoCrud.completePessoa}" />
-
+					
 				<p:outputLabel value="Data" />
-				<p:inputMask mask = "99/99/9999" value="#{requisicaoAndamentoCrud.selecionado.data}"
-					readonly="false" size="8">
-					<f:convertDateTime pattern="dd/MM/yyyy" />
-				</p:inputMask>
+				<p:datePicker value="#{requisicaoAndamentoCrud.selecionado.data}"
+					readonly="false" size="8" showIcon="true" pattern="dd/MM/yyyy"
+					locale="de" monthNavigator="true" yearNavigator="true">
+				</p:datePicker>
 
 				<p:outputLabel value="Titulo" />
 				<p:inputText value="#{requisicaoAndamentoCrud.selecionado.titulo}" />

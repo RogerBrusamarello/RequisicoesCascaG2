@@ -4,6 +4,9 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+
+<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+
 </h:head>
 
 <h:body onload="#{clienteCrud.carregarLista()}">
@@ -11,13 +14,13 @@
 	<p:panel id="consulta" visible="#{!clienteCrud.editando}">
 		<h:form>
 			<p:commandButton value="Incluir" action="#{clienteCrud.incluir}"
-				icon="ui-icon-plusthick" update="consulta edicao" />
+				icon="pi pi-plus" update="consulta edicao" style="horizontal-align:center"/>
 			<p:commandButton value="Alterar" action="#{clienteCrud.alterar}"
-				icon="ui-icon-pencil" disabled="#{clienteCrud.selecionado==null}"
-				update="consulta edicao" />
+				icon="pi pi-pencil" disabled="#{clienteCrud.selecionado==null}"
+				update="consulta edicao" style="horizontal-align:center"/>
 			<p:commandButton value="Excluir" action="#{clienteCrud.excluir}"
-				icon="ui-icon-trash" onclick="return confirm('Excluir?')"
-				disabled="#{clienteCrud.selecionado==null}" update="consulta" />
+				icon="pi pi-trash" onclick="return confirm('Excluir?')"
+				disabled="#{clienteCrud.selecionado==null}" update="consulta" style="horizontal-align:center"/>
 			<p:dataTable var="o" value="#{clienteCrud.lista}"
 				emptyMessage="Nada para mostrar!" selectionMode="single"
 				selection="#{clienteCrud.selecionado}" rowKey="#{o.id}" rows="5"
@@ -28,28 +31,34 @@
 				currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}">
 				<p:ajax event="rowSelect" update="consulta" />
 				<p:ajax event="rowUnselect" update="consulta" />
-				<p:column headerText="Código" style="width: 50px">
+				<p:column headerText="Código" sortBy="#{o.id}" filterBy="#{o.id}"
+					style="width: 50px">
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
-				<p:column headerText="Nome Cliente">
+				<p:column headerText="Nome Cliente" sortBy="#{o.nome}"
+					filterBy="#{o.nome}">
 					<p:outputLabel value="#{o.nome}" />
 				</p:column>
-				<p:column headerText="Função">
+				<p:column headerText="Função" sortBy="#{o.funcao}"
+					filterBy="#{o.funcao}">
 					<p:outputLabel value="#{o.funcao}" />
 				</p:column>
-				<p:column headerText="CPF" style="width: 115px">
+				<!-- <p:column headerText="CPF" sortBy="#{o.cpf}" filterBy="#{o.cpf}" style="width: 115px">
 					<p:outputLabel value="#{o.cpf}" />
 				</p:column>
-				<p:column headerText="RG">
+				<p:column headerText="RG" sortBy="#{o.rg}" filterBy="#{o.rg}">
 					<p:outputLabel value="#{o.rg}" />
-				</p:column>
-				<p:column headerText="E-mail">
+				</p:column> -->
+				<p:column headerText="E-mail" sortBy="#{o.email}"
+					filterBy="#{o.email}">
 					<p:outputLabel value="#{o.email}" />
 				</p:column>
-				<p:column headerText="Celular" style="width: 120px">
+				<p:column headerText="Celular" sortBy="#{o.celular}"
+					filterBy="#{o.celular}" style="width: 120px">
 					<p:outputLabel value="#{o.celular}" />
 				</p:column>
-				<p:column headerText="Outras Informações">
+				<p:column headerText="Outras Informações"
+					sortBy="#{o.outrasInformacoes}" filterBy="#{o.outrasInformacoes}">
 					<p:outputLabel value="#{o.outrasInformacoes}" />
 				</p:column>
 
@@ -63,29 +72,29 @@
 			<p:growl></p:growl>
 			<p:panelGrid columns="2">
 
-				<p:outputLabel value="Nome Cliente" />
-				<p:inputText value="#{clienteCrud.selecionado.nome}" />
+				<p:outputLabel for="nome" value="Nome Cliente" />
+				<p:inputText id="nome" required="true" value="#{clienteCrud.selecionado.nome}" size="28" />
 
-				<p:outputLabel value="Função" />
-				<p:inputText value="#{clienteCrud.selecionado.funcao}" />
+				<p:outputLabel for="funcao" value="Função" />
+				<p:inputText id="funcao" required="true" value="#{clienteCrud.selecionado.funcao}" />
 
-				<p:outputLabel value="CPF" />
-				<p:inputMask mask="999.999.999-99"
-					value="#{clienteCrud.selecionado.cpf}" size="11" />
+				<p:outputLabel for="cpf" value="CPF" />
+				<p:inputMask  id="cpf" required="true" mask="999.999.999-99"
+					value="#{clienteCrud.selecionado.cpf}" size="12" />
 
-				<p:outputLabel value="RG" />
-				<p:inputText value="#{clienteCrud.selecionado.rg}" size="10" />
+				<p:outputLabel for="rg" value="RG" />
+				<p:inputText id="rg" required="true" value="#{clienteCrud.selecionado.rg}" size="10" />
 
-				<p:outputLabel value="Email" />
-				<p:inputText value="#{clienteCrud.selecionado.email}" />
+				<p:outputLabel for="email" value="Email" />
+				<p:inputText id="email" required="true" value="#{clienteCrud.selecionado.email}" size="28" />
 
-				<p:outputLabel value="Celular" />
-				<p:inputMask mask="(99) 99999-9999"
-					value="#{clienteCrud.selecionado.celular}" size="11" />
+				<p:outputLabel for="celular" value="Celular" />
+				<p:inputMask id="celular" required="true" mask="(99) 99999-9999"
+					value="#{clienteCrud.selecionado.celular}" size="13" />
 
 				<p:outputLabel value="Outras Informações" />
 				<h:inputTextarea
-					value="#{clienteCrud.selecionado.outrasInformacoes}" cols="21"
+					value="#{clienteCrud.selecionado.outrasInformacoes}" cols="30"
 					rows="3" />
 
 				<p:outputLabel for="pwd1" value="Senha"
@@ -103,9 +112,10 @@
 			</p:panelGrid>
 
 			<p:commandButton value="Salvar" action="#{clienteCrud.salvar}"
-				update="consulta edicao" />
+				update="consulta edicao" style="horizontal-align:center" />
 			<p:commandButton value="Cancelar" action="#{clienteCrud.cancelar}"
-				immediate="true" update="consulta edicao" />
+				immediate="true" update="consulta edicao"
+				style="horizontal-align:center" />
 		</h:form>
 	</p:panel>
 

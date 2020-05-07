@@ -47,13 +47,13 @@
 			<p:growl></p:growl>
 			<p:panelGrid columns="2">
 				<p:outputLabel value="Código" />
-				<p:inputNumber value="#{estadoCrud.selecionado.id}" size="3" />
+				<p:inputNumber readonly="true" value="#{estadoCrud.selecionado.id}" size="3" />
 
-				<p:outputLabel value="Nome" />
-				<p:inputText value="#{estadoCrud.selecionado.nome}" />
+				<p:outputLabel for="nome" value="Nome" />
+				<p:inputText id="nome" required="true" value="#{estadoCrud.selecionado.nome}" size="28" />
 
-				<p:outputLabel value="Sigla" />
-				<p:inputText value="#{estadoCrud.selecionado.uf}" maxlength="2"
+				<p:outputLabel for="sigla" value="Sigla" />
+				<p:inputText id="sigla" required="true" value="#{estadoCrud.selecionado.uf}" maxlength="2"
 					size="1" />
 
 			</p:panelGrid>

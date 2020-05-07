@@ -80,21 +80,23 @@
 					converter="PessoaConverter"
 					completeMethod="#{requisicaoProgramadaCrud.completePessoa}" />
 
-				<p:outputLabel value="Data" />
-				<p:inputMask mask = "99/99/9999" value="#{requisicaoProgramadaCrud.selecionado.data}"
-					readonly="false" size="8">
+				<p:inputMask mask="99/99/9999" value="#{requisicaoProgramadaCrud.selecionado.data}"
+					readonly="false" size="8" rendered="False">
 					<f:convertDateTime pattern="dd/MM/yyyy" />
 				</p:inputMask>
+				
 				<p:outputLabel value="Data Inicio" />
-				<p:inputMask mask = "99/99/9999" value="#{requisicaoProgramadaCrud.selecionado.dataInicio}"
-					readonly="false" size="8">
-					<f:convertDateTime pattern="dd/MM/yyyy" />
-				</p:inputMask>
+				<p:datePicker value="#{requisicaoProgramadaCrud.selecionado.dataInicio}"
+					readonly="false" size="8" showIcon="true" pattern="dd/MM/yyyy"
+					locale="de" monthNavigator="true" yearNavigator="true">
+				</p:datePicker>
+				
 				<p:outputLabel value="Data Termino" />
-				<p:inputMask mask = "99/99/9999" value="#{requisicaoProgramadaCrud.selecionado.dataTermino}"
-					readonly="false" size="8">
-					<f:convertDateTime pattern="dd/MM/yyyy" />
-				</p:inputMask>
+				<p:datePicker value="#{requisicaoProgramadaCrud.selecionado.dataTermino}"
+					readonly="false" size="8" showIcon="true" pattern="dd/MM/yyyy"
+					locale="de" monthNavigator="true" yearNavigator="true">
+				</p:datePicker>
+				
 			</p:panelGrid>
 
 			<p:commandButton value="Salvar"

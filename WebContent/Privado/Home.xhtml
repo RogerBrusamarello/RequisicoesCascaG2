@@ -27,57 +27,18 @@
 			<h:form>
 				<p:menubar>
 					<p:menuitem value="Home" url="Home.xhtml" icon="pi pi-home" />
-					<p:submenu label="Cadastros" icon="pi pi-plus">
-
-						<p:menuitem value="Usuario" url="UsuarioCrud.xhtml"
-							target="centro" icon="pi pi-user" />
-						<p:menuitem value="Administrador" url="AdministradorCrud.xhtml"
-							target="centro" icon="pi pi-user-plus" />
-						<p:menuitem value="Cliente" url="ClienteCrud.xhtml"
-							target="centro" icon="pi pi-users" />
-						<p:menuitem value="Projeto" url="ProjetoCrud.xhtml"
-							target="centro" icon="pi pi-file" />
-						<p:menuitem value="Requisição" url="RequisicaoCrud.xhtml"
-							target="centro" icon="pi pi-file-o" />
-						<p:menuitem value="Requisição Andamento"
-							url="RequisicaoAndamentoCrud.xhtml" target="centro"
-							icon="pi pi-ticket" />
-						<p:menuitem value="Requisição Programada"
-							url="RequisicaoProgramadaCrud.xhtml" target="centro"
-							icon="pi pi-ticket" />
-						<p:separator />
-						<p:submenu label="Popups" icon="pi pi-plus">
-							<p:menuitem value="Usuario"
-								actionListener="#{homeCon.abrirPopup('UsuarioCrud.xhtml', 600, 400, false)}" />
-							<p:menuitem value="Administrador"
-								actionListener="#{homeCon.abrirPopup('AdministradorCrud.xhtml', 600, 400, false)}" />
-							<p:menuitem value="Cliente"
-								actionListener="#{homeCon.abrirPopup('ClienteCrud.xhtml', 600, 400, false)}" />
-							<p:menuitem value="Projeto"
-								actionListener="#{homeCon.abrirPopup('ProjetoCrud.xhtml', 600, 400, false)}" />
-							<p:menuitem value="Requisição"
-								actionListener="#{homeCon.abrirPopup('RequisicaoCrud.xhtml', 600, 400, false)}" />
-						</p:submenu>
-
-						<p:separator />
-
-						<p:submenu label="Outros cadastros" icon="pi pi-xxxx">
-							<p:menuitem value="Cadastro A" url="#" icon="pi pi-xxxx" />
-							<p:menuitem value="Cadastro B" url="#" icon="pi pi-xxxx" />
-							<p:menuitem value="Cadastro C" url="#" icon="pi pi-xxxx" />
-							<p:menuitem value="Cadastro D" url="#" icon="pi pi-xxxx" />
-						</p:submenu>
-					</p:submenu>
 				</p:menubar>
 
 				<!-- Barra de ferramentas -->
 				<p:toolbar>
 					<p:toolbarGroup align="left">
-						<p:commandButton icon="pi pi-home" ajax="false"
+
+						<!-- <p:commandButton icon="pi pi-home" ajax="false"
 							title="Ir para o início" action="Home.xhtml"
 							onclick="this.form.target='_self'" />
 						<p:separator />
-						
+						 -->
+
 						<p:commandButton icon="pi pi-user" ajax="false"
 							title="Abrir CRUD de Usuarios" action="UsuarioCrud.xhtml"
 							onclick="this.form.target='centro'" />
@@ -128,35 +89,42 @@
 
 		<!-- Menu vertical -->
 
-		<!--
-		
-		<p:layoutUnit position="west" size="250" header="Menu"
+		<p:layoutUnit position="west" size="280" header="Menu"
 			resizable="true">
 			<h:form>
-				<p:menu>
-					<p:submenu label="Cadastros">
-						<p:menuitem value="Usuario" url="UsuarioCrud.xhtml"
-							target="centro" icon="pi pi-user" />
-						<p:menuitem value="Administrador" url="AdministradorCrud.xhtml"
-							target="centro" icon="pi pi-user-plus" />
-						<p:menuitem value="Cliente" url="ClienteCrud.xhtml"
-							target="centro" icon="pi pi-users" />
-						<p:menuitem value="Projeto" url="ProjetoCrud.xhtml"
-							target="centro" icon="pi pi-file" />
-						<p:menuitem value="Requisição" url="RequisicaoCrud.xhtml"
-							target="centro" icon="pi pi-file-o" />
-						<p:menuitem value="Requisição Programada"
-							url="RequisicaoProgramadaCrud.xhtml" target="centro"
-							icon="pi pi-ticket" />
-						<p:menuitem value="Requisição em Andamento"
-							url="RequisicaoAndamentoCrud.xhtml" target="centro"
-							icon="pi pi-ticket" />
+				<p:growl>
+					<p:autoUpdate />
+				</p:growl>
+				<p:panelMenu style="width:280px">
+					<p:submenu label="Cadastro">
+						<p:submenu label="Pessoas">
+							<p:menuitem value="Usuario" url="UsuarioCrud.xhtml"
+								target="centro" icon="pi pi-user" />
+							<p:menuitem value="Administrador" url="AdministradorCrud.xhtml"
+								target="centro" icon="pi pi-user-plus" />
+							<p:menuitem value="Cliente" url="ClienteCrud.xhtml"
+								target="centro" icon="pi pi-users" />
+						</p:submenu>
+						<p:submenu label="Documentos">
+							<p:menuitem value="Projeto" url="ProjetoCrud.xhtml"
+								target="centro" icon="pi pi-file" />
+							<p:menuitem value="Requisição" url="RequisicaoCrud.xhtml"
+								target="centro" icon="pi pi-file-o" />
+							<p:menuitem value="Requisição Programada"
+								url="RequisicaoProgramadaCrud.xhtml" target="centro"
+								icon="pi pi-ticket" />
+							<p:menuitem value="Requisição em Andamento"
+								url="RequisicaoAndamentoCrud.xhtml" target="centro"
+								icon="pi pi-ticket" />
+						</p:submenu>
 					</p:submenu>
-				</p:menu>
+					<p:submenu label="Outros">
+						
+					</p:submenu>
+				</p:panelMenu>
 			</h:form>
 		</p:layoutUnit>
-		
-		-->
+
 
 		<!-- Área para carregar os programas -->
 		<p:layoutUnit position="center">
