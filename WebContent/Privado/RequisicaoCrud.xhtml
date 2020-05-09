@@ -11,13 +11,13 @@
 	<p:panel id="consulta" visible="#{!requisicaoCrud.editando}">
 		<h:form>
 			<p:commandButton value="Incluir" action="#{requisicaoCrud.incluir}"
-				icon="ui-icon-plusthick" update="consulta edicao" />
+				icon="pi pi-plus" update="consulta edicao" style="horizontal-align:center"/>
 			<p:commandButton value="Alterar" action="#{requisicaoCrud.alterar}"
-				icon="ui-icon-pencil" disabled="#{requisicaoCrud.selecionado==null}"
-				update="consulta edicao" />
+				icon="pi pi-pencil" disabled="#{requisicaoCrud.selecionado==null}"
+				update="consulta edicao" style="horizontal-align:center"/>
 			<p:commandButton value="Excluir" action="#{requisicaoCrud.excluir}"
-				icon="ui-icon-trash" onclick="return confirm('Excluir?')"
-				disabled="#{requisicaoCrud.selecionado==null}" update="consulta" />
+				icon="pi pi-trash" onclick="return confirm('Excluir?')"
+				disabled="#{requisicaoCrud.selecionado==null}" update="consulta" style="horizontal-align:center"/>
 			<p:dataTable var="o" value="#{requisicaoCrud.lista}"
 				emptyMessage="Nada para mostrar!" selectionMode="single"
 				selection="#{requisicaoCrud.selecionado}" rowKey="#{o.id}" rows="5"
@@ -28,16 +28,18 @@
 				currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}">
 				<p:ajax event="rowSelect" update="consulta" />
 				<p:ajax event="rowUnselect" update="consulta" />
-				<p:column headerText="Código" style="width: 50px">
+				<p:column headerText="Código" sortBy="#{o.id}" filterBy="#{o.id}"
+					style="width: 50px">
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
-				<p:column headerText="Título">
+				<p:column headerText="Título" sortBy="#{o.titulo}" filterBy="#{o.titulo}">
 					<p:outputLabel value="#{o.titulo}" />
 				</p:column>
-				<p:column headerText="Descrição">
+				<p:column headerText="Descrição" sortBy="#{o.descricao}" filterBy="#{o.descricao}">
 					<p:outputLabel value="#{o.descricao}" />
 				</p:column>
-				<p:column headerText="Data Criada" style="width: 75px">
+				
+				<!-- <p:column headerText="Data Criada" style="width: 75px">
 					<h:outputText value="#{o.dataCriada}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
@@ -46,30 +48,35 @@
 					<h:outputText value="#{o.prazoLimite}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
-				</p:column>
-				<p:column headerText="Prioridade">
+				</p:column>-->
+				
+				<p:column headerText="Prioridade" sortBy="#{o.prioridade}" filterBy="#{o.prioridade}">
 					<p:outputLabel value="#{o.prioridade}" />
 				</p:column>
-				<p:column headerText="Horas Previstas">
+				
+				<!-- <p:column headerText="Horas Previstas">
 					<p:outputLabel value="#{o.horasPrevistas}" />
-				</p:column>
+				</p:column> 
 				<p:column headerText="Horas Realizadas">
 					<p:outputLabel value="#{o.horasRealizadas}" />
-				</p:column>
-				<p:column headerText="Data Finalizada">
+				</p:column>-->
+				
+				<p:column headerText="Data Finalizada" sortBy="#{o.dataFinalizada}" filterBy="#{o.dataFinalizada}">
 					<h:outputText value="#{o.dataFinalizada}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
-				<p:column headerText="Projeto">
+				<p:column headerText="Projeto" sortBy="#{o.projeto}" filterBy="#{o.projeto}">
 					<p:outputLabel value="#{o.projeto}" />
 				</p:column>
-				<p:column headerText="Solicitante">
+				
+				<!-- <p:column headerText="Solicitante">
 					<p:outputLabel value="#{o.solicitou}" />
 				</p:column>
 				<p:column headerText="Criador">
 					<p:outputLabel value="#{o.criou}" />
-				</p:column>
+				</p:column>-->
+
 			</p:dataTable>
 		</h:form>
 	</p:panel>
@@ -80,27 +87,27 @@
 			<p:growl></p:growl>
 			<p:panelGrid columns="2">
 
-				<p:outputLabel value="Titulo" />
-				<p:inputText value="#{requisicaoCrud.selecionado.titulo}" required="true"/>
+				<p:outputLabel for="titulo" value="Titulo" />
+				<p:inputText id="titulo" required="true" value="#{requisicaoCrud.selecionado.titulo}"/>
 
-				<p:outputLabel value="Descrição" />
-				<h:inputTextarea value="#{requisicaoCrud.selecionado.descricao}"
+				<p:outputLabel for="descricao" value="Descrição" />
+				<h:inputTextarea id="descricao" required="false" value="#{requisicaoCrud.selecionado.descricao}"
 					cols="21" rows="3" />
 
-				<p:outputLabel value="Data Criada" />
-				<p:inputText value="#{requisicaoCrud.selecionado.dataCriada}"
-					readonly="false" size="8" required="true">
+				<p:outputLabel for="dataCriada" value="Data Criada" />
+				<p:inputText  id="dataCriada" required="true" value="#{requisicaoCrud.selecionado.dataCriada}"
+					readonly="false" size="8">
 					<f:convertDateTime pattern="dd/MM/yyyy" />
 				</p:inputText>
 
-				<p:outputLabel value="Prazo Limite" />
-				<p:inputMask mask = "99/99/9999" value="#{requisicaoCrud.selecionado.prazoLimite}"
+				<p:outputLabel for="prazoLimite" value="Prazo Limite" />
+				<p:inputMask id="prazoLimite" required="true" mask = "99/99/9999" value="#{requisicaoCrud.selecionado.prazoLimite}"
 					size="7">
 					<f:convertDateTime pattern="dd/MM/yyyy" />
 				</p:inputMask>
 
-				<p:outputLabel value="Prioridade" />
-				<p:selectOneMenu value="#{requisicaoCrud.selecionado.prioridade}" required="true">
+				<p:outputLabel for="prioridade" value="Prioridade" />
+				<p:selectOneMenu id="prioridade" required="true" value="#{requisicaoCrud.selecionado.prioridade}" >
 					<f:selectItem itemLabel="0" itemValue="0" />
 					<f:selectItem itemLabel="1" itemValue="1" />
 					<f:selectItem itemLabel="2" itemValue="2" />
@@ -114,13 +121,13 @@
 					<f:selectItem itemLabel="10" itemValue="10" />
 				</p:selectOneMenu>
 
-				<p:outputLabel value="Horas Previstas"/>
-				<p:inputText value="#{requisicaoCrud.selecionado.horasPrevistas}"
-					size="3" required="true"/>
+				<p:outputLabel for="horasPrevistas" value="Horas Previstas"/>
+				<p:inputText id="horasPrevistas" required="true" value="#{requisicaoCrud.selecionado.horasPrevistas}"
+					size="3"/>
 
-				<p:outputLabel value="Horas Realizadas" />
-				<p:inputText value="#{requisicaoCrud.selecionado.horasRealizadas}"
-					readonly="true" size="3" required="true"/>
+				<p:outputLabel for="horasRealizadas" value="Horas Realizadas" />
+				<p:inputText id="horasRealizadas" required="true" value="#{requisicaoCrud.selecionado.horasRealizadas}"
+					readonly="true" size="3"/>
 
 				<p:outputLabel value="Data Finalizada" />
 				<p:inputText value="#{requisicaoCrud.selecionado.dataFinalizada}"
@@ -147,7 +154,7 @@
 					forceSelection="true" var="obj" itemLabel="#{obj.nome}"
 					itemValue="#{obj}" value="#{requisicaoCrud.selecionado.criou}"
 					converter="PessoaConverter"
-					completeMethod="#{requisicaoCrud.completePessoa}" />
+					completeMethod="#{requisicaoCrud.completePessoa}"  required="true"/>
 
 			</p:panelGrid>
 
