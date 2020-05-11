@@ -4,7 +4,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>Administrador</title> 
+	<title>Administrador</title>
 </h:head>
 
 <h:body onload="#{administradorCrud.carregarLista()}">
@@ -86,7 +86,8 @@
 				<p:outputLabel for="email" value="Email"
 					rendered="#{administradorCrud.selecionado.id == null}" />
 				<p:inputText id="email" required="true"
-					value="#{administradorCrud.selecionado.email}" size="28" />
+					value="#{administradorCrud.selecionado.email}" size="28"
+					rendered="#{administradorCrud.selecionado.id == null}" />
 
 				<p:outputLabel for="celular" value="Celular" />
 				<p:inputMask id="celular" required="true" mask="(99) 99999-9999"

@@ -4,7 +4,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>Usuário</title> 
+	<title>Usuário</title>
 </h:head>
 
 <h:body onload="#{usuarioCrud.carregarLista()}">
@@ -12,13 +12,15 @@
 	<p:panel id="consulta" visible="#{!usuarioCrud.editando}">
 		<h:form>
 			<p:commandButton value="Incluir" action="#{usuarioCrud.incluir}"
-				icon="pi pi-plus" update="consulta edicao" style="horizontal-align:center"/>
+				icon="pi pi-plus" update="consulta edicao"
+				style="horizontal-align:center" />
 			<p:commandButton value="Alterar" action="#{usuarioCrud.alterar}"
 				icon="pi pi-pencil" disabled="#{usuarioCrud.selecionado==null}"
-				update="consulta edicao" style="horizontal-align:center"/>
+				update="consulta edicao" style="horizontal-align:center" />
 			<p:commandButton value="Excluir" action="#{usuarioCrud.excluir}"
 				icon="pi pi-trash" onclick="return confirm('Excluir?')"
-				disabled="#{usuarioCrud.selecionado==null}" update="consulta" style="horizontal-align:center"/>
+				disabled="#{usuarioCrud.selecionado==null}" update="consulta"
+				style="horizontal-align:center" />
 			<p:dataTable var="o" value="#{usuarioCrud.lista}"
 				emptyMessage="Nada para mostrar!" selectionMode="single"
 				selection="#{usuarioCrud.selecionado}" rowKey="#{o.id}" rows="5"
@@ -82,7 +84,8 @@
 				<p:outputLabel for="email" value="Email"
 					rendered="#{usuarioCrud.selecionado.id == null}" />
 				<p:inputText id="email" required="true"
-					value="#{usuarioCrud.selecionado.email}" size="28" />
+					value="#{usuarioCrud.selecionado.email}" size="28"
+					rendered="#{usuarioCrud.selecionado.id == null}" />
 
 				<p:outputLabel for="celular" value="Celular" />
 				<p:inputMask id="celular" required="true" mask="(99) 99999-9999"

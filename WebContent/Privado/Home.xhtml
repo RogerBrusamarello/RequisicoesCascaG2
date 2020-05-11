@@ -20,7 +20,7 @@
 <h:body>
 	<p:layout fullPage="true">
 		<!-- Menu horizontal -->
-		<p:layoutUnit position="north" size="110" resizable="false">
+		<p:layoutUnit position="north" size="115" resizable="false">
 			<h:form>
 				<p:menubar>
 					<p:menuitem value="Home" url="Home.xhtml" icon="pi pi-home" />
@@ -83,7 +83,7 @@
 						</p:menuButton>
 					</p:toolbarGroup>
 				</p:toolbar>
-				<h:outputText value="Usuário Logado: #{loginController.usuarioLogado.nome}" />
+				<h:outputText value="Usuário: #{loginController.usuarioLogado.nome}" />
 			</h:form>
 		</p:layoutUnit>
 

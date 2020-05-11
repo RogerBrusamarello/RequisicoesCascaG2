@@ -12,13 +12,15 @@
 	<p:panel id="consulta" visible="#{!clienteCrud.editando}">
 		<h:form>
 			<p:commandButton value="Incluir" action="#{clienteCrud.incluir}"
-				icon="pi pi-plus" update="consulta edicao" style="horizontal-align:center"/>
+				icon="pi pi-plus" update="consulta edicao"
+				style="horizontal-align:center" />
 			<p:commandButton value="Alterar" action="#{clienteCrud.alterar}"
 				icon="pi pi-pencil" disabled="#{clienteCrud.selecionado==null}"
-				update="consulta edicao" style="horizontal-align:center"/>
+				update="consulta edicao" style="horizontal-align:center" />
 			<p:commandButton value="Excluir" action="#{clienteCrud.excluir}"
 				icon="pi pi-trash" onclick="return confirm('Excluir?')"
-				disabled="#{clienteCrud.selecionado==null}" update="consulta" style="horizontal-align:center"/>
+				disabled="#{clienteCrud.selecionado==null}" update="consulta"
+				style="horizontal-align:center" />
 			<p:dataTable var="o" value="#{clienteCrud.lista}"
 				styleClass="order-table" headerClass="order-table-header"
 				rowClasses="order-table-odd-row,order-table-even-row"
@@ -74,21 +76,26 @@
 			<p:panelGrid columns="2">
 
 				<p:outputLabel for="nome" value="Nome Cliente" />
-				<p:inputText id="nome" required="true" value="#{clienteCrud.selecionado.nome}" size="28" />
+				<p:inputText id="nome" required="true"
+					value="#{clienteCrud.selecionado.nome}" size="28" />
 
 				<p:outputLabel for="funcao" value="Função" />
-				<p:inputText id="funcao" required="true" value="#{clienteCrud.selecionado.funcao}" />
+				<p:inputText id="funcao" required="true"
+					value="#{clienteCrud.selecionado.funcao}" />
 
 				<p:outputLabel for="cpf" value="CPF" />
-				<p:inputMask  id="cpf" required="true" mask="999.999.999-99"
+				<p:inputMask id="cpf" required="true" mask="999.999.999-99"
 					value="#{clienteCrud.selecionado.cpf}" size="12" />
 
 				<p:outputLabel for="rg" value="RG" />
-				<p:inputText id="rg" required="true" value="#{clienteCrud.selecionado.rg}" size="10" />
+				<p:inputText id="rg" required="true"
+					value="#{clienteCrud.selecionado.rg}" size="10" />
 
 				<p:outputLabel for="email" value="Email"
 					rendered="#{clienteCrud.selecionado.id == null}" />
-				<p:inputText id="email" required="true" value="#{clienteCrud.selecionado.email}" size="28" />
+				<p:inputText id="email" required="true"
+					value="#{clienteCrud.selecionado.email}" size="28"
+					rendered="#{clienteCrud.selecionado.id == null}" />
 
 				<p:outputLabel for="celular" value="Celular" />
 				<p:inputMask id="celular" required="true" mask="(99) 99999-9999"
