@@ -98,13 +98,13 @@
 				<p:inputText  id="dataCriada" required="true" value="#{requisicaoCrud.selecionado.dataCriada}"
 					readonly="false" size="8">
 					<f:convertDateTime pattern="dd/MM/yyyy" />
-				</p:inputText>
+				</p:datePicker>
 
 				<p:outputLabel for="prazoLimite" value="Prazo Limite" />
 				<p:inputMask id="prazoLimite" required="true" mask = "99/99/9999" value="#{requisicaoCrud.selecionado.prazoLimite}"
 					size="7">
 					<f:convertDateTime pattern="dd/MM/yyyy" />
-				</p:inputMask>
+				</p:datePicker>
 
 				<p:outputLabel for="prioridade" value="Prioridade" />
 				<p:selectOneMenu id="prioridade" required="true" value="#{requisicaoCrud.selecionado.prioridade}" >
