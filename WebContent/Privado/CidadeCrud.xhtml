@@ -4,6 +4,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+	<title>Cidade</title>
 </h:head>
 
 <h:body onload="#{cidadeCrud.carregarLista()}">
@@ -28,13 +29,16 @@
 				currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}">
 				<p:ajax event="rowSelect" update="consulta" />
 				<p:ajax event="rowUnselect" update="consulta" />
-				<p:column headerText="Código" style="width: 50px">
+				<p:column headerText="Código" sortBy="#{o.id}" filterBy="#{o.id}"
+					style="width:75px; text-align: center;">
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
-				<p:column headerText="Nome">
+				<p:column headerText="Nome" sortBy="#{o.nome}" filterBy="#{o.nome}"
+					style="text-align: center;">
 					<p:outputLabel value="#{o.nome}" />
 				</p:column>
-				<p:column headerText="Sigla" style="width:70px">
+				<p:column headerText="Sigla" sortBy="#{o.estado}"
+					filterBy="#{o.estado}" style="width:70px; text-align: center;">
 					<p:outputLabel value="#{o.estado}" />
 				</p:column>
 			</p:dataTable>
@@ -48,19 +52,21 @@
 			<p:panelGrid columns="2">
 
 				<p:outputLabel value="Código" />
-				<p:inputNumber readonly="true" value="#{cidadeCrud.selecionado.id}" size="3" />
+				<p:inputNumber readonly="true" value="#{cidadeCrud.selecionado.id}"
+					size="3" />
 
 				<p:outputLabel for="nome" value="Nome" />
-				<p:inputText id="nome" required="true" value="#{cidadeCrud.selecionado.nome}" size="30" />
+				<p:inputText id="nome" required="true"
+					value="#{cidadeCrud.selecionado.nome}" size="30" />
 
-				<p:outputLabel for="inputEstado" value="Estado"/>
+				<p:outputLabel for="inputEstado" value="Estado" />
 				<p:selectOneMenu id="inputEstado" required="true"
 					value="#{cidadeCrud.selecionado.estado}"
 					converter="EstadoConverter" size="14">
 					<f:selectItems value="#{cidadeCrud.estados}"
 						noSelectionLabel="Selecione um item" var="obj" itemValue="#{obj}"
 						itemLabel="#{obj.nome}" />
-						<!-- itemLabel="#{obj.nome} (#{obj.uf})" /> -->
+					<!-- itemLabel="#{obj.nome} (#{obj.uf})" /> -->
 				</p:selectOneMenu>
 
 			</p:panelGrid>

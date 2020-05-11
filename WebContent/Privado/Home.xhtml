@@ -4,7 +4,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-
+	<title>Home</title>
 	<style type="text/css">
 .ui-layout-north {
 	z-index: 20 !important;
@@ -16,9 +16,6 @@
 }
 </style>
 
-	<h:outputStylesheet name="primeicons/primeicons.css"
-		library="primefaces" />
-
 </h:head>
 <h:body>
 	<p:layout fullPage="true">
@@ -27,6 +24,7 @@
 			<h:form>
 				<p:menubar>
 					<p:menuitem value="Home" url="Home.xhtml" icon="pi pi-home" />
+					<p:menuitem value="Sair" action="#{loginController.sair}" ajax="false" icon="pi pi-times" />
 				</p:menubar>
 
 				<!-- Barra de ferramentas -->
@@ -62,14 +60,15 @@
 							onclick="this.form.target='centro'" />
 
 						<p:commandButton icon="pi pi-ticket" ajax="false"
+							title="Abrir CRUD de Requisicão Programada"
+							action="RequisicaoProgramadaCrud.xhtml"
+							onclick="this.form.target='centro'" />
+							
+						<p:commandButton icon="pi pi-ticket" ajax="false"
 							title="Abrir CRUD de Requisicão Andamento"
 							action="RequisicaoAndamentoCrud.xhtml"
 							onclick="this.form.target='centro'" />
 
-						<p:commandButton icon="pi pi-ticket" ajax="false"
-							title="Abrir CRUD de Requisicão Programada"
-							action="RequisicaoProgramadaCrud.xhtml"
-							onclick="this.form.target='centro'" />
 						<p:separator />
 
 						<p:commandButton type="button" title="Save" icon="pi pi-save" />
@@ -84,6 +83,7 @@
 						</p:menuButton>
 					</p:toolbarGroup>
 				</p:toolbar>
+				<h:outputText value="Usuário Logado: #{loginController.usuarioLogado.nome}" />
 			</h:form>
 		</p:layoutUnit>
 
@@ -98,27 +98,30 @@
 				<p:panelMenu style="width:280px">
 					<p:submenu label="Cadastro">
 						<p:submenu label="Pessoas">
-							<p:menuitem value="Usuario" url="UsuarioCrud.xhtml"
+							<p:menuitem value="Usuario" url="../Privado/UsuarioCrud.xhtml"
 								target="centro" icon="pi pi-user" />
-							<p:menuitem value="Administrador" url="AdministradorCrud.xhtml"
+							<p:menuitem value="Administrador" url="../Privado/AdministradorCrud.xhtml"
 								target="centro" icon="pi pi-user-plus" />
-							<p:menuitem value="Cliente" url="ClienteCrud.xhtml"
+							<p:menuitem value="Cliente" url="../Privado/ClienteCrud.xhtml"
 								target="centro" icon="pi pi-users" />
 						</p:submenu>
 						<p:submenu label="Documentos">
-							<p:menuitem value="Projeto" url="ProjetoCrud.xhtml"
+							<p:menuitem value="Projeto" url="../Privado/ProjetoCrud.xhtml"
 								target="centro" icon="pi pi-file" />
-							<p:menuitem value="Requisição" url="RequisicaoCrud.xhtml"
+							<p:menuitem value="Requisição" url="../Privado/RequisicaoCrud.xhtml"
 								target="centro" icon="pi pi-file-o" />
 							<p:menuitem value="Requisição Programada"
-								url="RequisicaoProgramadaCrud.xhtml" target="centro"
+								url="../Privado/RequisicaoProgramadaCrud.xhtml" target="centro"
 								icon="pi pi-ticket" />
 							<p:menuitem value="Requisição em Andamento"
-								url="RequisicaoAndamentoCrud.xhtml" target="centro"
+								url="../Privado/RequisicaoAndamentoCrud.xhtml" target="centro"
 								icon="pi pi-ticket" />
 						</p:submenu>
 					</p:submenu>
-					<p:submenu label="Outros">
+					<p:submenu label="Relatórios">
+						
+					</p:submenu>
+					<p:submenu label="Sobre">
 						
 					</p:submenu>
 				</p:panelMenu>

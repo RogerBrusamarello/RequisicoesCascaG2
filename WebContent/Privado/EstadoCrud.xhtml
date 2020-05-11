@@ -4,6 +4,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+	<title>Estado</title>
 </h:head>
 
 <h:body onload="#{estadoCrud.carregarLista()}">
@@ -19,6 +20,7 @@
 				icon="ui-icon-trash" onclick="return confirm('Excluir?')"
 				disabled="#{estadoCrud.selecionado==null}" update="consulta" />
 			<p:dataTable var="o" value="#{estadoCrud.lista}"
+				rowClasses="order-table-odd-row,order-table-even-row"
 				emptyMessage="Nada para mostrar!" selectionMode="single"
 				selection="#{estadoCrud.selecionado}" rowKey="#{o.id}" rows="5"
 				paginator="true"
@@ -28,13 +30,15 @@
 				currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}">
 				<p:ajax event="rowSelect" update="consulta" />
 				<p:ajax event="rowUnselect" update="consulta" />
-				<p:column headerText="Código" style="width: 50px">
+				<p:column headerText="Código" sortBy="#{o.id}" filterBy="#{o.id}"
+					style="width: 75px">
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
-				<p:column headerText="Nome">
+				<p:column headerText="Nome" sortBy="#{o.nome}" filterBy="#{o.nome}">
 					<p:outputLabel value="#{o.nome}" />
 				</p:column>
-				<p:column headerText="Sigla" style="width:70px">
+				<p:column headerText="Sigla" sortBy="#{o.uf}" filterBy="#{o.uf}"
+					style="width:70px">
 					<p:outputLabel value="#{o.uf}" />
 				</p:column>
 			</p:dataTable>
@@ -47,14 +51,16 @@
 			<p:growl></p:growl>
 			<p:panelGrid columns="2">
 				<p:outputLabel value="Código" />
-				<p:inputNumber readonly="true" value="#{estadoCrud.selecionado.id}" size="3" />
+				<p:inputNumber readonly="true" value="#{estadoCrud.selecionado.id}"
+					size="3" />
 
 				<p:outputLabel for="nome" value="Nome" />
-				<p:inputText id="nome" required="true" value="#{estadoCrud.selecionado.nome}" size="28" />
+				<p:inputText id="nome" required="true"
+					value="#{estadoCrud.selecionado.nome}" size="28" />
 
 				<p:outputLabel for="sigla" value="Sigla" />
-				<p:inputText id="sigla" required="true" value="#{estadoCrud.selecionado.uf}" maxlength="2"
-					size="1" />
+				<p:inputText id="sigla" required="true"
+					value="#{estadoCrud.selecionado.uf}" maxlength="2" size="1" />
 
 			</p:panelGrid>
 

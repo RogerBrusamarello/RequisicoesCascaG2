@@ -4,9 +4,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-
-<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
-
+	<title>Cliente</title>
 </h:head>
 
 <h:body onload="#{clienteCrud.carregarLista()}">
@@ -22,6 +20,8 @@
 				icon="pi pi-trash" onclick="return confirm('Excluir?')"
 				disabled="#{clienteCrud.selecionado==null}" update="consulta" style="horizontal-align:center"/>
 			<p:dataTable var="o" value="#{clienteCrud.lista}"
+				styleClass="order-table" headerClass="order-table-header"
+				rowClasses="order-table-odd-row,order-table-even-row"
 				emptyMessage="Nada para mostrar!" selectionMode="single"
 				selection="#{clienteCrud.selecionado}" rowKey="#{o.id}" rows="5"
 				paginator="true"
@@ -32,33 +32,34 @@
 				<p:ajax event="rowSelect" update="consulta" />
 				<p:ajax event="rowUnselect" update="consulta" />
 				<p:column headerText="Código" sortBy="#{o.id}" filterBy="#{o.id}"
-					style="width: 50px">
+					style="width: 75px; text-align: center;">
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
 				<p:column headerText="Nome Cliente" sortBy="#{o.nome}"
-					filterBy="#{o.nome}">
+					filterBy="#{o.nome}" style="text-align: center;">
 					<p:outputLabel value="#{o.nome}" />
 				</p:column>
 				<p:column headerText="Função" sortBy="#{o.funcao}"
-					filterBy="#{o.funcao}">
+					filterBy="#{o.funcao}" style="text-align: center;">
 					<p:outputLabel value="#{o.funcao}" />
 				</p:column>
-				<!-- <p:column headerText="CPF" sortBy="#{o.cpf}" filterBy="#{o.cpf}" style="width: 115px">
+				<!-- <p:column headerText="CPF" sortBy="#{o.cpf}" filterBy="#{o.cpf}" style="width: 115px; text-align: center;">
 					<p:outputLabel value="#{o.cpf}" />
 				</p:column>
-				<p:column headerText="RG" sortBy="#{o.rg}" filterBy="#{o.rg}">
+				<p:column headerText="RG" sortBy="#{o.rg}" filterBy="#{o.rg}" style="text-align: center;">
 					<p:outputLabel value="#{o.rg}" />
 				</p:column> -->
 				<p:column headerText="E-mail" sortBy="#{o.email}"
-					filterBy="#{o.email}">
+					filterBy="#{o.email}" style="text-align: center;">
 					<p:outputLabel value="#{o.email}" />
 				</p:column>
 				<p:column headerText="Celular" sortBy="#{o.celular}"
-					filterBy="#{o.celular}" style="width: 120px">
+					filterBy="#{o.celular}" style="width: 120px; text-align: center;">
 					<p:outputLabel value="#{o.celular}" />
 				</p:column>
 				<p:column headerText="Outras Informações"
-					sortBy="#{o.outrasInformacoes}" filterBy="#{o.outrasInformacoes}">
+					sortBy="#{o.outrasInformacoes}" filterBy="#{o.outrasInformacoes}"
+					style="text-align: center;">
 					<p:outputLabel value="#{o.outrasInformacoes}" />
 				</p:column>
 
@@ -85,7 +86,8 @@
 				<p:outputLabel for="rg" value="RG" />
 				<p:inputText id="rg" required="true" value="#{clienteCrud.selecionado.rg}" size="10" />
 
-				<p:outputLabel for="email" value="Email" />
+				<p:outputLabel for="email" value="Email"
+					rendered="#{clienteCrud.selecionado.id == null}" />
 				<p:inputText id="email" required="true" value="#{clienteCrud.selecionado.email}" size="28" />
 
 				<p:outputLabel for="celular" value="Celular" />

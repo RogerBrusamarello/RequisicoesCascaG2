@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Login</title>
+</h:head>
+<h:body style="background-color: #585858">
+	<h:form>
+		<p:focus for="email" />
+		<p:growl></p:growl>
+		<p:panelGrid columns="2"
+			style="position: absolute; left: 50%; top: 50%; margin-left:-135px; margin-top:-85px;">
+			<f:facet name="header">
+				<p:outputLabel value="Autenticação" />
+			</f:facet>
+			<p:outputLabel value="Email:" for="email" />
+			<p:inputText id="email" size="20" maxlength="100"
+				value="#{loginController.email}" />
+			<p:outputLabel value="Senha:" for="senha" />
+			<p:password id="senha" size="10" value="#{loginController.senha}" />
+			<f:facet name="footer">
+				<p:commandButton value="Entrar" action="#{loginController.entrar}"
+					ajax="false" />
+			</f:facet>
+		</p:panelGrid>
+	</h:form>
+</h:body>
+</html>

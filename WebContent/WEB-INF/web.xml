@@ -29,5 +29,4 @@
 		<param-name>primefaces.THEME</param-name>
 		<param-value>luna-blue</param-value>
 	</context-param>
-
 </web-app>
