@@ -3,6 +3,13 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
+
+	<title>Req. Programada</title>
+	<style type="text/css">
+.ui-outputlabel {
+	color: #F2F5A9 !important;
+}
+</style>
 </h:head>
 
 <h:body onload="#{requisicaoProgramadaCrud.carregarLista()}">
@@ -31,28 +38,35 @@
 				currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}">
 				<p:ajax event="rowSelect" update="consulta" />
 				<p:ajax event="rowUnselect" update="consulta" />
-				<p:column headerText="Código" style="width: 50px">
+				<p:column headerText="Código" sortBy="#{o.id}" filterBy="#{o.id}"
+					style="text-align: center;">
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
-				<p:column headerText="Data" style="width: 75px" >
+				<p:column headerText="Data" sortBy="#{o.data}"
+					filterBy="#{o.data}" style="text-align: center;">
 					<h:outputText value="#{o.data}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
-				<p:column headerText="Data Inicio" style="width: 75px" >
+				<p:column headerText="Data Inicio" sortBy="#{o.dataInicio}"
+					filterBy="#{o.dataInicio}" style="text-align: center; width: 75px;">
 					<h:outputText value="#{o.dataInicio}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
-				<p:column headerText="Data Termino" style="width: 75px" >
+				<p:column headerText="Data Termino" sortBy="#{o.dataTermino}"
+					filterBy="#{o.dataTermino}"
+					style="text-align: center; width: 75px;">
 					<h:outputText value="#{o.dataTermino}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
-				<p:column headerText="Requisição">
+				<p:column headerText="Requisição" sortBy="#{o.requisicao}"
+					filterBy="#{o.requisicao}" style="text-align: center; width: 75px;">
 					<p:outputLabel value="#{o.requisicao}" />
 				</p:column>
-				<p:column headerText="Pessoa">
+				<p:column headerText="Pessoa" sortBy="#{o.pessoa}"
+					filterBy="#{o.pessoa}" style="text-align: center; width: 75px;">
 					<p:outputLabel value="#{o.pessoa}" />
 				</p:column>
 			</p:dataTable>
@@ -80,23 +94,26 @@
 					converter="PessoaConverter"
 					completeMethod="#{requisicaoProgramadaCrud.completePessoa}" />
 
-				<p:inputMask mask="99/99/9999" value="#{requisicaoProgramadaCrud.selecionado.data}"
+				<p:inputMask mask="99/99/9999"
+					value="#{requisicaoProgramadaCrud.selecionado.data}"
 					readonly="false" size="8" rendered="False">
 					<f:convertDateTime pattern="dd/MM/yyyy" />
 				</p:inputMask>
-				
+
 				<p:outputLabel value="Data Inicio" />
-				<p:datePicker value="#{requisicaoProgramadaCrud.selecionado.dataInicio}"
+				<p:datePicker
+					value="#{requisicaoProgramadaCrud.selecionado.dataInicio}"
 					readonly="false" size="8" showIcon="true" pattern="dd/MM/yyyy"
 					locale="de" monthNavigator="true" yearNavigator="true">
 				</p:datePicker>
-				
+
 				<p:outputLabel value="Data Termino" />
-				<p:datePicker value="#{requisicaoProgramadaCrud.selecionado.dataTermino}"
+				<p:datePicker
+					value="#{requisicaoProgramadaCrud.selecionado.dataTermino}"
 					readonly="false" size="8" showIcon="true" pattern="dd/MM/yyyy"
 					locale="de" monthNavigator="true" yearNavigator="true">
 				</p:datePicker>
-				
+
 			</p:panelGrid>
 
 			<p:commandButton value="Salvar"

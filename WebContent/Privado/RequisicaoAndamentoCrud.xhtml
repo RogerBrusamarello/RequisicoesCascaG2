@@ -3,6 +3,13 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
+
+	<title>Req. Andamento</title>
+	<style type="text/css">
+.ui-outputlabel {
+	color: #F2F5A9 !important;
+}
+</style>
 </h:head>
 
 <h:body onload="#{requisicaoAndamentoCrud.carregarLista()}">
@@ -31,30 +38,39 @@
 				currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}">
 				<p:ajax event="rowSelect" update="consulta" />
 				<p:ajax event="rowUnselect" update="consulta" />
-				<p:column headerText="Código" style="width: 50px">
+				<p:column headerText="Código" sortBy="#{o.id}" filterBy="#{o.id}"
+					style="width: 50px; text-align: center;">
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
-				<p:column headerText="Data" style="width: 75px" >
+				<p:column headerText="Data" sortBy="#{o.data}" filterBy="#{o.data}"
+					style="text-align: center;">
 					<h:outputText value="#{o.data}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
-				<p:column headerText="Requisição">
+				<p:column headerText="Requisição" sortBy="#{o.requisicao}"
+					filterBy="#{o.requisicao}" style="width: 75px; text-align: center;">
 					<p:outputLabel value="#{o.requisicao}" />
 				</p:column>
-				<p:column headerText="Pessoa">
+				<p:column headerText="Pessoa" sortBy="#{o.pessoa}"
+					filterBy="#{o.pessoa}" style="text-align: center;">
 					<p:outputLabel value="#{o.pessoa}" />
 				</p:column>
-				<p:column headerText="Título">
+				<p:column headerText="Título" sortBy="#{o.titulo}"
+					filterBy="#{o.titulo}" style="text-align: center;">
 					<p:outputLabel value="#{o.titulo}" />
 				</p:column>
-				<p:column headerText="Descrição">
+				<p:column headerText="Descrição" sortBy="#{o.descricao}"
+					filterBy="#{o.descricao}" style="text-align: center;">
 					<p:outputLabel value="#{o.descricao}" />
 				</p:column>
-				<p:column headerText="Horas realizadas">
+				<p:column headerText="Horas realizadas"
+					sortBy="#{o.horasRealizadas}" filterBy="#{o.horasRealizas}"
+					style="text-align: center;">
 					<p:outputLabel value="#{o.horasRealizadas}" />
 				</p:column>
-				<p:column headerText="Status">
+				<p:column headerText="Status" sortBy="#{o.status}"
+					filterBy="#{o.status}" style="text-align: center;">>
 					<p:outputLabel value="#{o.status}" />
 				</p:column>
 			</p:dataTable>
@@ -81,7 +97,7 @@
 					value="#{requisicaoAndamentoCrud.selecionado.pessoa}"
 					converter="PessoaConverter"
 					completeMethod="#{requisicaoAndamentoCrud.completePessoa}" />
-					
+
 				<p:outputLabel value="Data" />
 				<p:datePicker value="#{requisicaoAndamentoCrud.selecionado.data}"
 					readonly="false" size="8" showIcon="true" pattern="dd/MM/yyyy"
