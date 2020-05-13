@@ -95,15 +95,15 @@
 					cols="21" rows="3" />
 
 				<p:outputLabel for="dataCriada" value="Data Criada" />
-				<p:inputText  id="dataCriada" required="true" value="#{requisicaoCrud.selecionado.dataCriada}"
-					readonly="false" size="8">
-					<f:convertDateTime pattern="dd/MM/yyyy" />
+				<p:datePicker id="dataCriada" required="true" value="#{requisicaoCrud.selecionado.dataCriada}"
+					readonly="false" size="8" showIcon="true" pattern="dd/MM/yyyy"
+					locale="de" monthNavigator="true" yearNavigator="true">
 				</p:datePicker>
 
 				<p:outputLabel for="prazoLimite" value="Prazo Limite" />
-				<p:inputMask id="prazoLimite" required="true" mask = "99/99/9999" value="#{requisicaoCrud.selecionado.prazoLimite}"
-					size="7">
-					<f:convertDateTime pattern="dd/MM/yyyy" />
+				<p:datePicker  id="prazoLimite" required="false" value="#{requisicaoCrud.selecionado.prazoLimite}"
+					readonly="false" size="8" showIcon="true" pattern="dd/MM/yyyy"
+					locale="de" monthNavigator="true" yearNavigator="true">
 				</p:datePicker>
 
 				<p:outputLabel for="prioridade" value="Prioridade" />
@@ -125,16 +125,6 @@
 				<p:inputText id="horasPrevistas" required="true" value="#{requisicaoCrud.selecionado.horasPrevistas}"
 					size="3"/>
 
-				<p:outputLabel for="horasRealizadas" value="Horas Realizadas" />
-				<p:inputText id="horasRealizadas" required="true" value="#{requisicaoCrud.selecionado.horasRealizadas}"
-					readonly="true" size="3"/>
-
-				<p:outputLabel value="Data Finalizada" />
-				<p:inputText value="#{requisicaoCrud.selecionado.dataFinalizada}"
-					readonly="false" size="8">
-					<f:convertDateTime pattern="dd/MM/yyyy" />
-				</p:inputText>
-
 				<p:outputLabel value="Projeto" for="inputProjeto" />
 				<p:autoComplete id="inputProjeto" dropdown="true" multiple="false"
 					forceSelection="true" var="obj" itemLabel="#{obj.nome}"
@@ -154,7 +144,7 @@
 					forceSelection="true" var="obj" itemLabel="#{obj.nome}"
 					itemValue="#{obj}" value="#{requisicaoCrud.selecionado.criou}"
 					converter="PessoaConverter"
-					completeMethod="#{requisicaoCrud.completePessoa}"  required="true"/>
+					completeMethod="#{requisicaoCrud.completePessoa}" required="true"/>
 
 			</p:panelGrid>
 
