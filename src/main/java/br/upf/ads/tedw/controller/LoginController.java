@@ -21,11 +21,15 @@ public class LoginController implements Serializable {
 	public static final long serialVersionUID = 1L;
 	public String email;
 	public String senha;
+
 	/**
 	 * Atributo para controle do usuário logado. É inicializado quando informados
 	 * email e senha válidos. Setado para null quando o usuário sair do sistema.
 	 */
 	public Pessoa usuarioLogado = null;
+
+	public LoginController() {
+	}
 
 	public String getEmail() {
 		return email;
@@ -43,7 +47,12 @@ public class LoginController implements Serializable {
 		this.senha = senha;
 	}
 
-	public LoginController() {
+	public Pessoa getUsuarioLogado() {
+		return usuarioLogado;
+	}
+
+	public void setUsuarioLogado(Pessoa usuarioLogado) {
+		this.usuarioLogado = usuarioLogado;
 	}
 
 	/**
@@ -54,7 +63,7 @@ public class LoginController implements Serializable {
 	 * @throws Exception
 	 */
 	public String entrar() {
-		EntityManager em = JPAUtil.getEntityManager(); 
+		EntityManager em = JPAUtil.getEntityManager();
 		Query qry = em.createQuery("from Pessoa where email = :email and senha = :senha");
 		qry.setParameter("email", email);
 		qry.setParameter("senha", Encrypt.encryptMd5(senha));
@@ -81,14 +90,8 @@ public class LoginController implements Serializable {
 		setUsuarioLogado(null);
 		FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário Desconectado!", "");
 		FacesContext.getCurrentInstance().addMessage(null, mensagem);
-		return "/faces/Login/LoginForm.xhtml";
-	}
-
-	public Pessoa getUsuarioLogado() {
-		return usuarioLogado;
-	}
-
-	public void setUsuarioLogado(Pessoa usuarioLogado) {
-		this.usuarioLogado = usuarioLogado;
+		// return "../Login/LoginForm.xhtml";
+		// return "/faces/index.xhtml";
+		return "index.xhtml";
 	}
 }
