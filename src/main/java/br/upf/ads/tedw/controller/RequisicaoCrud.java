@@ -41,7 +41,6 @@ public class RequisicaoCrud implements Serializable {
 
 	public void salvarAnexo() {
 		if (file != null) {
-			//file.getFileName();
 			anexoSelecionado.setRequisicao(selecionado);
 			anexoSelecionado.setArquivo(file.getFileName());
 			anexoSelecionado.setArquivoTipo(file.getContentType());
