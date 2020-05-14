@@ -4,27 +4,31 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 
-	<title>Req. Andamento</title>
+	<title>Andamento da Requisição</title>
+
 	<style type="text/css">
-.ui-outputlabel {
-	color: #F2F5A9 !important;
-}
-</style>
+		.ui-outputLabel {
+			color: #F2F5A9 !important;
+		}
+	</style>
+
 </h:head>
 
 <h:body onload="#{requisicaoAndamentoCrud.carregarLista()}">
 	<!-- Painel de consulta -->
 	<p:panel id="consulta" visible="#{!requisicaoAndamentoCrud.editando}">
+	<h:outputText value="Andamento da Requisição" style="color: #FFBF00; font-weight: bolder; font-size: 20;"/>
+	<p:separator />
 		<h:form>
 			<p:commandButton value="Incluir"
-				action="#{requisicaoAndamentoCrud.incluir}" icon="ui-icon-plusthick"
+				action="#{requisicaoAndamentoCrud.incluir}" icon="pi pi-plus"
 				update="consulta edicao"></p:commandButton>
 			<p:commandButton value="Alterar"
-				action="#{requisicaoAndamentoCrud.alterar}" icon="ui-icon-pencil"
+				action="#{requisicaoAndamentoCrud.alterar}" icon="pi pi-pencil"
 				disabled="#{requisicaoAndamentoCrud.selecionado==null}"
 				update="consulta edicao"></p:commandButton>
 			<p:commandButton value="Excluir"
-				action="#{requisicaoAndamentoCrud.excluir}" icon="ui-icon-trash"
+				action="#{requisicaoAndamentoCrud.excluir}" icon="pi pi-trash"
 				onclick="return confirm('Excluir?')"
 				disabled="#{requisicaoAndamentoCrud.selecionado==null}"
 				update="consulta"></p:commandButton>
@@ -39,12 +43,12 @@
 				<p:ajax event="rowSelect" update="consulta" />
 				<p:ajax event="rowUnselect" update="consulta" />
 				<p:column headerText="Código" sortBy="#{o.id}" filterBy="#{o.id}"
-					style="width: 50px; text-align: center;">
+					style="width: 75px; text-align: center;">
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
 				<p:column headerText="Data" sortBy="#{o.data}" filterBy="#{o.data}"
-					style="text-align: center;">
-					<h:outputText value="#{o.data}">
+					style="width: 80px; text-align: center;">
+					<h:outputText value="#{o.data}" style="color: #F2F5A9;">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
@@ -69,8 +73,8 @@
 					style="text-align: center;">
 					<p:outputLabel value="#{o.horasRealizadas}" />
 				</p:column>
-				<p:column headerText="Status" sortBy="#{o.status}"
-					filterBy="#{o.status}" style="text-align: center;">>
+				<p:column headerText="Status Projeto" sortBy="#{o.status}"
+					filterBy="#{o.status}" style="text-align: center;">
 					<p:outputLabel value="#{o.status}" />
 				</p:column>
 			</p:dataTable>

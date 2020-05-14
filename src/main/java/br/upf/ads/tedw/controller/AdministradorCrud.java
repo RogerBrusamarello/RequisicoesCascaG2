@@ -51,7 +51,7 @@ public class AdministradorCrud implements Serializable {
 	@SuppressWarnings("unchecked")
 	public void carregarLista() {
 		EntityManager em = JPAUtil.getEntityManager();
-		lista = em.createQuery("from Administrador").getResultList();
+		lista = em.createQuery("from Administrador order by nome").getResultList();
 		em.close();
 	}
 

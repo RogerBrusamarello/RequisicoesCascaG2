@@ -17,6 +17,8 @@
 <h:body onload="#{usuarioCrud.carregarLista()}">
 	<!-- Painel de consulta -->
 	<p:panel id="consulta" visible="#{!usuarioCrud.editando}">
+	<h:outputText value="Usuário" style="color: #FFBF00; font-weight: bolder; font-size: 20;"/>
+	<p:separator />
 		<h:form>
 			<p:commandButton value="Incluir" action="#{usuarioCrud.incluir}"
 				icon="pi pi-plus" update="consulta edicao"

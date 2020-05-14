@@ -68,7 +68,7 @@ public class LoginController implements Serializable {
 	 */
 	public String entrar() {
 		EntityManager em = JPAUtil.getEntityManager();
-		Query qry = em.createQuery("from Usuario where email = :email and senha = :senha");
+		Query qry = em.createQuery("from Pessoa where email = :email and senha = :senha");
 		qry.setParameter("email", email);
 		qry.setParameter("senha", Encrypt.encryptMd5(senha));
 		@SuppressWarnings("unchecked")
@@ -100,10 +100,6 @@ public class LoginController implements Serializable {
 		setUsuarioLogado(null);
 		FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário Desconectado!", "");
 		FacesContext.getCurrentInstance().addMessage(null, mensagem);
-		// return "../Login/LoginForm.xhtml";
-		// return "/faces/index.xhtml";
-		//return "../index.xhtml";
-		
 		HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
 		HttpServletRequest req  = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		String contextPath = req.getContextPath();

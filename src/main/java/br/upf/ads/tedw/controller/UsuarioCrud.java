@@ -51,7 +51,7 @@ public class UsuarioCrud implements Serializable {
 	@SuppressWarnings("unchecked")
 	public void carregarLista() {
 		EntityManager em = JPAUtil.getEntityManager();
-		lista = em.createQuery("from Usuario").getResultList();
+		lista = em.createQuery("from Usuario order by nome").getResultList();
 		em.close();
 	}
 

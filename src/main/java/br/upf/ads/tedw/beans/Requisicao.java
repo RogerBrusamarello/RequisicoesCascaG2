@@ -94,9 +94,7 @@ public class Requisicao implements Serializable {
 	@NotNull(message = "Selecione a pessoa responsável pela criação desta requisição")
 	private Pessoa criou;
 
-	// VER
-	@OneToMany(mappedBy = "requisicao", cascade = CascadeType.ALL, 
-			   orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "requisicao", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<RequisicaoAnexo> anexos;
 
 	private static final long serialVersionUID = 1L;

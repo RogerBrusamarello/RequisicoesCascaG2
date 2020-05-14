@@ -51,7 +51,7 @@ public class ClienteCrud implements Serializable {
 	@SuppressWarnings("unchecked")
 	public void carregarLista() {
 		EntityManager em = JPAUtil.getEntityManager();
-		lista = em.createQuery("from Cliente").getResultList();
+		lista = em.createQuery("from Cliente order by nome").getResultList();
 		em.close();
 	}
 

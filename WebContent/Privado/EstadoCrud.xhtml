@@ -7,7 +7,7 @@
 	<title>Estado</title>
 	
 	<style type="text/css">
-		.ui-outputlabel {
+		.ui-outputLabel {
 			color: #F2F5A9 !important;
 		}
 	</style>
@@ -17,6 +17,8 @@
 <h:body onload="#{estadoCrud.carregarLista()}">
 	<!-- Painel de consulta -->
 	<p:panel id="consulta" visible="#{!estadoCrud.editando}">
+	<h:outputText value="Estado" style="color: #FFBF00; font-weight: bolder; font-size: 20;"/>
+	<p:separator />
 		<h:form>
 			<p:commandButton value="Incluir" action="#{estadoCrud.incluir}"
 				icon="ui-icon-plusthick" update="consulta edicao" />

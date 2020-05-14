@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Version;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -22,6 +23,9 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class RequisicaoAnexo implements Serializable {
 
+	@Version
+	private Integer version;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ReqAnexoId")
 	@SequenceGenerator(name = "ReqAnexoId", sequenceName = "ReqAnexoId", allocationSize = 1)
@@ -40,9 +44,6 @@ public class RequisicaoAnexo implements Serializable {
 	
 	@Lob
 	private byte[] bytes;
-	
-	
-	
 	
 	@ManyToOne(optional = false)
 	@NotNull(message = "Selecione o projeto")

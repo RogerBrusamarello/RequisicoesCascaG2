@@ -5,35 +5,35 @@
 
 <h:head>
 	<title>Administrador</title>
-
+	
 	<style type="text/css">
 		.ui-outputlabel {
 			color: #F2F5A9 !important;
 		}
 	</style>
-
+	
 </h:head>
 
 <h:body onload="#{administradorCrud.carregarLista()}">
 	<!-- Painel de consulta -->
 	<p:panel id="consulta" visible="#{!administradorCrud.editando}">
+	<h:outputText value="Administrador" style="color: #FFBF00; font-weight: bolder; font-size: 20;"/>
+	<p:separator />
 		<h:form>
-			<p:commandButton value="Incluir"
-				action="#{administradorCrud.alterar}" icon="pi pi-plus"
+			<p:commandButton value="Incluir" action="#{administradorCrud.incluir}"
+				icon="pi pi-plus" update="consulta edicao"
+				style="horizontal-align:center" />
+			<p:commandButton value="Alterar" action="#{administradorCrud.alterar}"
+				icon="pi pi-pencil" disabled="#{administradorCrud.selecionado==null}"
 				update="consulta edicao" style="horizontal-align:center" />
-			<p:commandButton value="Alterar"
-				action="#{administradorCrud.alterar}" icon="pi pi-pencil"
-				disabled="#{administradorCrud.selecionado==null}"
-				update="consulta edicao" style="horizontal-align:center" />
-			<p:commandButton value="Excluir"
-				action="#{administradorCrud.excluir}" icon="pi pi-trash"
-				onclick="return confirm('Excluir?')"
+			<p:commandButton value="Excluir" action="#{administradorCrud.excluir}"
+				icon="pi pi-trash" onclick="return confirm('Excluir?')"
 				disabled="#{administradorCrud.selecionado==null}" update="consulta"
 				style="horizontal-align:center" />
 			<p:dataTable var="o" value="#{administradorCrud.lista}"
 				emptyMessage="Nada para mostrar!" selectionMode="single"
-				selection="#{administradorCrud.selecionado}" rowKey="#{o.id}"
-				rows="5" paginator="true"
+				selection="#{administradorCrud.selecionado}" rowKey="#{o.id}" rows="5"
+				paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
 				{LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15"
@@ -102,8 +102,8 @@
 
 				<p:outputLabel value="Outras Informações" />
 				<h:inputTextarea
-					value="#{administradorCrud.selecionado.outrasInformacoes}"
-					cols="30" rows="3" />
+					value="#{administradorCrud.selecionado.outrasInformacoes}" cols="30"
+					rows="3" />
 
 				<p:outputLabel for="pwd1" value="Senha"
 					rendered="#{administradorCrud.selecionado.id == null}" />
@@ -121,9 +121,9 @@
 
 			<p:commandButton value="Salvar" action="#{administradorCrud.salvar}"
 				update="consulta edicao" style="horizontal-align:center" />
-			<p:commandButton value="Cancelar"
-				action="#{administradorCrud.cancelar}" immediate="true"
-				update="consulta edicao" style="horizontal-align:center" />
+			<p:commandButton value="Cancelar" action="#{administradorCrud.cancelar}"
+				immediate="true" update="consulta edicao"
+				style="horizontal-align:center" />
 		</h:form>
 	</p:panel>
 

@@ -2,22 +2,27 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
+
 <h:head>
+	<title>Requisição Anexo</title>
+
+	<style type="text/css">
+		.ui-outputLabel {
+			color: #F2F5A9 !important;
+		}
+	</style>
 
 </h:head>
+
 <h:body>
 	<p:dialog header="Arquivo" widgetVar="anexos" id="anexos" modal="true">
-
 		<h:form id="formEditAnexo" enctype="multipart/form-data">
-		
-		    <p:panelGrid>
-		       <p:outputLabel for="descricao" value="Descrição" />
-					<p:inputText id="descricao" required="true" size="60"
-						value="#{requisicaoCrud.anexoSelecionado.descricao}" />
-		    
-		    </p:panelGrid>
-		
-		
+			<p:panelGrid>
+				<p:outputLabel for="descricao" value="Descrição" />
+				<p:inputText id="descricao" required="true" size="60"
+					value="#{requisicaoCrud.anexoSelecionado.descricao}" />
+			</p:panelGrid>
+
 			<p:fileUpload value="#{requisicaoCrud.file}" mode="simple"
 				skinSimple="true" />
 			<br />
@@ -28,11 +33,7 @@
 			<p:commandButton value="Cancelar" ajax="false" immediate="true"
 				action="#{requisicaoCrud.cancelarAnexo}"
 				oncomplete="PF('anexos').hide();" />
-
-
-
 		</h:form>
-
 
 	</p:dialog>
 </h:body>

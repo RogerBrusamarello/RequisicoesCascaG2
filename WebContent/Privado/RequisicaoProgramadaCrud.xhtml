@@ -4,27 +4,31 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 
-	<title>Req. Programada</title>
+	<title>Requisição Programada</title>
+
 	<style type="text/css">
-.ui-outputlabel {
-	color: #F2F5A9 !important;
-}
-</style>
+		.ui-outputLabel {
+			color: #F2F5A9 !important;
+		}
+	</style>
+
 </h:head>
 
 <h:body onload="#{requisicaoProgramadaCrud.carregarLista()}">
 	<!-- Painel de consulta -->
 	<p:panel id="consulta" visible="#{!requisicaoProgramadaCrud.editando}">
+	<h:outputText value="Requisição Programada" style="color: #FFBF00; font-weight: bolder; font-size: 20;"/>
+	<p:separator />
 		<h:form>
 			<p:commandButton value="Incluir"
-				action="#{requisicaoProgramadaCrud.incluir}"
-				icon="ui-icon-plusthick" update="consulta edicao"></p:commandButton>
+				action="#{requisicaoProgramadaCrud.incluir}" icon="pi pi-plus"
+				update="consulta edicao"></p:commandButton>
 			<p:commandButton value="Alterar"
-				action="#{requisicaoProgramadaCrud.alterar}" icon="ui-icon-pencil"
+				action="#{requisicaoProgramadaCrud.alterar}" icon="pi pi-pencil"
 				disabled="#{requisicaoProgramadaCrud.selecionado==null}"
 				update="consulta edicao"></p:commandButton>
 			<p:commandButton value="Excluir"
-				action="#{requisicaoProgramadaCrud.excluir}" icon="ui-icon-trash"
+				action="#{requisicaoProgramadaCrud.excluir}" icon="pi pi-trash"
 				onclick="return confirm('Excluir?')"
 				disabled="#{requisicaoProgramadaCrud.selecionado==null}"
 				update="consulta"></p:commandButton>
@@ -39,34 +43,34 @@
 				<p:ajax event="rowSelect" update="consulta" />
 				<p:ajax event="rowUnselect" update="consulta" />
 				<p:column headerText="Código" sortBy="#{o.id}" filterBy="#{o.id}"
-					style="text-align: center;">
+					style="width: 75px; text-align: center;">
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
-				<p:column headerText="Data" sortBy="#{o.data}"
-					filterBy="#{o.data}" style="text-align: center;">
-					<h:outputText value="#{o.data}">
+				<p:column headerText="Data" sortBy="#{o.data}" filterBy="#{o.data}"
+					style="width: 80px; text-align: center;">
+					<h:outputText value="#{o.data}" style="color: #F2F5A9;">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
-				<p:column headerText="Data Inicio" sortBy="#{o.dataInicio}"
-					filterBy="#{o.dataInicio}" style="text-align: center; width: 75px;">
-					<h:outputText value="#{o.dataInicio}">
+				<p:column headerText="Início" sortBy="#{o.dataInicio}"
+					filterBy="#{o.dataInicio}" style="width: 80px; text-align: center;">
+					<h:outputText value="#{o.dataInicio}" style="color: #F2F5A9;">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
-				<p:column headerText="Data Termino" sortBy="#{o.dataTermino}"
+				<p:column headerText="Término" sortBy="#{o.dataTermino}"
 					filterBy="#{o.dataTermino}"
-					style="text-align: center; width: 75px;">
-					<h:outputText value="#{o.dataTermino}">
+					style="width: 90px; text-align: center;">
+					<h:outputText value="#{o.dataTermino}" style="color: #F2F5A9;">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
 				<p:column headerText="Requisição" sortBy="#{o.requisicao}"
-					filterBy="#{o.requisicao}" style="text-align: center; width: 75px;">
+					filterBy="#{o.requisicao}" style="text-align: center;">
 					<p:outputLabel value="#{o.requisicao}" />
 				</p:column>
 				<p:column headerText="Pessoa" sortBy="#{o.pessoa}"
-					filterBy="#{o.pessoa}" style="text-align: center; width: 75px;">
+					filterBy="#{o.pessoa}" style="text-align: center; width: 140px;">
 					<p:outputLabel value="#{o.pessoa}" />
 				</p:column>
 			</p:dataTable>

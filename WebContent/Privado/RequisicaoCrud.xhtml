@@ -5,11 +5,22 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
+	<title>Requisição</title>
+
+	<style type="text/css">
+		.ui-outputLabel {
+			color: #F2F5A9 !important;
+		}
+	</style>
+
 </h:head>
+
 
 <h:body onload="#{requisicaoCrud.carregarLista()}">
 	<!-- Painel de consulta -->
 	<p:panel id="consulta" visible="#{!requisicaoCrud.editando}">
+	<h:outputText value="Requisição" style="color: #FFBF00; font-weight: bolder; font-size: 20;"/>
+	<p:separator />
 		<h:form>
 			<p:commandButton value="Incluir" action="#{requisicaoCrud.incluir}"
 				icon="pi pi-plus" update="consulta edicao"
@@ -32,56 +43,57 @@
 				<p:ajax event="rowSelect" update="consulta" />
 				<p:ajax event="rowUnselect" update="consulta" />
 				<p:column headerText="Código" sortBy="#{o.id}" filterBy="#{o.id}"
-					style="width: 50px">
+					style="width: 75px; text-align: center;">
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
 				<p:column headerText="Título" sortBy="#{o.titulo}"
-					filterBy="#{o.titulo}">
+					filterBy="#{o.titulo}" style="text-align: center;">
 					<p:outputLabel value="#{o.titulo}" />
 				</p:column>
 				<p:column headerText="Descrição" sortBy="#{o.descricao}"
-					filterBy="#{o.descricao}">
+					filterBy="#{o.descricao}" style="text-align: center;">
 					<p:outputLabel value="#{o.descricao}" />
 				</p:column>
 
-				<!-- <p:column headerText="Data Criada" style="width: 75px">
-					<h:outputText value="#{o.dataCriada}">
+				<!-- <p:column headerText="Data Criada" style="width: 75px; text-align: center;">
+					<h:outputText value="#{o.dataCriada}" style="color: #F2F5A9;">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
-				<p:column headerText="Prazo Limite">
-					<h:outputText value="#{o.prazoLimite}">
+				<p:column headerText="Prazo Limite" style="text-align: center;">
+					<h:outputText value="#{o.prazoLimite}" style="color: #F2F5A9;">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>-->
 
 				<p:column headerText="Prioridade" sortBy="#{o.prioridade}"
-					filterBy="#{o.prioridade}">
+					filterBy="#{o.prioridade}" style="width: 75px; text-align: center;">
 					<p:outputLabel value="#{o.prioridade}" />
 				</p:column>
 
-				<!-- <p:column headerText="Horas Previstas">
+				<!-- <p:column headerText="Horas Previstas" style="text-align: center;">
 					<p:outputLabel value="#{o.horasPrevistas}" />
 				</p:column> 
-				<p:column headerText="Horas Realizadas">
+				<p:column headerText="Horas Realizadas" style="text-align: center;">
 					<p:outputLabel value="#{o.horasRealizadas}" />
 				</p:column>-->
 
 				<p:column headerText="Data Finalizada" sortBy="#{o.dataFinalizada}"
-					filterBy="#{o.dataFinalizada}">
-					<h:outputText value="#{o.dataFinalizada}">
+					filterBy="#{o.dataFinalizada}"
+					style="width: 80px; text-align: center;">
+					<h:outputText value="#{o.dataFinalizada}" style="color: #F2F5A9;">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
 				<p:column headerText="Projeto" sortBy="#{o.projeto}"
-					filterBy="#{o.projeto}">
+					filterBy="#{o.projeto}" style="text-align: center;">
 					<p:outputLabel value="#{o.projeto}" />
 				</p:column>
 
-				<!-- <p:column headerText="Solicitante">
+				<!-- <p:column headerText="Solicitante" style="text-align: center;">
 					<p:outputLabel value="#{o.solicitou}" />
 				</p:column>
-				<p:column headerText="Criador">
+				<p:column headerText="Criador" style="text-align: center;">
 					<p:outputLabel value="#{o.criou}" />
 				</p:column>-->
 
@@ -97,8 +109,8 @@
 
 				<p:panelGrid columns="2">
 
-					<p:outputLabel for="titulo" value="Titulo" />
-					<p:inputText id="titulo" required="true" size="60"
+					<p:outputLabel for="titulo" value="Título" />
+					<p:inputText id="titulo" required="true" size="30"
 						value="#{requisicaoCrud.selecionado.titulo}" />
 
 					<p:outputLabel for="descricao" value="Descrição" />
@@ -161,7 +173,6 @@
 						converter="PessoaConverter"
 						completeMethod="#{requisicaoCrud.completePessoa}" required="true" />
 
-
 					<p:outputLabel value="" />
 					<p:outputPanel>
 						<p:commandButton value="Salvar" action="#{requisicaoCrud.salvar}"
@@ -172,46 +183,30 @@
 					</p:outputPanel>
 				</p:panelGrid>
 
-
 				<p:outputPanel id="anexosList">
-
 					<p:commandButton value="incluir anexo" immediate="false"
 						action="#{requisicaoCrud.incluirAnexo}"
 						oncomplete="PF('anexos').show();"></p:commandButton>
 
-
 					<p:dataTable var="ane" value="#{requisicaoCrud.selecionado.anexos}"
-					   rowIndexVar="linha">
+						rowIndexVar="linha">
+
 						<p:column headerText="Arquivo">
 							<p:outputLabel value="#{ane.arquivo}"></p:outputLabel>
 						</p:column>
 
 						<p:column headerText="">
-
 							<p:commandButton value="Ver" immediate="true" ajax="false"
 								action="#{requisicaoCrud.downloadAnexo(linha)}"
-								onclick="document.getElementById('formEdicao').target='_blank';"
-								
-								></p:commandButton>
-
+								onclick="document.getElementById('formEdicao').target='_blank';"></p:commandButton>
 						</p:column>
-
-
 					</p:dataTable>
-
 				</p:outputPanel>
-
-
-
-
 			</p:panelGrid>
 		</h:form>
 	</p:panel>
 
-
 	<ui:include src="RequisicaoCrudAnexo.xhtml"></ui:include>
-
-
 
 </h:body>
 
