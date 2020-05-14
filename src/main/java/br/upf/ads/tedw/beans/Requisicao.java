@@ -2,14 +2,18 @@ package br.upf.ads.tedw.beans;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -91,8 +95,9 @@ public class Requisicao implements Serializable {
 	private Pessoa criou;
 
 	// VER
-	// @OneToMany(mappedBy = "requisicao", cascade = CascadeType.ALL)
-	// private List<RequisicaoAnexo> anexo;
+	@OneToMany(mappedBy = "requisicao", cascade = CascadeType.ALL, 
+			   orphanRemoval = true, fetch = FetchType.EAGER)
+	private List<RequisicaoAnexo> anexos;
 
 	private static final long serialVersionUID = 1L;
 
@@ -239,6 +244,14 @@ public class Requisicao implements Serializable {
 	@Override
 	public String toString() {
 		return titulo;
+	}
+
+	public List<RequisicaoAnexo> getAnexos() {
+		return anexos;
+	}
+
+	public void setAnexos(List<RequisicaoAnexo> anexos) {
+		this.anexos = anexos;
 	}
 
 }

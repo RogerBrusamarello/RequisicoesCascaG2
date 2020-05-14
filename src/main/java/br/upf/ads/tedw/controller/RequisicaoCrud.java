@@ -1,15 +1,22 @@
 package br.upf.ads.tedw.controller;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletResponse;
+
+import org.primefaces.model.file.UploadedFile;
 
 import br.upf.ads.tedw.beans.Pessoa;
 import br.upf.ads.tedw.beans.Projeto;
 import br.upf.ads.tedw.beans.Requisicao;
+import br.upf.ads.tedw.beans.RequisicaoAnexo;
 import br.upf.ads.tedw.jpa.JPAUtil;
 import br.upf.ads.tedw.jsf.JSFUtil;
 
@@ -23,6 +30,56 @@ public class RequisicaoCrud implements Serializable {
 	private Requisicao selecionado;
 	private List<Projeto> projetos;
 	private List<Pessoa> pessoas;
+
+	// Controle dos arquivos anexados
+	private UploadedFile file;
+	private RequisicaoAnexo anexoSelecionado;
+
+	public void incluirAnexo() {
+		anexoSelecionado = new RequisicaoAnexo();
+	}
+
+	public void salvarAnexo() {
+		if (file != null) {
+			//file.getFileName();
+			anexoSelecionado.setRequisicao(selecionado);
+			anexoSelecionado.setArquivo(file.getFileName());
+			anexoSelecionado.setArquivoTipo(file.getContentType());
+			anexoSelecionado.setBytes(file.getContent());
+			if (selecionado.getAnexos() == null) {
+				selecionado.setAnexos(new ArrayList<RequisicaoAnexo>());
+			}
+			selecionado.getAnexos().add(anexoSelecionado);
+			anexoSelecionado = new RequisicaoAnexo();
+		}
+
+	}
+
+	public void cancelarAnexo() {
+
+	}
+
+	public void excluirAnexo() {
+
+	}
+	
+	
+	public void downloadAnexo(Integer linha) throws IOException {
+		RequisicaoAnexo anexo = selecionado.getAnexos().get(linha); 
+        byte[] b = anexo.getBytes();
+        HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse(); 
+        res.setContentType(anexo.getArquivoTipo());
+        res.setHeader("Content-disposition", "inline;filename="+anexo.getArquivo()); // abre no navegador
+        //res.setHeader("Content-disposition", "attachment;filename="+anexo.getArquivo());
+        res.getOutputStream().write(b);
+        FacesContext.getCurrentInstance().responseComplete();
+	}
+	
+	
+	
+	
+
+	// ------------------------------------------
 
 	public RequisicaoCrud() {
 		editando = false;
@@ -80,6 +137,7 @@ public class RequisicaoCrud implements Serializable {
 	public void incluir() {
 		editando = true;
 		selecionado = new Requisicao();
+		anexoSelecionado = new RequisicaoAnexo();
 	}
 
 	public void alterar() {
@@ -139,5 +197,21 @@ public class RequisicaoCrud implements Serializable {
 	public void cancelar() {
 		editando = false;
 		selecionado = null;
+	}
+
+	public UploadedFile getFile() {
+		return file;
+	}
+
+	public void setFile(UploadedFile file) {
+		this.file = file;
+	}
+
+	public RequisicaoAnexo getAnexoSelecionado() {
+		return anexoSelecionado;
+	}
+
+	public void setAnexoSelecionado(RequisicaoAnexo anexoSelecionado) {
+		this.anexoSelecionado = anexoSelecionado;
 	}
 }

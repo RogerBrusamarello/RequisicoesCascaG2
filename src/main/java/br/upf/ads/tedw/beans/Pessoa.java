@@ -128,9 +128,8 @@ public abstract class Pessoa implements Serializable {
 		return celular;
 	}
 
-	public void setCelular(String celular) throws ParseException, com.sun.el.parser.ParseException {
-		this.celular = StringFormat.freeStringFormat(SpecialCharRemove.specialCharRemoveFromString(celular, 3),
-				"(##) #####-####", 11, 1); // Desta forma, formata os 11 últimos caracteres númericos informados
+	public void setCelular(String celular) {
+		this.celular = celular;
 	}
 
 	public String getSenha() {

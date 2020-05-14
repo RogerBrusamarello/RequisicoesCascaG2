@@ -33,8 +33,17 @@ public class RequisicaoAnexo implements Serializable {
 	private String descricao;
 
 	@Lob
-	private String arquivo;
-
+	private String arquivo; // nome do arquivo
+	
+	@Column(length = 100)
+	private String arquivoTipo; // tipo PDF, Doc ...
+	
+	@Lob
+	private byte[] bytes;
+	
+	
+	
+	
 	@ManyToOne(optional = false)
 	@NotNull(message = "Selecione o projeto")
 	private Requisicao requisicao;
@@ -105,6 +114,22 @@ public class RequisicaoAnexo implements Serializable {
 	@Override
 	public String toString() {
 		return descricao;
+	}
+
+	public String getArquivoTipo() {
+		return arquivoTipo;
+	}
+
+	public void setArquivoTipo(String arquivoTipo) {
+		this.arquivoTipo = arquivoTipo;
+	}
+
+	public byte[] getBytes() {
+		return bytes;
+	}
+
+	public void setBytes(byte[] bytes) {
+		this.bytes = bytes;
 	}
 
 }

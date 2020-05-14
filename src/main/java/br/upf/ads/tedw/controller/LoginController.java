@@ -1,5 +1,6 @@
 package br.upf.ads.tedw.controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,8 +10,11 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import br.upf.ads.tedw.beans.Pessoa;
+import br.upf.ads.tedw.beans.Usuario;
 import br.upf.ads.tedw.jpa.JPAUtil;
 import br.upf.ads.tedw.suport.Encrypt;
 
@@ -64,11 +68,12 @@ public class LoginController implements Serializable {
 	 */
 	public String entrar() {
 		EntityManager em = JPAUtil.getEntityManager();
-		Query qry = em.createQuery("from Pessoa where email = :email and senha = :senha");
+		Query qry = em.createQuery("from Usuario where email = :email and senha = :senha");
 		qry.setParameter("email", email);
 		qry.setParameter("senha", Encrypt.encryptMd5(senha));
 		@SuppressWarnings("unchecked")
 		List<Pessoa> list = qry.getResultList();
+		
 		em.close();
 		if (list.size() <= 0) {
 			usuarioLogado = null;
@@ -79,19 +84,30 @@ public class LoginController implements Serializable {
 			usuarioLogado = list.get(0);
 			return "/faces/Privado/Home.xhtml";
 		}
+		/*
+		usuarioLogado = em.find(Usuario.class, 1L);
+		return "/faces/Privado/Home.xhtml";
+		*/
 	}
 
 	/**
 	 * Método responsável por desconectar o usuário e abrir a página de login
+	 * @throws IOException 
 	 * 
 	 * @throws Exception
 	 */
-	public String sair() {
+	public void sair() throws IOException {
 		setUsuarioLogado(null);
 		FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário Desconectado!", "");
 		FacesContext.getCurrentInstance().addMessage(null, mensagem);
 		// return "../Login/LoginForm.xhtml";
 		// return "/faces/index.xhtml";
-		return "index.xhtml";
+		//return "../index.xhtml";
+		
+		HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+		HttpServletRequest req  = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		String contextPath = req.getContextPath();
+		res.sendRedirect(contextPath + "/faces/Login/LoginForm.xhtml");
+		FacesContext.getCurrentInstance().responseComplete();
 	}
 }
