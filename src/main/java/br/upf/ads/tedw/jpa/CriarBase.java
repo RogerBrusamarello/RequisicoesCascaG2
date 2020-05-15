@@ -43,6 +43,7 @@ public class CriarBase {
         c.setSenha("123456");
         c.setCelular("(66) 96666-6666");
         em.merge(c);
+        
         c.setNome("Osvaldo Madeira");
         c.setCpf("511.010.870-64");
         c.setFuncao("Empresário");

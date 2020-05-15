@@ -5,21 +5,21 @@
 
 <h:head>
 	<title>Home</title>
-	
+
 	<style type="text/css">
-		.ui-outputlabel {
-			color: #F3F781 !important;
-		}
-	
-		.ui-layout-north {
-			z-index: 20 !important;
-			overflow: visible !important;
-		}
-		
-		.ui-layout-north .ui-layout-unit-content {
-			overflow: visible !important;
-		}
-	</style>
+.ui-outputlabel {
+	color: #F3F781 !important;
+}
+
+.ui-layout-north {
+	z-index: 20 !important;
+	overflow: visible !important;
+}
+
+.ui-layout-north .ui-layout-unit-content {
+	overflow: visible !important;
+}
+</style>
 
 </h:head>
 <h:body>
@@ -28,51 +28,54 @@
 		<p:layoutUnit position="north" size="115" resizable="false">
 			<h:form>
 				<p:menubar>
-					<p:menuitem value="Home" url="../Privado/Home.xhtml" icon="pi pi-home" />
-					<p:menuitem value="Sair" action="#{loginController.sair}" ajax="false" icon="pi pi-times" />
+					<p:menuitem value="Home" url="../Privado/Home.xhtml"
+						icon="pi pi-home" />
+					<p:menuitem value="Sair" action="#{loginController.sair}"
+						ajax="false" icon="pi pi-times" />
 				</p:menubar>
 
 				<!-- Barra de ferramentas -->
 				<p:toolbar>
 					<p:toolbarGroup align="left">
 
-						<!-- <p:commandButton icon="pi pi-home" ajax="false"
-							title="Ir para o início" action="Home.xhtml"
-							onclick="this.form.target='_self'" />
-						<p:separator />
-						 -->
-
 						<p:commandButton icon="pi pi-user" ajax="false"
 							title="Abrir CRUD de Usuarios" action="UsuarioCrud.xhtml"
-							onclick="this.form.target='centro'" />
+							onclick="this.form.target='centro'"
+							rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
 
 						<p:commandButton icon="pi pi-user-plus" ajax="false"
 							title="Abrir CRUD de Administrador"
 							action="AdministradorCrud.xhtml"
-							onclick="this.form.target='centro'" />
+							onclick="this.form.target='centro'"
+							rendered="#{loginController.permissao >= loginController.vlrAdministrador}" />
 
 						<p:commandButton icon="pi pi-users" ajax="false"
 							title="Abrir CRUD de Cliente" action="ClienteCrud.xhtml"
-							onclick="this.form.target='centro'" />
+							onclick="this.form.target='centro'"
+							rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
 
 						<p:separator />
 						<p:commandButton icon="pi pi-file" ajax="false"
 							title="Abrir CRUD de Projeto" action="ProjetoCrud.xhtml"
-							onclick="this.form.target='centro'" />
+							onclick="this.form.target='centro'"
+							rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
 
 						<p:commandButton icon="pi pi-file-o" ajax="false"
 							title="Abrir CRUD de Requisicão" action="RequisicaoCrud.xhtml"
-							onclick="this.form.target='centro'" />
+							onclick="this.form.target='centro'"
+							rendered="#{loginController.permissao >= loginController.vlrCliente}" />
 
 						<p:commandButton icon="pi pi-ticket" ajax="false"
 							title="Abrir CRUD de Requisicão Programada"
 							action="RequisicaoProgramadaCrud.xhtml"
-							onclick="this.form.target='centro'" />
-							
+							onclick="this.form.target='centro'"
+							rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
+
 						<p:commandButton icon="pi pi-ticket" ajax="false"
 							title="Abrir CRUD de Requisicão Andamento"
 							action="RequisicaoAndamentoCrud.xhtml"
-							onclick="this.form.target='centro'" />
+							onclick="this.form.target='centro'"
+							rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
 
 						<p:separator />
 
@@ -88,7 +91,9 @@
 						</p:menuButton>
 					</p:toolbarGroup>
 				</p:toolbar>
-				<h:outputText value="Usuário: #{loginController.usuarioLogado.nome}" />
+				
+				<h:outputText value="#{loginController.pessoaLogada.nome} 
+					#{loginController.tipoUsuario}" style="color: #F2F5A9;" />
 			</h:form>
 		</p:layoutUnit>
 
@@ -102,32 +107,43 @@
 				</p:growl>
 				<p:panelMenu style="width:280px">
 					<p:submenu label="Cadastro">
-						<p:submenu label="Pessoas">
+						<p:submenu label="Pessoas"
+							rendered="#{loginController.permissao >= loginController.vlrUsuario}">
 							<p:menuitem value="Usuario" url="../Privado/UsuarioCrud.xhtml"
-								target="centro" icon="pi pi-user" />
-							<p:menuitem value="Administrador" url="../Privado/AdministradorCrud.xhtml"
-								target="centro" icon="pi pi-user-plus" />
+								target="centro" icon="pi pi-user"
+								rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
+							<p:menuitem value="Administrador"
+								url="../Privado/AdministradorCrud.xhtml" target="centro"
+								icon="pi pi-user-plus"
+								rendered="#{loginController.permissao >= loginController.vlrAdministrador}" />
 							<p:menuitem value="Cliente" url="../Privado/ClienteCrud.xhtml"
 								target="centro" icon="pi pi-users" />
 						</p:submenu>
-						<p:submenu label="Documentos">
+						<p:submenu label="Documentos"
+							rendered="#{loginController.permissao >= loginController.vlrCliente}">
 							<p:menuitem value="Projeto" url="../Privado/ProjetoCrud.xhtml"
-								target="centro" icon="pi pi-file" />
-							<p:menuitem value="Requisição" url="../Privado/RequisicaoCrud.xhtml"
-								target="centro" icon="pi pi-file-o" />
+								target="centro" icon="pi pi-file"
+								rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
+							<p:menuitem value="Requisição"
+								url="../Privado/RequisicaoCrud.xhtml" target="centro"
+								icon="pi pi-file-o"
+								rendered="#{loginController.permissao >= loginController.vlrCliente}" />
 							<p:menuitem value="Requisição Programada"
 								url="../Privado/RequisicaoProgramadaCrud.xhtml" target="centro"
-								icon="pi pi-ticket" />
+								icon="pi pi-ticket"
+								rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
 							<p:menuitem value="Requisição em Andamento"
 								url="../Privado/RequisicaoAndamentoCrud.xhtml" target="centro"
-								icon="pi pi-ticket" />
+								icon="pi pi-ticket"
+								rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
 						</p:submenu>
 					</p:submenu>
-					<p:submenu label="Relatórios">
-						
+					<p:submenu label="Relatórios"
+						rendered="#{loginController.permissao >= loginController.vlrUsuario}">
+
 					</p:submenu>
 					<p:submenu label="Sobre">
-						
+
 					</p:submenu>
 				</p:panelMenu>
 			</h:form>

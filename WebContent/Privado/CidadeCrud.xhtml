@@ -16,7 +16,8 @@
 
 <h:body onload="#{cidadeCrud.carregarLista()}">
 	<!-- Painel de consulta -->
-	<p:panel id="consulta" visible="#{!cidadeCrud.editando}">
+	<p:panel id="consulta" visible="#{!cidadeCrud.editando}"
+		rendered="#{loginController.permissao >= loginController.vlrUsuario}">
 	<h:outputText value="Cidade" style="color: #FFBF00; font-weight: bolder; font-size: 20;"/>
 	<p:separator />
 		<h:form>

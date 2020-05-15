@@ -16,7 +16,8 @@
 
 <h:body onload="#{estadoCrud.carregarLista()}">
 	<!-- Painel de consulta -->
-	<p:panel id="consulta" visible="#{!estadoCrud.editando}">
+	<p:panel id="consulta" visible="#{!estadoCrud.editando}"
+		rendered="#{loginController.permissao >= loginController.vlrUsuario}">
 	<h:outputText value="Estado" style="color: #FFBF00; font-weight: bolder; font-size: 20;"/>
 	<p:separator />
 		<h:form>

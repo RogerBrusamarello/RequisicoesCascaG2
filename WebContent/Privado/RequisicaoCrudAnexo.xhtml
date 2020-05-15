@@ -18,14 +18,15 @@
 	<p:dialog header="Arquivo" widgetVar="anexos" id="anexos" modal="true">
 		<h:form id="formEditAnexo" enctype="multipart/form-data">
 			<p:panelGrid>
-				<p:outputLabel for="descricao" value="Descrição" />
-				<p:inputText id="descricao" required="true" size="60"
+				<p:outputLabel for="descricao" value="Descrição: " />
+				<p:inputText id="descricao" required="true" size="25"
 					value="#{requisicaoCrud.anexoSelecionado.descricao}" />
 			</p:panelGrid>
-
+			<br />
+			
 			<p:fileUpload value="#{requisicaoCrud.file}" mode="simple"
 				skinSimple="true" />
-			<br />
+			
 			<p:commandButton value="Salvar anexo" ajax="false"
 				action="#{requisicaoCrud.salvarAnexo}"
 				oncomplete="PF('anexos').hide();" />

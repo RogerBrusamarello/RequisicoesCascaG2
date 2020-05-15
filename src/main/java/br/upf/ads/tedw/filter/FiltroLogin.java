@@ -32,7 +32,7 @@ public class FiltroLogin implements Filter {
 		String contextPath = httpRequest.getContextPath();
 
 		LoginController lc = (LoginController) sessao.getAttribute("loginController");
-		if ((lc == null) || (lc.getUsuarioLogado() == null)) {
+		if ((lc == null) || (lc.getPessoaLogada() == null)) {
 			System.out.println("Redirecionar para : " + contextPath + "/faces/Login/LoginForm.xhtml");
 			httpResponse.sendRedirect(contextPath + "/faces/Login/LoginForm.xhtml");
 		}

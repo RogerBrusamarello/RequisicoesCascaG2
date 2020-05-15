@@ -16,7 +16,8 @@
 
 <h:body onload="#{requisicaoProgramadaCrud.carregarLista()}">
 	<!-- Painel de consulta -->
-	<p:panel id="consulta" visible="#{!requisicaoProgramadaCrud.editando}">
+	<p:panel id="consulta" visible="#{!requisicaoProgramadaCrud.editando}"
+		rendered="#{loginController.permissao >= loginController.vlrUsuario}">
 	<h:outputText value="Requisição Programada" style="color: #FFBF00; font-weight: bolder; font-size: 20;"/>
 	<p:separator />
 		<h:form>

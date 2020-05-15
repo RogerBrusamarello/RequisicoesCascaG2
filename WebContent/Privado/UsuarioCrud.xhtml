@@ -11,29 +11,33 @@
 			color: #F2F5A9 !important;
 		}
 	</style>
-	
+
 </h:head>
 
 <h:body onload="#{usuarioCrud.carregarLista()}">
 	<!-- Painel de consulta -->
-	<p:panel id="consulta" visible="#{!usuarioCrud.editando}">
-	<h:outputText value="Usuário" style="color: #FFBF00; font-weight: bolder; font-size: 20;"/>
-	<p:separator />
+	<p:panel id="consulta" visible="#{!usuarioCrud.editando}"
+		rendered="#{loginController.permissao >= loginController.vlrUsuario}">
+		<h:outputText value="Usuário"
+			style="color: #FFBF00; font-weight: bolder; font-size: 20;" />
+		<p:separator />
 		<h:form>
-			<p:commandButton value="Incluir" action="#{usuarioCrud.incluir}"
-				icon="pi pi-plus" update="consulta edicao"
-				style="horizontal-align:center" />
-			<p:commandButton value="Alterar" action="#{usuarioCrud.alterar}"
-				icon="pi pi-pencil" disabled="#{usuarioCrud.selecionado==null}"
+			<p:commandButton value="Incluir"
+				action="#{usuarioCrud.incluir}" icon="pi pi-plus"
 				update="consulta edicao" style="horizontal-align:center" />
-			<p:commandButton value="Excluir" action="#{usuarioCrud.excluir}"
-				icon="pi pi-trash" onclick="return confirm('Excluir?')"
+			<p:commandButton value="Alterar"
+				action="#{usuarioCrud.alterar}" icon="pi pi-pencil"
+				disabled="#{usuarioCrud.selecionado==null}"
+				update="consulta edicao" style="horizontal-align:center" />
+			<p:commandButton value="Excluir"
+				action="#{usuarioCrud.excluir}" icon="pi pi-trash"
+				onclick="return confirm('Excluir?')"
 				disabled="#{usuarioCrud.selecionado==null}" update="consulta"
 				style="horizontal-align:center" />
 			<p:dataTable var="o" value="#{usuarioCrud.lista}"
 				emptyMessage="Nada para mostrar!" selectionMode="single"
-				selection="#{usuarioCrud.selecionado}" rowKey="#{o.id}" rows="5"
-				paginator="true"
+				selection="#{usuarioCrud.selecionado}" rowKey="#{o.id}"
+				rows="5" paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
 				{LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15"
@@ -74,7 +78,7 @@
 
 	<!-- Painel de edição -->
 	<p:panel id="edicao" visible="#{usuarioCrud.editando}">
-		<h:form>
+		<h:form id="formEdicao">
 			<p:growl></p:growl>
 			<p:panelGrid columns="2">
 
@@ -82,19 +86,23 @@
 				<p:inputText id="nome" required="true"
 					value="#{usuarioCrud.selecionado.nome}" size="28" />
 
-				<p:outputLabel for="cpf" value="CPF" />
+				<p:outputLabel for="cpf" value="CPF"
+					rendered="#{loginController.pessoaLogada.id == usuarioCrud.selecionado.id or
+					loginController.permissao >= loginController.vlrAdministrador}" />
 				<p:inputMask id="cpf" required="true" mask="999.999.999-99"
-					value="#{usuarioCrud.selecionado.cpf}" size="12" />
+					value="#{usuarioCrud.selecionado.cpf}" size="12"
+					rendered="#{loginController.pessoaLogada.id == usuarioCrud.selecionado.id or
+					loginController.permissao >= loginController.vlrAdministrador}" />
 
 				<p:outputLabel for="rg" value="RG" />
 				<p:inputText id="rg" required="true"
 					value="#{usuarioCrud.selecionado.rg}" size="10" />
 
 				<p:outputLabel for="email" value="Email"
-					rendered="#{usuarioCrud.selecionado.id == null}" />
+					rendered="#{loginController.pessoaLogada.id == usuarioCrud.selecionado.id}" />
 				<p:inputText id="email" required="true"
 					value="#{usuarioCrud.selecionado.email}" size="28"
-					rendered="#{usuarioCrud.selecionado.id == null}" />
+					rendered="#{loginController.pessoaLogada.id == usuarioCrud.selecionado.id}" />
 
 				<p:outputLabel for="celular" value="Celular" />
 				<p:inputMask id="celular" required="true" mask="(99) 99999-9999"
@@ -102,8 +110,8 @@
 
 				<p:outputLabel value="Outras Informações" />
 				<h:inputTextarea
-					value="#{usuarioCrud.selecionado.outrasInformacoes}" cols="30"
-					rows="3" />
+					value="#{usuarioCrud.selecionado.outrasInformacoes}"
+					cols="30" rows="3" />
 
 				<p:outputLabel for="pwd1" value="Senha"
 					rendered="#{usuarioCrud.selecionado.id == null}" />
@@ -119,11 +127,12 @@
 
 			</p:panelGrid>
 
-			<p:commandButton value="Salvar" action="#{usuarioCrud.salvar}"
-				update="consulta edicao" style="horizontal-align:center" />
-			<p:commandButton value="Cancelar" action="#{usuarioCrud.cancelar}"
-				immediate="true" update="consulta edicao"
+			<p:commandButton id="salvar" value="Salvar"
+				action="#{usuarioCrud.salvar}" update="consulta edicao"
 				style="horizontal-align:center" />
+			<p:commandButton value="Cancelar"
+				action="#{usuarioCrud.cancelar}" immediate="true"
+				update="consulta edicao" style="horizontal-align:center" />
 		</h:form>
 	</p:panel>
 

@@ -17,7 +17,8 @@
 
 <h:body onload="#{projetoCrud.carregarLista()}">
 	<!-- Painel de consulta -->
-	<p:panel id="consulta" visible="#{!projetoCrud.editando}">
+	<p:panel id="consulta" visible="#{!projetoCrud.editando}"
+		rendered="#{loginController.permissao >= loginController.vlrUsuario}">
 	<h:outputText value="Projeto" style="color: #FFBF00; font-weight: bolder; font-size: 20;"/>
 	<p:separator />
 		<h:form>

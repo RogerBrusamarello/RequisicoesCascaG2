@@ -16,9 +16,10 @@
 </h:head>
 
 
-<h:body onload="#{requisicaoCrud.carregarLista()}">
+<h:body onload="#{requisicaoCrud.carregarLista(loginController.pessoaLogada.id)}">
 	<!-- Painel de consulta -->
-	<p:panel id="consulta" visible="#{!requisicaoCrud.editando}">
+	<p:panel id="consulta" visible="#{!requisicaoCrud.editando}"
+		rendered="#{loginController.permissao >= loginController.vlrCliente}">
 	<h:outputText value="Requisição" style="color: #FFBF00; font-weight: bolder; font-size: 20;"/>
 	<p:separator />
 		<h:form>
@@ -109,29 +110,29 @@
 
 				<p:panelGrid columns="2">
 
-					<p:outputLabel for="titulo" value="Título" />
+					<p:outputLabel for="titulo" value="Título Requisição:" />
 					<p:inputText id="titulo" required="true" size="30"
 						value="#{requisicaoCrud.selecionado.titulo}" />
 
-					<p:outputLabel for="descricao" value="Descrição" />
+					<p:outputLabel for="descricao" value="Descrição:" />
 					<h:inputTextarea id="descricao" required="false"
 						value="#{requisicaoCrud.selecionado.descricao}" cols="21" rows="3" />
 
-					<p:outputLabel for="dataCriada" value="Data Criada" />
+					<p:outputLabel for="dataCriada" value="Data Criada:" />
 					<p:datePicker id="dataCriada" required="true"
 						value="#{requisicaoCrud.selecionado.dataCriada}" readonly="false"
 						size="8" showIcon="true" pattern="dd/MM/yyyy" locale="de"
 						monthNavigator="true" yearNavigator="true">
 					</p:datePicker>
 
-					<p:outputLabel for="prazoLimite" value="Prazo Limite" />
+					<p:outputLabel for="prazoLimite" value="Prazo Limite:" />
 					<p:datePicker id="prazoLimite" required="false"
 						value="#{requisicaoCrud.selecionado.prazoLimite}" readonly="false"
 						size="8" showIcon="true" pattern="dd/MM/yyyy" locale="de"
 						monthNavigator="true" yearNavigator="true">
 					</p:datePicker>
 
-					<p:outputLabel for="prioridade" value="Prioridade" />
+					<p:outputLabel for="prioridade" value="Prioridade:" />
 					<p:selectOneMenu id="prioridade" required="true"
 						value="#{requisicaoCrud.selecionado.prioridade}">
 						<f:selectItem itemLabel="0" itemValue="0" />
@@ -147,18 +148,18 @@
 						<f:selectItem itemLabel="10" itemValue="10" />
 					</p:selectOneMenu>
 
-					<p:outputLabel for="horasPrevistas" value="Horas Previstas" />
+					<p:outputLabel for="horasPrevistas" value="Horas Previstas:" />
 					<p:inputText id="horasPrevistas" required="true"
 						value="#{requisicaoCrud.selecionado.horasPrevistas}" size="3" />
 
-					<p:outputLabel value="Projeto" for="inputProjeto" />
+					<p:outputLabel value="Projeto:" for="inputProjeto" />
 					<p:autoComplete id="inputProjeto" dropdown="true" multiple="false"
 						forceSelection="true" var="obj" itemLabel="#{obj.nome}"
 						itemValue="#{obj}" value="#{requisicaoCrud.selecionado.projeto}"
 						converter="ProjetoConverter"
 						completeMethod="#{requisicaoCrud.completeProjeto}" required="true" />
 
-					<p:outputLabel value="Solicitou" for="inputSolicitou" />
+					<p:outputLabel value="Solicitou:" for="inputSolicitou" />
 					<p:autoComplete id="inputSolicitou" dropdown="true"
 						multiple="false" forceSelection="true" var="obj"
 						itemLabel="#{obj.nome}" itemValue="#{obj}"
@@ -166,16 +167,18 @@
 						converter="PessoaConverter"
 						completeMethod="#{requisicaoCrud.completePessoa}" required="true" />
 
-					<p:outputLabel value="Criou" for="inputCriou" />
-					<p:autoComplete id="inputCriou" dropdown="true" multiple="false"
-						forceSelection="true" var="obj" itemLabel="#{obj.nome}"
-						itemValue="#{obj}" value="#{requisicaoCrud.selecionado.criou}"
+					<p:outputLabel value="Criou:" for="inputCriou" />
+					<p:autoComplete id="inputCriou" dropdown="true"
+						multiple="false" forceSelection="true" var="obj"
+						itemLabel="#{obj.nome}" itemValue="#{obj}"
+						value="#{requisicaoCrud.selecionado.criou}"
 						converter="PessoaConverter"
 						completeMethod="#{requisicaoCrud.completePessoa}" required="true" />
-
+					
 					<p:outputLabel value="" />
 					<p:outputPanel>
-						<p:commandButton value="Salvar" action="#{requisicaoCrud.salvar}"
+						<p:commandButton value="Salvar" 
+							action="#{requisicaoCrud.salvar(loginController.pessoaLogada.id)}"
 							update="consulta edicao" />
 						<p:commandButton value="Cancelar"
 							action="#{requisicaoCrud.cancelar}" immediate="true"
@@ -186,7 +189,9 @@
 				<p:outputPanel id="anexosList">
 					<p:commandButton value="incluir anexo" immediate="false"
 						action="#{requisicaoCrud.incluirAnexo}"
-						oncomplete="PF('anexos').show();"></p:commandButton>
+						oncomplete="PF('anexos').show();">
+					</p:commandButton>
+					<p:separator />
 
 					<p:dataTable var="ane" value="#{requisicaoCrud.selecionado.anexos}"
 						rowIndexVar="linha">
