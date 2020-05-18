@@ -61,8 +61,19 @@ public class RequisicaoCrud implements Serializable {
 
 	}
 
-	public void excluirAnexo() {
-
+	public void excluirAnexo(Long id) {
+		try {
+			editando = false;
+			EntityManager em = JPAUtil.getEntityManager();
+			em.getTransaction().begin();
+			em.remove(em.merge(anexoSelecionado));
+			em.getTransaction().commit();
+			em.close();
+			//carregarLista(id);
+		} catch (Throwable e) {
+			e.printStackTrace();
+			JSFUtil.messagemDeErro("Ocorreu um erro ao remover os dados.");
+		}
 	}
 	
 	public void downloadAnexo(Integer linha) throws IOException {

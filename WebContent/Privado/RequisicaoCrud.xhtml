@@ -203,7 +203,12 @@
 						<p:column headerText="">
 							<p:commandButton value="Ver" immediate="true" ajax="false"
 								action="#{requisicaoCrud.downloadAnexo(linha)}"
-								onclick="document.getElementById('formEdicao').target='_blank';"></p:commandButton>
+								onclick="document.getElementById('formEdicao').target='_blank';">
+							</p:commandButton>
+							<p:commandButton value="Excluir" action="#{requisicaoCrud.excluirAnexo}"
+								icon="pi pi-trash" onclick="return confirm('Excluir?')"
+								disabled="#{requisicaoCrud.anexoSelecionado==null}" update="consulta"
+								style="horizontal-align:center" />
 						</p:column>
 					</p:dataTable>
 				</p:outputPanel>
