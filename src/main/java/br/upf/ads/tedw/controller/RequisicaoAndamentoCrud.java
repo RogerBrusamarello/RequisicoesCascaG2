@@ -121,11 +121,9 @@ public class RequisicaoAndamentoCrud implements Serializable {
 			editando = false;
 			EntityManager em = JPAUtil.getEntityManager();
 			em.getTransaction().begin();
-
 			selecionado.getRequisicao().setHorasRealizadas(
 					selecionado.getRequisicao().getHorasRealizadas() - selecionado.getHorasRealizadas());
-
-			em.remove(selecionado);
+			em.remove(em.merge(selecionado));
 			em.getTransaction().commit();
 			em.close();
 			carregarLista();

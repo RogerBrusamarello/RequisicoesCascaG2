@@ -23,16 +23,25 @@
 		<h:form>
 			<p:commandButton value="Incluir"
 				action="#{requisicaoAndamentoCrud.incluir}" icon="pi pi-plus"
-				update="consulta edicao"></p:commandButton>
+				update="consulta edicao"/>
 			<p:commandButton value="Alterar"
 				action="#{requisicaoAndamentoCrud.alterar}" icon="pi pi-pencil"
 				disabled="#{requisicaoAndamentoCrud.selecionado==null}"
-				update="consulta edicao"></p:commandButton>
+				update="consulta edicao"/>
 			<p:commandButton value="Excluir"
 				action="#{requisicaoAndamentoCrud.excluir}" icon="pi pi-trash"
 				onclick="return confirm('Excluir?')"
 				disabled="#{requisicaoAndamentoCrud.selecionado==null}"
-				update="consulta"></p:commandButton>
+				update="consulta">
+				<p:confirm header="Confirmação" message="Confirma a exclusão?"
+					icon="pi pi-exclamation-triangle" />
+			</p:commandButton>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+			</p:confirmDialog>
 			<p:dataTable var="o" value="#{requisicaoAndamentoCrud.lista}"
 				emptyMessage="Nada para mostrar!" selectionMode="single"
 				selection="#{requisicaoAndamentoCrud.selecionado}" rowKey="#{o.id}"
@@ -48,7 +57,7 @@
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
 				<p:column headerText="Data" sortBy="#{o.data}" filterBy="#{o.data}"
-					style="width: 80px; text-align: center;">
+					style="width: 80px; text-align: center; font-size: 14;">
 					<h:outputText value="#{o.data}" style="color: #F2F5A9;">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
@@ -131,9 +140,9 @@
 
 			</p:panelGrid>
 
-			<p:commandButton value="Salvar"
+			<p:commandButton value="Salvar" icon="pi pi-save"
 				action="#{requisicaoAndamentoCrud.salvar}" update="consulta edicao" />
-			<p:commandButton value="Cancelar"
+			<p:commandButton value="Cancelar" icon="pi pi-times-circle"
 				action="#{requisicaoAndamentoCrud.cancelar}" immediate="true"
 				update="consulta edicao" />
 		</h:form>

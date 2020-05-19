@@ -106,7 +106,7 @@ public class RequisicaoProgramadaCrud implements Serializable {
 			editando = false;
 			EntityManager em = JPAUtil.getEntityManager();
 			em.getTransaction().begin();
-			em.remove(selecionado);
+			em.remove(em.merge(selecionado));
 			em.getTransaction().commit();
 			em.close();
 			carregarLista();

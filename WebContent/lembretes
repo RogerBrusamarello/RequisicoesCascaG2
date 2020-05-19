@@ -1,5 +1,10 @@
-*Implementar botão de exclusão de anexos em Requisição
+*Implementar botão de EDIÇÃO de anexos em Requisição
+
 *Função para alterar senha
 *Tela Recuperar senha
 *Requisição: fixar o usuário logado em quem Criou
+*Botão de logout não redireciona para a página correta
+
+*Tratamento de erros:
+	-> Excluir item com dependência em outra tabela
 

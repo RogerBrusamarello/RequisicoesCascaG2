@@ -27,8 +27,17 @@
 				icon="ui-icon-pencil" disabled="#{estadoCrud.selecionado==null}"
 				update="consulta edicao" />
 			<p:commandButton value="Excluir" action="#{estadoCrud.excluir}"
-				icon="ui-icon-trash" onclick="return confirm('Excluir?')"
-				disabled="#{estadoCrud.selecionado==null}" update="consulta" />
+				icon="ui-icon-trash"
+				disabled="#{estadoCrud.selecionado==null}" update="consulta">
+				<p:confirm header="Confirmação" message="Confirma a exclusão?"
+					icon="pi pi-exclamation-triangle" />
+			</p:commandButton>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+			</p:confirmDialog>
 			<p:dataTable var="o" value="#{estadoCrud.lista}"
 				rowClasses="order-table-odd-row,order-table-even-row"
 				emptyMessage="Nada para mostrar!" selectionMode="single"
@@ -74,9 +83,9 @@
 
 			</p:panelGrid>
 
-			<p:commandButton value="Salvar" action="#{estadoCrud.salvar}"
+			<p:commandButton value="Salvar" icon="pi pi-times-save" action="#{estadoCrud.salvar}"
 				update="consulta edicao" />
-			<p:commandButton value="Cancelar" action="#{estadoCrud.cancelar}"
+			<p:commandButton value="Cancelar" icon="pi pi-times-circle" action="#{estadoCrud.cancelar}"
 				immediate="true" update="consulta edicao" />
 		</h:form>
 	</p:panel>

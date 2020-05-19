@@ -5,13 +5,13 @@
 
 <h:head>
 	<title>Projeto</title>
-	
+
 	<style type="text/css">
 		.ui-outputLabel {
 			color: #F2F5A9 !important;
 		}
 	</style>
-	
+
 </h:head>
 
 
@@ -19,17 +19,29 @@
 	<!-- Painel de consulta -->
 	<p:panel id="consulta" visible="#{!projetoCrud.editando}"
 		rendered="#{loginController.permissao >= loginController.vlrUsuario}">
-	<h:outputText value="Projeto" style="color: #FFBF00; font-weight: bolder; font-size: 20;"/>
-	<p:separator />
+		<h:outputText value="Projeto"
+			style="color: #FFBF00; font-weight: bolder; font-size: 20;" />
+		<p:separator />
 		<h:form>
 			<p:commandButton value="Incluir" action="#{projetoCrud.incluir}"
-				icon="pi pi-plus" update="consulta edicao" style="horizontal-align:center"/>
+				icon="pi pi-plus" update="consulta edicao"
+				style="horizontal-align:center" />
 			<p:commandButton value="Alterar" action="#{projetoCrud.alterar}"
 				icon="pi pi-pencil" disabled="#{projetoCrud.selecionado==null}"
-				update="consulta edicao" style="horizontal-align:center"/>
+				update="consulta edicao" style="horizontal-align:center" />
 			<p:commandButton value="Excluir" action="#{projetoCrud.excluir}"
-				icon="pi pi-trash" onclick="return confirm('Excluir?')"
-				disabled="#{projetoCrud.selecionado==null}" update="consulta" style="horizontal-align:center"/>
+				icon="pi pi-trash"
+				disabled="#{projetoCrud.selecionado==null}" update="consulta"
+				style="horizontal-align:center">
+				<p:confirm header="Confirmação" message="Confirma a exclusão?"
+					icon="pi pi-exclamation-triangle" />
+			</p:commandButton>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+			</p:confirmDialog>
 			<p:dataTable var="o" value="#{projetoCrud.lista}"
 				emptyMessage="Nada para mostrar!" selectionMode="single"
 				selection="#{projetoCrud.selecionado}" rowKey="#{o.id}" rows="5"
@@ -40,20 +52,24 @@
 				currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}">
 				<p:ajax event="rowSelect" update="consulta" />
 				<p:ajax event="rowUnselect" update="consulta" />
-				<p:column headerText="Código" sortBy="#{o.id}" filterBy="#{o.id}" 
+				<p:column headerText="Código" sortBy="#{o.id}" filterBy="#{o.id}"
 					style="width: 75px; text-align: center;">
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
-				<p:column headerText="Nome" sortBy="#{o.nome}" filterBy="#{o.nome}" style="text-align: center;">
+				<p:column headerText="Nome" sortBy="#{o.nome}" filterBy="#{o.nome}"
+					style="text-align: center;">
 					<p:outputLabel value="#{o.nome}" />
 				</p:column>
-				<p:column headerText="Descrição" sortBy="#{o.descricao}" filterBy="#{o.descricao}" style="text-align: center;">
+				<p:column headerText="Descrição" sortBy="#{o.descricao}"
+					filterBy="#{o.descricao}" style="text-align: center;">
 					<p:outputLabel value="#{o.descricao}" />
 				</p:column>
-				<p:column headerText="Usuario" sortBy="#{o.usuario}" filterBy="#{o.usuario}" style="text-align: center;">
+				<p:column headerText="Usuario" sortBy="#{o.usuario}"
+					filterBy="#{o.usuario}" style="text-align: center;">
 					<p:outputLabel value="#{o.usuario}" />
 				</p:column>
-				<p:column headerText="Cliente" sortBy="#{o.cliente}" filterBy="#{o.cliente}" style="text-align: center;">
+				<p:column headerText="Cliente" sortBy="#{o.cliente}"
+					filterBy="#{o.cliente}" style="text-align: center;">
 					<p:outputLabel value="#{o.cliente}" />
 				</p:column>
 			</p:dataTable>
@@ -67,32 +83,35 @@
 			<p:panelGrid columns="2">
 
 				<p:outputLabel for="nomeProjeto" value="Nome do Projeto" />
-				<p:inputText id="nomeProjeto" required="true" value="#{projetoCrud.selecionado.nome}" />
+				<p:inputText id="nomeProjeto" required="true"
+					value="#{projetoCrud.selecionado.nome}" />
 
 				<p:outputLabel for="descricao" value="Descrição" />
-				<h:inputTextarea id="descricao" required="true" value="#{projetoCrud.selecionado.descricao}"
-					cols="21" rows="3" />
+				<h:inputTextarea id="descricao" required="true"
+					value="#{projetoCrud.selecionado.descricao}" cols="21" rows="3" />
 
 				<p:outputLabel value="Usuário" for="inputUsuario" />
 				<p:autoComplete id="inputUsuario" dropdown="true" multiple="false"
 					forceSelection="true" var="obj" itemLabel="#{obj.nome}"
 					itemValue="#{obj}" value="#{projetoCrud.selecionado.usuario}"
 					converter="UsuarioConverter"
-					completeMethod="#{projetoCrud.completeUsuario}" required="true"/>
+					completeMethod="#{projetoCrud.completeUsuario}" required="true" />
 
-				<p:commandLink for="inputCliente" value="Cliente" immediate="true" ajax="true"
+				<p:commandLink for="inputCliente" value="Cliente" immediate="true"
+					ajax="true"
 					action="#{homeCon.abrirPopup('ClienteCrud.xhtml', 600, 400, true)}" />
 				<p:autoComplete id="inputCliente" dropdown="true" multiple="false"
 					forceSelection="true" var="obj" itemLabel="#{obj.nome}"
 					itemValue="#{obj}" value="#{projetoCrud.selecionado.cliente}"
 					converter="ClienteConverter"
-					completeMethod="#{projetoCrud.completeCliente}" ajax="false" required="true"/>
+					completeMethod="#{projetoCrud.completeCliente}" ajax="false"
+					required="true" />
 
 			</p:panelGrid>
 
-			<p:commandButton value="Salvar" action="#{projetoCrud.salvar}"
+			<p:commandButton value="Salvar" icon="pi pi-save" action="#{projetoCrud.salvar}"
 				update="consulta edicao" />
-			<p:commandButton value="Cancelar" action="#{projetoCrud.cancelar}"
+			<p:commandButton value="Cancelar" icon="pi pi-times-circle" action="#{projetoCrud.cancelar}"
 				immediate="true" update="consulta edicao" />
 
 		</h:form>

@@ -14,14 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.primefaces.model.file.UploadedFile;
 
-import br.upf.ads.tedw.beans.Cliente;
 import br.upf.ads.tedw.beans.Pessoa;
 import br.upf.ads.tedw.beans.Projeto;
 import br.upf.ads.tedw.beans.Requisicao;
 import br.upf.ads.tedw.beans.RequisicaoAnexo;
 import br.upf.ads.tedw.jpa.JPAUtil;
 import br.upf.ads.tedw.jsf.JSFUtil;
-import br.upf.ads.tedw.suport.Encrypt;
 
 @ManagedBean
 @ViewScoped
@@ -34,64 +32,8 @@ public class RequisicaoCrud implements Serializable {
 	private List<Projeto> projetos;
 	private List<Pessoa> pessoas;
 
-	// Controle dos arquivos anexados
 	private UploadedFile file;
 	private RequisicaoAnexo anexoSelecionado;
-
-	public void incluirAnexo() {
-		anexoSelecionado = new RequisicaoAnexo();
-	}
-
-	public void salvarAnexo() {
-		if (file != null) {
-			anexoSelecionado.setRequisicao(selecionado);
-			anexoSelecionado.setArquivo(file.getFileName());
-			anexoSelecionado.setArquivoTipo(file.getContentType());
-			anexoSelecionado.setBytes(file.getContent());
-			if (selecionado.getAnexos() == null) {
-				selecionado.setAnexos(new ArrayList<RequisicaoAnexo>());
-			}
-			selecionado.getAnexos().add(anexoSelecionado);
-			anexoSelecionado = new RequisicaoAnexo();
-		}
-
-	}
-
-	public void cancelarAnexo() {
-
-	}
-
-	public void excluirAnexo(Long id) {
-		try {
-			editando = false;
-			EntityManager em = JPAUtil.getEntityManager();
-			em.getTransaction().begin();
-			em.remove(em.merge(anexoSelecionado));
-			em.getTransaction().commit();
-			em.close();
-			//carregarLista(id);
-		} catch (Throwable e) {
-			e.printStackTrace();
-			JSFUtil.messagemDeErro("Ocorreu um erro ao remover os dados.");
-		}
-	}
-	
-	public void downloadAnexo(Integer linha) throws IOException {
-		RequisicaoAnexo anexo = selecionado.getAnexos().get(linha); 
-        byte[] b = anexo.getBytes();
-        HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse(); 
-        res.setContentType(anexo.getArquivoTipo());
-        res.setHeader("Content-disposition", "inline;filename="+anexo.getArquivo()); // abre no navegador
-        //res.setHeader("Content-disposition", "attachment;filename="+anexo.getArquivo());
-        res.getOutputStream().write(b);
-        FacesContext.getCurrentInstance().responseComplete();
-	}
-	
-	
-	
-	
-
-	// ------------------------------------------
 
 	public RequisicaoCrud() {
 		editando = false;
@@ -139,39 +81,39 @@ public class RequisicaoCrud implements Serializable {
 
 	@SuppressWarnings("unchecked")
 	public void carregarLista(Long id) {
-		
+
 		System.out.println("Entrou no carregarLista(). id: " + id);
-		
+
 		EntityManager em = JPAUtil.getEntityManager();
 		Query qry = em.createQuery("from Cliente where id = :id");
 		qry.setParameter("id", id);
 		pessoas = qry.getResultList();
-		
+
 		if (pessoas.size() > 0) {
-			
+
 			qry = em.createQuery("from Projeto where cliente_id = :id");
 			qry.setParameter("id", id);
 			List<Projeto> listProjetos = qry.getResultList();
-			
+
 			if (listProjetos.size() > 0) {
 				qry = em.createQuery("from Requisicao where projeto_id = :id order by titulo");
 				qry.setParameter("id", listProjetos.get(0).getId());
 				lista = qry.getResultList();
-				
+
 				qry = em.createQuery("from Projeto where id = :id order by nome");
 				qry.setParameter("id", listProjetos.get(0).getId());
 				projetos = qry.getResultList();
-				
+
 				qry = em.createQuery("from Pessoa where id = :id order by nome");
 				qry.setParameter("id", id);
 				pessoas = qry.getResultList();
-				
+
 			} else {
 				lista = null;
 				projetos = null;
 				pessoas = null;
 			}
-			
+
 		} else {
 			lista = em.createQuery("from Requisicao order by titulo").getResultList();
 			projetos = em.createQuery("from Projeto order by nome").getResultList();
@@ -205,7 +147,7 @@ public class RequisicaoCrud implements Serializable {
 		}
 	}
 
-	public void excluir(Long id) {
+	public void excluir(Long id) { //Este recebe parâmetro em função da ação do usuário tipo cliente (Permissões)
 		try {
 			editando = false;
 			EntityManager em = JPAUtil.getEntityManager();
@@ -243,6 +185,48 @@ public class RequisicaoCrud implements Serializable {
 	public void cancelar() {
 		editando = false;
 		selecionado = null;
+	}
+
+	// Controle dos arquivos anexados
+
+	public void incluirAnexo() {
+		anexoSelecionado = new RequisicaoAnexo();
+	}
+
+	public void salvarAnexo() {
+		if (file != null) {
+			anexoSelecionado.setRequisicao(selecionado);
+			anexoSelecionado.setArquivo(file.getFileName());
+			anexoSelecionado.setArquivoTipo(file.getContentType());
+			anexoSelecionado.setBytes(file.getContent());
+			if (selecionado.getAnexos() == null) {
+				selecionado.setAnexos(new ArrayList<RequisicaoAnexo>());
+			}
+			selecionado.getAnexos().add(anexoSelecionado);
+			anexoSelecionado = new RequisicaoAnexo();
+		}
+	}
+
+	public void downloadAnexo(Integer linha) throws IOException {
+		RequisicaoAnexo anexo = selecionado.getAnexos().get(linha);
+		byte[] b = anexo.getBytes();
+		HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext()
+				.getResponse();
+		res.setContentType(anexo.getArquivoTipo());
+		res.setHeader("Content-disposition", "inline;filename=" + anexo.getArquivo()); // abre no navegador
+		// res.setHeader("Content-disposition",
+		// "attachment;filename="+anexo.getArquivo());
+		res.getOutputStream().write(b);
+		FacesContext.getCurrentInstance().responseComplete();
+	}
+
+	public void excluirAnexo(Integer linha) {
+		anexoSelecionado = selecionado.getAnexos().get(linha);
+		selecionado.getAnexos().remove(anexoSelecionado);
+	}
+
+	public void cancelarAnexo() {
+
 	}
 
 	public UploadedFile getFile() {

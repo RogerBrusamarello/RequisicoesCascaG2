@@ -5,12 +5,12 @@
 
 <h:head>
 	<title>Administrador</title>
-	
+
 	<style type="text/css">
-		.ui-outputlabel {
-			color: #F2F5A9 !important;
-		}
-	</style>
+.ui-outputlabel {
+	color: #F2F5A9 !important;
+}
+</style>
 
 </h:head>
 
@@ -31,9 +31,17 @@
 				update="consulta edicao" style="horizontal-align:center" />
 			<p:commandButton value="Excluir"
 				action="#{administradorCrud.excluir}" icon="pi pi-trash"
-				onclick="return confirm('Excluir?')"
 				disabled="#{administradorCrud.selecionado==null}" update="consulta"
-				style="horizontal-align:center" />
+				style="horizontal-align:center">
+				<p:confirm header="Confirmação" message="Confirma a exclusão?"
+					icon="pi pi-exclamation-triangle" />
+			</p:commandButton>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+			</p:confirmDialog>
 			<p:dataTable var="o" value="#{administradorCrud.lista}"
 				emptyMessage="Nada para mostrar!" selectionMode="single"
 				selection="#{administradorCrud.selecionado}" rowKey="#{o.id}"
@@ -99,10 +107,12 @@
 					value="#{administradorCrud.selecionado.rg}" size="10" />
 
 				<p:outputLabel for="email" value="Email"
-					rendered="#{loginController.pessoaLogada.id == administradorCrud.selecionado.id}" />
+					rendered="#{loginController.pessoaLogada.id == administradorCrud.selecionado.id or
+					loginController.permissao >= loginController.vlrUsuario}" />
 				<p:inputText id="email" required="true"
 					value="#{administradorCrud.selecionado.email}" size="28"
-					rendered="#{loginController.pessoaLogada.id == administradorCrud.selecionado.id}" />
+					rendered="#{loginController.pessoaLogada.id == administradorCrud.selecionado.id or
+					loginController.permissao >= loginController.vlrUsuario}" />
 
 				<p:outputLabel for="celular" value="Celular" />
 				<p:inputMask id="celular" required="true" mask="(99) 99999-9999"
@@ -127,10 +137,10 @@
 
 			</p:panelGrid>
 
-			<p:commandButton id="salvar" value="Salvar"
+			<p:commandButton id="salvar" value="Salvar" icon="pi pi-save"
 				action="#{administradorCrud.salvar}" update="consulta edicao"
 				style="horizontal-align:center" />
-			<p:commandButton value="Cancelar"
+			<p:commandButton value="Cancelar" icon="pi pi-times-circle"
 				action="#{administradorCrud.cancelar}" immediate="true"
 				update="consulta edicao" style="horizontal-align:center" />
 		</h:form>

@@ -7,15 +7,15 @@
 	<title>Requisição Anexo</title>
 
 	<style type="text/css">
-		.ui-outputLabel {
-			color: #F2F5A9 !important;
-		}
-	</style>
+.ui-outputLabel {
+	color: #F2F5A9 !important;
+}
+</style>
 
 </h:head>
 
 <h:body>
-	<p:dialog header="Arquivo" widgetVar="anexos" id="anexos" modal="true">
+	<p:dialog header="Arquivo Anexo" widgetVar="anexos" id="anexos" modal="true">
 		<h:form id="formEditAnexo" enctype="multipart/form-data">
 			<p:panelGrid>
 				<p:outputLabel for="descricao" value="Descrição: " />
@@ -23,15 +23,15 @@
 					value="#{requisicaoCrud.anexoSelecionado.descricao}" />
 			</p:panelGrid>
 			<br />
-			
+
 			<p:fileUpload value="#{requisicaoCrud.file}" mode="simple"
 				skinSimple="true" />
-			
-			<p:commandButton value="Salvar anexo" ajax="false"
+
+			<p:commandButton value="Salvar" icon="pi pi-save" ajax="false" immediate="false"
 				action="#{requisicaoCrud.salvarAnexo}"
 				oncomplete="PF('anexos').hide();" />
 
-			<p:commandButton value="Cancelar" ajax="false" immediate="true"
+			<p:commandButton value="Cancelar" icon="pi pi-times-circle"
 				action="#{requisicaoCrud.cancelarAnexo}"
 				oncomplete="PF('anexos').hide();" />
 		</h:form>

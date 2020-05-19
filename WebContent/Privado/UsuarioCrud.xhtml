@@ -31,9 +31,17 @@
 				update="consulta edicao" style="horizontal-align:center" />
 			<p:commandButton value="Excluir"
 				action="#{usuarioCrud.excluir}" icon="pi pi-trash"
-				onclick="return confirm('Excluir?')"
 				disabled="#{usuarioCrud.selecionado==null}" update="consulta"
-				style="horizontal-align:center" />
+				style="horizontal-align:center">
+				<p:confirm header="Confirmação" message="Confirma a exclusão?"
+					icon="pi pi-exclamation-triangle" />
+			</p:commandButton>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+			</p:confirmDialog>
 			<p:dataTable var="o" value="#{usuarioCrud.lista}"
 				emptyMessage="Nada para mostrar!" selectionMode="single"
 				selection="#{usuarioCrud.selecionado}" rowKey="#{o.id}"
@@ -99,10 +107,12 @@
 					value="#{usuarioCrud.selecionado.rg}" size="10" />
 
 				<p:outputLabel for="email" value="Email"
-					rendered="#{loginController.pessoaLogada.id == usuarioCrud.selecionado.id}" />
+					rendered="#{loginController.pessoaLogada.id == usuarioCrud.selecionado.id or
+					loginController.permissao >= loginController.vlrUsuario}" />
 				<p:inputText id="email" required="true"
 					value="#{usuarioCrud.selecionado.email}" size="28"
-					rendered="#{loginController.pessoaLogada.id == usuarioCrud.selecionado.id}" />
+					rendered="#{loginController.pessoaLogada.id == usuarioCrud.selecionado.id or
+					loginController.permissao >= loginController.vlrUsuario}" />
 
 				<p:outputLabel for="celular" value="Celular" />
 				<p:inputMask id="celular" required="true" mask="(99) 99999-9999"
@@ -128,10 +138,10 @@
 			</p:panelGrid>
 
 			<p:commandButton id="salvar" value="Salvar"
-				action="#{usuarioCrud.salvar}" update="consulta edicao"
+				action="#{usuarioCrud.salvar}" icon="pi pi-save" update="consulta edicao"
 				style="horizontal-align:center" />
 			<p:commandButton value="Cancelar"
-				action="#{usuarioCrud.cancelar}" immediate="true"
+				action="#{usuarioCrud.cancelar}" icon="pi pi-times-circle" immediate="true"
 				update="consulta edicao" style="horizontal-align:center" />
 		</h:form>
 	</p:panel>

@@ -23,16 +23,24 @@
 		<h:form>
 			<p:commandButton value="Incluir"
 				action="#{requisicaoProgramadaCrud.incluir}" icon="pi pi-plus"
-				update="consulta edicao"></p:commandButton>
+				update="consulta edicao"/>
 			<p:commandButton value="Alterar"
 				action="#{requisicaoProgramadaCrud.alterar}" icon="pi pi-pencil"
 				disabled="#{requisicaoProgramadaCrud.selecionado==null}"
-				update="consulta edicao"></p:commandButton>
+				update="consulta edicao"/>
 			<p:commandButton value="Excluir"
 				action="#{requisicaoProgramadaCrud.excluir}" icon="pi pi-trash"
-				onclick="return confirm('Excluir?')"
 				disabled="#{requisicaoProgramadaCrud.selecionado==null}"
-				update="consulta"></p:commandButton>
+				update="consulta">
+				<p:confirm header="Confirmação" message="Confirma a exclusão?"
+					icon="pi pi-exclamation-triangle" />
+			</p:commandButton>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+			</p:confirmDialog>
 			<p:dataTable var="o" value="#{requisicaoProgramadaCrud.lista}"
 				emptyMessage="Nada para mostrar!" selectionMode="single"
 				selection="#{requisicaoProgramadaCrud.selecionado}" rowKey="#{o.id}"
@@ -48,13 +56,13 @@
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
 				<p:column headerText="Data" sortBy="#{o.data}" filterBy="#{o.data}"
-					style="width: 80px; text-align: center;">
+					style="width: 80px; text-align: center; font-size: 14;">
 					<h:outputText value="#{o.data}" style="color: #F2F5A9;">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
 				<p:column headerText="Início" sortBy="#{o.dataInicio}"
-					filterBy="#{o.dataInicio}" style="width: 80px; text-align: center;">
+					filterBy="#{o.dataInicio}" style="width: 80px; text-align: center; font-size: 14;">
 					<h:outputText value="#{o.dataInicio}" style="color: #F2F5A9;">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
@@ -62,7 +70,7 @@
 				<p:column headerText="Término" sortBy="#{o.dataTermino}"
 					filterBy="#{o.dataTermino}"
 					style="width: 90px; text-align: center;">
-					<h:outputText value="#{o.dataTermino}" style="color: #F2F5A9;">
+					<h:outputText value="#{o.dataTermino}" style="color: #F2F5A9;  font-size: 14;">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
@@ -122,9 +130,9 @@
 			</p:panelGrid>
 
 			<p:commandButton value="Salvar"
-				action="#{requisicaoProgramadaCrud.salvar}" update="consulta edicao" />
+				action="#{requisicaoProgramadaCrud.salvar}" icon="pi pi-save" update="consulta edicao" />
 			<p:commandButton value="Cancelar"
-				action="#{requisicaoProgramadaCrud.cancelar}" immediate="true"
+				action="#{requisicaoProgramadaCrud.cancelar}" icon="pi pi-times-circle" immediate="true"
 				update="consulta edicao" />
 		</h:form>
 	</p:panel>
