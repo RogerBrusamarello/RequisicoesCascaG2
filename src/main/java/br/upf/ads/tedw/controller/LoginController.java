@@ -114,14 +114,15 @@ public class LoginController implements Serializable {
 	 * @throws Exception
 	 */
 	public String entrar() {
+		
 		EntityManager em = JPAUtil.getEntityManager();
 		Query qry = em.createQuery("from Pessoa where email = :email and senha = :senha");
 		qry.setParameter("email", email);
 		qry.setParameter("senha", Encrypt.encryptMd5(senha));
 		@SuppressWarnings("unchecked")
 		List<Pessoa> list = qry.getResultList();
-
 		em.close();
+		
 		if (list.size() <= 0) {
 			pessoaLogada = null;
 			FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-mail ou senha inválida!", "");
@@ -129,41 +130,51 @@ public class LoginController implements Serializable {
 			return "";
 		} else {
 			pessoaLogada = list.get(0);
-
-			System.out.println("Id logado: " + pessoaLogada.getId());
-
+			//System.out.println("Id logado: " + pessoaLogada.getId());
 			EntityManager em2 = JPAUtil.getEntityManager();
 
-			// verifica se a pessoa é Administrador
+			/**
+			 *  verifica se a pessoa é Administrador
+			 */
 			qry = em2.createQuery("from Administrador where id = :id ");
 			qry.setParameter("id", pessoaLogada.getId());
 			@SuppressWarnings("unchecked")
 			List<Administrador> listAdmin = qry.getResultList();
 
-			// verifica se a pessoa é Usuario
+			/**
+			 * verifica se a pessoa é Usuario
+			 */
 			qry = em2.createQuery("from Usuario where id = :id ");
 			qry.setParameter("id", pessoaLogada.getId());
 			@SuppressWarnings("unchecked")
 			List<Usuario> listUsuario = qry.getResultList();
 
-			// verifica se a pessoa é Cliente
+			/**
+			 *  verifica se a pessoa é Cliente
+			 */
 			qry = em2.createQuery("from Cliente where id = :id ");
 			qry.setParameter("id", pessoaLogada.getId());
 			@SuppressWarnings("unchecked")
 			List<Cliente> listCliente = qry.getResultList();
 
 			/**
-			 * Atribuir valores para hierarquia em ordem crescente. Quanto maior a
-			 * hierarquia, maior o valor.
+			 * Atribuindo valores para hierarquia em ordem crescente referente ao tipo de
+			 * usuário. Quanto maior a hierarquia, maior o valor.
+			 * 
+			 * 1 (Cliente) - 2 (Usuário) - 3 (Administrador)
+			 * 
 			 */
 			setVlrCliente(1);
 			setVlrUsuario(2);
 			setVlrAdministrador(3);
 
-			System.out.println("vlrAdministrador: " + vlrAdministrador);
-			System.out.println("vlrUsuario: " + vlrUsuario);
-			System.out.println("vlrCliente: " + vlrCliente);
+			//System.out.println("vlrAdministrador: " + vlrAdministrador);
+			//System.out.println("vlrUsuario: " + vlrUsuario);
+			//System.out.println("vlrCliente: " + vlrCliente);
 
+			/**
+			 * Verifica o perfil de usuário da pessoa logada
+			 */
 			if (listAdmin.size() > 0) {
 				setPermissao(vlrAdministrador);
 			} else if (listUsuario.size() > 0) {
@@ -174,6 +185,9 @@ public class LoginController implements Serializable {
 				permissao = null;
 			}
 
+			/**
+			 *  Texto do perfil de usuário à exibir junto ao nome da pessoa que está logada
+			 */
 			switch (permissao) {
 			case 3:
 				setTipoUsuario("(Administrador)");
@@ -188,17 +202,10 @@ public class LoginController implements Serializable {
 				break;
 			}
 
-			System.out.println("Permissão: " + permissao);
-
+			//System.out.println("Permissão: " + permissao);
 			em2.close();
-
 			return "/faces/Privado/Home.xhtml";
 		}
-
-		/*
-		 * usuarioLogado = em.find(Usuario.class, 1L); return
-		 * "/faces/Privado/Home.xhtml";
-		 */
 	}
 
 	/**

@@ -98,5 +98,4 @@ public class AdministradorCrud implements Serializable {
 		editando = false;
 		selecionado = null;
 	}
-
 }

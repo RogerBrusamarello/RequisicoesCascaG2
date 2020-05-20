@@ -18,5 +18,4 @@ public class Usuario extends Pessoa implements Serializable {
 	public Usuario() {
 		super();
 	}
-
 }

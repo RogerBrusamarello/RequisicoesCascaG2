@@ -4,6 +4,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+
 	<title>Home</title>
 
 	<style type="text/css">
@@ -82,6 +83,7 @@
 						<p:commandButton type="button" title="Save" icon="pi pi-save" />
 						<p:commandButton type="button" title="Delete" icon="pi pi-trash" />
 						<p:commandButton type="button" title="Print" icon="pi pi-print" />
+
 					</p:toolbarGroup>
 					<p:toolbarGroup align="right">
 						<p:menuButton value="Options">
@@ -91,9 +93,12 @@
 						</p:menuButton>
 					</p:toolbarGroup>
 				</p:toolbar>
-				
-				<h:outputText value="#{loginController.pessoaLogada.nome} 
-					#{loginController.tipoUsuario}" style="color: #F2F5A9;" />
+
+				<h:outputText
+					value="#{loginController.pessoaLogada.nome} 
+					#{loginController.tipoUsuario}"
+					style="color: #F2F5A9;" />
+
 			</h:form>
 		</p:layoutUnit>
 
@@ -109,52 +114,59 @@
 					<p:submenu label="Cadastro">
 						<p:submenu label="Pessoas"
 							rendered="#{loginController.permissao >= loginController.vlrUsuario}">
+
 							<p:menuitem value="Usuario" url="../Privado/UsuarioCrud.xhtml"
 								target="centro" icon="pi pi-user"
 								rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
+
 							<p:menuitem value="Administrador"
 								url="../Privado/AdministradorCrud.xhtml" target="centro"
 								icon="pi pi-user-plus"
 								rendered="#{loginController.permissao >= loginController.vlrAdministrador}" />
+
 							<p:menuitem value="Cliente" url="../Privado/ClienteCrud.xhtml"
 								target="centro" icon="pi pi-users" />
+
 						</p:submenu>
 						<p:submenu label="Documentos"
 							rendered="#{loginController.permissao >= loginController.vlrCliente}">
+
 							<p:menuitem value="Projeto" url="../Privado/ProjetoCrud.xhtml"
 								target="centro" icon="pi pi-file"
 								rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
+
 							<p:menuitem value="Requisição"
 								url="../Privado/RequisicaoCrud.xhtml" target="centro"
 								icon="pi pi-file-o"
 								rendered="#{loginController.permissao >= loginController.vlrCliente}" />
+
 							<p:menuitem value="Requisição Programada"
 								url="../Privado/RequisicaoProgramadaCrud.xhtml" target="centro"
 								icon="pi pi-ticket"
 								rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
+
 							<p:menuitem value="Requisição em Andamento"
 								url="../Privado/RequisicaoAndamentoCrud.xhtml" target="centro"
 								icon="pi pi-ticket"
 								rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
+
 						</p:submenu>
 					</p:submenu>
+
 					<p:submenu label="Relatórios"
-						rendered="#{loginController.permissao >= loginController.vlrUsuario}">
+						rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
 
-					</p:submenu>
-					<p:submenu label="Sobre">
+					<p:submenu label="Sobre" />
 
-					</p:submenu>
 				</p:panelMenu>
 			</h:form>
 		</p:layoutUnit>
 
-
 		<!-- Área para carregar os programas -->
 		<p:layoutUnit position="center">
 			<iframe name="centro" id="centro" style="width: 100%; height: 100%;" />
-
 		</p:layoutUnit>
+
 	</p:layout>
 </h:body>
 </html>

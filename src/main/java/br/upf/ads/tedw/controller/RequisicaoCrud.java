@@ -188,7 +188,6 @@ public class RequisicaoCrud implements Serializable {
 	}
 
 	// Controle dos arquivos anexados
-
 	public void incluirAnexo() {
 		anexoSelecionado = new RequisicaoAnexo();
 	}

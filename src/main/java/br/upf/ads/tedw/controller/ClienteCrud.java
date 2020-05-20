@@ -98,5 +98,4 @@ public class ClienteCrud implements Serializable {
 		editando = false;
 		selecionado = null;
 	}
-
 }

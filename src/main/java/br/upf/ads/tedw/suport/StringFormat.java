@@ -44,7 +44,7 @@ public class StringFormat {
 		return mf.valueToString(value);
 
 	}
-
+	
 	// Exemplos de saída:
 	// String CEP = freeStringFormat("12345678","##.###-###", 5, 0);
 	// String Celular = freeStringFormat("1234567890123","(##) #####-####", 11, 0);

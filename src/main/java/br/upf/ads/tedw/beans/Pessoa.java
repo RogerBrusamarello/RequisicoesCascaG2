@@ -185,5 +185,4 @@ public abstract class Pessoa implements Serializable {
 	public String toString() {
 		return nome;
 	}
-
 }

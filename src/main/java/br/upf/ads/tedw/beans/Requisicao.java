@@ -251,5 +251,4 @@ public class Requisicao implements Serializable {
 	public void setAnexos(List<RequisicaoAnexo> anexos) {
 		this.anexos = anexos;
 	}
-
 }

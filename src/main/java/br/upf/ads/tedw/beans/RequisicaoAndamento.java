@@ -180,5 +180,4 @@ public class RequisicaoAndamento implements Serializable {
 	public String toString() {
 		return titulo;
 	}
-
 }

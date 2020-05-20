@@ -4,6 +4,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+
 	<title>Projeto</title>
 
 	<style type="text/css">
@@ -13,7 +14,6 @@
 	</style>
 
 </h:head>
-
 
 <h:body onload="#{projetoCrud.carregarLista()}">
 	<!-- Painel de consulta -->
@@ -30,9 +30,8 @@
 				icon="pi pi-pencil" disabled="#{projetoCrud.selecionado==null}"
 				update="consulta edicao" style="horizontal-align:center" />
 			<p:commandButton value="Excluir" action="#{projetoCrud.excluir}"
-				icon="pi pi-trash"
-				disabled="#{projetoCrud.selecionado==null}" update="consulta"
-				style="horizontal-align:center">
+				icon="pi pi-trash" disabled="#{projetoCrud.selecionado==null}"
+				update="consulta" style="horizontal-align:center">
 				<p:confirm header="Confirmação" message="Confirma a exclusão?"
 					icon="pi pi-exclamation-triangle" />
 			</p:commandButton>
@@ -52,26 +51,32 @@
 				currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}">
 				<p:ajax event="rowSelect" update="consulta" />
 				<p:ajax event="rowUnselect" update="consulta" />
+
 				<p:column headerText="Código" sortBy="#{o.id}" filterBy="#{o.id}"
 					style="width: 75px; text-align: center;">
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
+
 				<p:column headerText="Nome" sortBy="#{o.nome}" filterBy="#{o.nome}"
 					style="text-align: center;">
 					<p:outputLabel value="#{o.nome}" />
 				</p:column>
+
 				<p:column headerText="Descrição" sortBy="#{o.descricao}"
 					filterBy="#{o.descricao}" style="text-align: center;">
 					<p:outputLabel value="#{o.descricao}" />
 				</p:column>
+
 				<p:column headerText="Usuario" sortBy="#{o.usuario}"
 					filterBy="#{o.usuario}" style="text-align: center;">
 					<p:outputLabel value="#{o.usuario}" />
 				</p:column>
+
 				<p:column headerText="Cliente" sortBy="#{o.cliente}"
 					filterBy="#{o.cliente}" style="text-align: center;">
 					<p:outputLabel value="#{o.cliente}" />
 				</p:column>
+
 			</p:dataTable>
 		</h:form>
 	</p:panel>
@@ -100,6 +105,7 @@
 				<p:commandLink for="inputCliente" value="Cliente" immediate="true"
 					ajax="true"
 					action="#{homeCon.abrirPopup('ClienteCrud.xhtml', 600, 400, true)}" />
+
 				<p:autoComplete id="inputCliente" dropdown="true" multiple="false"
 					forceSelection="true" var="obj" itemLabel="#{obj.nome}"
 					itemValue="#{obj}" value="#{projetoCrud.selecionado.cliente}"
@@ -109,10 +115,11 @@
 
 			</p:panelGrid>
 
-			<p:commandButton value="Salvar" icon="pi pi-save" action="#{projetoCrud.salvar}"
+			<p:commandButton value="Salvar" icon="pi pi-save"
+				action="#{projetoCrud.salvar}" update="consulta edicao" />
+			<p:commandButton value="Cancelar" icon="pi pi-times-circle"
+				action="#{projetoCrud.cancelar}" immediate="true"
 				update="consulta edicao" />
-			<p:commandButton value="Cancelar" icon="pi pi-times-circle" action="#{projetoCrud.cancelar}"
-				immediate="true" update="consulta edicao" />
 
 		</h:form>
 	</p:panel>

@@ -4,8 +4,9 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+
 	<title>Cliente</title>
-	
+
 	<style type="text/css">
 		.ui-outputlabel {
 			color: #F2F5A9 !important;
@@ -22,17 +23,15 @@
 			style="color: #FFBF00; font-weight: bolder; font-size: 20;" />
 		<p:separator />
 		<h:form>
-			<p:commandButton value="Incluir"
-				action="#{clienteCrud.incluir}" icon="pi pi-plus"
+			<p:commandButton value="Incluir" action="#{clienteCrud.incluir}"
+				icon="pi pi-plus" update="consulta edicao"
+				style="horizontal-align:center" />
+			<p:commandButton value="Alterar" action="#{clienteCrud.alterar}"
+				icon="pi pi-pencil" disabled="#{clienteCrud.selecionado==null}"
 				update="consulta edicao" style="horizontal-align:center" />
-			<p:commandButton value="Alterar"
-				action="#{clienteCrud.alterar}" icon="pi pi-pencil"
-				disabled="#{clienteCrud.selecionado==null}"
-				update="consulta edicao" style="horizontal-align:center" />
-			<p:commandButton value="Excluir"
-				action="#{clienteCrud.excluir}" icon="pi pi-trash"
-				disabled="#{clienteCrud.selecionado==null}" update="consulta"
-				style="horizontal-align:center">
+			<p:commandButton value="Excluir" action="#{clienteCrud.excluir}"
+				icon="pi pi-trash" disabled="#{clienteCrud.selecionado==null}"
+				update="consulta" style="horizontal-align:center">
 				<p:confirm header="Confirmação" message="Confirma a exclusão?"
 					icon="pi pi-exclamation-triangle" />
 			</p:commandButton>
@@ -44,36 +43,48 @@
 			</p:confirmDialog>
 			<p:dataTable var="o" value="#{clienteCrud.lista}"
 				emptyMessage="Nada para mostrar!" selectionMode="single"
-				selection="#{clienteCrud.selecionado}" rowKey="#{o.id}"
-				rows="5" paginator="true"
+				selection="#{clienteCrud.selecionado}" rowKey="#{o.id}" rows="5"
+				paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
 				{LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15"
 				currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}">
 				<p:ajax event="rowSelect" update="consulta" />
 				<p:ajax event="rowUnselect" update="consulta" />
+				
 				<p:column headerText="Código" sortBy="#{o.id}" filterBy="#{o.id}"
 					style="width: 75px; text-align: center;">
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
+				
 				<p:column headerText="Nome Cliente" sortBy="#{o.nome}"
 					filterBy="#{o.nome}" style="text-align: center;">
 					<p:outputLabel value="#{o.nome}" />
 				</p:column>
+				
+				<p:column headerText="Função" sortBy="#{o.nome}"
+					filterBy="#{o.funcao}" style="text-align: center;">
+					<p:outputLabel value="#{o.funcao}" />
+				</p:column>
+				
 				<!-- <p:column headerText="CPF" sortBy="#{o.cpf}" filterBy="#{o.cpf}" style="width: 115px; text-align: center;">
 					<p:outputLabel value="#{o.cpf}" />
 				</p:column>
+				
 				<p:column headerText="RG" sortBy="#{o.rg}" filterBy="#{o.rg}" style="text-align: center;">
 					<p:outputLabel value="#{o.rg}" />
 				</p:column> -->
+				
 				<p:column headerText="E-mail" sortBy="#{o.email}"
 					filterBy="#{o.email}" style="text-align: center;">
 					<p:outputLabel value="#{o.email}" />
 				</p:column>
+				
 				<p:column headerText="Celular" sortBy="#{o.celular}"
 					filterBy="#{o.celular}" style="width: 120px; text-align: center;">
 					<p:outputLabel value="#{o.celular}" />
 				</p:column>
+				
 				<p:column headerText="Outras Informações"
 					sortBy="#{o.outrasInformacoes}" filterBy="#{o.outrasInformacoes}"
 					style="text-align: center;">
@@ -93,10 +104,15 @@
 				<p:outputLabel for="nome" value="Nome Cliente" />
 				<p:inputText id="nome" required="true"
 					value="#{clienteCrud.selecionado.nome}" size="28" />
+					
+				<p:outputLabel for="funcao" value="Função" />
+				<p:inputText id="funcao" required="true"
+					value="#{clienteCrud.selecionado.funcao}" size="28" />
 
 				<p:outputLabel for="cpf" value="CPF"
 					rendered="#{loginController.pessoaLogada.id == clienteCrud.selecionado.id or
 					loginController.permissao >= loginController.vlrUsuario}" />
+
 				<p:inputMask id="cpf" required="true" mask="999.999.999-99"
 					value="#{clienteCrud.selecionado.cpf}" size="12"
 					rendered="#{loginController.pessoaLogada.id == clienteCrud.selecionado.id or
@@ -109,6 +125,7 @@
 				<p:outputLabel for="email" value="Email"
 					rendered="#{loginController.pessoaLogada.id == clienteCrud.selecionado.id  or
 					loginController.permissao >= loginController.vlrUsuario}" />
+
 				<p:inputText id="email" required="true"
 					value="#{clienteCrud.selecionado.email}" size="28"
 					rendered="#{loginController.pessoaLogada.id == clienteCrud.selecionado.id  or
@@ -120,8 +137,8 @@
 
 				<p:outputLabel value="Outras Informações" />
 				<h:inputTextarea
-					value="#{clienteCrud.selecionado.outrasInformacoes}"
-					cols="30" rows="3" />
+					value="#{clienteCrud.selecionado.outrasInformacoes}" cols="30"
+					rows="3" />
 
 				<p:outputLabel for="pwd1" value="Senha"
 					rendered="#{clienteCrud.selecionado.id == null}" />
@@ -143,9 +160,8 @@
 			<p:commandButton value="Cancelar" icon="pi pi-times-circle"
 				action="#{clienteCrud.cancelar}" immediate="true"
 				update="consulta edicao" style="horizontal-align:center" />
+
 		</h:form>
 	</p:panel>
-
 </h:body>
-
 </html>

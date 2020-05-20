@@ -22,7 +22,8 @@ public class EstadoConverter implements Converter, Serializable {
 			return JPAUtil.getEntityManager().find(Estado.class, Integer.valueOf(value));
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			throw new ConverterException("Não foi possível converter o valor [" + value + "] no componente [" + component.getId() + "]", ex);
+			throw new ConverterException(
+					"Não foi possível converter o valor [" + value + "] no componente [" + component.getId() + "]", ex);
 		}
 	}
 
@@ -33,5 +34,4 @@ public class EstadoConverter implements Converter, Serializable {
 		}
 		return value.toString();
 	}
-
 }

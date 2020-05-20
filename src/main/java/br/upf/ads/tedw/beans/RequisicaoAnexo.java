@@ -132,5 +132,4 @@ public class RequisicaoAnexo implements Serializable {
 	public void setBytes(byte[] bytes) {
 		this.bytes = bytes;
 	}
-
 }

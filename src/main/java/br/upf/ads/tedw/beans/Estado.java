@@ -109,5 +109,4 @@ public class Estado implements Serializable {
 	public String toString() {
 		return uf;
 	}
-
 }

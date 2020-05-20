@@ -139,5 +139,4 @@ public class RequisicaoProgramadaCrud implements Serializable {
 		editando = false;
 		selecionado = null;
 	}
-
 }

@@ -11,9 +11,7 @@ public class App {
 		Persistence.createEntityManagerFactory("tedw");
 
 		/**
-		 * 
 		 * Testes
-		 * 
 		 */
 
 		// System.out.println(stringFormat.freeStringFormat(charRemove.specialCharRemoveFromString("123-456x7897n8965",

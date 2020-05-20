@@ -133,5 +133,4 @@ public class Projeto implements Serializable {
 	public String toString() {
 		return nome;
 	}
-	
 }

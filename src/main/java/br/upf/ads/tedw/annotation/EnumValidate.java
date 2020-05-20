@@ -19,11 +19,11 @@ import javax.validation.Payload;
 public @interface EnumValidate {
 
 	String message() default "Opção inválida!";
-	
+
 	Class<?>[] groups() default {};
-	
+
 	Class<? extends Payload>[] payload() default {};
-	
-	Class<? extends Enum<?>> enumClass();	
-	
+
+	Class<? extends Enum<?>> enumClass();
+
 }

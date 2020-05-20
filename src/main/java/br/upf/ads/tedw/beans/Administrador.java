@@ -18,5 +18,4 @@ public class Administrador extends Pessoa implements Serializable {
 	public Administrador() {
 		super();
 	}
-
 }

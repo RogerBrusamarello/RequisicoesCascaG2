@@ -45,7 +45,6 @@ public class SpecialCharRemove {
 			break;
 
 		}
-
 		return str;
 	}
 
@@ -83,8 +82,6 @@ public class SpecialCharRemove {
 				}
 			}
 		}
-
 		return str;
 	}
-
 }

@@ -98,6 +98,4 @@ public class EstadoCrud implements Serializable {
 		editando = false;
 		selecionado = null;
 	}
-
 }
-

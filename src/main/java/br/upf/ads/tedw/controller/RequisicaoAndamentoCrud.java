@@ -156,5 +156,4 @@ public class RequisicaoAndamentoCrud implements Serializable {
 		editando = false;
 		selecionado = null;
 	}
-
 }

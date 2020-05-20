@@ -4,19 +4,21 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+
 	<title>Requisição Anexo</title>
 
 	<style type="text/css">
-.ui-outputLabel {
-	color: #F2F5A9 !important;
-}
-</style>
+		.ui-outputLabel {
+			color: #F2F5A9 !important;
+		}
+	</style>
 
 </h:head>
 
 <h:body>
 	<p:dialog header="Arquivo Anexo" widgetVar="anexos" id="anexos" modal="true">
 		<h:form id="formEditAnexo" enctype="multipart/form-data">
+			
 			<p:panelGrid>
 				<p:outputLabel for="descricao" value="Descrição: " />
 				<p:inputText id="descricao" required="true" size="25"
@@ -35,7 +37,6 @@
 				action="#{requisicaoCrud.cancelarAnexo}"
 				oncomplete="PF('anexos').hide();" />
 		</h:form>
-
 	</p:dialog>
 </h:body>
 </html>

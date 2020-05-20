@@ -4,13 +4,14 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+
 	<title>Administrador</title>
 
 	<style type="text/css">
-.ui-outputlabel {
-	color: #F2F5A9 !important;
-}
-</style>
+		.ui-outputlabel {
+			color: #F2F5A9 !important;
+		}
+	</style>
 
 </h:head>
 
@@ -42,6 +43,7 @@
 				<p:commandButton value="Não" type="button"
 					styleClass="ui-confirmdialog-no" icon="pi pi-times" />
 			</p:confirmDialog>
+
 			<p:dataTable var="o" value="#{administradorCrud.lista}"
 				emptyMessage="Nada para mostrar!" selectionMode="single"
 				selection="#{administradorCrud.selecionado}" rowKey="#{o.id}"
@@ -52,28 +54,34 @@
 				currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}">
 				<p:ajax event="rowSelect" update="consulta" />
 				<p:ajax event="rowUnselect" update="consulta" />
+
 				<p:column headerText="Código" sortBy="#{o.id}" filterBy="#{o.id}"
 					style="width: 75px; text-align: center;">
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
+
 				<p:column headerText="Nome Administrador" sortBy="#{o.nome}"
 					filterBy="#{o.nome}" style="text-align: center;">
 					<p:outputLabel value="#{o.nome}" />
 				</p:column>
+
 				<!-- <p:column headerText="CPF" sortBy="#{o.cpf}" filterBy="#{o.cpf}" style="width: 115px; text-align: center;">
 					<p:outputLabel value="#{o.cpf}" />
 				</p:column>
 				<p:column headerText="RG" sortBy="#{o.rg}" filterBy="#{o.rg}" style="text-align: center;">
 					<p:outputLabel value="#{o.rg}" />
 				</p:column> -->
+
 				<p:column headerText="E-mail" sortBy="#{o.email}"
 					filterBy="#{o.email}" style="text-align: center;">
 					<p:outputLabel value="#{o.email}" />
 				</p:column>
+
 				<p:column headerText="Celular" sortBy="#{o.celular}"
 					filterBy="#{o.celular}" style="width: 120px; text-align: center;">
 					<p:outputLabel value="#{o.celular}" />
 				</p:column>
+
 				<p:column headerText="Outras Informações"
 					sortBy="#{o.outrasInformacoes}" filterBy="#{o.outrasInformacoes}"
 					style="text-align: center;">
@@ -143,9 +151,8 @@
 			<p:commandButton value="Cancelar" icon="pi pi-times-circle"
 				action="#{administradorCrud.cancelar}" immediate="true"
 				update="consulta edicao" style="horizontal-align:center" />
+
 		</h:form>
 	</p:panel>
-
 </h:body>
-
 </html>

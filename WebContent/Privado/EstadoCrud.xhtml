@@ -5,21 +5,22 @@
 
 <h:head>
 	<title>Estado</title>
-	
+
 	<style type="text/css">
 		.ui-outputLabel {
 			color: #F2F5A9 !important;
 		}
 	</style>
-	
+
 </h:head>
 
 <h:body onload="#{estadoCrud.carregarLista()}">
 	<!-- Painel de consulta -->
 	<p:panel id="consulta" visible="#{!estadoCrud.editando}"
 		rendered="#{loginController.permissao >= loginController.vlrUsuario}">
-	<h:outputText value="Estado" style="color: #FFBF00; font-weight: bolder; font-size: 20;"/>
-	<p:separator />
+		<h:outputText value="Estado"
+			style="color: #FFBF00; font-weight: bolder; font-size: 20;" />
+		<p:separator />
 		<h:form>
 			<p:commandButton value="Incluir" action="#{estadoCrud.incluir}"
 				icon="ui-icon-plusthick" update="consulta edicao" />
@@ -27,8 +28,8 @@
 				icon="ui-icon-pencil" disabled="#{estadoCrud.selecionado==null}"
 				update="consulta edicao" />
 			<p:commandButton value="Excluir" action="#{estadoCrud.excluir}"
-				icon="ui-icon-trash"
-				disabled="#{estadoCrud.selecionado==null}" update="consulta">
+				icon="ui-icon-trash" disabled="#{estadoCrud.selecionado==null}"
+				update="consulta">
 				<p:confirm header="Confirmação" message="Confirma a exclusão?"
 					icon="pi pi-exclamation-triangle" />
 			</p:commandButton>
@@ -49,17 +50,21 @@
 				currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}">
 				<p:ajax event="rowSelect" update="consulta" />
 				<p:ajax event="rowUnselect" update="consulta" />
+
 				<p:column headerText="Código" sortBy="#{o.id}" filterBy="#{o.id}"
 					style="width: 75px">
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
+
 				<p:column headerText="Nome" sortBy="#{o.nome}" filterBy="#{o.nome}">
 					<p:outputLabel value="#{o.nome}" />
 				</p:column>
+
 				<p:column headerText="Sigla" sortBy="#{o.uf}" filterBy="#{o.uf}"
 					style="width:70px">
 					<p:outputLabel value="#{o.uf}" />
 				</p:column>
+
 			</p:dataTable>
 		</h:form>
 	</p:panel>
@@ -69,6 +74,7 @@
 		<h:form>
 			<p:growl></p:growl>
 			<p:panelGrid columns="2">
+
 				<p:outputLabel value="Código" />
 				<p:inputNumber readonly="true" value="#{estadoCrud.selecionado.id}"
 					size="3" />
@@ -83,13 +89,14 @@
 
 			</p:panelGrid>
 
-			<p:commandButton value="Salvar" icon="pi pi-times-save" action="#{estadoCrud.salvar}"
+			<p:commandButton value="Salvar" icon="pi pi-times-save"
+				action="#{estadoCrud.salvar}" update="consulta edicao" />
+			<p:commandButton value="Cancelar" icon="pi pi-times-circle"
+				action="#{estadoCrud.cancelar}" immediate="true"
 				update="consulta edicao" />
-			<p:commandButton value="Cancelar" icon="pi pi-times-circle" action="#{estadoCrud.cancelar}"
-				immediate="true" update="consulta edicao" />
+
 		</h:form>
 	</p:panel>
 
 </h:body>
-
 </html>

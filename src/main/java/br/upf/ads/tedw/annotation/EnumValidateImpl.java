@@ -6,14 +6,14 @@ import javax.validation.ConstraintValidatorContext;
 public class EnumValidateImpl implements ConstraintValidator<EnumValidate, Object> {
 
 	Class<? extends Enum<?>> enumClass;
-	
+
 	@Override
-	public void initialize(EnumValidate constraintAnnotation) { 
+	public void initialize(EnumValidate constraintAnnotation) {
 		this.enumClass = constraintAnnotation.enumClass();
 	}
-	
+
 	@Override
-	public boolean isValid(Object value, ConstraintValidatorContext context) {		
+	public boolean isValid(Object value, ConstraintValidatorContext context) {
 		try {
 			for (Enum<?> element : enumClass.getEnumConstants()) {
 				if (element.toString().equals(value.toString())) {
@@ -25,5 +25,4 @@ public class EnumValidateImpl implements ConstraintValidator<EnumValidate, Objec
 			return false;
 		}
 	}
-
 }

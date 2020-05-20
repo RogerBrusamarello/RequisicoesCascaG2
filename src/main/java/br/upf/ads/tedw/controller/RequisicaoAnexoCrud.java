@@ -21,36 +21,35 @@ public class RequisicaoAnexoCrud implements Serializable {
 	private List<RequisicaoAnexo> lista;
 	private RequisicaoAnexo selecionado;
 	private List<Requisicao> requisicoes;
-	
+
 	public RequisicaoAnexoCrud() {
 		editando = false;
 	}
-	
+
 	public Boolean getEditando() {
 		return editando;
 	}
-	
+
 	public void setEditando(Boolean editando) {
 		this.editando = editando;
 	}
-	
+
 	public List<RequisicaoAnexo> getLista() {
 		return lista;
 	}
-	
-	public void setLista (List<RequisicaoAnexo> lista) {
+
+	public void setLista(List<RequisicaoAnexo> lista) {
 		this.lista = lista;
 	}
-	
+
 	public RequisicaoAnexo getSelecionado() {
 		return selecionado;
 	}
-	
-	public void setSelecionado (RequisicaoAnexo selecionado) {
+
+	public void setSelecionado(RequisicaoAnexo selecionado) {
 		this.selecionado = selecionado;
 	}
-	
-	
+
 	public List<Requisicao> getRequisicoes() {
 		return requisicoes;
 	}
@@ -66,15 +65,16 @@ public class RequisicaoAnexoCrud implements Serializable {
 		requisicoes = em.createQuery("from Requisicao order by titulo").getResultList();
 		em.close();
 	}
-	
+
 	public void incluir() {
 		editando = true;
 		selecionado = new RequisicaoAnexo();
 	}
-	
+
 	public void alterar() {
 		editando = true;
 	}
+
 	public void salvar() {
 		try {
 			editando = false;
@@ -89,7 +89,7 @@ public class RequisicaoAnexoCrud implements Serializable {
 			JSFUtil.messagemDeErro("Ocorreu um erro ao salvar os dados.");
 		}
 	}
-	
+
 	public void excluir() {
 		try {
 			editando = false;
@@ -104,7 +104,7 @@ public class RequisicaoAnexoCrud implements Serializable {
 			JSFUtil.messagemDeErro("Ocorreu um erro ao remover os dados");
 		}
 	}
-	
+
 	public void cancelar() {
 		editando = false;
 		selecionado = null;

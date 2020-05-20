@@ -4,8 +4,9 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+
 	<title>Usuário</title>
-	
+
 	<style type="text/css">
 		.ui-outputlabel {
 			color: #F2F5A9 !important;
@@ -22,17 +23,15 @@
 			style="color: #FFBF00; font-weight: bolder; font-size: 20;" />
 		<p:separator />
 		<h:form>
-			<p:commandButton value="Incluir"
-				action="#{usuarioCrud.incluir}" icon="pi pi-plus"
+			<p:commandButton value="Incluir" action="#{usuarioCrud.incluir}"
+				icon="pi pi-plus" update="consulta edicao"
+				style="horizontal-align:center" />
+			<p:commandButton value="Alterar" action="#{usuarioCrud.alterar}"
+				icon="pi pi-pencil" disabled="#{usuarioCrud.selecionado==null}"
 				update="consulta edicao" style="horizontal-align:center" />
-			<p:commandButton value="Alterar"
-				action="#{usuarioCrud.alterar}" icon="pi pi-pencil"
-				disabled="#{usuarioCrud.selecionado==null}"
-				update="consulta edicao" style="horizontal-align:center" />
-			<p:commandButton value="Excluir"
-				action="#{usuarioCrud.excluir}" icon="pi pi-trash"
-				disabled="#{usuarioCrud.selecionado==null}" update="consulta"
-				style="horizontal-align:center">
+			<p:commandButton value="Excluir" action="#{usuarioCrud.excluir}"
+				icon="pi pi-trash" disabled="#{usuarioCrud.selecionado==null}"
+				update="consulta" style="horizontal-align:center">
 				<p:confirm header="Confirmação" message="Confirma a exclusão?"
 					icon="pi pi-exclamation-triangle" />
 			</p:commandButton>
@@ -44,36 +43,43 @@
 			</p:confirmDialog>
 			<p:dataTable var="o" value="#{usuarioCrud.lista}"
 				emptyMessage="Nada para mostrar!" selectionMode="single"
-				selection="#{usuarioCrud.selecionado}" rowKey="#{o.id}"
-				rows="5" paginator="true"
+				selection="#{usuarioCrud.selecionado}" rowKey="#{o.id}" rows="5"
+				paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
 				{LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15"
 				currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}">
 				<p:ajax event="rowSelect" update="consulta" />
 				<p:ajax event="rowUnselect" update="consulta" />
+
 				<p:column headerText="Código" sortBy="#{o.id}" filterBy="#{o.id}"
 					style="width: 75px; text-align: center;">
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
+
 				<p:column headerText="Nome Usuário" sortBy="#{o.nome}"
 					filterBy="#{o.nome}" style="text-align: center;">
 					<p:outputLabel value="#{o.nome}" />
 				</p:column>
+
 				<!-- <p:column headerText="CPF" sortBy="#{o.cpf}" filterBy="#{o.cpf}" style="width: 115px; text-align: center;">
 					<p:outputLabel value="#{o.cpf}" />
 				</p:column>
+				
 				<p:column headerText="RG" sortBy="#{o.rg}" filterBy="#{o.rg}" style="text-align: center;">
 					<p:outputLabel value="#{o.rg}" />
 				</p:column> -->
+
 				<p:column headerText="E-mail" sortBy="#{o.email}"
 					filterBy="#{o.email}" style="text-align: center;">
 					<p:outputLabel value="#{o.email}" />
 				</p:column>
+
 				<p:column headerText="Celular" sortBy="#{o.celular}"
 					filterBy="#{o.celular}" style="width: 120px; text-align: center;">
 					<p:outputLabel value="#{o.celular}" />
 				</p:column>
+
 				<p:column headerText="Outras Informações"
 					sortBy="#{o.outrasInformacoes}" filterBy="#{o.outrasInformacoes}"
 					style="text-align: center;">
@@ -120,8 +126,8 @@
 
 				<p:outputLabel value="Outras Informações" />
 				<h:inputTextarea
-					value="#{usuarioCrud.selecionado.outrasInformacoes}"
-					cols="30" rows="3" />
+					value="#{usuarioCrud.selecionado.outrasInformacoes}" cols="30"
+					rows="3" />
 
 				<p:outputLabel for="pwd1" value="Senha"
 					rendered="#{usuarioCrud.selecionado.id == null}" />
@@ -138,14 +144,13 @@
 			</p:panelGrid>
 
 			<p:commandButton id="salvar" value="Salvar"
-				action="#{usuarioCrud.salvar}" icon="pi pi-save" update="consulta edicao"
-				style="horizontal-align:center" />
-			<p:commandButton value="Cancelar"
-				action="#{usuarioCrud.cancelar}" icon="pi pi-times-circle" immediate="true"
+				action="#{usuarioCrud.salvar}" icon="pi pi-save"
 				update="consulta edicao" style="horizontal-align:center" />
+			<p:commandButton value="Cancelar" action="#{usuarioCrud.cancelar}"
+				icon="pi pi-times-circle" immediate="true" update="consulta edicao"
+				style="horizontal-align:center" />
+
 		</h:form>
 	</p:panel>
-
 </h:body>
-
 </html>

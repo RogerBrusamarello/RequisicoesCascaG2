@@ -5,6 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
+
 	<title>Requisição</title>
 
 	<style type="text/css">
@@ -31,11 +32,10 @@
 			<p:commandButton value="Alterar" action="#{requisicaoCrud.alterar}"
 				icon="pi pi-pencil" disabled="#{requisicaoCrud.selecionado==null}"
 				update="consulta edicao" style="horizontal-align:center" />
-			<p:commandButton value="Excluir" 
+			<p:commandButton value="Excluir"
 				action="#{requisicaoCrud.excluir(loginController.pessoaLogada.id)}"
-				icon="pi pi-trash"
-				disabled="#{requisicaoCrud.selecionado==null}" update="consulta"
-				style="horizontal-align: center" >
+				icon="pi pi-trash" disabled="#{requisicaoCrud.selecionado==null}"
+				update="consulta" style="horizontal-align: center">
 				<p:confirm header="Confirmação" message="Confirma a exclusão?"
 					icon="pi pi-exclamation-triangle" />
 			</p:commandButton>
@@ -55,14 +55,17 @@
 				currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}">
 				<p:ajax event="rowSelect" update="consulta" />
 				<p:ajax event="rowUnselect" update="consulta" />
+
 				<p:column headerText="Código" sortBy="#{o.id}" filterBy="#{o.id}"
 					style="width: 75px; text-align: center;">
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
+
 				<p:column headerText="Título" sortBy="#{o.titulo}"
 					filterBy="#{o.titulo}" style="text-align: center;">
 					<p:outputLabel value="#{o.titulo}" />
 				</p:column>
+
 				<p:column headerText="Descrição" sortBy="#{o.descricao}"
 					filterBy="#{o.descricao}" style="text-align: center;">
 					<p:outputLabel value="#{o.descricao}" />
@@ -73,6 +76,7 @@
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
+				
 				<p:column headerText="Prazo Limite" style="text-align: center; font-size: 14;">
 					<h:outputText value="#{o.prazoLimite}" style="color: #F2F5A9;">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
@@ -87,6 +91,7 @@
 				<!-- <p:column headerText="Horas Previstas" style="text-align: center;">
 					<p:outputLabel value="#{o.horasPrevistas}" />
 				</p:column> 
+				
 				<p:column headerText="Horas Realizadas" style="text-align: center;">
 					<p:outputLabel value="#{o.horasRealizadas}" />
 				</p:column>-->
@@ -98,6 +103,7 @@
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
+
 				<p:column headerText="Projeto" sortBy="#{o.projeto}"
 					filterBy="#{o.projeto}" style="text-align: center;">
 					<p:outputLabel value="#{o.projeto}" />
@@ -106,6 +112,7 @@
 				<!-- <p:column headerText="Solicitante" style="text-align: center;">
 					<p:outputLabel value="#{o.solicitou}" />
 				</p:column>
+				
 				<p:column headerText="Criador" style="text-align: center;">
 					<p:outputLabel value="#{o.criou}" />
 				</p:column>-->
@@ -195,31 +202,40 @@
 							action="#{requisicaoCrud.cancelar}" immediate="true"
 							update="consulta edicao" />
 					</p:outputPanel>
+
 				</p:panelGrid>
 
 				<p:outputPanel id="anexosList">
-					<p:commandButton value="Incluir Anexo" icon="pi pi-paperclip" immediate="false"
-						action="#{requisicaoCrud.incluirAnexo}"
+
+					<p:commandButton value="Incluir Anexo" icon="pi pi-paperclip"
+						immediate="false" action="#{requisicaoCrud.incluirAnexo}"
 						oncomplete="PF('anexos').show();">
 					</p:commandButton>
+
 					<p:separator />
 					<p:dataTable var="ane" value="#{requisicaoCrud.selecionado.anexos}"
 						rowIndexVar="linha">
+
 						<p:column headerText="Descrição" style="width: 110px;">
 							<p:outputLabel value="#{ane.descricao}"></p:outputLabel>
 						</p:column>
+
 						<p:column headerText="Arquivo" style="width: 115px;">
 							<p:outputLabel value="#{ane.arquivo}"></p:outputLabel>
 						</p:column>
+
 						<p:column headerText="">
+
 							<p:commandButton value="Ver" immediate="true" ajax="false"
 								icon="pi pi-eye" action="#{requisicaoCrud.downloadAnexo(linha)}"
 								onclick="document.getElementById('formEdicao').target='_blank';">
 							</p:commandButton>
-							<p:commandButton value="Excluir" immediate="true" ajax="false" icon="pi pi-trash"
+
+							<p:commandButton value="Excluir" immediate="true" ajax="false"
+								icon="pi pi-trash"
 								action="#{requisicaoCrud.excluirAnexo(linha)}"
-								update="anexosList" />
-								<!-- <p:confirm header="Confirmation" message="Você tem certeza?"
+								update="anexosList">
+								<p:confirm header="Confirmation" message="Você tem certeza?"
 									icon="pi pi-exclamation-triangle" />
 							</p:commandButton>
 							<p:confirmDialog global="true" showEffect="fade"
@@ -228,7 +244,8 @@
 									styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
 								<p:commandButton value="Não" type="button"
 									styleClass="ui-confirmdialog-no" icon="pi pi-times" />
-							</p:confirmDialog> -->
+							</p:confirmDialog>
+
 						</p:column>
 					</p:dataTable>
 				</p:outputPanel>
@@ -239,5 +256,4 @@
 	<ui:include src="RequisicaoCrudAnexo.xhtml"></ui:include>
 
 </h:body>
-
 </html>

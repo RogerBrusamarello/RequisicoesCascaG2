@@ -16,42 +16,42 @@ import br.upf.ads.tedw.jsf.JSFUtil;
 @ManagedBean
 @ViewScoped
 public class ProjetoCrud implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 	private Boolean editando;
 	private List<Projeto> lista;
 	private Projeto selecionado;
 	private List<Usuario> usuarios;
 	private List<Cliente> clientes;
-	
+
 	public ProjetoCrud() {
 		editando = false;
 	}
-	
+
 	public Boolean getEditando() {
 		return editando;
 	}
-	
+
 	public void setEditando(Boolean editando) {
 		this.editando = editando;
 	}
-	
+
 	public List<Projeto> getLista() {
 		return lista;
 	}
-	
-	public void setLista (List<Projeto> lista) {
+
+	public void setLista(List<Projeto> lista) {
 		this.lista = lista;
 	}
-	
+
 	public Projeto getSelecionado() {
 		return selecionado;
 	}
-	
-	public void setSelecionado (Projeto selecionado) {
+
+	public void setSelecionado(Projeto selecionado) {
 		this.selecionado = selecionado;
 	}
-	
+
 	public List<Usuario> getUsuarios() {
 		return usuarios;
 	}
@@ -68,7 +68,7 @@ public class ProjetoCrud implements Serializable {
 		this.clientes = clientes;
 	}
 
-	@SuppressWarnings({ "unchecked"})
+	@SuppressWarnings({ "unchecked" })
 	public void carregarLista() {
 		EntityManager em = JPAUtil.getEntityManager();
 		lista = em.createQuery("from Projeto order by nome").getResultList();
@@ -76,15 +76,16 @@ public class ProjetoCrud implements Serializable {
 		clientes = em.createQuery("from Cliente order by nome").getResultList();
 		em.close();
 	}
-	
+
 	public void incluir() {
 		editando = true;
 		selecionado = new Projeto();
 	}
-	
+
 	public void alterar() {
 		editando = true;
 	}
+
 	public void salvar() {
 		try {
 			editando = false;
@@ -99,7 +100,7 @@ public class ProjetoCrud implements Serializable {
 			JSFUtil.messagemDeErro("Ocorreu um erro ao salvar os dados.");
 		}
 	}
-	
+
 	public void excluir() {
 		try {
 			editando = false;
@@ -114,7 +115,7 @@ public class ProjetoCrud implements Serializable {
 			JSFUtil.messagemDeErro("Ocorreu um erro ao remover os dados");
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Usuario> completeUsuario(String query) {
 		EntityManager em = JPAUtil.getEntityManager();
@@ -134,10 +135,9 @@ public class ProjetoCrud implements Serializable {
 		em.close();
 		return results;
 	}
-	
+
 	public void cancelar() {
 		editando = false;
 		selecionado = null;
 	}
-
 }

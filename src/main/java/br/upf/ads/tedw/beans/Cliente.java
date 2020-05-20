@@ -32,5 +32,4 @@ public class Cliente extends Pessoa implements Serializable {
 	public void setFuncao(String funcao) {
 		this.funcao = funcao;
 	}
-
 }

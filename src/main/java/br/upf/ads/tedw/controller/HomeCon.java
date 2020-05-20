@@ -12,7 +12,7 @@ import org.primefaces.PrimeFaces;
 @ManagedBean
 @SessionScoped
 public class HomeCon implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	public HomeCon() {
@@ -35,5 +35,4 @@ public class HomeCon implements Serializable {
 		// a partir do Primefaces 6.2 e 7.0
 		PrimeFaces.current().dialog().openDynamic(url, options, null);
 	}
-
 }

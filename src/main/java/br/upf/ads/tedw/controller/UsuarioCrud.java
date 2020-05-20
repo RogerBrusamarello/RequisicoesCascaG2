@@ -98,5 +98,4 @@ public class UsuarioCrud implements Serializable {
 		editando = false;
 		selecionado = null;
 	}
-
 }

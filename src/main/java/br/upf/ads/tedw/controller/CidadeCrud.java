@@ -21,7 +21,7 @@ public class CidadeCrud implements Serializable {
 	private List<Cidade> lista;
 	private Cidade selecionado;
 	private List<Estado> estados;
- 
+
 	public CidadeCrud() {
 		editando = false;
 	}
@@ -109,5 +109,4 @@ public class CidadeCrud implements Serializable {
 		editando = false;
 		selecionado = null;
 	}
-
 }

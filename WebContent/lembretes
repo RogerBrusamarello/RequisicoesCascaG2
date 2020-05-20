@@ -1,10 +1,18 @@
-*Implementar botão de EDIÇÃO de anexos em Requisição
+MARIA:
+*Requisição: fixar o usuário logado no campo Criou
+*Implementar botão de EDIÇÃO de anexos em Requisição (Mais em função do nome do anexo)
 
+NARDELI:
 *Função para alterar senha
 *Tela Recuperar senha
-*Requisição: fixar o usuário logado em quem Criou
 *Botão de logout não redireciona para a página correta
 
+ROGER:
+*Inserir asteriscos/obrigatoriedades nos respectivos campos dos formulários:
+	-> RequisicaoAndamentoCrud.xhtml
+	-> RequisicaoProgramadaCrud.xhtml
+
+ALGUÉM QUE SE DESAFIE: ?
 *Tratamento de erros:
-	-> Excluir item com dependência em outra tabela
+	-> Exibir erro ao não permitir excluir item com dependência em outra tabela
 
