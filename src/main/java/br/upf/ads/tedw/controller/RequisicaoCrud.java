@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.primefaces.model.file.UploadedFile;
 
+import br.upf.ads.tedw.beans.Cliente;
 import br.upf.ads.tedw.beans.Pessoa;
 import br.upf.ads.tedw.beans.Projeto;
 import br.upf.ads.tedw.beans.Requisicao;
@@ -29,11 +31,14 @@ public class RequisicaoCrud implements Serializable {
 	private Boolean editando;
 	private List<Requisicao> lista;
 	private Requisicao selecionado;
-	private List<Projeto> projetos;
-	private List<Pessoa> pessoas;
+	//private List<Projeto> projetos;
+	//private List<Pessoa> pessoas;
 
 	private UploadedFile file;
 	private RequisicaoAnexo anexoSelecionado;
+	
+	@ManagedProperty(value = "#{loginController}")
+	private LoginController login;
 
 	public RequisicaoCrud() {
 		editando = false;
@@ -63,36 +68,35 @@ public class RequisicaoCrud implements Serializable {
 		this.selecionado = selecionado;
 	}
 
-	public List<Projeto> getProjetos() {
-		return projetos;
-	}
-
-	public void setProjetos(List<Projeto> projetos) {
-		this.projetos = projetos;
-	}
-
-	public List<Pessoa> getPessoas() {
-		return pessoas;
-	}
-
-	public void setPessoas(List<Pessoa> pessoas) {
-		this.pessoas = pessoas;
-	}
 
 	@SuppressWarnings("unchecked")
-	public void carregarLista(Long id) {
+	public void carregarLista() {
 
-		System.out.println("Entrou no carregarLista(). id: " + id);
+		/*
+		System.out.println("login: "+login.pessoaLogada.getNome()+" "+ 
+	    ((login.pessoaLogada instanceof Cliente) ? "É um cliente" : "é "+login.pessoaLogada.getClass().getSimpleName()));
 
+		
+		System.out.println("Entrou no carregarLista(). id: " + login.pessoaLogada.getId());
+*/
+		/*
 		EntityManager em = JPAUtil.getEntityManager();
 		Query qry = em.createQuery("from Cliente where id = :id");
 		qry.setParameter("id", id);
 		pessoas = qry.getResultList();
 
 		if (pessoas.size() > 0) {
-
+*/
+		EntityManager em = JPAUtil.getEntityManager();
+		Query qry;		 
+		if (login.pessoaLogada instanceof Cliente) { 
+			qry = em.createQuery("from Requisicao where projeto.cliente.id = :id order by titulo");
+			qry.setParameter("id", login.pessoaLogada.getId());
+			lista = qry.getResultList();
+			
+			/*
 			qry = em.createQuery("from Projeto where cliente_id = :id");
-			qry.setParameter("id", id);
+			qry.setParameter("id", login.pessoaLogada.getId());
 			List<Projeto> listProjetos = qry.getResultList();
 
 			if (listProjetos.size() > 0) {
@@ -105,7 +109,7 @@ public class RequisicaoCrud implements Serializable {
 				projetos = qry.getResultList();
 
 				qry = em.createQuery("from Pessoa where id = :id order by nome");
-				qry.setParameter("id", id);
+				qry.setParameter("id", login.pessoaLogada.getId());
 				pessoas = qry.getResultList();
 
 			} else {
@@ -113,11 +117,13 @@ public class RequisicaoCrud implements Serializable {
 				projetos = null;
 				pessoas = null;
 			}
+			*/
+			
 
 		} else {
 			lista = em.createQuery("from Requisicao order by titulo").getResultList();
-			projetos = em.createQuery("from Projeto order by nome").getResultList();
-			pessoas = em.createQuery("from Pessoa order by nome").getResultList();
+			//projetos = em.createQuery("from Projeto order by nome").getResultList();
+			//pessoas = em.createQuery("from Pessoa order by nome").getResultList();
 		}
 		em.close();
 	}
@@ -125,6 +131,7 @@ public class RequisicaoCrud implements Serializable {
 	public void incluir() {
 		editando = true;
 		selecionado = new Requisicao();
+		selecionado.setCriou(login.pessoaLogada);
 		anexoSelecionado = new RequisicaoAnexo();
 	}
 
@@ -132,7 +139,7 @@ public class RequisicaoCrud implements Serializable {
 		editando = true;
 	}
 
-	public void salvar(Long id) {
+	public void salvar() {
 		try {
 			editando = false;
 			EntityManager em = JPAUtil.getEntityManager();
@@ -140,14 +147,14 @@ public class RequisicaoCrud implements Serializable {
 			em.merge(selecionado);
 			em.getTransaction().commit();
 			em.close();
-			carregarLista(id);
+			carregarLista();
 		} catch (Throwable e) {
 			e.printStackTrace();
 			JSFUtil.messagemDeErro("Ocorreu um erro ao salvar os dados.");
 		}
 	}
 
-	public void excluir(Long id) { //Este recebe parâmetro em função da ação do usuário tipo cliente (Permissões)
+	public void excluir() { //Este recebe parâmetro em função da ação do usuário tipo cliente (Permissões)
 		try {
 			editando = false;
 			EntityManager em = JPAUtil.getEntityManager();
@@ -155,7 +162,7 @@ public class RequisicaoCrud implements Serializable {
 			em.remove(em.merge(selecionado));
 			em.getTransaction().commit();
 			em.close();
-			carregarLista(id);
+			carregarLista();
 		} catch (Throwable e) {
 			e.printStackTrace();
 			JSFUtil.messagemDeErro("Ocorreu um erro ao remover os dados.");
@@ -176,7 +183,9 @@ public class RequisicaoCrud implements Serializable {
 	public List<Projeto> completeProjeto(String query) {
 		EntityManager em = JPAUtil.getEntityManager();
 		List<Projeto> results = em.createQuery(
-				"from Projeto where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by nome")
+				"from Projeto where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' "
+						+ " and cliente.id = "+login.pessoaLogada.getId() 
+						+ " order by nome")
 				.getResultList();
 		em.close();
 		return results;
@@ -242,5 +251,13 @@ public class RequisicaoCrud implements Serializable {
 
 	public void setAnexoSelecionado(RequisicaoAnexo anexoSelecionado) {
 		this.anexoSelecionado = anexoSelecionado;
+	}
+
+	public LoginController getLogin() {
+		return login;
+	}
+
+	public void setLogin(LoginController login) {
+		this.login = login;
 	}
 }

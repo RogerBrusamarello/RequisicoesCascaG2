@@ -18,7 +18,7 @@
 
 
 <h:body
-	onload="#{requisicaoCrud.carregarLista(loginController.pessoaLogada.id)}">
+	onload="#{requisicaoCrud.carregarLista()}">
 	<!-- Painel de consulta -->
 	<p:panel id="consulta" visible="#{!requisicaoCrud.editando}"
 		rendered="#{loginController.permissao >= loginController.vlrCliente}">
@@ -33,7 +33,7 @@
 				icon="pi pi-pencil" disabled="#{requisicaoCrud.selecionado==null}"
 				update="consulta edicao" style="horizontal-align:center" />
 			<p:commandButton value="Excluir"
-				action="#{requisicaoCrud.excluir(loginController.pessoaLogada.id)}"
+				action="#{requisicaoCrud.excluir()}"
 				icon="pi pi-trash" disabled="#{requisicaoCrud.selecionado==null}"
 				update="consulta" style="horizontal-align: center">
 				<p:confirm header="Confirmação" message="Confirma a exclusão?"
@@ -186,17 +186,12 @@
 						converter="PessoaConverter"
 						completeMethod="#{requisicaoCrud.completePessoa}" required="true" />
 
-					<p:outputLabel value="Criou:" for="inputCriou" />
-					<p:autoComplete id="inputCriou" dropdown="true" multiple="false"
-						forceSelection="true" var="obj" itemLabel="#{obj.nome}"
-						itemValue="#{obj}" value="#{requisicaoCrud.selecionado.criou}"
-						converter="PessoaConverter"
-						completeMethod="#{requisicaoCrud.completePessoa}" required="true" />
+	
 
 					<p:outputLabel value="" />
 					<p:outputPanel>
 						<p:commandButton value="Salvar" icon="pi pi-save"
-							action="#{requisicaoCrud.salvar(loginController.pessoaLogada.id)}"
+							action="#{requisicaoCrud.salvar}"
 							update="consulta edicao" />
 						<p:commandButton value="Cancelar" icon="pi pi-times-circle"
 							action="#{requisicaoCrud.cancelar}" immediate="true"
