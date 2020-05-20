@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.persistence.EntityManager;
 
@@ -23,6 +24,9 @@ public class ProjetoCrud implements Serializable {
 	private Projeto selecionado;
 	private List<Usuario> usuarios;
 	private List<Cliente> clientes;
+	
+	@ManagedProperty(value = "#{loginController}")
+	private LoginController login;
 
 	public ProjetoCrud() {
 		editando = false;
@@ -80,6 +84,9 @@ public class ProjetoCrud implements Serializable {
 	public void incluir() {
 		editando = true;
 		selecionado = new Projeto();
+		if (login.getPessoaLogada() instanceof Usuario) {
+			selecionado.setUsuario((Usuario) login.getPessoaLogada());
+		}
 	}
 
 	public void alterar() {
@@ -120,7 +127,10 @@ public class ProjetoCrud implements Serializable {
 	public List<Usuario> completeUsuario(String query) {
 		EntityManager em = JPAUtil.getEntityManager();
 		List<Usuario> results = em.createQuery(
-				"from Usuario where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by nome")
+				"from Usuario where upper(nome) like " + 
+		        "'" + query.trim().toUpperCase() + "%' "+
+				 ((login.getPessoaLogada() instanceof Usuario) ? " and id = "+login.getPessoaLogada().getId() : "") +
+		        " order by nome")
 				.getResultList();
 		em.close();
 		return results;
@@ -139,5 +149,13 @@ public class ProjetoCrud implements Serializable {
 	public void cancelar() {
 		editando = false;
 		selecionado = null;
+	}
+
+	public LoginController getLogin() {
+		return login;
+	}
+
+	public void setLogin(LoginController login) {
+		this.login = login;
 	}
 }

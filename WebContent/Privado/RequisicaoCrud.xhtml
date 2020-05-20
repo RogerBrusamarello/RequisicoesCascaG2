@@ -226,10 +226,10 @@
 								onclick="document.getElementById('formEdicao').target='_blank';">
 							</p:commandButton>
 
-							<p:commandButton value="Excluir" immediate="true" ajax="false"
+							<p:commandButton value="Excluir" ajax="true"
 								icon="pi pi-trash"
 								action="#{requisicaoCrud.excluirAnexo(linha)}"
-								update="anexosList">
+								update=":formEdicao:anexosList">
 								<p:confirm header="Confirmation" message="Você tem certeza?"
 									icon="pi pi-exclamation-triangle" />
 							</p:commandButton>
