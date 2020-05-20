@@ -1,164 +1,267 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-	
-<h:head>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:p="http://primefaces.org/ui"
+>
+  <h:head>
+    <title>Andamento da Requisição</title>
 
-	<title>Andamento da Requisição</title>
+    <style type="text/css">
+      .ui-outputLabel {
+        color: #f2f5a9 !important;
+      }
+    </style>
+  </h:head>
 
-	<style type="text/css">
-		.ui-outputLabel {
-			color: #F2F5A9 !important;
-		}
-	</style>
-
-</h:head>
-
-<h:body onload="#{requisicaoAndamentoCrud.carregarLista()}">
-	<!-- Painel de consulta -->
-	<p:panel id="consulta" visible="#{!requisicaoAndamentoCrud.editando}"
-		rendered="#{loginController.permissao >= loginController.vlrUsuario}">
-		<h:outputText value="Andamento da Requisição"
-			style="color: #FFBF00; font-weight: bolder; font-size: 20;" />
-		<p:separator />
-		<h:form>
-			<p:commandButton value="Incluir"
-				action="#{requisicaoAndamentoCrud.incluir}" icon="pi pi-plus"
-				update="consulta edicao" />
-			<p:commandButton value="Alterar"
-				action="#{requisicaoAndamentoCrud.alterar}" icon="pi pi-pencil"
-				disabled="#{requisicaoAndamentoCrud.selecionado==null}"
-				update="consulta edicao" />
-			<p:commandButton value="Excluir"
-				action="#{requisicaoAndamentoCrud.excluir}" icon="pi pi-trash"
-				onclick="return confirm('Excluir?')"
-				disabled="#{requisicaoAndamentoCrud.selecionado==null}"
-				update="consulta">
-				<p:confirm header="Confirmação" message="Confirma a exclusão?"
-					icon="pi pi-exclamation-triangle" />
-			</p:commandButton>
-			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-				<p:commandButton value="Sim" type="button"
-					styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-				<p:commandButton value="Não" type="button"
-					styleClass="ui-confirmdialog-no" icon="pi pi-times" />
-			</p:confirmDialog>
-			<p:dataTable var="o" value="#{requisicaoAndamentoCrud.lista}"
-				emptyMessage="Nada para mostrar!" selectionMode="single"
-				selection="#{requisicaoAndamentoCrud.selecionado}" rowKey="#{o.id}"
-				rows="5" paginator="true"
-				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
+  <h:body onload="#{requisicaoAndamentoCrud.carregarLista()}">
+    <!-- Painel de consulta -->
+    <p:panel
+      id="consulta"
+      visible="#{!requisicaoAndamentoCrud.editando}"
+      rendered="#{loginController.permissao >= loginController.vlrUsuario}"
+    >
+      <h:outputText
+        value="Andamento da Requisição"
+        style="color: #ffbf00; font-weight: bolder; font-size: 20;"
+      />
+      <p:separator />
+      <h:form>
+        <p:commandButton
+          value="Incluir"
+          action="#{requisicaoAndamentoCrud.incluir}"
+          icon="pi pi-plus"
+          update="consulta edicao"
+        />
+        <p:commandButton
+          value="Alterar"
+          action="#{requisicaoAndamentoCrud.alterar}"
+          icon="pi pi-pencil"
+          disabled="#{requisicaoAndamentoCrud.selecionado==null}"
+          update="consulta edicao"
+        />
+        <p:commandButton
+          value="Excluir"
+          action="#{requisicaoAndamentoCrud.excluir}"
+          icon="pi pi-trash"
+          onclick="return confirm('Excluir?')"
+          disabled="#{requisicaoAndamentoCrud.selecionado==null}"
+          update="consulta"
+        >
+          <p:confirm
+            header="Confirmação"
+            message="Confirma a exclusão?"
+            icon="pi pi-exclamation-triangle"
+          />
+        </p:commandButton>
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+          <p:commandButton
+            value="Sim"
+            type="button"
+            styleClass="ui-confirmdialog-yes"
+            icon="pi pi-check"
+          />
+          <p:commandButton
+            value="Não"
+            type="button"
+            styleClass="ui-confirmdialog-no"
+            icon="pi pi-times"
+          />
+        </p:confirmDialog>
+        <p:dataTable
+          var="o"
+          value="#{requisicaoAndamentoCrud.lista}"
+          emptyMessage="Nada para mostrar!"
+          selectionMode="single"
+          selection="#{requisicaoAndamentoCrud.selecionado}"
+          rowKey="#{o.id}"
+          rows="5"
+          paginator="true"
+          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
 				{LastPageLink} {RowsPerPageDropdown}"
-				rowsPerPageTemplate="5,10,15"
-				currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}">
-				<p:ajax event="rowSelect" update="consulta" />
-				<p:ajax event="rowUnselect" update="consulta" />
+          rowsPerPageTemplate="5,10,15"
+          currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}"
+        >
+          <p:ajax event="rowSelect" update="consulta" />
+          <p:ajax event="rowUnselect" update="consulta" />
 
-				<p:column headerText="Código" sortBy="#{o.id}" filterBy="#{o.id}"
-					style="width: 75px; text-align: center;">
-					<p:outputLabel value="#{o.id}" />
-				</p:column>
+          <p:column
+            headerText="Código"
+            sortBy="#{o.id}"
+            filterBy="#{o.id}"
+            style="width: 75px; text-align: center;"
+          >
+            <p:outputLabel value="#{o.id}" />
+          </p:column>
 
-				<p:column headerText="Data" sortBy="#{o.data}" filterBy="#{o.data}"
-					style="width: 80px; text-align: center; font-size: 14;">
-					<h:outputText value="#{o.data}" style="color: #F2F5A9;">
-						<f:convertDateTime pattern="dd/MM/yyyy" />
-					</h:outputText>
-				</p:column>
+          <p:column
+            headerText="Data"
+            sortBy="#{o.data}"
+            filterBy="#{o.data}"
+            style="width: 80px; text-align: center; font-size: 14;"
+          >
+            <h:outputText value="#{o.data}" style="color: #f2f5a9;">
+              <f:convertDateTime pattern="dd/MM/yyyy" />
+            </h:outputText>
+          </p:column>
 
-				<p:column headerText="Requisição" sortBy="#{o.requisicao}"
-					filterBy="#{o.requisicao}" style="width: 75px; text-align: center;">
-					<p:outputLabel value="#{o.requisicao}" />
-				</p:column>
+          <p:column
+            headerText="Requisição"
+            sortBy="#{o.requisicao}"
+            filterBy="#{o.requisicao}"
+            style="width: 75px; text-align: center;"
+          >
+            <p:outputLabel value="#{o.requisicao}" />
+          </p:column>
 
-				<p:column headerText="Pessoa" sortBy="#{o.pessoa}"
-					filterBy="#{o.pessoa}" style="text-align: center;">
-					<p:outputLabel value="#{o.pessoa}" />
-				</p:column>
+          <p:column
+            headerText="Pessoa"
+            sortBy="#{o.pessoa}"
+            filterBy="#{o.pessoa}"
+            style="text-align: center;"
+          >
+            <p:outputLabel value="#{o.pessoa}" />
+          </p:column>
 
-				<p:column headerText="Título" sortBy="#{o.titulo}"
-					filterBy="#{o.titulo}" style="text-align: center;">
-					<p:outputLabel value="#{o.titulo}" />
-				</p:column>
+          <p:column
+            headerText="Título"
+            sortBy="#{o.titulo}"
+            filterBy="#{o.titulo}"
+            style="text-align: center;"
+          >
+            <p:outputLabel value="#{o.titulo}" />
+          </p:column>
 
-				<p:column headerText="Descrição" sortBy="#{o.descricao}"
-					filterBy="#{o.descricao}" style="text-align: center;">
-					<p:outputLabel value="#{o.descricao}" />
-				</p:column>
+          <p:column
+            headerText="Descrição"
+            sortBy="#{o.descricao}"
+            filterBy="#{o.descricao}"
+            style="text-align: center;"
+          >
+            <p:outputLabel value="#{o.descricao}" />
+          </p:column>
 
-				<p:column headerText="Horas realizadas"
-					sortBy="#{o.horasRealizadas}" filterBy="#{o.horasRealizas}"
-					style="text-align: center;">
-					<p:outputLabel value="#{o.horasRealizadas}" />
-				</p:column>
+          <p:column
+            headerText="Horas realizadas"
+            sortBy="#{o.horasRealizadas}"
+            filterBy="#{o.horasRealizas}"
+            style="text-align: center;"
+          >
+            <p:outputLabel value="#{o.horasRealizadas}" />
+          </p:column>
 
-				<p:column headerText="Status Projeto" sortBy="#{o.status}"
-					filterBy="#{o.status}" style="text-align: center;">
-					<p:outputLabel value="#{o.status}" />
-				</p:column>
+          <p:column
+            headerText="Status Projeto"
+            sortBy="#{o.status}"
+            filterBy="#{o.status}"
+            style="text-align: center;"
+          >
+            <p:outputLabel value="#{o.status}" />
+          </p:column>
+        </p:dataTable>
+      </h:form>
+    </p:panel>
 
-			</p:dataTable>
-		</h:form>
-	</p:panel>
+    <!-- Painel de edição -->
+    <p:panel id="edicao" visible="#{requisicaoAndamentoCrud.editando}">
+      <h:form>
+        <p:growl></p:growl>
+        <p:panelGrid columns="2">
+          <p:outputLabel value="Requisicao" for="inputRequisicao" />
+          <p:autoComplete
+            id="inputRequisicao"
+            required="true"
+            dropdown="true"
+            multiple="false"
+            forceSelection="true"
+            var="obj"
+            itemLabel="#{obj.titulo}"
+            itemValue="#{obj}"
+            value="#{requisicaoAndamentoCrud.selecionado.requisicao}"
+            converter="RequisicaoConverter"
+            completeMethod="#{requisicaoAndamentoCrud.completeRequisicao}"
+          />
 
-	<!-- Painel de edição -->
-	<p:panel id="edicao" visible="#{requisicaoAndamentoCrud.editando}">
-		<h:form>
-			<p:growl></p:growl>
-			<p:panelGrid columns="2">
+          <p:outputLabel value="Pessoa" for="inputPessoa" />
+          <p:autoComplete
+            id="inputPessoa"
+            required="true"
+            dropdown="true"
+            multiple="false"
+            forceSelection="true"
+            var="obj"
+            itemLabel="#{obj.nome}"
+            itemValue="#{obj}"
+            value="#{requisicaoAndamentoCrud.selecionado.pessoa}"
+            converter="PessoaConverter"
+            completeMethod="#{requisicaoAndamentoCrud.completePessoa}"
+          />
 
-				<p:outputLabel value="Requisicao" for="inputRequisicao" />
-				<p:autoComplete id="inputRequisicao" dropdown="true"
-					multiple="false" forceSelection="true" var="obj"
-					itemLabel="#{obj.titulo}" itemValue="#{obj}"
-					value="#{requisicaoAndamentoCrud.selecionado.requisicao}"
-					converter="RequisicaoConverter"
-					completeMethod="#{requisicaoAndamentoCrud.completeRequisicao}" />
+          <p:outputLabel value="Data" for="data" />
+          <p:datePicker
+            id="data"
+            value="#{requisicaoAndamentoCrud.selecionado.data}"
+            readonly="false"
+            size="8"
+            required="true"
+            showIcon="true"
+            pattern="dd/MM/yyyy"
+            locale="de"
+            monthNavigator="true"
+            yearNavigator="true"
+          >
+          </p:datePicker>
 
-				<p:outputLabel value="Pessoa" for="inputPessoa" />
-				<p:autoComplete id="inputPessoa" dropdown="true" multiple="false"
-					forceSelection="true" var="obj" itemLabel="#{obj.nome}"
-					itemValue="#{obj}"
-					value="#{requisicaoAndamentoCrud.selecionado.pessoa}"
-					converter="PessoaConverter"
-					completeMethod="#{requisicaoAndamentoCrud.completePessoa}" />
+          <p:outputLabel value="Titulo" for="Titulo" />
+          <p:inputText
+            id="Titulo"
+            required="true"
+            value="#{requisicaoAndamentoCrud.selecionado.titulo}"
+          />
 
-				<p:outputLabel value="Data" />
-				<p:datePicker value="#{requisicaoAndamentoCrud.selecionado.data}"
-					readonly="false" size="8" showIcon="true" pattern="dd/MM/yyyy"
-					locale="de" monthNavigator="true" yearNavigator="true">
-				</p:datePicker>
+          <p:outputLabel value="Descrição" for="Descricao" />
+          <h:inputTextarea
+            id="Descricao"
+            required="true"
+            value="#{requisicaoAndamentoCrud.selecionado.descricao}"
+            cols="21"
+            rows="3"
+          />
 
-				<p:outputLabel value="Titulo" />
-				<p:inputText value="#{requisicaoAndamentoCrud.selecionado.titulo}" />
+          <p:outputLabel value="Horas Realizadas" for="horasRealizadas" />
+          <p:inputText
+            id="horasRealizadas"
+            required="true"
+            value="#{requisicaoAndamentoCrud.selecionado.horasRealizadas}"
+            readonly="false"
+            size="3"
+          />
 
-				<p:outputLabel value="Descrição" />
-				<h:inputTextarea
-					value="#{requisicaoAndamentoCrud.selecionado.descricao}" cols="21"
-					rows="3" />
+          <p:outputLabel value="Status" for="status" />
+          <p:selectOneMenu
+            id="status"
+            required="true"
+            value="#{requisicaoAndamentoCrud.selecionado.status}"
+          >
+            <f:selectItem itemLabel="N - Não Finalizada" itemValue="N" />
+            <f:selectItem itemLabel="F - Finalizada" itemValue="F" />
+          </p:selectOneMenu>
+        </p:panelGrid>
 
-				<p:outputLabel value="Horas Realizadas" />
-				<p:inputText
-					value="#{requisicaoAndamentoCrud.selecionado.horasRealizadas}"
-					readonly="false" size="3" />
-
-				<p:outputLabel value="Status" />
-				<p:selectOneMenu
-					value="#{requisicaoAndamentoCrud.selecionado.status}">
-					<f:selectItem itemLabel="N - Não Finalizada" itemValue="N" />
-					<f:selectItem itemLabel="F - Finalizada" itemValue="F" />
-				</p:selectOneMenu>
-
-			</p:panelGrid>
-
-			<p:commandButton value="Salvar" icon="pi pi-save"
-				action="#{requisicaoAndamentoCrud.salvar}" update="consulta edicao" />
-			<p:commandButton value="Cancelar" icon="pi pi-times-circle"
-				action="#{requisicaoAndamentoCrud.cancelar}" immediate="true"
-				update="consulta edicao" />
-
-		</h:form>
-	</p:panel>
-</h:body>
+        <p:commandButton
+          value="Salvar"
+          icon="pi pi-save"
+          action="#{requisicaoAndamentoCrud.salvar}"
+          update="consulta edicao"
+        />
+        <p:commandButton
+          value="Cancelar"
+          icon="pi pi-times-circle"
+          action="#{requisicaoAndamentoCrud.cancelar}"
+          immediate="true"
+          update="consulta edicao"
+        />
+      </h:form>
+    </p:panel>
+  </h:body>
 </html>
