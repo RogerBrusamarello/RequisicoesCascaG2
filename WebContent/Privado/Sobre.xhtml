@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<title>Sobre</title>
+
+	<style type="text/css">
+		.ui-analog-clock {
+			width: 150px;
+		}
+		
+		.geral {
+			box-shadow: none;
+			align-items: center;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: center;
+		}
+	</style>
+
+</h:head>
+
+<h:body>
+	<!-- Painel de exibição -->
+	<p:panel id="sobre" class="geral" visible="true">
+		<p:spacer width="0" height="20" />
+		<h:outputText class="geral" value="O que fazemos?"
+			style="color: #FFBF00; font-weight: bolder; font-size: 20;" />
+		<br />
+		<h3 align="center">Estamos desenvolvendo uma atividade para a
+			disciplina</h3>
+		<h2 align="center">TÓPICOS ESPECIAIS EM DESENVOLVIMENTO DE
+			SISTEMAS I</h2>
+		<h3 align="center">que consiste numa aplicação para gerenciamento
+			de requisições</h3>
+		<h3 align="center">Grupo 2: Maria - Nardeli - Roger</h3>
+		<p:growl></p:growl>
+		<h:form class="geral">
+			<p:clock displayMode="analog" />
+		</h:form>
+	</p:panel>
+</h:body>
+</html>

@@ -8,6 +8,8 @@ ROGER:
 
 
 ALGUÉM QUE SE DESAFIE: ?
+	*sortBy não funciona nos dados das colunas das tabelas com dependências de outras
+	*FilterBy: como consultar por parte do texto que não seja pelo início
 	*Tratamento de erros:
 		-> Tratar e exibir erros de banco de dados
 

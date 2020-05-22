@@ -55,7 +55,7 @@ public class CriarBase {
 		u.setCelular("(54) 98888-1234");
 		em.merge(u);
 
-		a.setNome("Administrador");
+		a.setNome("Carlos Drummond de Andrade");
 		a.setCpf("464.515.340-48");
 		a.setEmail("admin@admin.com");
 		a.setRg("8040506090");
@@ -63,7 +63,7 @@ public class CriarBase {
 		a.setCelular("(54) 99999-9999");
 		em.merge(a);
 
-		c.setNome("Mariana Money");
+		c.setNome("Mariana Silva");
 		c.setCpf("257.779.390-15");
 		c.setFuncao("Investidora");
 		c.setEmail("mariana@silva.com.br");

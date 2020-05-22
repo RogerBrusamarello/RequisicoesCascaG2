@@ -8,20 +8,19 @@
 	<title>Home</title>
 
 	<style type="text/css">
-	
-		.ui-outputlabel {
-			color: #F3F781 !important;
-		}
-		
-		.ui-layout-north {
-			z-index: 20 !important;
-			overflow: visible !important;
-		}
-	
-		.ui-layout-north .ui-layout-unit-content {
-			overflow: visible !important;
-		}
-	</style>
+.ui-outputlabel {
+	color: #F3F781 !important;
+}
+
+.ui-layout-north {
+	z-index: 20 !important;
+	overflow: visible !important;
+}
+
+.ui-layout-north .ui-layout-unit-content {
+	overflow: visible !important;
+}
+</style>
 
 </h:head>
 <h:body>
@@ -87,21 +86,19 @@
 
 					</p:toolbarGroup>
 					<p:toolbarGroup align="right">
+						<h:outputText
+							value="#{loginController.pessoaLogada.nome} 
+					#{loginController.tipoUsuario}"
+							style="color: #F2F5A9;" />
+						<p:spacer width="10" height="20" />
 						<p:menuButton value="Opções">
 							<p:menuitem value="Alterar senha" icon="pi pi-key"
-								target="centro"
-								url="../Privado/AlterarSenha.xhtml" />
+								target="centro" url="../Login/AlterarSenha.xhtml" />
 							<p:menuitem value="Sair" action="#{loginController.sair}"
 								ajax="false" icon="pi pi-times" target="_self" />
 						</p:menuButton>
 					</p:toolbarGroup>
 				</p:toolbar>
-
-				<h:outputText
-					value="#{loginController.pessoaLogada.nome} 
-					#{loginController.tipoUsuario}"
-					style="color: #F2F5A9;" />
-
 			</h:form>
 		</p:layoutUnit>
 
@@ -159,8 +156,10 @@
 					<p:submenu label="Relatórios"
 						rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
 
-					<p:submenu label="Sobre" />
-
+					<p:submenu label="Sobre">
+						<p:menuitem target="centro" value="O que fazemos?"
+							url="../Privado/Sobre.xhtml" />
+					</p:submenu>
 				</p:panelMenu>
 			</h:form>
 		</p:layoutUnit>

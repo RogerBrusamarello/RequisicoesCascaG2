@@ -4,7 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title>Login</title>
+	<title>Recuperar Senha</title>
 </h:head>
 <h:body style="background-color: #585858">
 	<h:form>
@@ -13,18 +13,14 @@
 		<p:panelGrid columns="2"
 			style="position: absolute; left: 50%; top: 50%; margin-left:-150px; margin-top:-85px;">
 			<f:facet name="header">
-				<p:outputLabel value="Autenticação" />
+				<p:outputLabel value="Recuperar a Senha" />
 			</f:facet>
 			<p:outputLabel value="Email:" for="email" />
 			<p:inputText id="email" size="20" maxlength="100"
-				value="#{loginController.email}" />
-			<p:outputLabel value="Senha:" for="senha" />
-			<p:password id="senha" size="10" value="#{loginController.senha}" />
+				value="#{loginController.email}" required="true" />
 			<f:facet name="footer">
-				<p:commandButton value="Entrar" action="#{loginController.entrar}"
+				<p:commandButton value="Enviar" action="#{loginController.recuperarSenha}"
 					ajax="false" />
-				<p:spacer width="30" height="20" />
-				<p:link outcome="RecuperarSenha.xhtml" value="Esqueceu a senha?"/>
 			</f:facet>
 		</p:panelGrid>
 	</h:form>

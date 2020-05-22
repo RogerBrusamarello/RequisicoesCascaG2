@@ -151,7 +151,6 @@ public class LoginController implements Serializable {
 	 * @throws Exception
 	 */
 	public String entrar() {
-
 		EntityManager em = JPAUtil.getEntityManager();
 		Query qry = em.createQuery("from Pessoa where email = :email and senha = :senha");
 		qry.setParameter("email", email);
@@ -209,17 +208,18 @@ public class LoginController implements Serializable {
 			 */
 			if (listAdmin.size() > 0) {
 				setPermissao(vlrAdministrador);
-				setTipoUsuario("(Administrador)");
+				setTipoUsuario("(ADMINISTRADOR)");
 			} else if (listUsuario.size() > 0) {
 				setPermissao(vlrUsuario);
-				setTipoUsuario("(Usuário)");
+				setTipoUsuario("(USUÁRIO)");
 			} else if (listCliente.size() > 0) {
 				setPermissao(vlrCliente);
-				setTipoUsuario("(Cliente)");
+				setTipoUsuario("(CLIENTE)");
 			} else {
 				permissao = null;
 			}
-
+			
+			JSFUtil.mensagemDeSucessoLogin();
 			em2.close();
 			return "/faces/Privado/Home.xhtml";
 		}
@@ -249,14 +249,11 @@ public class LoginController implements Serializable {
 	 * Alterar senha do usuário logado
 	 * 
 	 */
-
-	public void salvar() {
+	public void alterarSenha() {
 		EntityManager em = JPAUtil.getEntityManager();
 		Query qry = em.createQuery("from Pessoa where id = :id");
 		qry.setParameter("id", pessoaLogada.getId());
-
 		pessoaAlterarSenha = (Pessoa) qry.getResultList().get(0);
-
 		if (Encrypt.encryptMd5(senhaAtual).equals(pessoaAlterarSenha.getSenha())) {
 			try {
 				pessoaAlterarSenha.setSenha(novaSenha);
@@ -274,5 +271,9 @@ public class LoginController implements Serializable {
 		}
 		em.close();
 	}
-
+	
+	public void recuperarSenha() {
+		//...
+		JSFUtil.mensagemDeSucesso("Chegou até aqui! Aguardando codificação...");
+	}
 }
