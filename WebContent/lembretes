@@ -1,18 +1,13 @@
 MARIA:
-*Requisição: fixar o usuário logado no campo Criou
-*Implementar botão de EDIÇÃO de anexos em Requisição (Mais em função do nome do anexo)
+	*Não permitir sair da tela de cadastro de anexo se botão de salvar for clicado e nome estiver com valor null
 
 NARDELI:
-*Função para alterar senha
-*Tela Recuperar senha
-*Botão de logout não redireciona para a página correta
+	*Tela Recuperar senha
 
 ROGER:
-*Inserir asteriscos/obrigatoriedades nos respectivos campos dos formulários:
-	-> RequisicaoAndamentoCrud.xhtml
-	-> RequisicaoProgramadaCrud.xhtml
+
 
 ALGUÉM QUE SE DESAFIE: ?
-*Tratamento de erros:
-	-> Exibir erro ao não permitir excluir item com dependência em outra tabela
+	*Tratamento de erros:
+		-> Tratar e exibir erros de banco de dados
 

@@ -95,9 +95,10 @@ public class RequisicaoProgramadaCrud implements Serializable {
 			em.getTransaction().commit();
 			em.close();
 			carregarLista();
+			JSFUtil.mensagemDeSucessoSalvar();
 		} catch (Throwable e) {
 			e.printStackTrace();
-			JSFUtil.messagemDeErro("Ocorreu um erro ao salvar os dados.");
+			JSFUtil.mensagemDeErroSalvar();
 		}
 	}
 
@@ -110,9 +111,10 @@ public class RequisicaoProgramadaCrud implements Serializable {
 			em.getTransaction().commit();
 			em.close();
 			carregarLista();
+			JSFUtil.mensagemDeSucessoExcluir();
 		} catch (Throwable e) {
 			e.printStackTrace();
-			JSFUtil.messagemDeErro("Ocorreu um erro ao remover os dados.");
+			JSFUtil.mensagemDeErroExcluir();
 		}
 	}
 

@@ -31,12 +31,10 @@ public class RequisicaoCrud implements Serializable {
 	private Boolean editando;
 	private List<Requisicao> lista;
 	private Requisicao selecionado;
-	//private List<Projeto> projetos;
-	//private List<Pessoa> pessoas;
 
 	private UploadedFile file;
 	private RequisicaoAnexo anexoSelecionado;
-	
+
 	@ManagedProperty(value = "#{loginController}")
 	private LoginController login;
 
@@ -68,62 +66,17 @@ public class RequisicaoCrud implements Serializable {
 		this.selecionado = selecionado;
 	}
 
-
 	@SuppressWarnings("unchecked")
 	public void carregarLista() {
-
-		/*
-		System.out.println("login: "+login.pessoaLogada.getNome()+" "+ 
-	    ((login.pessoaLogada instanceof Cliente) ? "É um cliente" : "é "+login.pessoaLogada.getClass().getSimpleName()));
-
-		
-		System.out.println("Entrou no carregarLista(). id: " + login.pessoaLogada.getId());
-*/
-		/*
 		EntityManager em = JPAUtil.getEntityManager();
-		Query qry = em.createQuery("from Cliente where id = :id");
-		qry.setParameter("id", id);
-		pessoas = qry.getResultList();
-
-		if (pessoas.size() > 0) {
-*/
-		EntityManager em = JPAUtil.getEntityManager();
-		Query qry;		 
-		if (login.pessoaLogada instanceof Cliente) { 
+		Query qry;
+		if (login.pessoaLogada instanceof Cliente) {
 			qry = em.createQuery("from Requisicao where projeto.cliente.id = :id order by titulo");
 			qry.setParameter("id", login.pessoaLogada.getId());
 			lista = qry.getResultList();
-			
-			/*
-			qry = em.createQuery("from Projeto where cliente_id = :id");
-			qry.setParameter("id", login.pessoaLogada.getId());
-			List<Projeto> listProjetos = qry.getResultList();
-
-			if (listProjetos.size() > 0) {
-				qry = em.createQuery("from Requisicao where projeto_id = :id order by titulo");
-				qry.setParameter("id", listProjetos.get(0).getId());
-				lista = qry.getResultList();
-
-				qry = em.createQuery("from Projeto where id = :id order by nome");
-				qry.setParameter("id", listProjetos.get(0).getId());
-				projetos = qry.getResultList();
-
-				qry = em.createQuery("from Pessoa where id = :id order by nome");
-				qry.setParameter("id", login.pessoaLogada.getId());
-				pessoas = qry.getResultList();
-
-			} else {
-				lista = null;
-				projetos = null;
-				pessoas = null;
-			}
-			*/
-			
 
 		} else {
 			lista = em.createQuery("from Requisicao order by titulo").getResultList();
-			//projetos = em.createQuery("from Projeto order by nome").getResultList();
-			//pessoas = em.createQuery("from Pessoa order by nome").getResultList();
 		}
 		em.close();
 	}
@@ -148,13 +101,14 @@ public class RequisicaoCrud implements Serializable {
 			em.getTransaction().commit();
 			em.close();
 			carregarLista();
+			JSFUtil.mensagemDeSucessoSalvar();
 		} catch (Throwable e) {
 			e.printStackTrace();
-			JSFUtil.messagemDeErro("Ocorreu um erro ao salvar os dados.");
+			JSFUtil.mensagemDeErroSalvar();
 		}
 	}
 
-	public void excluir() { //Este recebe parâmetro em função da ação do usuário tipo cliente (Permissões)
+	public void excluir() {
 		try {
 			editando = false;
 			EntityManager em = JPAUtil.getEntityManager();
@@ -163,9 +117,10 @@ public class RequisicaoCrud implements Serializable {
 			em.getTransaction().commit();
 			em.close();
 			carregarLista();
+			JSFUtil.mensagemDeSucessoExcluir();
 		} catch (Throwable e) {
 			e.printStackTrace();
-			JSFUtil.messagemDeErro("Ocorreu um erro ao remover os dados.");
+			JSFUtil.mensagemDeErroExcluir();
 		}
 	}
 
@@ -182,13 +137,21 @@ public class RequisicaoCrud implements Serializable {
 	@SuppressWarnings("unchecked")
 	public List<Projeto> completeProjeto(String query) {
 		EntityManager em = JPAUtil.getEntityManager();
-		List<Projeto> results = em.createQuery(
-				"from Projeto where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' "
-						+ " and cliente.id = "+login.pessoaLogada.getId() 
-						+ " order by nome")
-				.getResultList();
-		em.close();
-		return results;
+		if (login.pessoaLogada instanceof Cliente) {
+			List<Projeto> results = em
+					.createQuery("from Projeto where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' "
+							+ " and cliente.id = " + login.pessoaLogada.getId() + " order by nome")
+					.getResultList();
+			em.close();
+			return results;
+		} else {
+			List<Projeto> results = em.createQuery(
+					"from Projeto where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by nome")
+					.getResultList();
+			em.close();
+			return results;
+		}
+
 	}
 
 	public void cancelar() {

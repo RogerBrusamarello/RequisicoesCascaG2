@@ -24,7 +24,7 @@ public class ProjetoCrud implements Serializable {
 	private Projeto selecionado;
 	private List<Usuario> usuarios;
 	private List<Cliente> clientes;
-	
+
 	@ManagedProperty(value = "#{loginController}")
 	private LoginController login;
 
@@ -102,9 +102,10 @@ public class ProjetoCrud implements Serializable {
 			em.getTransaction().commit();
 			em.close();
 			carregarLista();
+			JSFUtil.mensagemDeSucessoSalvar();
 		} catch (Throwable e) {
 			e.printStackTrace();
-			JSFUtil.messagemDeErro("Ocorreu um erro ao salvar os dados.");
+			JSFUtil.mensagemDeErroSalvar();
 		}
 	}
 
@@ -117,23 +118,34 @@ public class ProjetoCrud implements Serializable {
 			em.getTransaction().commit();
 			em.close();
 			carregarLista();
+			JSFUtil.mensagemDeSucessoExcluir();
 		} catch (Throwable e) {
 			e.printStackTrace();
-			JSFUtil.messagemDeErro("Ocorreu um erro ao remover os dados");
+			JSFUtil.mensagemDeErroExcluir();
 		}
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Usuario> completeUsuario(String query) {
 		EntityManager em = JPAUtil.getEntityManager();
-		List<Usuario> results = em.createQuery(
-				"from Usuario where upper(nome) like " + 
-		        "'" + query.trim().toUpperCase() + "%' "+
-				 ((login.getPessoaLogada() instanceof Usuario) ? " and id = "+login.getPessoaLogada().getId() : "") +
-		        " order by nome")
-				.getResultList();
-		em.close();
-		return results;
+		if ((login.getPessoaLogada() instanceof Usuario)) {
+			List<Usuario> results = em
+					.createQuery("from Usuario where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' "
+							+ ((login.getPessoaLogada() instanceof Usuario)
+									? " and id = " + login.getPessoaLogada().getId()
+									: "")
+							+ " order by nome")
+					.getResultList();
+			em.close();
+			return results;
+		} else {
+			List<Usuario> results = em.createQuery(
+					"from Usuario where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by nome")
+					.getResultList();
+			em.close();
+			return results;
+		}
+
 	}
 
 	@SuppressWarnings("unchecked")

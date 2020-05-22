@@ -13,12 +13,14 @@
 		}
 	</style>
 
+
 </h:head>
 
 <h:body>
-	<p:dialog header="Arquivo Anexo" widgetVar="anexos" id="anexos" modal="true">
+	<p:dialog header="Arquivo Anexo" widgetVar="anexos" id="anexos"
+		modal="true">
 		<h:form id="formEditAnexo" enctype="multipart/form-data">
-			
+
 			<p:panelGrid>
 				<p:outputLabel for="descricao" value="Descrição: " />
 				<p:inputText id="descricao" required="true" size="25"
@@ -27,10 +29,10 @@
 			<br />
 
 			<p:fileUpload value="#{requisicaoCrud.file}" mode="simple"
-				skinSimple="true" />
+				skinSimple="true" required="true" />
 
-			<p:commandButton value="Salvar" icon="pi pi-save" ajax="false" immediate="false"
-				action="#{requisicaoCrud.salvarAnexo}"
+			<p:commandButton value="Salvar" icon="pi pi-save" ajax="false"
+				immediate="true" action="#{requisicaoCrud.salvarAnexo}"
 				oncomplete="PF('anexos').hide();" />
 
 			<p:commandButton value="Cancelar" icon="pi pi-times-circle"

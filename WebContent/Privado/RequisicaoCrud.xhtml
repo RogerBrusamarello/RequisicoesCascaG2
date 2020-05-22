@@ -84,17 +84,19 @@
 				</p:column>-->
 
 				<p:column headerText="Prioridade" sortBy="#{o.prioridade}"
-					filterBy="#{o.prioridade}" style="width: 75px; text-align: center;">
+					filterBy="#{o.prioridade}" style="width: 70px; text-align: center;">
 					<p:outputLabel value="#{o.prioridade}" />
 				</p:column>
 
-				<!-- <p:column headerText="Horas Previstas" style="text-align: center;">
+				<p:column headerText="Horas Previstas" sortBy="#{o.horasPrevistas}"
+					filterBy="#{o.horasPrevistas}" style="width: 70px; text-align: center;">
 					<p:outputLabel value="#{o.horasPrevistas}" />
 				</p:column> 
 				
-				<p:column headerText="Horas Realizadas" style="text-align: center;">
+				<p:column headerText="Horas Realizadas" sortBy="#{o.horasRealizadas}"
+					filterBy="#{o.horasRealizadas}" style="width: 70px; text-align: center;">
 					<p:outputLabel value="#{o.horasRealizadas}" />
-				</p:column>-->
+				</p:column>
 
 				<p:column headerText="Data Finalizada" sortBy="#{o.dataFinalizada}"
 					filterBy="#{o.dataFinalizada}"
@@ -186,8 +188,6 @@
 						converter="PessoaConverter"
 						completeMethod="#{requisicaoCrud.completePessoa}" required="true" />
 
-	
-
 					<p:outputLabel value="" />
 					<p:outputPanel>
 						<p:commandButton value="Salvar" icon="pi pi-save"
@@ -212,11 +212,11 @@
 						rowIndexVar="linha">
 
 						<p:column headerText="Descrição" style="width: 110px;">
-							<p:outputLabel value="#{ane.descricao}"></p:outputLabel>
+							<p:outputLabel value="#{ane.descricao}"/>
 						</p:column>
 
 						<p:column headerText="Arquivo" style="width: 115px;">
-							<p:outputLabel value="#{ane.arquivo}"></p:outputLabel>
+							<p:outputLabel value="#{ane.arquivo}"/>
 						</p:column>
 
 						<p:column headerText="">
@@ -248,7 +248,7 @@
 		</h:form>
 	</p:panel>
 
-	<ui:include src="RequisicaoCrudAnexo.xhtml"></ui:include>
+	<ui:include src="RequisicaoAnexoCrud.xhtml"></ui:include>
 
 </h:body>
 </html>

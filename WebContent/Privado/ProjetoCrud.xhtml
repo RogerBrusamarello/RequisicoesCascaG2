@@ -100,7 +100,8 @@
 					forceSelection="true" var="obj" itemLabel="#{obj.nome}"
 					itemValue="#{obj}" value="#{projetoCrud.selecionado.usuario}"
 					converter="UsuarioConverter"
-					completeMethod="#{projetoCrud.completeUsuario}" required="true" />
+					completeMethod="#{projetoCrud.completeUsuario}" required="true"
+					disabled="#{loginController.permissao != loginController.vlrAdministrador}" />
 
 				<p:commandLink for="inputCliente" value="Cliente" immediate="true"
 					ajax="true"

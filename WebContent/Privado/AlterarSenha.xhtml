@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<title>Alterar Senha</title>
+
+	<style type="text/css">
+		.ui-outputlabel {
+			color: #F2F5A9 !important;
+		}
+	</style>
+
+</h:head>
+
+<h:body>
+	<!-- Painel de edição -->
+	<p:panel id="edicao" visible="true">
+		<h:outputText value="Alterar Senha"
+			style="color: #FFBF00; font-weight: bolder; font-size: 20;" />
+		<h:form id="formEdicao">
+			<p:growl></p:growl>
+			<p:panelGrid columns="2">
+
+				<p:outputLabel value="Senha atual:" for="senha" />
+				<p:password id="senha" size="10"
+					value="#{loginController.senhaAtual}" required="true" />
+
+				<p:outputLabel for="pwd1" value="Nova Senha: " />
+				<p:password id="pwd1" size="10"
+					value="#{loginController.novaSenha}" match="pwd2"
+					label="Password 1" required="true" />
+
+				<p:outputLabel for="pwd2" value="Confirma Nova Senha:" />
+				<p:password id="pwd2" size="10"
+					value="#{loginController.novaSenha}" label="Password 2"
+					required="true" />
+
+			</p:panelGrid>
+
+			<p:commandButton id="salvar" value="Salvar" icon="pi pi-save"
+				action="#{loginController.salvar}" update="edicao"
+				style="horizontal-align:center" />
+			
+		</h:form>
+	</p:panel>
+</h:body>
+</html>

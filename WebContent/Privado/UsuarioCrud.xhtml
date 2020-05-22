@@ -27,10 +27,13 @@
 				icon="pi pi-plus" update="consulta edicao"
 				style="horizontal-align:center" />
 			<p:commandButton value="Alterar" action="#{usuarioCrud.alterar}"
-				icon="pi pi-pencil" disabled="#{usuarioCrud.selecionado==null}"
+				icon="pi pi-pencil" disabled="#{usuarioCrud.selecionado==null or
+				loginController.permissao == loginController.vlrUsuario and
+				usuarioCrud.selecionado.id != loginController.pessoaLogada.id}"
 				update="consulta edicao" style="horizontal-align:center" />
 			<p:commandButton value="Excluir" action="#{usuarioCrud.excluir}"
-				icon="pi pi-trash" disabled="#{usuarioCrud.selecionado==null}"
+				icon="pi pi-trash" disabled="#{usuarioCrud.selecionado==null or
+				loginController.permissao != loginController.vlrAdministrador}"
 				update="consulta" style="horizontal-align:center">
 				<p:confirm header="Confirmação" message="Confirma a exclusão?"
 					icon="pi pi-exclamation-triangle" />

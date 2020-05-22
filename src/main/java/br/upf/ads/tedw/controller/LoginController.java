@@ -18,6 +18,7 @@ import br.upf.ads.tedw.beans.Cliente;
 import br.upf.ads.tedw.beans.Pessoa;
 import br.upf.ads.tedw.beans.Usuario;
 import br.upf.ads.tedw.jpa.JPAUtil;
+import br.upf.ads.tedw.jsf.JSFUtil;
 import br.upf.ads.tedw.suport.Encrypt;
 
 @ManagedBean
@@ -35,11 +36,23 @@ public class LoginController implements Serializable {
 
 	/**
 	 * Atributo para controle do usuário logado. É inicializado quando informados
-	 * email e senha válidos. Setado para null quando o usuário sair do sistema.
+	 * email e senha válidos. Recebe valor null quando o usuário sair do sistema.
 	 */
 	public Pessoa pessoaLogada = null;
 
+	/**
+	 * Atributo para a pessoa logada que for atualizar alterar a senha
+	 */
+	public Pessoa pessoaAlterarSenha;
+
+	/**
+	 * Senha
+	 */
+	public String senhaAtual;
+	public String novaSenha;
+
 	public LoginController() {
+
 	}
 
 	public String getEmail() {
@@ -106,6 +119,30 @@ public class LoginController implements Serializable {
 		this.tipoUsuario = tipoUsuario;
 	}
 
+	public String getSenhaAtual() {
+		return senhaAtual;
+	}
+
+	public void setSenhaAtual(String senhaAtual) {
+		this.senhaAtual = senhaAtual;
+	}
+
+	public Pessoa getPessoaAlterarSenha() {
+		return pessoaAlterarSenha;
+	}
+
+	public void setPessoaAlterarSenha(Pessoa pessoaAlterarSenha) {
+		this.pessoaAlterarSenha = pessoaAlterarSenha;
+	}
+
+	public String getNovaSenha() {
+		return novaSenha;
+	}
+
+	public void setNovaSenha(String novaSenha) {
+		this.novaSenha = novaSenha;
+	}
+
 	/**
 	 * Método responsável por validar o email e senha do usuário. Se for válido
 	 * inicializa o usuário logado com a instancia do usuário respectivo ao email e
@@ -114,7 +151,7 @@ public class LoginController implements Serializable {
 	 * @throws Exception
 	 */
 	public String entrar() {
-		
+
 		EntityManager em = JPAUtil.getEntityManager();
 		Query qry = em.createQuery("from Pessoa where email = :email and senha = :senha");
 		qry.setParameter("email", email);
@@ -122,19 +159,17 @@ public class LoginController implements Serializable {
 		@SuppressWarnings("unchecked")
 		List<Pessoa> list = qry.getResultList();
 		em.close();
-		
+
 		if (list.size() <= 0) {
 			pessoaLogada = null;
-			FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-mail ou senha inválida!", "");
-			FacesContext.getCurrentInstance().addMessage(null, mensagem);
+			JSFUtil.mensagemDeErroLogin();
 			return "";
 		} else {
 			pessoaLogada = list.get(0);
-			//System.out.println("Id logado: " + pessoaLogada.getId());
 			EntityManager em2 = JPAUtil.getEntityManager();
 
 			/**
-			 *  verifica se a pessoa é Administrador
+			 * verifica se a pessoa é Administrador
 			 */
 			qry = em2.createQuery("from Administrador where id = :id ");
 			qry.setParameter("id", pessoaLogada.getId());
@@ -150,7 +185,7 @@ public class LoginController implements Serializable {
 			List<Usuario> listUsuario = qry.getResultList();
 
 			/**
-			 *  verifica se a pessoa é Cliente
+			 * verifica se a pessoa é Cliente
 			 */
 			qry = em2.createQuery("from Cliente where id = :id ");
 			qry.setParameter("id", pessoaLogada.getId());
@@ -168,41 +203,23 @@ public class LoginController implements Serializable {
 			setVlrUsuario(2);
 			setVlrAdministrador(3);
 
-			//System.out.println("vlrAdministrador: " + vlrAdministrador);
-			//System.out.println("vlrUsuario: " + vlrUsuario);
-			//System.out.println("vlrCliente: " + vlrCliente);
-
 			/**
-			 * Verifica o perfil de usuário da pessoa logada
+			 * Verifica o perfil de usuário da pessoa logada e atribui correspondente ao
+			 * perfil de usuário e será exibido junto ao nome da pessoa que está logada
 			 */
 			if (listAdmin.size() > 0) {
 				setPermissao(vlrAdministrador);
+				setTipoUsuario("(Administrador)");
 			} else if (listUsuario.size() > 0) {
 				setPermissao(vlrUsuario);
+				setTipoUsuario("(Usuário)");
 			} else if (listCliente.size() > 0) {
 				setPermissao(vlrCliente);
+				setTipoUsuario("(Cliente)");
 			} else {
 				permissao = null;
 			}
 
-			/**
-			 *  Texto do perfil de usuário à exibir junto ao nome da pessoa que está logada
-			 */
-			switch (permissao) {
-			case 3:
-				setTipoUsuario("(Administrador)");
-				break;
-			case 2:
-				setTipoUsuario("(Usuário)");
-				break;
-			case 1:
-				setTipoUsuario("(Cliente)");
-				break;
-			default:
-				break;
-			}
-
-			//System.out.println("Permissão: " + permissao);
 			em2.close();
 			return "/faces/Privado/Home.xhtml";
 		}
@@ -218,8 +235,7 @@ public class LoginController implements Serializable {
 	public void sair() throws IOException {
 		setPessoaLogada(null);
 		setPermissao(null);
-		FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário Desconectado!", "");
-		FacesContext.getCurrentInstance().addMessage(null, mensagem);
+		JSFUtil.mensagemDeSucesso("Usuário Desconectado!");
 		HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext()
 				.getResponse();
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
@@ -228,4 +244,35 @@ public class LoginController implements Serializable {
 		res.sendRedirect(contextPath + "/faces/index.xhtml");
 		FacesContext.getCurrentInstance().responseComplete();
 	}
+
+	/**
+	 * Alterar senha do usuário logado
+	 * 
+	 */
+
+	public void salvar() {
+		EntityManager em = JPAUtil.getEntityManager();
+		Query qry = em.createQuery("from Pessoa where id = :id");
+		qry.setParameter("id", pessoaLogada.getId());
+
+		pessoaAlterarSenha = (Pessoa) qry.getResultList().get(0);
+
+		if (Encrypt.encryptMd5(senhaAtual).equals(pessoaAlterarSenha.getSenha())) {
+			try {
+				pessoaAlterarSenha.setSenha(novaSenha);
+				em.getTransaction().begin();
+				em.merge(pessoaAlterarSenha);
+				em.getTransaction().commit();
+				JSFUtil.mensagemDeSucesso("Senha alterada com sucesso!");
+			} catch (Throwable e) {
+				e.printStackTrace();
+				JSFUtil.mensagemDeErroSalvar();
+				;
+			}
+		} else {
+			JSFUtil.mensagemDeErro("Senha atual não confere!");
+		}
+		em.close();
+	}
+
 }
