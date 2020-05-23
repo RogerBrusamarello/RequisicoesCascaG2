@@ -172,6 +172,7 @@ public class LoginController implements Serializable {
 	 * @throws Exception
 	 */
 	public String entrar() {
+		setVerifica(false);
 		EntityManager em = JPAUtil.getEntityManager();
 		Query qry = em.createQuery("from Pessoa where email = :email and senha = :senha");
 		qry.setParameter("email", email);
@@ -187,11 +188,13 @@ public class LoginController implements Serializable {
 		} else {
 			pessoaLogada = list.get(0);
 			EntityManager em2 = JPAUtil.getEntityManager();
-			
+
 			PessoaRecuperacao pr = findPessoaRecuperacaoByEmail(email);
-			em2.getTransaction().begin();
-			em2.remove(em2.merge(pr));
-			em2.getTransaction().commit();
+			if (pr != null) {
+				em2.getTransaction().begin();
+				em2.remove(em2.merge(pr));
+				em2.getTransaction().commit();
+			}
 
 			/**
 			 * verifica se a pessoa é Administrador
@@ -273,6 +276,7 @@ public class LoginController implements Serializable {
 	public void sair() throws IOException {
 		setPessoaLogada(null);
 		setPermissao(null);
+		setVerifica(false);
 		JSFUtil.mensagemDeSucesso("Usuário Desconectado!");
 		HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext()
 				.getResponse();
@@ -284,7 +288,7 @@ public class LoginController implements Serializable {
 	}
 
 	/**
-	 * Alterar senha do usuário logado
+	 * Méstodo responsável por alterar senha do usuário logado
 	 * 
 	 */
 	public void alterarSenha() {
@@ -309,10 +313,16 @@ public class LoginController implements Serializable {
 		em.close();
 	}
 
+	/**
+	 * Método que recebe um e-mail e verifica se possui código de recuperação
+	 * cadastrado. Se afirmativo, retorna o código
+	 * 
+	 * @param value
+	 * @return
+	 */
 	public PessoaRecuperacao findPessoaRecuperacaoByEmail(String value) {
 		EntityManager em = JPAUtil.getEntityManager();
 		try {
-			System.out.println(value);
 			Query q = em.createQuery("FROM PessoaRecuperacao o WHERE o.email = '" + value + "'");
 			return (PessoaRecuperacao) q.getSingleResult();
 		} catch (Throwable e) {
@@ -322,13 +332,18 @@ public class LoginController implements Serializable {
 		}
 	}
 
+	/**
+	 * Método que gera e envia para o e-mail informado, um código para recuperação
+	 * de senha
+	 * 
+	 * @return
+	 */
 	public String recuperarSenha() {
+		setVerifica(false);
 		try {
 			String codigoRecuperacao = String.format("%06d", (new Random().nextInt(999999)));
 			EntityManager em = JPAUtil.getEntityManager();
-			Query qry = em.createQuery("from Pessoa where email = :email");
-			qry.setParameter("email", email);
-			Pessoa pessoa = (Pessoa) qry.getResultList().get(0);
+			Pessoa pessoa = findPessoaByEmail(email);
 			PessoaRecuperacao pRec = new PessoaRecuperacao();
 			pRec.setEmail(email);
 			PessoaRecuperacao antigo = findPessoaRecuperacaoByEmail(email);
@@ -351,14 +366,21 @@ public class LoginController implements Serializable {
 		return "";
 	}
 
+	/**
+	 * Método para verificar se o código informado está cadastado na base de dados
+	 * para o determinado usuário
+	 * 
+	 * @return
+	 */
 	public String verificarCodigo() {
 		try {
 			PessoaRecuperacao p = findPessoaRecuperacaoByEmail(email);
 			if (p.getCodigo().equals(codigo)) {
 				JSFUtil.mensagemDeSucesso("Código verificado! Insira sua nova senha");
-				verifica = true;
+				setVerifica(true);
 				return "DefinirNovaSenha.xhtml";
 			} else {
+				setVerifica(false);
 				JSFUtil.mensagemDeErro("Código incorreto!");
 			}
 		} catch (Throwable e) {
@@ -368,10 +390,15 @@ public class LoginController implements Serializable {
 		return "";
 	}
 
+	/**
+	 * Método que recebe um e-mail e retorna os dados da pessoa na base de dados
+	 * 
+	 * @param value
+	 * @return
+	 */
 	public Pessoa findPessoaByEmail(String value) {
 		EntityManager em = JPAUtil.getEntityManager();
 		try {
-			System.out.println(value);
 			Query q = em.createQuery("FROM Pessoa o WHERE o.email = '" + value + "'");
 			return (Pessoa) q.getSingleResult();
 		} catch (Throwable e) {
@@ -381,13 +408,19 @@ public class LoginController implements Serializable {
 		}
 	}
 
+	/**
+	 * Método que irá cadastrar nova senha e limpar dados de recuperação do usuário
+	 * em questão
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
+
 	public String definirNovaSenha() throws IOException {
 		if (verifica) {
 			EntityManager em = JPAUtil.getEntityManager();
 			Pessoa p = findPessoaByEmail(email);
 			PessoaRecuperacao pr = findPessoaRecuperacaoByEmail(email);
-			System.out.println("código: " + codigo);
-			System.out.println("email: " + email);
 			if (pr.getCodigo().equals(codigo)) {
 				p.setSenha(novaSenha);
 				em.getTransaction().begin();
@@ -402,7 +435,7 @@ public class LoginController implements Serializable {
 		} else {
 			JSFUtil.mensagemDeErro("Acesso negado. Gere novo código de recuperação!");
 		}
-		verifica = false;
+		setVerifica(false);
 		return "LoginForm.xhtml";
 	}
 }
