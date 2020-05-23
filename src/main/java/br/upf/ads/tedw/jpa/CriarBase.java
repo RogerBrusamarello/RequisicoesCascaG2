@@ -13,10 +13,11 @@ import br.upf.ads.tedw.controller.AdministradorCrud;
 import br.upf.ads.tedw.controller.ClienteCrud;
 import br.upf.ads.tedw.controller.ProjetoCrud;
 import br.upf.ads.tedw.controller.UsuarioCrud;
+import br.upf.ads.tedw.suport.Email;
 
 public class CriarBase {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Throwable {
 
 		EntityManager em = JPAUtil.getEntityManager();
 		em.getTransaction().begin();

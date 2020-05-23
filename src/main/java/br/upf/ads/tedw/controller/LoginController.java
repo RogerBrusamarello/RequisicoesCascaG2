@@ -3,6 +3,7 @@ package br.upf.ads.tedw.controller;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Random;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -16,9 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import br.upf.ads.tedw.beans.Administrador;
 import br.upf.ads.tedw.beans.Cliente;
 import br.upf.ads.tedw.beans.Pessoa;
+import br.upf.ads.tedw.beans.PessoaRecuperacao;
 import br.upf.ads.tedw.beans.Usuario;
 import br.upf.ads.tedw.jpa.JPAUtil;
 import br.upf.ads.tedw.jsf.JSFUtil;
+import br.upf.ads.tedw.suport.Email;
 import br.upf.ads.tedw.suport.Encrypt;
 
 @ManagedBean
@@ -33,6 +36,7 @@ public class LoginController implements Serializable {
 	public Integer vlrUsuario;
 	public Integer vlrAdministrador;
 	public String tipoUsuario = null;
+	public String codigo;
 
 	/**
 	 * Atributo para controle do usuário logado. É inicializado quando informados
@@ -143,6 +147,14 @@ public class LoginController implements Serializable {
 		this.novaSenha = novaSenha;
 	}
 
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
 	/**
 	 * Método responsável por validar o email e senha do usuário. Se for válido
 	 * inicializa o usuário logado com a instancia do usuário respectivo ao email e
@@ -218,7 +230,7 @@ public class LoginController implements Serializable {
 			} else {
 				permissao = null;
 			}
-			
+
 			JSFUtil.mensagemDeSucessoLogin();
 			em2.close();
 			return "/faces/Privado/Home.xhtml";
@@ -264,16 +276,87 @@ public class LoginController implements Serializable {
 			} catch (Throwable e) {
 				e.printStackTrace();
 				JSFUtil.mensagemDeErroSalvar();
-				;
 			}
 		} else {
 			JSFUtil.mensagemDeErro("Senha atual não confere!");
 		}
 		em.close();
 	}
+
+	public PessoaRecuperacao findPessoaRecuperacaoByEmail(String value) {
+		EntityManager em = JPAUtil.getEntityManager();
+		try {
+			System.out.println(value);
+			Query q = em.createQuery("FROM PessoaRecuperacao o WHERE o.email = '" + value + "'");
+			return (PessoaRecuperacao) q.getSingleResult();
+		} catch (Throwable e) {
+			return null;
+		} finally {
+			em.close();
+		}
+	}
+
+	public String recuperarSenha() {
+		try {
+			String codigoRecuperacao = String.format("%06d", (new Random().nextInt(999999)));
+			EntityManager em = JPAUtil.getEntityManager();
+			PessoaRecuperacao pRec = new PessoaRecuperacao();
+			pRec.setEmail(email);
+			PessoaRecuperacao antigo = findPessoaRecuperacaoByEmail(email);
+			if (antigo != null) {
+				pRec = antigo;
+			}
+			pRec.setCodigo(codigoRecuperacao);
+			em.getTransaction().begin();
+			em.merge(pRec);
+			Email.send(email, "Recuperar Senha", " Seu código é " + codigoRecuperacao);
+			em.getTransaction().commit();
+			em.close();
+			return "ConfirmarCodigo.xhtml";
+		} catch (Throwable e) {
+			e.printStackTrace();
+			JSFUtil.mensagemDeErroSalvar();
+		}
+		return "";
+	}
+
+	public String verificarCodigo() {
+		try {
+			PessoaRecuperacao p = findPessoaRecuperacaoByEmail(email);
+			if (p.getCodigo().equals(codigo)) {
+				JSFUtil.mensagemDeSucesso("Código verificado");
+				return "DefinirNovaSenha.xhtml";
+			} else {
+				JSFUtil.mensagemDeErro("Código incorreto!");
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+			JSFUtil.mensagemDeErroSalvar();
+		}
+		return "";
+	}
+
+	public Pessoa findPessoaByEmail(String value) {
+		EntityManager em = JPAUtil.getEntityManager();
+		try {
+			System.out.println(value);
+			Query q = em.createQuery("FROM Pessoa o WHERE o.email = '" + value + "'");
+			return (Pessoa) q.getSingleResult();
+		} catch (Throwable e) {
+			return null;
+		} finally {
+			em.close();
+		}
+	}
 	
-	public void recuperarSenha() {
-		//...
-		JSFUtil.mensagemDeSucesso("Chegou até aqui! Aguardando codificação...");
+	public String definirNovaSenha() {
+		EntityManager em = JPAUtil.getEntityManager();
+		Pessoa p = findPessoaByEmail(email);
+		p.setSenha(novaSenha);
+		em.getTransaction().begin();
+		em.merge(p);
+		em.getTransaction().commit();
+		em.close();
+		return "index.xhtml";
 	}
 }

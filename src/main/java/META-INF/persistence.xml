@@ -16,6 +16,7 @@
 		<class>br.upf.ads.tedw.beans.RequisicaoProgramada</class>
 		<class>br.upf.ads.tedw.beans.RequisicaoAndamento</class>
 		<class>br.upf.ads.tedw.beans.Estado</class>
+		<class>br.upf.ads.tedw.beans.PessoaRecuperacao</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.url"
@@ -26,7 +27,9 @@
 				value="masterkey" />
 			<property name="javax.persistence.jdbc.driver"
 				value="org.postgresql.Driver" />
-			<property name="hibernate.hbm2ddl.auto" value="update"/> 
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="eclipselink.logging.level" value="FINE" />
 		</properties>
 	</persistence-unit>
 </persistence>
