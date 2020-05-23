@@ -330,7 +330,7 @@ public class LoginController implements Serializable {
 			pRec.setCodigo(codigoRecuperacao);
 			em.getTransaction().begin();
 			em.merge(pRec);
-			Email.send(email, "Recuperar Senha", " Seu código é " + codigoRecuperacao);
+			Email.send(email, "🔐Recuperar Senha do Gestor de Requisições", "Seu código é " + codigoRecuperacao);
 			em.getTransaction().commit();
 			em.close();
 			return "ConfirmarCodigo.xhtml";
