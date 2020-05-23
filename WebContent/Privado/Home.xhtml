@@ -40,40 +40,40 @@
 					<p:toolbarGroup align="left">
 
 						<p:commandButton icon="pi pi-user" ajax="false"
-							title="Abrir CRUD de Usuarios" action="UsuarioCrud.xhtml"
+							title="Usuarios" action="UsuarioCrud.xhtml"
 							onclick="this.form.target='centro'"
 							rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
 
 						<p:commandButton icon="pi pi-user-plus" ajax="false"
-							title="Abrir CRUD de Administrador"
+							title="Administrador"
 							action="AdministradorCrud.xhtml"
 							onclick="this.form.target='centro'"
 							rendered="#{loginController.permissao >= loginController.vlrAdministrador}" />
 
 						<p:commandButton icon="pi pi-users" ajax="false"
-							title="Abrir CRUD de Cliente" action="ClienteCrud.xhtml"
+							title="Cliente" action="ClienteCrud.xhtml"
 							onclick="this.form.target='centro'"
 							rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
 
 						<p:separator />
 						<p:commandButton icon="pi pi-file" ajax="false"
-							title="Abrir CRUD de Projeto" action="ProjetoCrud.xhtml"
+							title="Projeto" action="ProjetoCrud.xhtml"
 							onclick="this.form.target='centro'"
 							rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
 
 						<p:commandButton icon="pi pi-file-o" ajax="false"
-							title="Abrir CRUD de Requisicão" action="RequisicaoCrud.xhtml"
+							title="Requisicão" action="RequisicaoCrud.xhtml"
 							onclick="this.form.target='centro'"
 							rendered="#{loginController.permissao >= loginController.vlrCliente}" />
 
 						<p:commandButton icon="pi pi-ticket" ajax="false"
-							title="Abrir CRUD de Requisicão Programada"
+							title="Requisicão Programada"
 							action="RequisicaoProgramadaCrud.xhtml"
 							onclick="this.form.target='centro'"
 							rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
 
 						<p:commandButton icon="pi pi-ticket" ajax="false"
-							title="Abrir CRUD de Requisicão Andamento"
+							title="Requisicão Andamento"
 							action="RequisicaoAndamentoCrud.xhtml"
 							onclick="this.form.target='centro'"
 							rendered="#{loginController.permissao >= loginController.vlrUsuario}" />

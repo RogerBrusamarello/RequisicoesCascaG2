@@ -187,6 +187,11 @@ public class LoginController implements Serializable {
 		} else {
 			pessoaLogada = list.get(0);
 			EntityManager em2 = JPAUtil.getEntityManager();
+			
+			PessoaRecuperacao pr = findPessoaRecuperacaoByEmail(email);
+			em2.getTransaction().begin();
+			em2.remove(em2.merge(pr));
+			em2.getTransaction().commit();
 
 			/**
 			 * verifica se a pessoa é Administrador
@@ -321,6 +326,9 @@ public class LoginController implements Serializable {
 		try {
 			String codigoRecuperacao = String.format("%06d", (new Random().nextInt(999999)));
 			EntityManager em = JPAUtil.getEntityManager();
+			Query qry = em.createQuery("from Pessoa where email = :email");
+			qry.setParameter("email", email);
+			Pessoa pessoa = (Pessoa) qry.getResultList().get(0);
 			PessoaRecuperacao pRec = new PessoaRecuperacao();
 			pRec.setEmail(email);
 			PessoaRecuperacao antigo = findPessoaRecuperacaoByEmail(email);
@@ -330,9 +338,11 @@ public class LoginController implements Serializable {
 			pRec.setCodigo(codigoRecuperacao);
 			em.getTransaction().begin();
 			em.merge(pRec);
-			Email.send(email, "🔐Recuperar Senha do Gestor de Requisições", "Seu código é " + codigoRecuperacao);
+			Email.send(email, "🔐 Recuperação de Senha", "Sistema Gestor de Requisições\nUsuário: " + pessoa.getNome()
+					+ "\nSeu código é " + codigoRecuperacao);
 			em.getTransaction().commit();
 			em.close();
+			JSFUtil.mensagemDeSucesso("Código gerado com sucesso! Verifique seu e-mail");
 			return "ConfirmarCodigo.xhtml";
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -345,7 +355,7 @@ public class LoginController implements Serializable {
 		try {
 			PessoaRecuperacao p = findPessoaRecuperacaoByEmail(email);
 			if (p.getCodigo().equals(codigo)) {
-				JSFUtil.mensagemDeSucesso("Código verificado");
+				JSFUtil.mensagemDeSucesso("Código verificado! Insira sua nova senha");
 				verifica = true;
 				return "DefinirNovaSenha.xhtml";
 			} else {
