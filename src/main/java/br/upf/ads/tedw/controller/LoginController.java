@@ -54,6 +54,7 @@ public class LoginController implements Serializable {
 	 */
 	public String senhaAtual;
 	public String novaSenha;
+	public Boolean verifica = false;
 
 	public LoginController() {
 
@@ -155,6 +156,14 @@ public class LoginController implements Serializable {
 		this.codigo = codigo;
 	}
 
+	public Boolean getVerifica() {
+		return verifica;
+	}
+
+	public void setVerifica(Boolean verifica) {
+		this.verifica = verifica;
+	}
+
 	/**
 	 * Método responsável por validar o email e senha do usuário. Se for válido
 	 * inicializa o usuário logado com a instancia do usuário respectivo ao email e
@@ -233,7 +242,19 @@ public class LoginController implements Serializable {
 
 			JSFUtil.mensagemDeSucessoLogin();
 			em2.close();
-			return "/faces/Privado/Home.xhtml";
+			HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext()
+					.getResponse();
+			HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
+					.getRequest();
+			String contextPath = req.getContextPath();
+			try {
+				res.sendRedirect(contextPath + "/faces/Privado/Home.xhtml");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			FacesContext.getCurrentInstance().responseComplete();
+			return contextPath;
 		}
 	}
 
@@ -278,7 +299,7 @@ public class LoginController implements Serializable {
 				JSFUtil.mensagemDeErroSalvar();
 			}
 		} else {
-			JSFUtil.mensagemDeErro("Senha atual não confere!");
+			JSFUtil.mensagemDeErro("A senha atual não confere!");
 		}
 		em.close();
 	}
@@ -325,6 +346,7 @@ public class LoginController implements Serializable {
 			PessoaRecuperacao p = findPessoaRecuperacaoByEmail(email);
 			if (p.getCodigo().equals(codigo)) {
 				JSFUtil.mensagemDeSucesso("Código verificado");
+				verifica = true;
 				return "DefinirNovaSenha.xhtml";
 			} else {
 				JSFUtil.mensagemDeErro("Código incorreto!");
@@ -348,15 +370,29 @@ public class LoginController implements Serializable {
 			em.close();
 		}
 	}
-	
-	public String definirNovaSenha() {
-		EntityManager em = JPAUtil.getEntityManager();
-		Pessoa p = findPessoaByEmail(email);
-		p.setSenha(novaSenha);
-		em.getTransaction().begin();
-		em.merge(p);
-		em.getTransaction().commit();
-		em.close();
-		return "index.xhtml";
+
+	public String definirNovaSenha() throws IOException {
+		if (verifica) {
+			EntityManager em = JPAUtil.getEntityManager();
+			Pessoa p = findPessoaByEmail(email);
+			PessoaRecuperacao pr = findPessoaRecuperacaoByEmail(email);
+			System.out.println("código: " + codigo);
+			System.out.println("email: " + email);
+			if (pr.getCodigo().equals(codigo)) {
+				p.setSenha(novaSenha);
+				em.getTransaction().begin();
+				em.merge(p);
+				em.remove(em.merge(pr));
+				em.getTransaction().commit();
+				em.close();
+				JSFUtil.mensagemDeSucesso("Senha alterada com sucesso!");
+			} else {
+				JSFUtil.mensagemDeErro("Erro ao alterar a senha. Código inválido!");
+			}
+		} else {
+			JSFUtil.mensagemDeErro("Acesso negado. Gere novo código de recuperação!");
+		}
+		verifica = false;
+		return "LoginForm.xhtml";
 	}
 }

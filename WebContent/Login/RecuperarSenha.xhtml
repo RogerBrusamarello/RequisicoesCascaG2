@@ -4,7 +4,15 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title>Recuperar Senha</title>
+
+	<title>Recuperar a Senha</title>
+	
+	<style type="text/css">
+		.ui-outputlabel {
+			color: #F2F5A9 !important;
+		}
+	</style>
+	
 </h:head>
 <h:body style="background-color: #585858">
 	<h:form>
@@ -13,7 +21,7 @@
 		<p:panelGrid columns="2"
 			style="position: absolute; left: 50%; top: 50%; margin-left:-150px; margin-top:-85px;">
 			<f:facet name="header">
-				<p:outputLabel value="Recuperar a Senha" />
+				<p:outputLabel value="Enviar código de recuperação" />
 			</f:facet>
 			<p:outputLabel value="Email:" for="email" />
 			<p:inputText id="email" size="20" maxlength="100"
@@ -21,7 +29,8 @@
 			<f:facet name="footer">
 				<p:commandButton value="Enviar" action="#{loginController.recuperarSenha}"
 					ajax="false" />
-				<p:link outcome="ConfirmarCodigo.xhtml" value="Já possuo código"/>
+				<p:spacer width="35" height="20" />
+				<p:link outcome="ConfirmarCodigo.xhtml" value="Já possuo um código"/>
 			</f:facet>
 		</p:panelGrid>
 	</h:form>

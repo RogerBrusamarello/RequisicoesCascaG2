@@ -4,7 +4,15 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
+
 	<title>Confirmar Código</title>
+	
+	<style type="text/css">
+		.ui-outputlabel {
+			color: #F2F5A9 !important;
+		}
+	</style>
+	
 </h:head>
 <h:body style="background-color: #585858">
 	<h:form>
@@ -15,10 +23,10 @@
 				<p:outputLabel value="Confirmar Código" />
 			</f:facet>
 			<p:outputLabel value="Código" for="codigo" />
-			<p:inputText id="codigo" size="20" maxlength="6"
+			<p:inputText id="codigo" size="4" maxlength="6"
 				value="#{loginController.codigo}" required="true" />
 			<f:facet name="footer">
-				<p:commandButton value="Enviar" action="#{loginController.verificarCodigo}"
+				<p:commandButton value="Confirmar" action="#{loginController.verificarCodigo}"
 					ajax="false" />
 			</f:facet>
 		</p:panelGrid>

@@ -15,42 +15,45 @@ import org.hibernate.validator.constraints.Length;
  */
 @Entity
 public class PessoaRecuperacao implements Serializable {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PessoaRecId")
 	@SequenceGenerator(name = "PessoaRecId", sequenceName = "PessoaRecId", allocationSize = 1)
 	private Long id;
-	
+
 	@NotBlank(message = "Informe um E-mail válido.")
 	@Length(min = 5, max = 100, message = "O e-mail precisa ter formato válido")
 	@Email(message = "Formato de e-mail inválido!")
 	@Column(length = 100, nullable = false, unique = true)
 	private String email;
-	
+
 	@NotBlank(message = "Informe um código válido.")
 	@Length(min = 6, max = 6, message = "O código deve possuir {min} caracteres")
 	@Column(length = 100, nullable = false, unique = true)
 	private String codigo;
-	
+
 	private static final long serialVersionUID = 1L;
 
 	public PessoaRecuperacao() {
 		super();
-	}   
+	}
+
 	public Long getId() {
 		return this.id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}   
+	}
+
 	public String getEmail() {
 		return this.email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
-	}   
+	}
+
 	public String getCodigo() {
 		return this.codigo;
 	}
@@ -58,6 +61,7 @@ public class PessoaRecuperacao implements Serializable {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -67,6 +71,7 @@ public class PessoaRecuperacao implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -93,5 +98,4 @@ public class PessoaRecuperacao implements Serializable {
 			return false;
 		return true;
 	}
-   
 }

@@ -15,32 +15,28 @@
 
 </h:head>
 
-<h:body>
-	<!-- Painel de edição -->
-	<p:panel id="edicao" visible="true">
-		<h:outputText value="Definir Nova Senha"
-			style="color: #FFBF00; font-weight: bolder; font-size: 20;" />
-		<h:form id="formEdicao">
-			<p:growl></p:growl>
-			<p:panelGrid columns="2">
-
-				<p:outputLabel for="pwd1" value="Nova Senha: " />
+<h:body style="background-color: #585858">
+	<h:form>
+		<p:growl></p:growl>
+		<p:panelGrid columns="2"
+			style="position: absolute; left: 50%; top: 50%; margin-left:-150px; margin-top:-85px;">
+			<f:facet name="header">
+				<p:outputLabel value="Definir Nova Senha" />
+			</f:facet>
+			<p:outputLabel for="pwd1" value="Nova Senha: " />
 				<p:password id="pwd1" size="10"
 					value="#{loginController.novaSenha}" match="pwd2"
 					label="Password 1" required="true" />
-
 				<p:outputLabel for="pwd2" value="Confirma Nova Senha:" />
 				<p:password id="pwd2" size="10"
 					value="#{loginController.novaSenha}" label="Password 2"
 					required="true" />
-
-			</p:panelGrid>
-
-			<p:commandButton id="salvar" value="Salvar" icon="pi pi-save"
-				action="#{loginController.definirNovaSenha}" update="edicao"
+			<f:facet name="footer">
+				<p:commandButton id="salvar" value="Salvar" icon="pi pi-save"
+				action="#{loginController.definirNovaSenha}" ajax="false"
 				style="horizontal-align:center" />
-			
-		</h:form>
-	</p:panel>
+			</f:facet>
+		</p:panelGrid>
+	</h:form>
 </h:body>
 </html>
