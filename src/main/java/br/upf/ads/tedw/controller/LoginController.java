@@ -344,6 +344,10 @@ public class LoginController implements Serializable {
 			String codigoRecuperacao = String.format("%06d", (new Random().nextInt(999999)));
 			EntityManager em = JPAUtil.getEntityManager();
 			Pessoa pessoa = findPessoaByEmail(email);
+			if (pessoa == null) {
+				JSFUtil.mensagemDeErro("Este e-mail não está cadastrado!");
+				return "";
+			}
 			PessoaRecuperacao pRec = new PessoaRecuperacao();
 			pRec.setEmail(email);
 			PessoaRecuperacao antigo = findPessoaRecuperacaoByEmail(email);

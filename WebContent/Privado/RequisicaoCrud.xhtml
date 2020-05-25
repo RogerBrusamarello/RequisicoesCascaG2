@@ -190,6 +190,8 @@
 
 					<p:outputLabel value="" />
 					<p:outputPanel>
+					
+						<p:spacer width="00" height="30" />
 						<p:commandButton value="Salvar" icon="pi pi-save"
 							action="#{requisicaoCrud.salvar}"
 							update="consulta edicao" />
@@ -248,7 +250,7 @@
 		</h:form>
 	</p:panel>
 
-	<ui:include src="RequisicaoAnexoCrud.xhtml"></ui:include>
+	<ui:include src="RequisicaoAnexoCrud.xhtml"/>
 
 </h:body>
 </html>

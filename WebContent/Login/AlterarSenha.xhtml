@@ -20,6 +20,7 @@
 	<p:panel id="edicao" visible="true">
 		<h:outputText value="Alterar Senha"
 			style="color: #FFBF00; font-weight: bolder; font-size: 20;" />
+		<p:separator />
 		<h:form id="formEdicao">
 			<p:growl></p:growl>
 			<p:panelGrid columns="2">
@@ -39,7 +40,7 @@
 					required="true" />
 
 			</p:panelGrid>
-
+			<p:spacer width="00" height="30" />
 			<p:commandButton id="salvar" value="Salvar" icon="pi pi-save"
 				action="#{loginController.alterarSenha}" update="edicao"
 				style="horizontal-align:center" />

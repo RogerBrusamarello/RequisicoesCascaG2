@@ -8,9 +8,9 @@
 	<title>Requisição Anexo</title>
 
 	<style type="text/css">
-		.ui-outputLabel {
-			color: #F2F5A9 !important;
-		}
+	.ui-outputLabel {
+		color: #F2F5A9 !important;
+	}
 	</style>
 
 
@@ -23,14 +23,19 @@
 
 			<p:panelGrid>
 				<p:outputLabel for="descricao" value="Descrição: " />
+				<p:spacer width="3" height="0" />
 				<p:inputText id="descricao" required="true" size="25"
 					value="#{requisicaoCrud.anexoSelecionado.descricao}" />
 			</p:panelGrid>
+			<p:spacer width="00" height="25" />
+
+			<p:outputLabel for="anexararq" value="Anexo:    " />
+			<p:spacer width="25" height="0" />
+			<p:fileUpload id="anexararq" value="#{requisicaoCrud.file}"
+				mode="simple" skinSimple="true" required="true" />
 			<br />
 
-			<p:fileUpload value="#{requisicaoCrud.file}" mode="simple"
-				skinSimple="true" required="true" />
-
+			<p:spacer width="00" height="30" />
 			<p:commandButton value="Salvar" icon="pi pi-save" ajax="false"
 				immediate="true" action="#{requisicaoCrud.salvarAnexo}"
 				oncomplete="PF('anexos').hide();" />

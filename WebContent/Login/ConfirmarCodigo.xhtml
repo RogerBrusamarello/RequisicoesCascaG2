@@ -23,7 +23,7 @@
 				<p:outputLabel value="Confirmar Código" />
 			</f:facet>
 			<p:outputLabel value="Código" for="codigo" />
-			<p:inputText id="codigo" size="4" maxlength="6"
+			<p:inputText id="codigo" size="5" maxlength="6"
 				value="#{loginController.codigo}" required="true" />
 			<f:facet name="footer">
 				<p:commandButton value="Confirmar" action="#{loginController.verificarCodigo}"
