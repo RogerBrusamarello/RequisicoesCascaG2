@@ -385,7 +385,7 @@ public class LoginController implements Serializable {
 				return "DefinirNovaSenha.xhtml";
 			} else {
 				setVerifica(false);
-				JSFUtil.mensagemDeErro("Código incorreto!");
+				JSFUtil.mensagemDeErro("Código inválido.Verifique seu e-mail ou gere outro!");
 			}
 		} catch (Throwable e) {
 			e.printStackTrace();

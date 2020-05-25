@@ -15,8 +15,8 @@ import javax.servlet.http.HttpSession;
 
 import br.upf.ads.tedw.controller.LoginController;
 
-@WebFilter(urlPatterns = { "/faces/Privado/*" })
-public class FiltroLogin implements Filter {
+@WebFilter(urlPatterns = { "/faces/Login/DefinirNovaSenha.xhtml" })
+public class FiltroDefinirNovaSenha implements Filter {
 
 	@Override
 	public void destroy() {
@@ -33,7 +33,7 @@ public class FiltroLogin implements Filter {
 		String contextPath = httpRequest.getContextPath();
 
 		LoginController lc = (LoginController) sessao.getAttribute("loginController");
-		if ((lc == null) || (lc.getPessoaLogada() == null)) {
+		if (lc.verifica == false) {
 			System.out.println("Redirecionar para : " + contextPath + "/faces/Login/LoginForm.xhtml");
 			httpResponse.sendRedirect(contextPath + "/faces/Login/LoginForm.xhtml");
 		}

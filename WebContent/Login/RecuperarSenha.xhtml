@@ -7,12 +7,6 @@
 
 	<title>Recuperar a Senha</title>
 	
-	<style type="text/css">
-		.ui-outputlabel {
-			color: #F2F5A9 !important;
-		}
-	</style>
-	
 </h:head>
 <h:body style="background-color: #585858">
 	<h:form>
@@ -21,9 +15,9 @@
 		<p:panelGrid columns="2"
 			style="position: absolute; left: 50%; top: 50%; margin-left:-150px; margin-top:-85px;">
 			<f:facet name="header">
-				<p:outputLabel value="Enviar código de recuperação" />
+				<p:outputLabel value="Enviar código de recuperação" style="color: #FFFFFF;"/>
 			</f:facet>
-			<p:outputLabel value="Email:" for="email" />
+			<p:outputLabel value="Email:" for="email" style="color: #F2F5A9;"/>
 			<p:inputText id="email" size="20" maxlength="100"
 				value="#{loginController.email}" required="true" />
 			<f:facet name="footer">
