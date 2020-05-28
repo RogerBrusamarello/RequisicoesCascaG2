@@ -106,9 +106,10 @@
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Projeto" sortBy="#{o.projeto}"
-					filterBy="#{o.projeto}" style="text-align: center;">
-					<p:outputLabel value="#{o.projeto}" />
+				<p:column headerText="Projeto" sortBy="#{o.projeto.nome}"
+					filterBy="#{o.projeto.nome}" style="text-align: center;"
+					filterMatchMode="contains">
+					<p:outputLabel value="#{o.projeto.nome}" />
 				</p:column>
 
 				<!-- <p:column headerText="Solicitante" style="text-align: center;">
