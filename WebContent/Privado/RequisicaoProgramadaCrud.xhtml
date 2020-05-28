@@ -52,12 +52,14 @@
 				<p:ajax event="rowUnselect" update="consulta" />
 
 				<p:column headerText="Código" sortBy="#{o.id}" filterBy="#{o.id}"
-					style="width: 75px; text-align: center;">
+					style="width: 75px; text-align: center;"
+					filterMatchMode="contains">
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
 
 				<p:column headerText="Data" sortBy="#{o.data}" filterBy="#{o.data}"
-					style="width: 80px; text-align: center; font-size: 14;">
+					style="width: 80px; text-align: center; font-size: 14;"
+					filterMatchMode="contains">
 					<h:outputText value="#{o.data}" style="color: #f2f5a9;">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
@@ -65,7 +67,8 @@
 
 				<p:column headerText="Início" sortBy="#{o.dataInicio}"
 					filterBy="#{o.dataInicio}"
-					style="width: 80px; text-align: center; font-size: 14;">
+					style="width: 80px; text-align: center; font-size: 14;"
+					filterMatchMode="contains">
 					<h:outputText value="#{o.dataInicio}" style="color: #f2f5a9;">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
@@ -73,7 +76,8 @@
 
 				<p:column headerText="Término" sortBy="#{o.dataTermino}"
 					filterBy="#{o.dataTermino}"
-					style="width: 90px; text-align: center;">
+					style="width: 90px; text-align: center;"
+					filterMatchMode="contains">
 					<h:outputText value="#{o.dataTermino}"
 						style="color: #f2f5a9; font-size: 14;">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
@@ -81,12 +85,14 @@
 				</p:column>
 
 				<p:column headerText="Requisição" sortBy="#{o.requisicao}"
-					filterBy="#{o.requisicao}" style="text-align: center;">
+					filterBy="#{o.requisicao}" style="text-align: center;"
+					filterMatchMode="contains">
 					<p:outputLabel value="#{o.requisicao}" />
 				</p:column>
 
 				<p:column headerText="Pessoa" sortBy="#{o.pessoa}"
-					filterBy="#{o.pessoa}" style="text-align: center; width: 140px;">
+					filterBy="#{o.pessoa}" style="text-align: center; width: 140px;"
+					filterMatchMode="contains">
 					<p:outputLabel value="#{o.pessoa}" />
 				</p:column>
 			</p:dataTable>

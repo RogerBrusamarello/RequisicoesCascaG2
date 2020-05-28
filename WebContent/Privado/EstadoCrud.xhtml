@@ -52,16 +52,19 @@
 				<p:ajax event="rowUnselect" update="consulta" />
 
 				<p:column headerText="Código" sortBy="#{o.id}" filterBy="#{o.id}"
-					style="width: 75px">
+					style="width: 75px"
+					filterMatchMode="contains">
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
 
-				<p:column headerText="Nome" sortBy="#{o.nome}" filterBy="#{o.nome}">
+				<p:column headerText="Nome" sortBy="#{o.nome}" filterBy="#{o.nome}"
+					filterMatchMode="contains">
 					<p:outputLabel value="#{o.nome}" />
 				</p:column>
 
 				<p:column headerText="Sigla" sortBy="#{o.uf}" filterBy="#{o.uf}"
-					style="width:70px">
+					style="width:70px"
+					filterMatchMode="contains">
 					<p:outputLabel value="#{o.uf}" />
 				</p:column>
 

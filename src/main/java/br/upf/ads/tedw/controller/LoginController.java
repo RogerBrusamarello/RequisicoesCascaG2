@@ -288,7 +288,7 @@ public class LoginController implements Serializable {
 	}
 
 	/**
-	 * Méstodo responsável por alterar senha do usuário logado
+	 * Método responsável por alterar senha do usuário logado
 	 * 
 	 */
 	public void alterarSenha() {

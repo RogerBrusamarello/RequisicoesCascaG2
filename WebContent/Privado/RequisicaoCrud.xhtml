@@ -57,17 +57,20 @@
 				<p:ajax event="rowUnselect" update="consulta" />
 
 				<p:column headerText="Código" sortBy="#{o.id}" filterBy="#{o.id}"
-					style="width: 75px; text-align: center;">
+					style="width: 75px; text-align: center;"
+					filterMatchMode="contains">
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
 
 				<p:column headerText="Título" sortBy="#{o.titulo}"
-					filterBy="#{o.titulo}" style="text-align: center;">
+					filterBy="#{o.titulo}" style="text-align: center;"
+					filterMatchMode="contains">
 					<p:outputLabel value="#{o.titulo}" />
 				</p:column>
 
 				<p:column headerText="Descrição" sortBy="#{o.descricao}"
-					filterBy="#{o.descricao}" style="text-align: center;">
+					filterBy="#{o.descricao}" style="text-align: center;"
+					filterMatchMode="contains">
 					<p:outputLabel value="#{o.descricao}" />
 				</p:column>
 
@@ -84,23 +87,27 @@
 				</p:column>-->
 
 				<p:column headerText="Prioridade" sortBy="#{o.prioridade}"
-					filterBy="#{o.prioridade}" style="width: 70px; text-align: center;">
+					filterBy="#{o.prioridade}" style="width: 70px; text-align: center;"
+					filterMatchMode="contains">
 					<p:outputLabel value="#{o.prioridade}" />
 				</p:column>
 
 				<p:column headerText="Horas Previstas" sortBy="#{o.horasPrevistas}"
-					filterBy="#{o.horasPrevistas}" style="width: 70px; text-align: center;">
+					filterBy="#{o.horasPrevistas}" style="width: 70px; text-align: center;"
+					filterMatchMode="contains">
 					<p:outputLabel value="#{o.horasPrevistas}" />
 				</p:column> 
 				
 				<p:column headerText="Horas Realizadas" sortBy="#{o.horasRealizadas}"
-					filterBy="#{o.horasRealizadas}" style="width: 70px; text-align: center;">
+					filterBy="#{o.horasRealizadas}" style="width: 70px; text-align: center;"
+					filterMatchMode="contains">
 					<p:outputLabel value="#{o.horasRealizadas}" />
 				</p:column>
 
 				<p:column headerText="Data Finalizada" sortBy="#{o.dataFinalizada}"
 					filterBy="#{o.dataFinalizada}"
-					style="width: 80px; text-align: center; font-size: 14;">
+					style="width: 80px; text-align: center; font-size: 14;"
+					filterMatchMode="contains">
 					<h:outputText value="#{o.dataFinalizada}" style="color: #F2F5A9;">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>

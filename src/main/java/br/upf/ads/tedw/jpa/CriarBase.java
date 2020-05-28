@@ -40,7 +40,7 @@ public class CriarBase {
 		/**
 		 * Pessoas
 		 */
-		u.setNome("Pedro Moreira");
+		u.setNome("Pedro Madureira");
 		u.setCpf("421.794.710-09");
 		u.setEmail("pedro@empresa.com");
 		u.setRg("123456789");
@@ -48,7 +48,7 @@ public class CriarBase {
 		u.setCelular("(54) 91234-1234");
 		em.merge(u);
 		
-		u.setNome("Ana Toledo");
+		u.setNome("Ana Terra");
 		u.setCpf("787.847.350-15");
 		u.setEmail("ana@empresa.com");
 		u.setRg("9873221564");
@@ -66,7 +66,7 @@ public class CriarBase {
 
 		c.setNome("Mariana Silva");
 		c.setCpf("257.779.390-15");
-		c.setFuncao("Investidora");
+		c.setFuncao("Investidor(a)");
 		c.setEmail("mariana@silva.com.br");
 		c.setRg("3020106090");
 		c.setSenha("123456");
@@ -75,11 +75,47 @@ public class CriarBase {
 
 		c.setNome("Osvaldo Mendes");
 		c.setCpf("511.010.870-64");
-		c.setFuncao("Empresário");
+		c.setFuncao("Empresário(a)");
 		c.setEmail("osvaldo@madeira.com.br");
 		c.setRg("7050506090");
 		c.setSenha("123456");
 		c.setCelular("(11) 98765-4321");
+		em.merge(c);
+		
+		c.setNome("Cleber Pitangueira");
+		c.setCpf("110.079.580-49");
+		c.setFuncao("Empresário(a)");
+		c.setEmail("cleber@pitangueira.com");
+		c.setRg("7058236090");
+		c.setSenha("123456");
+		c.setCelular("(11) 97775-4321");
+		em.merge(c);
+		
+		c.setNome("Antônio Schmidt");
+		c.setCpf("974.047.960-08");
+		c.setFuncao("Agricultor(a)");
+		c.setEmail("antonio@schmidt.com");
+		c.setRg("7922506090");
+		c.setSenha("123456");
+		c.setCelular("(11) 96584-1111");
+		em.merge(c);
+		
+		c.setNome("Amanda Marques");
+		c.setCpf("250.792.330-01");
+		c.setFuncao("Corretor(a)");
+		c.setEmail("amanda@marques.com");
+		c.setRg("6521406090");
+		c.setSenha("123456");
+		c.setCelular("(11) 91254-4421");
+		em.merge(c);
+		
+		c.setNome("Douglas Mello");
+		c.setCpf("379.826.380-90");
+		c.setFuncao("Investidor(a)");
+		c.setEmail("douglas@mello.com");
+		c.setRg("9991406090");
+		c.setSenha("123456");
+		c.setCelular("(11) 98888-4421");
 		em.merge(c);
 		
 		em.getTransaction().commit();

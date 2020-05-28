@@ -53,27 +53,32 @@
 				<p:ajax event="rowUnselect" update="consulta" />
 
 				<p:column headerText="Código" sortBy="#{o.id}" filterBy="#{o.id}"
-					style="width: 75px; text-align: center;">
+					style="width: 75px; text-align: center;"
+					filterMatchMode="contains">
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
 
 				<p:column headerText="Nome" sortBy="#{o.nome}" filterBy="#{o.nome}"
-					style="text-align: center;">
+					style="text-align: center;"
+					filterMatchMode="contains">
 					<p:outputLabel value="#{o.nome}" />
 				</p:column>
 
 				<p:column headerText="Descrição" sortBy="#{o.descricao}"
-					filterBy="#{o.descricao}" style="text-align: center;">
+					filterBy="#{o.descricao}" style="text-align: center;"
+					filterMatchMode="contains">
 					<p:outputLabel value="#{o.descricao}" />
 				</p:column>
 
 				<p:column headerText="Usuário" sortBy="#{o.usuario}"
-					filterBy="#{o.usuario}" style="text-align: center;">
+					filterBy="#{o.usuario}" style="text-align: center;"
+					filterMatchMode="contains">
 					<p:outputLabel value="#{o.usuario}" />
 				</p:column>
 
 				<p:column headerText="Cliente" sortBy="#{o.cliente}"
-					filterBy="#{o.cliente}" style="text-align: center;">
+					filterBy="#{o.cliente}" style="text-align: center;"
+					filterMatchMode="contains">
 					<p:outputLabel value="#{o.cliente}" />
 				</p:column>
 

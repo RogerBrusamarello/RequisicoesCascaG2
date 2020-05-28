@@ -56,45 +56,53 @@
 				<p:ajax event="rowUnselect" update="consulta" />
 
 				<p:column headerText="Código" sortBy="#{o.id}" filterBy="#{o.id}"
-					style="width: 75px; text-align: center;">
+					style="width: 75px; text-align: center;"
+					filterMatchMode="contains">
 					<p:outputLabel value="#{o.id}" />
 				</p:column>
 
 				<p:column headerText="Data" sortBy="#{o.data}" filterBy="#{o.data}"
-					style="width: 80px; text-align: center; font-size: 14;">
+					style="width: 80px; text-align: center; font-size: 14;"
+					filterMatchMode="contains">
 					<h:outputText value="#{o.data}" style="color: #f2f5a9;">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
 
 				<p:column headerText="Requisição" sortBy="#{o.requisicao}"
-					filterBy="#{o.requisicao}" style="width: 75px; text-align: center;">
+					filterBy="#{o.requisicao}" style="width: 75px; text-align: center;"
+					filterMatchMode="contains">
 					<p:outputLabel value="#{o.requisicao}" />
 				</p:column>
 
 				<p:column headerText="Pessoa" sortBy="#{o.pessoa}"
-					filterBy="#{o.pessoa}" style="text-align: center;">
+					filterBy="#{o.pessoa}" style="text-align: center;"
+					filterMatchMode="contains">
 					<p:outputLabel value="#{o.pessoa}" />
 				</p:column>
 
 				<p:column headerText="Título" sortBy="#{o.titulo}"
-					filterBy="#{o.titulo}" style="text-align: center;">
+					filterBy="#{o.titulo}" style="text-align: center;"
+					filterMatchMode="contains">
 					<p:outputLabel value="#{o.titulo}" />
 				</p:column>
 
 				<p:column headerText="Descrição" sortBy="#{o.descricao}"
-					filterBy="#{o.descricao}" style="text-align: center;">
+					filterBy="#{o.descricao}" style="text-align: center;"
+					filterMatchMode="contains">
 					<p:outputLabel value="#{o.descricao}" />
 				</p:column>
 
 				<p:column headerText="Horas realizadas"
 					sortBy="#{o.horasRealizadas}" filterBy="#{o.horasRealizas}"
-					style="text-align: center;">
+					style="text-align: center;"
+					filterMatchMode="contains">
 					<p:outputLabel value="#{o.horasRealizadas}" />
 				</p:column>
 
 				<p:column headerText="Status Projeto" sortBy="#{o.status}"
-					filterBy="#{o.status}" style="text-align: center;">
+					filterBy="#{o.status}" style="text-align: center;"
+					filterMatchMode="contains">
 					<p:outputLabel value="#{o.status}" />
 				</p:column>
 			</p:dataTable>
