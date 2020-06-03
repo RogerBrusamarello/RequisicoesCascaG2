@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Usuario2Rel" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="df013db5-f76e-44d3-b0df-bcbc46d93160">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Administrador2Rel" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="df013db5-f76e-44d3-b0df-bcbc46d93160">
 	<property name="com.jaspersoft.studio.data.sql.tables">
 		<![CDATA[cGVzc29hIEFTICwxMTAsMTUsNzExNDk0MWQtN2I0MC00NDUyLWJkYzMtYWVjOGI4NTk5NTY3O3Vz
 dWFyaW8gQVMgLDE1LDExOSxkYTlhZDgxMy1kMmJmLTQxZjItYjI0NC0yMzhhNGI2ZDY4ODA7]]>
@@ -17,21 +17,21 @@ dWFyaW8gQVMgLDE1LDExOSxkYTlhZDgxMy1kMmJmLTQxZjItYjI0NC0yMzhhNGI2ZDY4ODA7]]>
 		</conditionalStyle>
 	</style>
 	<queryString language="SQL">
-		<![CDATA[SELECT usuario.id,
+		<![CDATA[SELECT administrador.id,
 	pessoa.celular,
 	pessoa.cpf,
 	pessoa.email,
 	pessoa.nome,
 	pessoa.outrasinformacoes,
 	pessoa.rg
-FROM usuario
+FROM administrador
 	INNER JOIN pessoa ON 
-	 usuario.id = pessoa.id
+	 administrador.id = pessoa.id
 	ORDER BY pessoa.nome]]>
 	</queryString>
 	<field name="id" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="usuario"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="administrador"/>
 	</field>
 	<field name="nome" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="nome"/>
@@ -64,7 +64,7 @@ FROM usuario
 		<band height="136" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="0" width="164" height="126" uuid="1c003177-754c-448f-8ce1-16868856f545"/>
-				<imageExpression><![CDATA["..\\icon-escrita-fiscal.png"]]></imageExpression>
+				<imageExpression><![CDATA["C:\\Users\\User\\Google Drive\\Nardeli\\Educação\\UPF\\ADS\\2020.1\\3 - TÓPICOS ESPECIAIS EM DESENVOLVIMENTO DE SISTEMAS I\\Application\\RequisicoesCascaG2\\WebContent\\WEB-INF\\Relatorios\\icon-escrita-fiscal.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement style="Title" x="252" y="0" width="550" height="62" forecolor="#4A4646" uuid="bc1ce1da-8232-46ea-be55-cec4abb986dd"/>
@@ -78,7 +78,7 @@ FROM usuario
 				<textElement textAlignment="Center">
 					<font fontName="Verdana" size="24"/>
 				</textElement>
-				<text><![CDATA[Relatório de Usuários]]></text>
+				<text><![CDATA[Relatório de Administradores]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -230,10 +230,7 @@ FROM usuario
 	<noData>
 		<band height="50">
 			<textField>
-				<reportElement x="0" y="0" width="164" height="20" uuid="02f4bc4f-f265-498e-8a67-e05adb89b8d2">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
+				<reportElement x="0" y="0" width="164" height="20" uuid="02f4bc4f-f265-498e-8a67-e05adb89b8d2"/>
 				<textFieldExpression><![CDATA["Nenhum dado encontrado!"]]></textFieldExpression>
 			</textField>
 		</band>
