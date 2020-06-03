@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Usuario2Rel" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="df013db5-f76e-44d3-b0df-bcbc46d93160">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Pessoa2Rel" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="df013db5-f76e-44d3-b0df-bcbc46d93160">
 	<property name="com.jaspersoft.studio.data.sql.tables">
 		<![CDATA[cGVzc29hIEFTICwxMTAsMTUsNzExNDk0MWQtN2I0MC00NDUyLWJkYzMtYWVjOGI4NTk5NTY3O3Vz
 dWFyaW8gQVMgLDE1LDExOSxkYTlhZDgxMy1kMmJmLTQxZjItYjI0NC0yMzhhNGI2ZDY4ODA7]]>
@@ -17,21 +17,19 @@ dWFyaW8gQVMgLDE1LDExOSxkYTlhZDgxMy1kMmJmLTQxZjItYjI0NC0yMzhhNGI2ZDY4ODA7]]>
 		</conditionalStyle>
 	</style>
 	<queryString language="SQL">
-		<![CDATA[SELECT usuario.id,
+		<![CDATA[SELECT pessoa.id,
 	pessoa.celular,
 	pessoa.cpf,
 	pessoa.email,
 	pessoa.nome,
 	pessoa.outrasinformacoes,
 	pessoa.rg
-FROM usuario
-	INNER JOIN pessoa ON 
-	 usuario.id = pessoa.id
+FROM pessoa
 	ORDER BY pessoa.nome]]>
 	</queryString>
 	<field name="id" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="usuario"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pessoa"/>
 	</field>
 	<field name="nome" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="nome"/>
@@ -74,11 +72,11 @@ FROM usuario
 				<text><![CDATA[Gestor de Requisições]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="SubTitle" x="198" y="90" width="402" height="36" forecolor="#0B0654" uuid="f6a78448-8260-4445-a9e0-e3fb53b080d9"/>
+				<reportElement style="SubTitle" x="198" y="90" width="442" height="36" forecolor="#0B0654" uuid="f6a78448-8260-4445-a9e0-e3fb53b080d9"/>
 				<textElement textAlignment="Center">
 					<font fontName="Verdana" size="24"/>
 				</textElement>
-				<text><![CDATA[Relatório de Usuários]]></text>
+				<text><![CDATA[Relatório de Pessoas Cadastradas]]></text>
 			</staticText>
 		</band>
 	</title>
