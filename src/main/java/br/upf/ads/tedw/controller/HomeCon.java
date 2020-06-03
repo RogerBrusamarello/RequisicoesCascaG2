@@ -4,10 +4,14 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import org.primefaces.PrimeFaces;
+
+import br.upf.ads.tedw.relatorios.RelatorioUtil;
 
 @ManagedBean
 @SessionScoped
@@ -15,6 +19,21 @@ public class HomeCon implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	
+	public void relClientes(){ 
+	   try {   
+	      HashMap parameters = new HashMap(); 
+	      RelatorioUtil.rodarRelatorioPDF(
+	    		  "WEB-INF/Relatorios/Professor/Cliente/ClienteRel.jasper", parameters); 
+	   } catch (Exception e) { 
+	         e.printStackTrace(); 
+	         FacesContext.getCurrentInstance().addMessage("Erro", new 
+	                      FacesMessage(e.getMessage())); 
+	   }
+	} 
+	
+	
+	
 	public HomeCon() {
 		super();
 	}

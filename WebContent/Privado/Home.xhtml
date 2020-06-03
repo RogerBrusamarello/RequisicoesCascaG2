@@ -154,7 +154,16 @@
 					</p:submenu>
 
 					<p:submenu label="Relatórios"
-						rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
+						rendered="#{loginController.permissao >= loginController.vlrUsuario}">
+						
+						<p:menuitem value="Cliente" target="_blank"	icon="pi pi-ticket"
+                            action="#{homeCon.relClientes}" ajax="false"/>		
+                            
+                            						
+						<p:menuitem value="Requisições" icon="pi pi-ticket"
+						target="centro" url="../Privado/RequisicaoRelFiltro.xhtml"/>	
+						
+					</p:submenu>
 
 					<p:submenu label="Sobre">
 						<p:menuitem target="centro" value="O que fazemos?"
