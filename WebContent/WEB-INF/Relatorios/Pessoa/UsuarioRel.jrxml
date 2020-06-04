@@ -57,13 +57,20 @@ FROM usuario
 		<property name="com.jaspersoft.studio.field.label" value="outrasinformacoes"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="pessoa"/>
 	</field>
+	<variable name="quantidade" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{id}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="136" splitType="Stretch">
 			<image>
-				<reportElement x="0" y="0" width="164" height="126" uuid="1c003177-754c-448f-8ce1-16868856f545"/>
+				<reportElement x="0" y="10" width="110" height="110" uuid="1c003177-754c-448f-8ce1-16868856f545">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
 				<imageExpression><![CDATA["..//logo.png"]]></imageExpression>
 			</image>
 			<staticText>
@@ -225,7 +232,15 @@ FROM usuario
 		</band>
 	</pageFooter>
 	<summary>
-		<band splitType="Stretch"/>
+		<band height="36" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="6" width="798" height="30" forecolor="#0D05FF" uuid="0b4aa0b9-3717-4266-925a-9aa58128ff9c"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(($V{quantidade} == 1) ? ($V{quantidade} + " registro encontrado!") : ($V{quantidade} + " registros encontrados!"))]]></textFieldExpression>
+			</textField>
+		</band>
 	</summary>
 	<noData>
 		<band height="50">

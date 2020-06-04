@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Relatório de Clientes</title>
+
+	<style type="text/css">
+		.ui-outputLabel {
+			color: #F2F5A9 !important;
+		}
+	</style>
+
+</h:head>
+
+<h:body>
+	<h:outputText value="Filtrar Clientes"
+		style="color: #FFBF00; font-weight: bolder; font-size: 20;" />
+	<p:separator />
+	<h:form id="formFiltro" target="_blank">
+		<p:growl></p:growl>
+		<p:panelGrid columns="2">
+
+			<p:outputLabel for="nome" value="Nome Cliente" />
+			<p:inputText id="nome" required="true"
+				value="#{clienteRelFiltro.nome}" size="28" />
+
+			<p:commandButton value="Gerar" icon="pi pi-save" ajax="false"
+				action="#{clienteRelFiltro.gerar}" />
+
+		</p:panelGrid>
+	</h:form>
+</h:body>
+</html>

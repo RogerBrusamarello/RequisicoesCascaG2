@@ -154,7 +154,7 @@
 						<p:submenu label="Pessoas"
 							rendered="#{loginController.permissao >= loginController.vlrUsuario}">
 
-							<p:menuitem value="Pessoas" target="_blank" icon="pi pi-user"
+							<p:menuitem value="Pessoas" target="_blank" icon="pi pi-id-card"
 								action="#{homeCon.relPessoas}" ajax="false" />
 								
 							<p:menuitem value="Usuário" target="_blank" icon="pi pi-user"
@@ -167,8 +167,8 @@
 							<p:menuitem value="Cliente" target="_blank" icon="pi pi-users"
 								action="#{homeCon.relClientes}" ajax="false" />
 
-							<p:menuitem value="Cliente (Filtro)" target=""
-								icon="pi pi-users" action="#" ajax="false" />
+							<p:menuitem value="Cliente (Filtro)" icon="pi pi-users"
+								 target="centro" url="../Privado/ClienteRelFiltro.xhtml" />
 
 						</p:submenu>
 						<p:submenu label="Documentos"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Pessoa2Rel" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="df013db5-f76e-44d3-b0df-bcbc46d93160">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ClienteFuncaoRel" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="df013db5-f76e-44d3-b0df-bcbc46d93160">
 	<property name="com.jaspersoft.studio.data.sql.tables">
 		<![CDATA[cGVzc29hIEFTICwxMTAsMTUsNzExNDk0MWQtN2I0MC00NDUyLWJkYzMtYWVjOGI4NTk5NTY3O3Vz
 dWFyaW8gQVMgLDE1LDExOSxkYTlhZDgxMy1kMmJmLTQxZjItYjI0NC0yMzhhNGI2ZDY4ODA7]]>
@@ -16,20 +16,25 @@ dWFyaW8gQVMgLDE1LDExOSxkYTlhZDgxMy1kMmJmLTQxZjItYjI0NC0yMzhhNGI2ZDY4ODA7]]>
 			<style backcolor="#E6DAC3"/>
 		</conditionalStyle>
 	</style>
+	<parameter name="filtroClienteFuncao" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
 	<queryString language="SQL">
-		<![CDATA[SELECT pessoa.id,
+		<![CDATA[SELECT cliente.id,
+	cliente.funcao,
 	pessoa.celular,
 	pessoa.cpf,
 	pessoa.email,
 	pessoa.nome,
-	pessoa.outrasinformacoes,
-	pessoa.rg
-FROM pessoa
-	ORDER BY pessoa.nome]]>
+	pessoa.outrasinformacoes
+FROM cliente
+	INNER JOIN pessoa ON 
+	 cliente.id = pessoa.id 
+WHERE $P!{filtroClienteFuncao}]]>
 	</queryString>
 	<field name="id" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="pessoa"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cliente"/>
 	</field>
 	<field name="nome" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="nome"/>
@@ -47,9 +52,9 @@ FROM pessoa
 		<property name="com.jaspersoft.studio.field.label" value="cpf"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="pessoa"/>
 	</field>
-	<field name="rg" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="rg"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="pessoa"/>
+	<field name="funcao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="funcao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cliente"/>
 	</field>
 	<field name="outrasinformacoes" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="outrasinformacoes"/>
@@ -58,16 +63,91 @@ FROM pessoa
 	<variable name="quantidade" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[$F{id}]]></variableExpression>
 	</variable>
+	<variable name="quantidadeGrupo" class="java.lang.Integer">
+		<variableExpression><![CDATA[$V{Group1_COUNT}]]></variableExpression>
+	</variable>
+	<group name="Group1">
+		<groupExpression><![CDATA[$F{funcao}]]></groupExpression>
+		<groupHeader>
+			<band height="66">
+				<rectangle>
+					<reportElement mode="Opaque" x="0" y="13" width="36" height="24" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="505dace7-adb9-465a-a999-acde76189db5"/>
+				</rectangle>
+				<textField>
+					<reportElement style="SubTitle" x="47" y="13" width="506" height="24" forecolor="#333333" uuid="cb4a8649-7b4c-4b1a-bc00-bd5b1b562a54"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{funcao}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="Column header" x="0" y="51" width="30" height="15" forecolor="#736343" uuid="85fe2964-309b-4da7-8f13-87a41aacdae0">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e984e40c-74e2-4e25-965c-dbc9ea2186d3"/>
+					</reportElement>
+					<text><![CDATA[id]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="30" y="51" width="170" height="15" forecolor="#736343" uuid="7e755f90-5e7e-472f-a680-be1dab0dd23e">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="33cd75c9-6404-4b5c-90fc-af06883e27e5"/>
+					</reportElement>
+					<text><![CDATA[Nome]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="200" y="51" width="142" height="15" forecolor="#736343" uuid="764387d1-368b-41d3-a20e-7bdd885852f2">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a2de5be7-b6e1-4f03-a680-d3929461593b"/>
+					</reportElement>
+					<text><![CDATA[E-mail]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="342" y="51" width="114" height="15" forecolor="#736343" uuid="4ec14dcc-f7da-4954-b984-a01de54fcefb">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d6cbd9f7-a3e5-4b06-a193-666746f6b1b6"/>
+					</reportElement>
+					<text><![CDATA[Celular]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="456" y="51" width="104" height="15" forecolor="#736343" uuid="85cb630f-9098-4abc-b920-bf35e52c0917">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a602b514-7ff8-4814-b970-0af88db72e63"/>
+					</reportElement>
+					<text><![CDATA[CPF]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="560" y="51" width="80" height="15" forecolor="#736343" uuid="3d89ca56-de6a-466d-8073-2c0ce8a868d9">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4744633d-544b-4606-8b50-6970de08ad53"/>
+					</reportElement>
+					<text><![CDATA[Função]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="640" y="51" width="158" height="15" forecolor="#736343" uuid="3344b901-4a79-480d-a8f9-18f9f35f0221">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="73d20143-5797-4275-9694-49fe277cb76b"/>
+					</reportElement>
+					<text><![CDATA[Outras Informações]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="30">
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<textField>
+					<reportElement x="0" y="6" width="798" height="20" forecolor="#0D05FF" uuid="3bd77de6-0ab9-468a-8c6e-83c2b03b29e8">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[(($V{quantidadeGrupo} == 1) ? ($V{quantidadeGrupo} + " registro encontrado!") : ($V{quantidadeGrupo} + " registros encontrados!"))]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="136" splitType="Stretch">
 			<image>
-				<reportElement x="0" y="10" width="110" height="100" uuid="1c003177-754c-448f-8ce1-16868856f545">
+				<reportElement x="0" y="10" width="110" height="110" uuid="1c003177-754c-448f-8ce1-16868856f545">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<imageExpression><![CDATA["..//logo.png"]]></imageExpression>
@@ -80,11 +160,11 @@ FROM pessoa
 				<text><![CDATA[Gestor de Requisições]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="SubTitle" x="198" y="90" width="442" height="36" forecolor="#0B0654" uuid="f6a78448-8260-4445-a9e0-e3fb53b080d9"/>
+				<reportElement style="SubTitle" x="198" y="90" width="402" height="36" forecolor="#0B0654" uuid="f6a78448-8260-4445-a9e0-e3fb53b080d9"/>
 				<textElement textAlignment="Center">
 					<font fontName="Verdana" size="24"/>
 				</textElement>
-				<text><![CDATA[Relatório de Pessoas Cadastradas]]></text>
+				<text><![CDATA[Relatório de Clientes por Função]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -99,48 +179,6 @@ FROM pessoa
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
-			<staticText>
-				<reportElement style="Column header" x="0" y="0" width="30" height="15" forecolor="#736343" uuid="d16ae7e4-0dfa-4a75-ab25-4ff6beb82131">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e984e40c-74e2-4e25-965c-dbc9ea2186d3"/>
-				</reportElement>
-				<text><![CDATA[id]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Column header" x="30" y="0" width="170" height="15" forecolor="#736343" uuid="866df3ae-ab56-4997-bebd-5d626efa8ddd">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="33cd75c9-6404-4b5c-90fc-af06883e27e5"/>
-				</reportElement>
-				<text><![CDATA[Nome]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Column header" x="200" y="0" width="142" height="15" forecolor="#736343" uuid="6f98c2ae-93c8-4031-993f-800e23328200">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a2de5be7-b6e1-4f03-a680-d3929461593b"/>
-				</reportElement>
-				<text><![CDATA[E-mail]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Column header" x="342" y="0" width="114" height="15" forecolor="#736343" uuid="5201029a-da5e-4016-950d-c02dea33f63f">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d6cbd9f7-a3e5-4b06-a193-666746f6b1b6"/>
-				</reportElement>
-				<text><![CDATA[Celular]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Column header" x="456" y="0" width="104" height="15" forecolor="#736343" uuid="3b9aa2df-6143-48f9-8f8c-b7ffce641c5c">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a602b514-7ff8-4814-b970-0af88db72e63"/>
-				</reportElement>
-				<text><![CDATA[CPF]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Column header" x="560" y="0" width="80" height="15" forecolor="#736343" uuid="d77d3ed0-58a3-41b4-a0b6-cb34a5bc0f1c">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4744633d-544b-4606-8b50-6970de08ad53"/>
-				</reportElement>
-				<text><![CDATA[RG]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Column header" x="640" y="0" width="158" height="15" forecolor="#736343" uuid="c959a83b-aab2-44f3-ac8a-e3f45c409095">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="73d20143-5797-4275-9694-49fe277cb76b"/>
-				</reportElement>
-				<text><![CDATA[Outras Informações]]></text>
-			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
@@ -181,7 +219,7 @@ FROM pessoa
 					<reportElement style="Detail" x="560" y="0" width="80" height="15" uuid="bb52948f-034b-4ada-845f-f89e0bfaf045">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4744633d-544b-4606-8b50-6970de08ad53"/>
 					</reportElement>
-					<textFieldExpression><![CDATA[$F{rg}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{funcao}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
 					<reportElement style="Detail" x="640" y="0" width="158" height="15" uuid="2f645789-e9bd-4778-a252-c7ca241bc3a1">
@@ -233,11 +271,11 @@ FROM pessoa
 	<summary>
 		<band height="36" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="6" width="798" height="30" forecolor="#0D05FF" uuid="efda44bd-403e-4ce7-868b-c60c486af396"/>
+				<reportElement x="0" y="6" width="798" height="30" forecolor="#0D05FF" uuid="90341e0e-3d74-487f-a84c-94124defb49c"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[(($V{quantidade} == 1) ? ($V{quantidade} + " registro encontrado!") : ($V{quantidade} + " registros encontrados!"))]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Totalizando " + (($V{quantidade} == 1) ? ($V{quantidade} + " registro encontrado!") : ($V{quantidade} + " registros encontrados!"))]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

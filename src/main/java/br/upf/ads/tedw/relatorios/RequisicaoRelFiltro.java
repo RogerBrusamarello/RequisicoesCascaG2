@@ -19,16 +19,16 @@ import br.upf.ads.tedw.jpa.JPAUtil;
 
 @ManagedBean
 @RequestScoped
-public class RequisicaoRelFiltro implements Serializable{
+public class RequisicaoRelFiltro implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Date dataIni;
 	private Date dataFim;
 	private Projeto projeto;
-	
+
 	@ManagedProperty(value = "#{loginController}")
-	private LoginController login;	
-	
-		
+	private LoginController login;
+
 	public RequisicaoRelFiltro() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -54,29 +54,26 @@ public class RequisicaoRelFiltro implements Serializable{
 		}
 
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public void gerar(){ 
-		   try {   
-		      @SuppressWarnings("rawtypes")
-			HashMap parameters = new HashMap(); 
-		      // passar os parâmetros
+	public void gerar() {
+		try {
+			@SuppressWarnings("rawtypes")
+			HashMap parameters = new HashMap();
+			// passar os parâmetros
 			parameters.put("dataIni", dataIni);
-		      parameters.put("dataFim", dataFim);
-		      parameters.put("projetoId", projeto.getId());
-		      
-		      String sql = "and requisicao.id > 0 order by requisicao.id";
-		      parameters.put("filtroId", sql);
-		      
-		      
-		      RelatorioUtil.rodarRelatorioPDF(
-		    		  "WEB-INF/Relatorios/Professor/Requisicao/Requisicao2.jasper", parameters); 
-		   } catch (Exception e) { 
-		         e.printStackTrace(); 
-		         FacesContext.getCurrentInstance().addMessage("Erro", new 
-		                      FacesMessage(e.getMessage())); 
-		   }
+			parameters.put("dataFim", dataFim);
+			parameters.put("projetoId", projeto.getId());
+
+			String sql = "and requisicao.id > 0 order by requisicao.id";
+			parameters.put("filtroId", sql);
+
+			RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Professor/Requisicao/Requisicao2.jasper", parameters);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
 		}
+	}
 
 	public Date getDataIni() {
 		return dataIni;
@@ -108,6 +105,6 @@ public class RequisicaoRelFiltro implements Serializable{
 
 	public void setLogin(LoginController login) {
 		this.login = login;
-	} 
-	
+	}
+
 }
