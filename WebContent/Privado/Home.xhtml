@@ -39,26 +39,22 @@
 				<p:toolbar>
 					<p:toolbarGroup align="left">
 
-						<p:commandButton icon="pi pi-user" ajax="false"
-							title="Usuarios" action="UsuarioCrud.xhtml"
-							onclick="this.form.target='centro'"
+						<p:commandButton icon="pi pi-user" ajax="false" title="Usuarios"
+							action="UsuarioCrud.xhtml" onclick="this.form.target='centro'"
 							rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
 
 						<p:commandButton icon="pi pi-user-plus" ajax="false"
-							title="Administrador"
-							action="AdministradorCrud.xhtml"
+							title="Administrador" action="AdministradorCrud.xhtml"
 							onclick="this.form.target='centro'"
 							rendered="#{loginController.permissao >= loginController.vlrAdministrador}" />
 
-						<p:commandButton icon="pi pi-users" ajax="false"
-							title="Cliente" action="ClienteCrud.xhtml"
-							onclick="this.form.target='centro'"
+						<p:commandButton icon="pi pi-users" ajax="false" title="Cliente"
+							action="ClienteCrud.xhtml" onclick="this.form.target='centro'"
 							rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
 
 						<p:separator />
-						<p:commandButton icon="pi pi-file" ajax="false"
-							title="Projeto" action="ProjetoCrud.xhtml"
-							onclick="this.form.target='centro'"
+						<p:commandButton icon="pi pi-file" ajax="false" title="Projeto"
+							action="ProjetoCrud.xhtml" onclick="this.form.target='centro'"
 							rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
 
 						<p:commandButton icon="pi pi-file-o" ajax="false"
@@ -155,14 +151,34 @@
 
 					<p:submenu label="Relatórios"
 						rendered="#{loginController.permissao >= loginController.vlrUsuario}">
-						
-						<p:menuitem value="Cliente" target="_blank"	icon="pi pi-ticket"
-                            action="#{homeCon.relClientes}" ajax="false"/>		
-                            
-                            						
-						<p:menuitem value="Requisições" icon="pi pi-ticket"
-						target="centro" url="../Privado/RequisicaoRelFiltro.xhtml"/>	
-						
+						<p:submenu label="Pessoas"
+							rendered="#{loginController.permissao >= loginController.vlrUsuario}">
+
+							<p:menuitem value="Pessoas" target="_blank" icon="pi pi-user"
+								action="#{homeCon.relPessoas}" ajax="false" />
+								
+							<p:menuitem value="Usuário" target="_blank" icon="pi pi-user"
+								action="#{homeCon.relUsuarios}" ajax="false" />
+
+							<p:menuitem value="Administrador" target="_blank"
+								icon="pi pi-user-plus" action="#{homeCon.relAdministradores}"
+								ajax="false" />
+
+							<p:menuitem value="Cliente" target="_blank" icon="pi pi-users"
+								action="#{homeCon.relClientes}" ajax="false" />
+
+							<p:menuitem value="Cliente (Filtro)" target=""
+								icon="pi pi-users" action="#" ajax="false" />
+
+						</p:submenu>
+						<p:submenu label="Documentos"
+							rendered="#{loginController.permissao >= loginController.vlrCliente}">
+
+							<p:menuitem value="Requisições" icon="pi pi-file-o"
+								target="centro" url="../Privado/RequisicaoRelFiltro.xhtml" />
+
+						</p:submenu>
+
 					</p:submenu>
 
 					<p:submenu label="Sobre">

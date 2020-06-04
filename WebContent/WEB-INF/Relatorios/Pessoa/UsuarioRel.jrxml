@@ -64,7 +64,7 @@ FROM usuario
 		<band height="136" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="0" width="164" height="126" uuid="1c003177-754c-448f-8ce1-16868856f545"/>
-				<imageExpression><![CDATA["..\\icon-escrita-fiscal.png"]]></imageExpression>
+				<imageExpression><![CDATA["..//logo.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement style="Title" x="252" y="0" width="550" height="62" forecolor="#4A4646" uuid="bc1ce1da-8232-46ea-be55-cec4abb986dd"/>

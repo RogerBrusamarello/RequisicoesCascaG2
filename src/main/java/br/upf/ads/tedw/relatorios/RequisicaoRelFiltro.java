@@ -37,6 +37,7 @@ public class RequisicaoRelFiltro implements Serializable{
 	public List<Projeto> completeProjeto(String query) {
 		EntityManager em = JPAUtil.getEntityManager();
 		if (login.pessoaLogada instanceof Cliente) {
+			@SuppressWarnings("unchecked")
 			List<Projeto> results = em
 					.createQuery("from Projeto where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' "
 							+ " and cliente.id = " + login.pessoaLogada.getId() + " order by nome")
@@ -44,6 +45,7 @@ public class RequisicaoRelFiltro implements Serializable{
 			em.close();
 			return results;
 		} else {
+			@SuppressWarnings("unchecked")
 			List<Projeto> results = em.createQuery(
 					"from Projeto where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by nome")
 					.getResultList();
@@ -53,11 +55,13 @@ public class RequisicaoRelFiltro implements Serializable{
 
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void gerar(){ 
 		   try {   
-		      HashMap parameters = new HashMap(); 
+		      @SuppressWarnings("rawtypes")
+			HashMap parameters = new HashMap(); 
 		      // passar os parâmetros
-		      parameters.put("dataIni", dataIni);
+			parameters.put("dataIni", dataIni);
 		      parameters.put("dataFim", dataFim);
 		      parameters.put("projetoId", projeto.getId());
 		      

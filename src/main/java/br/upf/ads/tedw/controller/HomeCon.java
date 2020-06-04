@@ -19,21 +19,50 @@ public class HomeCon implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	public void relClientes() {
+		try {
+			@SuppressWarnings("rawtypes")
+			HashMap parameters = new HashMap();
+			RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Pessoa/ClienteRel.jasper", parameters);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
+		}
+	}
 	
-	public void relClientes(){ 
-	   try {   
-	      HashMap parameters = new HashMap(); 
-	      RelatorioUtil.rodarRelatorioPDF(
-	    		  "WEB-INF/Relatorios/Professor/Cliente/ClienteRel.jasper", parameters); 
-	   } catch (Exception e) { 
-	         e.printStackTrace(); 
-	         FacesContext.getCurrentInstance().addMessage("Erro", new 
-	                      FacesMessage(e.getMessage())); 
-	   }
-	} 
+	public void relUsuarios() {
+		try {
+			@SuppressWarnings("rawtypes")
+			HashMap parameters = new HashMap();
+			RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Pessoa/UsuarioRel.jasper", parameters);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
+		}
+	}
 	
+	public void relAdministradores() {
+		try {
+			@SuppressWarnings("rawtypes")
+			HashMap parameters = new HashMap();
+			RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Pessoa/AdministradorRel.jasper", parameters);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
+		}
+	}
 	
-	
+	public void relPessoas() {
+		try {
+			@SuppressWarnings("rawtypes")
+			HashMap parameters = new HashMap();
+			RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Pessoa/PessoaRel.jasper", parameters);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
+		}
+	}
+
 	public HomeCon() {
 		super();
 	}
