@@ -174,8 +174,17 @@
 						<p:submenu label="Documentos"
 							rendered="#{loginController.permissao >= loginController.vlrCliente}">
 
-							<p:menuitem value="Requisições" icon="pi pi-file-o"
+							<p:menuitem value="Requisições (Filtro)" icon="pi pi-file-o"
 								target="centro" url="../Privado/RequisicaoRelFiltro.xhtml" />
+								
+							<p:menuitem value="Projeto" target="_blank" icon="pi pi-file-o"
+								action="#{homeCon.relProjeto}" ajax="false"/>
+								
+							<p:menuitem value="Requisição" target="_blank" icon="pi pi-file-o"
+								action="#{homeCon.relRequisicao}" ajax="false"/>
+								
+							<p:menuitem value="Requisição Agrupada" target="_blank" icon="pi pi-file-o"
+								action="#{homeCon.relRequisicaoAgrup}" ajax="false"/>
 
 						</p:submenu>
 

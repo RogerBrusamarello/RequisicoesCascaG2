@@ -62,6 +62,39 @@ public class HomeCon implements Serializable {
 			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
 		}
 	}
+	
+	public void relProjeto() {
+		try {
+			@SuppressWarnings("rawtypes")
+			HashMap parameters = new HashMap();
+			RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Projeto/ProjetosRel.jasper", parameters);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
+		}
+	}
+	
+	public void relRequisicao() {
+		try {
+			@SuppressWarnings("rawtypes")
+			HashMap parameters = new HashMap();
+			RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Requisicao/RequisicaoRel.jasper", parameters);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
+		}
+	}
+	
+	public void relRequisicaoAgrup() {
+		try {
+			@SuppressWarnings("rawtypes")
+			HashMap parameters = new HashMap();
+			RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Requisicao/RequisicaoRel2.jasper", parameters);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
+		}
+	}
 
 	public HomeCon() {
 		super();
