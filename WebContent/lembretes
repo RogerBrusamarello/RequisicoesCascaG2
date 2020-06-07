@@ -1,20 +1,17 @@
 MARIA:
 	*Relatórios das Classes:
-		->Requisicao (Símples)
-		->RequisicaoProjeto (Símples)
+		-> OK Requisicao (Símples)
+		-> OK Projeto (Símples)
 		->Requisicao (Filtro)
-		->RequisicaoProjeto (Filtro)
+		->Projeto (Filtro)
 
 NARDELI:
 	*Relatórios das Classes:
 		-> OK Pessoa (Símples)
 		-> OK Administrador (Símples)
 		-> OK Usuário (Símples)
-		-> OK Cliente (Símples)
-		->Pessoa (Filtro) Grupo, Tipo
-		->Administrador (Filtro)
-		->Usuário (Filtro)
-		->Cliente (Filtro)
+		-> OK Cliente (Símples e Filtro)
+		-> Pessoa (Filtro) Agrupar por Tipo (Dúvidas: ?)
 		
 ROGER:
 	*Relatórios das Classes:

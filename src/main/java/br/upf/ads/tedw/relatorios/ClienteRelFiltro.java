@@ -38,7 +38,7 @@ public class ClienteRelFiltro implements Serializable {
 		try {
 			if (value1) {
 				valuePath = "WEB-INF/Relatorios/Pessoa/ClienteGroupFuncaoRel.jasper";
-				valueFilter1 = "cliente.funcao, ";
+				valueFilter1 = "cliente.funcao";
 			} else {
 				valuePath = "WEB-INF/Relatorios/Pessoa/ClienteFiltroRel.jasper";
 				valueFilter1 = "";
@@ -47,10 +47,10 @@ public class ClienteRelFiltro implements Serializable {
 			if (value2) {
 				valueFilter2 = "cliente.id";
 			} else {
-				valueFilter2 = "";
+				valueFilter2 = "pessoa.nome";
 			}
 
-			if (value3) {
+			if (!nome.isEmpty() && value3) {
 				valueFilter3 = " OR UPPER(pessoa.email) LIKE UPPER('%" + nome + "%')";
 			} else {
 				valueFilter3 = "";
@@ -64,17 +64,14 @@ public class ClienteRelFiltro implements Serializable {
 			System.out.println("Valor 1: " + value1);
 			System.out.println("Valor 2: " + value2);
 			System.out.println("Valor 3: " + value3);
-			
+
 			// passar os parâmetros
-			String sql = (nome != null || funcao != null ? (nome != null ? "UPPER(pessoa.nome) LIKE UPPER('%" + nome + "%')" : "")
-					+ (nome != null && funcao != null ? " AND " : "") 
-					+ (funcao != null ? "UPPER(cliente.funcao) LIKE UPPER('%" + funcao + "%')" : "") + valueFilter3
-					+ (value1 == true || value2 == true ? " ORDER BY " : "") + valueFilter1 + valueFilter2 : "");
-			
-			/*String sql = (nome == "" || funcao == "" ? "" : (nome == "" ? "" : "UPPER(pessoa.nome) LIKE UPPER('%" + nome + "%')")
-			+ (nome == "" && funcao == "" ? "" : " AND ") 
-			+ (funcao == "" ? "" : "UPPER(cliente.funcao) LIKE UPPER('%" + funcao + "%')") + valueFilter3
-			+ (value1 == true || value2 == true ? " ORDER BY " : "") + valueFilter1 + valueFilter2);*/
+			String sql = (((!nome.isEmpty() || !funcao.isEmpty() ? "WHERE " : "")
+					+ (!nome.isEmpty() ? "UPPER(pessoa.nome) LIKE UPPER('%" + nome + "%')" : "")
+					+ (!nome.isEmpty() && !funcao.isEmpty() ? " AND " : "")
+					+ (!funcao.isEmpty() ? "UPPER(cliente.funcao) LIKE UPPER('%" + funcao + "%')" : "") + valueFilter3)
+					+ (value1 == true || value2 == true || value2 == false ? " ORDER BY " : "") + valueFilter1
+					+ (value1 == true ? ", " : "") + valueFilter2);
 
 			System.out.println(sql);
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Usuario2Rel" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="df013db5-f76e-44d3-b0df-bcbc46d93160">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="UsuarioRel" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="df013db5-f76e-44d3-b0df-bcbc46d93160">
 	<property name="com.jaspersoft.studio.data.sql.tables">
 		<![CDATA[cGVzc29hIEFTICwxMTAsMTUsNzExNDk0MWQtN2I0MC00NDUyLWJkYzMtYWVjOGI4NTk5NTY3O3Vz
 dWFyaW8gQVMgLDE1LDExOSxkYTlhZDgxMy1kMmJmLTQxZjItYjI0NC0yMzhhNGI2ZDY4ODA7]]>
@@ -64,28 +64,39 @@ FROM usuario
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="136" splitType="Stretch">
+		<band height="110" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<image>
-				<reportElement x="0" y="10" width="110" height="110" uuid="1c003177-754c-448f-8ce1-16868856f545">
+				<reportElement x="0" y="4" width="80" height="80" uuid="1c003177-754c-448f-8ce1-16868856f545">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<imageExpression><![CDATA["..//logo.png"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement style="Title" x="252" y="0" width="550" height="62" forecolor="#4A4646" uuid="bc1ce1da-8232-46ea-be55-cec4abb986dd"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Verdana" size="39"/>
+				<reportElement x="175" y="0" width="448" height="39" forecolor="#4A4646" uuid="a8f4fc1c-8f19-4adc-9577-4c05e1f4da07"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Verdana" size="30"/>
 				</textElement>
 				<text><![CDATA[Gestor de Requisições]]></text>
 			</staticText>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="98" width="802" height="1" uuid="61e0f205-bbc7-4ac0-9a22-76b78fe43fb7"/>
+				<graphicElement>
+					<pen lineWidth="3.5" lineStyle="Double" lineColor="#0404DE"/>
+				</graphicElement>
+			</line>
 			<staticText>
-				<reportElement style="SubTitle" x="198" y="90" width="402" height="36" forecolor="#0B0654" uuid="f6a78448-8260-4445-a9e0-e3fb53b080d9"/>
-				<textElement textAlignment="Center">
-					<font fontName="Verdana" size="24"/>
+				<reportElement x="198" y="56" width="402" height="30" forecolor="#0B0654" uuid="7469d83f-3e71-4204-ad07-a8629e977e3b">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Verdana" size="20"/>
 				</textElement>
-				<text><![CDATA[Relatório de Usuários]]></text>
+				<text><![CDATA[Relatório de Usuários Cadastrados]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -94,12 +105,6 @@ FROM usuario
 	</pageHeader>
 	<columnHeader>
 		<band height="16" splitType="Stretch">
-			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="802" height="1" uuid="e9d2002a-c8ee-4649-a258-640dad29110c"/>
-				<graphicElement>
-					<pen lineWidth="0.5" lineColor="#999999"/>
-				</graphicElement>
-			</line>
 			<staticText>
 				<reportElement style="Column header" x="0" y="0" width="30" height="15" forecolor="#736343" uuid="d16ae7e4-0dfa-4a75-ab25-4ff6beb82131">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e984e40c-74e2-4e25-965c-dbc9ea2186d3"/>
@@ -221,7 +226,7 @@ FROM usuario
 					</textElement>
 					<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 				</textField>
-				<textField pattern="EEEEE dd MMMMM yyyy">
+				<textField pattern="EEEEE, dd MMMMM yyyy hh:mm:ss">
 					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="fbce24bb-3cb1-44a3-8eec-8c067ddbe5b5"/>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="false"/>
@@ -234,7 +239,7 @@ FROM usuario
 	<summary>
 		<band height="36" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="6" width="798" height="30" forecolor="#0D05FF" uuid="0b4aa0b9-3717-4266-925a-9aa58128ff9c"/>
+				<reportElement x="0" y="6" width="798" height="30" forecolor="#0D05FF" uuid="85f07db4-dd74-4a61-b23f-5974b1fcaf6e"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -245,10 +250,7 @@ FROM usuario
 	<noData>
 		<band height="50">
 			<textField>
-				<reportElement x="0" y="0" width="164" height="20" uuid="02f4bc4f-f265-498e-8a67-e05adb89b8d2">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
+				<reportElement x="0" y="0" width="164" height="20" uuid="02f4bc4f-f265-498e-8a67-e05adb89b8d2"/>
 				<textFieldExpression><![CDATA["Nenhum dado encontrado!"]]></textFieldExpression>
 			</textField>
 		</band>
