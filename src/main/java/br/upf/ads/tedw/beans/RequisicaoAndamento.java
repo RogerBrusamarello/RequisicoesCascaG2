@@ -49,7 +49,8 @@ public class RequisicaoAndamento implements Serializable {
 	@Column(length = 100, nullable = false)
 	private String titulo;
 
-	@Lob
+	//@Lob
+	@Column(columnDefinition = "text")
 	private String descricao;
 
 	@NotNull(message = "Informe a quantidade de horas realizadas no atendimento:")
