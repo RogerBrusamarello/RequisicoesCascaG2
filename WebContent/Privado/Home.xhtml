@@ -156,7 +156,7 @@
 
 							<p:menuitem value="Pessoas" target="_blank" icon="pi pi-id-card"
 								action="#{homeCon.relPessoas}" ajax="false" />
-								
+
 							<p:menuitem value="Usuário" target="_blank" icon="pi pi-user"
 								action="#{homeCon.relUsuarios}" ajax="false" />
 
@@ -164,33 +164,43 @@
 								icon="pi pi-user-plus" action="#{homeCon.relAdministradores}"
 								ajax="false" />
 
-							<p:menuitem value="Cliente" icon="pi pi-users"
-								 target="centro" url="../Privado/ClienteRelFiltro.xhtml" />
+							<p:menuitem value="Cliente" icon="pi pi-users" target="centro"
+								url="../Privado/ClienteRelFiltro.xhtml" />
 
 						</p:submenu>
 						<p:submenu label="Documentos"
 							rendered="#{loginController.permissao >= loginController.vlrCliente}">
-							
-							<p:menuitem value="Requisição" target="_blank" icon="pi pi-file-o"
-								action="#{homeCon.relRequisicao}" ajax="false" />
-								
-							<p:menuitem value="Requisição Solicitante" target="_blank" icon="pi pi-file-o"
-								action="#{homeCon.relRequisicaoSolicitou}" ajax="false"/>
-							
-							<p:menuitem value="Requisição Criador" target="_blank" icon="pi pi-file-o"
-								action="#{homeCon.relRequisicaoCriou}" ajax="false"/>
+
+							<p:menuitem value="Requisição" target="_blank"
+								icon="pi pi-file-o" action="#{homeCon.relRequisicao}"
+								ajax="false" />
+
+							<p:menuitem value="Requisição Solicitante" target="_blank"
+								icon="pi pi-file-o" action="#{homeCon.relRequisicaoSolicitou}"
+								ajax="false" />
+
+							<p:menuitem value="Requisição Criador" target="_blank"
+								icon="pi pi-file-o" action="#{homeCon.relRequisicaoCriou}"
+								ajax="false" />
 
 							<p:menuitem value="Requisições (Filtro)" icon="pi pi-file-o"
 								target="centro" url="../Privado/RequisicaoRelFiltro.xhtml" />
-								
+
 							<p:menuitem value="Projeto" target="_blank" icon="pi pi-file-o"
-								action="#{homeCon.relProjeto}" ajax="false"/>
-								
-							<p:menuitem value="Usuários do Projeto" target="_blank" icon="pi pi-file-o"
-								action="#{homeCon.relProjetoUsuario}" ajax="false"/>
-								
-							<p:menuitem value="Clientes do Projeto" target="_blank" icon="pi pi-file-o"
-								action="#{homeCon.relProjetoCliente}" ajax="false"/>
+								action="#{homeCon.relProjeto}" ajax="false" />
+
+							<p:menuitem value="Usuários do Projeto" target="_blank"
+								icon="pi pi-file-o" action="#{homeCon.relProjetoUsuario}"
+								ajax="false" />
+
+							<p:menuitem value="Clientes do Projeto" target="_blank"
+								icon="pi pi-file-o" action="#{homeCon.relProjetoCliente}"
+								ajax="false" />
+
+							<p:menuitem value="Andamento de Requisições" target="_blank"
+								icon="pi pi-file-o" action="#{homeCon.relAndamentoRequisicao}"
+								ajax="false" />
+
 						</p:submenu>
 
 					</p:submenu>

@@ -29,7 +29,7 @@ public class HomeCon implements Serializable {
 			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
 		}
 	}
-	
+
 	public void relUsuarios() {
 		try {
 			@SuppressWarnings("rawtypes")
@@ -40,7 +40,7 @@ public class HomeCon implements Serializable {
 			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
 		}
 	}
-	
+
 	public void relAdministradores() {
 		try {
 			@SuppressWarnings("rawtypes")
@@ -51,7 +51,7 @@ public class HomeCon implements Serializable {
 			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
 		}
 	}
-	
+
 	public void relPessoas() {
 		try {
 			@SuppressWarnings("rawtypes")
@@ -62,7 +62,7 @@ public class HomeCon implements Serializable {
 			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
 		}
 	}
-	
+
 	public void relProjeto() {
 		try {
 			@SuppressWarnings("rawtypes")
@@ -73,7 +73,7 @@ public class HomeCon implements Serializable {
 			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
 		}
 	}
-	
+
 	public void relProjetoUsuario() {
 		try {
 			@SuppressWarnings("rawtypes")
@@ -84,7 +84,7 @@ public class HomeCon implements Serializable {
 			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
 		}
 	}
-	
+
 	public void relProjetoCliente() {
 		try {
 			@SuppressWarnings("rawtypes")
@@ -95,7 +95,7 @@ public class HomeCon implements Serializable {
 			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
 		}
 	}
-	
+
 	public void relRequisicao() {
 		try {
 			@SuppressWarnings("rawtypes")
@@ -106,7 +106,7 @@ public class HomeCon implements Serializable {
 			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
 		}
 	}
-	
+
 	public void relRequisicaoSolicitou() {
 		try {
 			@SuppressWarnings("rawtypes")
@@ -117,12 +117,23 @@ public class HomeCon implements Serializable {
 			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
 		}
 	}
-	
+
 	public void relRequisicaoCriou() {
 		try {
 			@SuppressWarnings("rawtypes")
 			HashMap parameters = new HashMap();
 			RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Requisicao/RequisicaoCriouRel.jasper", parameters);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
+		}
+	}
+
+	public void relAndamentoRequisicao() {
+		try {
+			@SuppressWarnings("rawtypes")
+			HashMap parameters = new HashMap();
+			RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Requisicao/RequisicaoAndamentoRel.jasper", parameters);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
