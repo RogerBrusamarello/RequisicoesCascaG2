@@ -32,8 +32,8 @@ public class RequisicaoAnexo implements Serializable {
 	private Long id;
 
 	@NotBlank(message = "Informe a descrição do arquivo")
-	@Lob
-	@Column(nullable = false)
+	//@Lob
+	@Column(columnDefinition = "text", nullable = false)
 	private String descricao;
 
 	@Lob

@@ -5,7 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
-	<title>Relatório de Projetos</title>
+	<title>Relatório de Andamento de Requisição</title>
 
 	<style type="text/css">
 .ui-outputLabel {
@@ -16,7 +16,7 @@
 </h:head>
 
 <h:body>
-	<h:outputText value="Relatório de Projetos"
+	<h:outputText value="Relatório de Andamento de Requisições"
 		style="color: #FFBF00; font-weight: bolder; font-size: 20;" />
 	<p:separator />
 	<h:form id="formFiltro" target="_blank">
@@ -26,22 +26,22 @@
 			<p:outputLabel value="Projeto:" for="inputProjeto" />
 			<p:autoComplete id="inputProjeto" dropdown="true" multiple="false"
 				forceSelection="true" var="obj" itemLabel="#{obj.nome}"
-				itemValue="#{obj}" value="#{requisicaoRelFiltro.projeto}"
+				itemValue="#{obj}" value="#{requisicaoAndamentoRelFiltro.projeto}"
 				converter="ProjetoConverter"
-				completeMethod="#{requisicaoRelFiltro.completeProjeto}"
+				completeMethod="#{requisicaoAndamentoRelFiltro.completeProjeto}"
 				required="false" />
 
 			<p:outputLabel for="dataIni" value="Data Inicial:" />
 			<p:datePicker id="dataIni" required="true"
-				value="#{requisicaoRelFiltro.dataIni}" readonly="false" size="8"
-				showIcon="true" pattern="dd/MM/yyyy" locale="de"
+				value="#{requisicaoAndamentoRelFiltro.dataIni}" readonly="false"
+				size="8" showIcon="true" pattern="dd/MM/yyyy" locale="de"
 				monthNavigator="true" yearNavigator="true">
 			</p:datePicker>
 
 			<p:outputLabel for="dataFim" value="Data Final:" />
 			<p:datePicker id="dataFim" required="true"
-				value="#{requisicaoRelFiltro.dataFim}" readonly="false" size="8"
-				showIcon="true" pattern="dd/MM/yyyy" locale="de"
+				value="#{requisicaoAndamentoRelFiltro.dataFim}" readonly="false"
+				size="8" showIcon="true" pattern="dd/MM/yyyy" locale="de"
 				monthNavigator="true" yearNavigator="true">
 			</p:datePicker>
 
@@ -49,7 +49,8 @@
 
 		<p:spacer width="00" height="30" />
 		<p:commandButton value="Gerar" icon="pi pi-save" ajax="false"
-			action="#{requisicaoRelFiltro.gerar}" />
+			action="#{requisicaoAndamentoRelFiltro.gerar}" />
+
 
 	</h:form>
 </h:body>

@@ -47,7 +47,8 @@ public class Requisicao implements Serializable {
 	private String titulo;
 
 	@NotBlank(message = "Informe a descrição")
-	@Lob
+	//@Lob
+	@Column(columnDefinition = "text")
 	private String descricao;
 
 	@Temporal(TemporalType.DATE)

@@ -19,17 +19,19 @@ import br.upf.ads.tedw.jpa.JPAUtil;
 
 @ManagedBean
 @RequestScoped
-public class RequisicaoRelFiltro implements Serializable{
+public class RequisicaoProgramadaRelFiltro implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Date dataIni;
 	private Date dataFim;
 	private Projeto projeto;
+	private boolean statusProgramada;
+	private boolean statusFinalizada;
 
 	@ManagedProperty(value = "#{loginController}")
-	private LoginController login;	
+	private LoginController login;
 
-
-	public RequisicaoRelFiltro() {
+	public RequisicaoProgramadaRelFiltro() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -55,26 +57,28 @@ public class RequisicaoRelFiltro implements Serializable{
 
 	}
 
-	public void gerar(){ 
-		   try {   
-		      HashMap parameters = new HashMap(); 
-		      // passar os parâmetros
-		      parameters.put("dataIni", dataIni);
-		      parameters.put("dataFim", dataFim);
-		      parameters.put("projetoId", projeto.getId());
+	@SuppressWarnings("unchecked")
+	public void gerar() {
+		try {
+			@SuppressWarnings("rawtypes")
+			HashMap parameters = new HashMap();
 
-		      String sql = "and requisicao.id > 0 order by requisicao.id";
-		      parameters.put("filtroId", sql);
+			String sql = "WHERE " + (projeto != null ? "requisicao.projeto_id = " + projeto.getId() + " AND " : "")
+					+ (statusProgramada == true ? " " : "")
+					+ (statusFinalizada == true ? "requisicaoandamento.status = 'F' AND "
+							: "requisicaoandamento.status = 'N' AND ")
+					+ "requisicao.datacriada BETWEEN " + dataIni + " AND " + dataFim + " " + "ORDER BY requisicao.id";
 
+			parameters.put("filtroAndRequisicao", sql);
 
-		      RelatorioUtil.rodarRelatorioPDF(
-		    		  "WEB-INF/Relatorios/Professor/Requisicao/Requisicao2.jasper", parameters); 
-		   } catch (Exception e) { 
-		         e.printStackTrace(); 
-		         FacesContext.getCurrentInstance().addMessage("Erro", new 
-		                      FacesMessage(e.getMessage())); 
-		   }
+			System.out.println(sql);
+
+			RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Professor/Requisicao/Requisicao2.jasper", parameters);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
 		}
+	}
 
 	public Date getDataIni() {
 		return dataIni;
@@ -106,6 +110,22 @@ public class RequisicaoRelFiltro implements Serializable{
 
 	public void setLogin(LoginController login) {
 		this.login = login;
-	} 
+	}
+
+	public boolean isStatusProgramada() {
+		return statusProgramada;
+	}
+
+	public void setStatusProgramada(boolean statusProgramada) {
+		this.statusProgramada = statusProgramada;
+	}
+
+	public boolean isStatusFinalizada() {
+		return statusFinalizada;
+	}
+
+	public void setStatusFinalizada(boolean statusFinalizada) {
+		this.statusFinalizada = statusFinalizada;
+	}
 
 }

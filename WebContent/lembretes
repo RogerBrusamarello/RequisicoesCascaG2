@@ -1,9 +1,11 @@
 MARIA:
 	*Relatórios das Classes:
-		-> OK Requisicao (Símples)
-		-> OK Projeto (Símples)
-		->Requisicao (Filtro)
-		->Projeto (Filtro)
+		-> Emitir relatório de projetos
+		-> Emitir relatório de clientes de projetos
+		-> Emitir relatório de requisições por projeto
+			*Filtros:
+				- Projeto (se deixar em branco lista todos)
+				- Período
 
 NARDELI:
 	*Relatórios das Classes:
@@ -11,14 +13,21 @@ NARDELI:
 		-> OK Administrador (Símples)
 		-> OK Usuário (Símples)
 		-> OK Cliente (Símples e Filtro)
-		-> Pessoa (Filtro) Agrupar por Tipo (Dúvidas: ?)
+		-> Validações de permissões
 		
 ROGER:
 	*Relatórios das Classes:
-		->RequisicaoAndamento (Símples)
-		->RequisicaoProgramada (Símples)
-		->RequisicaoAndamento (Filtro)
-		->RequisicaoProgramada (Filtro)
+		-> Emitir relatório de andamento das requisições (Agrupado PROJETO-REQUISIÇÃO)
+			*Filtros:
+				- Período
+				
+		-> Emitir relatório de requisições programadas (Agrupado PROJETO-REQUISIÇÃO)
+			*Filtros:
+				- Projeto (se deixar em branco lista todos)
+				- Período
+				- Status: Programadas, Finalizadas
+				
+		-> Emitir relatório de requisições mostrando se está programada ou não
 		
 ALGUÉM QUE SE DESAFIE: ?
 	*Não permitir sair da tela de cadastro de anexo se botão de salvar for clicado e nome estiver com valor null

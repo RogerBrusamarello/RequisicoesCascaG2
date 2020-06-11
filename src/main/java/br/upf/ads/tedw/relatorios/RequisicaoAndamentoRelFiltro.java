@@ -1,6 +1,7 @@
 package br.upf.ads.tedw.relatorios;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -19,17 +20,19 @@ import br.upf.ads.tedw.jpa.JPAUtil;
 
 @ManagedBean
 @RequestScoped
-public class RequisicaoRelFiltro implements Serializable{
+public class RequisicaoAndamentoRelFiltro implements Serializable {
 
+	SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+
+	private static final long serialVersionUID = 1L;
 	private Date dataIni;
 	private Date dataFim;
 	private Projeto projeto;
 
 	@ManagedProperty(value = "#{loginController}")
-	private LoginController login;	
+	private LoginController login;
 
-
-	public RequisicaoRelFiltro() {
+	public RequisicaoAndamentoRelFiltro() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -52,29 +55,33 @@ public class RequisicaoRelFiltro implements Serializable{
 			em.close();
 			return results;
 		}
-
 	}
 
-	public void gerar(){ 
-		   try {   
-		      HashMap parameters = new HashMap(); 
-		      // passar os parâmetros
-		      parameters.put("dataIni", dataIni);
-		      parameters.put("dataFim", dataFim);
-		      parameters.put("projetoId", projeto.getId());
+	@SuppressWarnings("unchecked")
+	public void gerar() {
+		try {
 
-		      String sql = "and requisicao.id > 0 order by requisicao.id";
-		      parameters.put("filtroId", sql);
+			String dataI = formatador.format(dataIni);
+			String dataF = formatador.format(dataFim);
 
+			@SuppressWarnings("rawtypes")
+			HashMap parameters = new HashMap();
+			// passar os parâmetros
 
-		      RelatorioUtil.rodarRelatorioPDF(
-		    		  "WEB-INF/Relatorios/Professor/Requisicao/Requisicao2.jasper", parameters); 
-		   } catch (Exception e) { 
-		         e.printStackTrace(); 
-		         FacesContext.getCurrentInstance().addMessage("Erro", new 
-		                      FacesMessage(e.getMessage())); 
-		   }
+			//String sql = (projeto != null ? " AND requisicao.projeto_id = " + projeto.getId() : "");
+			String sql = "WHERE " + (projeto != null ? "requisicao.projeto_id = " + projeto.getId() + " AND " : "")
+					+ "(requisicaoandamento.data BETWEEN '" + dataI + "' AND '" + dataF + "') " + "ORDER BY projeto.id, requisicao.id";
+
+			parameters.put("filtroAndRequisicao", sql);
+
+			System.out.println(sql);
+
+			RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Requisicao/RequisicaoAndamentoRel.jasper", parameters);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
 		}
+	}
 
 	public Date getDataIni() {
 		return dataIni;
@@ -106,6 +113,6 @@ public class RequisicaoRelFiltro implements Serializable{
 
 	public void setLogin(LoginController login) {
 		this.login = login;
-	} 
+	}
 
 }

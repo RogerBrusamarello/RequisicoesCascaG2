@@ -171,49 +171,47 @@
 						<p:submenu label="Documentos"
 							rendered="#{loginController.permissao >= loginController.vlrCliente}">
 
-							<p:menuitem value="Requisição" target="_blank"
-								icon="pi pi-file-o" action="#{homeCon.relRequisicao}"
-								ajax="false" />
-
-							<p:menuitem value="Requisição Solicitante" target="_blank"
-								icon="pi pi-file-o" action="#{homeCon.relRequisicaoSolicitou}"
-								ajax="false" />
-
-							<p:menuitem value="Requisição Criador" target="_blank"
-								icon="pi pi-file-o" action="#{homeCon.relRequisicaoCriou}"
-								ajax="false" />
-
-							<p:menuitem value="Requisições (Filtro)" icon="pi pi-file-o"
-								target="centro" url="../Privado/RequisicaoRelFiltro.xhtml" />
-
 							<p:menuitem value="Projeto" target="_blank" icon="pi pi-file-o"
-<<<<<<< Updated upstream
 								action="#{homeCon.relProjeto}" ajax="false" />
 
-							<p:menuitem value="Usuários do Projeto" target="_blank"
-								icon="pi pi-file-o" action="#{homeCon.relProjetoUsuario}"
-								ajax="false" />
+							<p:menuitem value="Projeto (Filtro)" icon="pi pi-file-o"
+								target="centro" url="../Privado/ProjetoRelFiltro.xhtml" />
 
 							<p:menuitem value="Clientes do Projeto" target="_blank"
 								icon="pi pi-file-o" action="#{homeCon.relProjetoCliente}"
 								ajax="false" />
 
-							<p:menuitem value="Andamento de Requisições" target="_blank"
-								icon="pi pi-file-o" action="#{homeCon.relAndamentoRequisicao}"
+							<p:menuitem value="Requisições (Filtro)" icon="pi pi-file-o"
+								target="centro" url="../Privado/RequisicaoRelFiltro.xhtml" />
+
+							<p:menuitem value="Andamento de Requisições" target="centro"
+								icon="pi pi-file-o"
+								url="../Privado/RequisicaoAndamentoRelFiltro.xhtml" />
+
+							<p:menuitem value="Requisições Progamadas" target="centro"
+								icon="pi pi-file-o"
+								url="../Privado/RequisicaoProgramadaRelFiltro.xhtml" />
+
+							<p:menuitem value="Requisições do Cliente" target="centro"
+								icon="pi pi-file-o"
+								url="../Privado/RequisicaoClienteRelFiltro.xhtml" />
+
+							<p:menuitem value="X Usuários do Projeto" target="_blank"
+								icon="pi pi-file-o" action="#{homeCon.relProjetoUsuario}"
 								ajax="false" />
 
-=======
-								action="#{homeCon.relProjeto}" ajax="false"/>
-								
-							<p:menuitem value="Usuários do Projeto" target="_blank" icon="pi pi-file-o"
-								action="#{homeCon.relProjetoUsuario}" ajax="false"/>
-								
-							<p:menuitem value="Clientes do Projeto" target="_blank" icon="pi pi-file-o"
-								action="#{homeCon.relProjetoCliente}" ajax="false"/>
-							
-							<p:menuitem value="Projeto (Filtro)" icon="pi pi-file-o"
-								target="centro" url="../Privado/ProjetoRelFiltro.xhtml" />
->>>>>>> Stashed changes
+							<p:menuitem value="X Requisição" target="_blank"
+								icon="pi pi-file-o" action="#{homeCon.relRequisicao}"
+								ajax="false" />
+
+							<p:menuitem value="X Requisição Solicitante" target="_blank"
+								icon="pi pi-file-o" action="#{homeCon.relRequisicaoSolicitou}"
+								ajax="false" />
+
+							<p:menuitem value="X Requisição Criador" target="_blank"
+								icon="pi pi-file-o" action="#{homeCon.relRequisicaoCriou}"
+								ajax="false" />
+
 						</p:submenu>
 
 					</p:submenu>
