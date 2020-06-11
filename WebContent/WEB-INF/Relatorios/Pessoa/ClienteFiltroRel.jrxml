@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Administrador2Rel" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="df013db5-f76e-44d3-b0df-bcbc46d93160">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ClienteRel" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="df013db5-f76e-44d3-b0df-bcbc46d93160">
 	<property name="com.jaspersoft.studio.data.sql.tables">
 		<![CDATA[cGVzc29hIEFTICwxMTAsMTUsNzExNDk0MWQtN2I0MC00NDUyLWJkYzMtYWVjOGI4NTk5NTY3O3Vz
 dWFyaW8gQVMgLDE1LDExOSxkYTlhZDgxMy1kMmJmLTQxZjItYjI0NC0yMzhhNGI2ZDY4ODA7]]>
@@ -16,22 +16,25 @@ dWFyaW8gQVMgLDE1LDExOSxkYTlhZDgxMy1kMmJmLTQxZjItYjI0NC0yMzhhNGI2ZDY4ODA7]]>
 			<style backcolor="#E6DAC3"/>
 		</conditionalStyle>
 	</style>
+	<parameter name="filtroClienteFuncao" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
 	<queryString language="SQL">
-		<![CDATA[SELECT administrador.id,
+		<![CDATA[SELECT cliente.id,
+	cliente.funcao,
 	pessoa.celular,
 	pessoa.cpf,
 	pessoa.email,
 	pessoa.nome,
-	pessoa.outrasinformacoes,
-	pessoa.rg
-FROM administrador
+	pessoa.outrasinformacoes
+FROM cliente
 	INNER JOIN pessoa ON 
-	 administrador.id = pessoa.id
-	ORDER BY pessoa.nome]]>
+	 cliente.id = pessoa.id 
+$P!{filtroClienteFuncao}]]>
 	</queryString>
 	<field name="id" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="administrador"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="usuario"/>
 	</field>
 	<field name="nome" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="nome"/>
@@ -49,8 +52,8 @@ FROM administrador
 		<property name="com.jaspersoft.studio.field.label" value="cpf"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="pessoa"/>
 	</field>
-	<field name="rg" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="rg"/>
+	<field name="funcao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="funcao"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="pessoa"/>
 	</field>
 	<field name="outrasinformacoes" class="java.lang.String">
@@ -88,7 +91,7 @@ FROM administrador
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement x="174" y="56" width="450" height="30" forecolor="#0B0654" uuid="7469d83f-3e71-4204-ad07-a8629e977e3b">
+				<reportElement x="198" y="56" width="402" height="30" forecolor="#0B0654" uuid="7469d83f-3e71-4204-ad07-a8629e977e3b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -96,7 +99,7 @@ FROM administrador
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Verdana" size="20"/>
 				</textElement>
-				<text><![CDATA[Relatório de Administradores Cadastrados]]></text>
+				<text><![CDATA[Relatório de Clientes Cadastrados]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -139,7 +142,7 @@ FROM administrador
 				<reportElement style="Column header" x="560" y="0" width="80" height="15" forecolor="#736343" uuid="d77d3ed0-58a3-41b4-a0b6-cb34a5bc0f1c">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4744633d-544b-4606-8b50-6970de08ad53"/>
 				</reportElement>
-				<text><![CDATA[RG]]></text>
+				<text><![CDATA[Função]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="640" y="0" width="158" height="15" forecolor="#736343" uuid="c959a83b-aab2-44f3-ac8a-e3f45c409095">
@@ -187,7 +190,7 @@ FROM administrador
 					<reportElement style="Detail" x="560" y="0" width="80" height="15" uuid="bb52948f-034b-4ada-845f-f89e0bfaf045">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4744633d-544b-4606-8b50-6970de08ad53"/>
 					</reportElement>
-					<textFieldExpression><![CDATA[$F{rg}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{funcao}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
 					<reportElement style="Detail" x="640" y="0" width="158" height="15" uuid="2f645789-e9bd-4778-a252-c7ca241bc3a1">

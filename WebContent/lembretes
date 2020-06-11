@@ -1,11 +1,30 @@
 MARIA:
-	*Não permitir sair da tela de cadastro de anexo se botão de salvar for clicado e nome estiver com valor null
+	*Relatórios das Classes:
+		-> OK Requisicao (Símples)
+		-> OK Projeto (Símples)
+		->Requisicao (Filtro)
+		->Projeto (Filtro)
 
 NARDELI:
-
+	*Relatórios das Classes:
+		-> OK Pessoa (Símples)
+		-> OK Administrador (Símples)
+		-> OK Usuário (Símples)
+		-> OK Cliente (Símples e Filtro)
+		-> Pessoa (Filtro) Agrupar por Tipo (Dúvidas: ?)
+		
 ROGER:
-
+	*Relatórios das Classes:
+		->RequisicaoAndamento (Símples)
+		->RequisicaoProgramada (Símples)
+		->RequisicaoAndamento (Filtro)
+		->RequisicaoProgramada (Filtro)
+		
 ALGUÉM QUE SE DESAFIE: ?
+	*Não permitir sair da tela de cadastro de anexo se botão de salvar for clicado e nome estiver com valor null
 	*Tratamento de erros:
 		-> Tratar e exibir erros de banco de dados
+
+DÚVIDAS:
+	*Quando não há registros, relatório apenas exibe mensagem "Document is Empty"
 

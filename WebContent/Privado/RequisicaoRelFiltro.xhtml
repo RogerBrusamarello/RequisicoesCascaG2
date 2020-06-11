@@ -6,43 +6,49 @@
 
 <h:head>
 	<title>Relatório de Requisição</title>
+		
+	<style type="text/css">
+		.ui-outputLabel {
+			color: #F2F5A9 !important;
+		}
+	</style>
+	
 </h:head>
 
-
 <h:body>
+	<h:outputText value="Filtrar Requisições"
+		style="color: #FFBF00; font-weight: bolder; font-size: 20;" />
+	<p:separator />
 	<h:form id="formFiltro" target="_blank">
 		<p:growl></p:growl>
 		<p:panelGrid columns="2">
 
+			<p:outputLabel value="Projeto:" for="inputProjeto" />
+			<p:autoComplete id="inputProjeto" dropdown="true" multiple="false"
+				forceSelection="true" var="obj" itemLabel="#{obj.nome}"
+				itemValue="#{obj}" value="#{requisicaoRelFiltro.projeto}"
+				converter="ProjetoConverter"
+				completeMethod="#{requisicaoRelFiltro.completeProjeto}"
+				required="true" />
 
-				<p:outputLabel for="dataIni" value="Data Inicial:" />
-				<p:datePicker id="dataIni" required="true"
-					value="#{requisicaoRelFiltro.dataIni}" readonly="false"
-					size="8" showIcon="true" pattern="dd/MM/yyyy" locale="de"
-					monthNavigator="true" yearNavigator="true">
-				</p:datePicker>
-				
-				<p:outputLabel for="dataFim" value="Data Final:" />
-				<p:datePicker id="dataFim" required="true"
-					value="#{requisicaoRelFiltro.dataFim}" readonly="false"
-					size="8" showIcon="true" pattern="dd/MM/yyyy" locale="de"
-					monthNavigator="true" yearNavigator="true">
-				</p:datePicker>
-							
+			<p:outputLabel for="dataIni" value="Data Inicial:" />
+			<p:datePicker id="dataIni" required="true"
+				value="#{requisicaoRelFiltro.dataIni}" readonly="false" size="8"
+				showIcon="true" pattern="dd/MM/yyyy" locale="de"
+				monthNavigator="true" yearNavigator="true">
+			</p:datePicker>
 
-				<p:outputLabel value="Projeto:" for="inputProjeto" />
-				<p:autoComplete id="inputProjeto" dropdown="true" multiple="false"
-					forceSelection="true" var="obj" itemLabel="#{obj.nome}"
-					itemValue="#{obj}" value="#{requisicaoRelFiltro.projeto}"
-					converter="ProjetoConverter"
-					completeMethod="#{requisicaoRelFiltro.completeProjeto}" required="true" />
+			<p:outputLabel for="dataFim" value="Data Final:" />
+			<p:datePicker id="dataFim" required="true"
+				value="#{requisicaoRelFiltro.dataFim}" readonly="false" size="8"
+				showIcon="true" pattern="dd/MM/yyyy" locale="de"
+				monthNavigator="true" yearNavigator="true">
+			</p:datePicker>
 
-				<p:commandButton value="Gerar" icon="pi pi-save" ajax="false"
-					action="#{requisicaoRelFiltro.gerar}" />
-
+			<p:commandButton value="Gerar" icon="pi pi-save" ajax="false"
+				action="#{requisicaoRelFiltro.gerar}"/>
 
 		</p:panelGrid>
 	</h:form>
-
 </h:body>
 </html>

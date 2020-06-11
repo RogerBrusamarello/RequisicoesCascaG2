@@ -20,7 +20,7 @@ FROM requisicao
 WHERE 
 	 requisicao.datacriada BETWEEN $P{dataIni} AND $P{dataFim} 
 	 AND requisicao.projeto_id = $P{projetoId}
-	  $P!{filtroId} ]]>
+	  $P!{filtroId}]]>
 	</queryString>
 	<field name="id" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
@@ -65,7 +65,7 @@ WHERE
 			</staticText>
 			<image>
 				<reportElement x="350" y="4" width="200" height="66" uuid="7e8d4c2a-21d4-49be-9c14-a488ad320097"/>
-				<imageExpression><![CDATA["..\\..\\logo.png"]]></imageExpression>
+				<imageExpression><![CDATA["..//..//logo.png"]]></imageExpression>
 			</image>
 			<line>
 				<reportElement x="0" y="68" width="555" height="1" uuid="a1639a23-ee00-4ff6-a872-a0e4880b198b">

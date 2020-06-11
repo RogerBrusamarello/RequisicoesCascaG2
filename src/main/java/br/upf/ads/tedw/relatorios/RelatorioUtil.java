@@ -24,9 +24,9 @@ import net.sf.jasperreports.engine.JasperPrint;
 public class RelatorioUtil {
     
 	/**
-	 * M�todo respons�vel por rodar um relat�rio do jasper e responder uma requisi��o JSF com um PDF
-	 * @param pathRelatorio Caminho de onde est� o relat�rio no contexto da aplica��o
-	 * @param parameters S�o os par�metros a serem repassados para o relat�rio executar
+	 * M�todo responsável por rodar um relatório do jasper e responder uma requisição JSF com um PDF
+	 * @param pathRelatorio Caminho de onde está o relatório no contexto da aplicação
+	 * @param parameters são os parâmetros a serem repassados para o relatório executar
 	 * @throws SQLException
 	 */
 	public static void rodarRelatorioPDF(String pathRelatorio, HashMap parameters) throws SQLException {
@@ -50,21 +50,22 @@ public class RelatorioUtil {
 	}	
 	
 	/**
-	 * M�todo respons�vel por obter uma conex�o JDBC a partir de uma EntityManager.
+	 * Método responsável por obter uma conexão JDBC a partir de uma EntityManager.
 	 * Funciona com Hibernate 5.2 ou superior.
-	 * @return conex�o JDBC com o banco de dados
+	 * @return conexão JDBC com o banco de dados
 	 * @throws SQLException
 	 */
     public static Connection getEntityManagerJDBCConnection() throws SQLException { 
         EntityManager em = JPAUtil.getEntityManager();
-        Session s = (Session) em;
+        @SuppressWarnings("resource")
+		Session s = (Session) em;
         SessionImplementor sim = (SessionImplementor) s;
         Connection conexao = sim.connection();
         em.close();
         return conexao; 
     }
     
-	/* para vers�es mais antigas do Hibernate ...  
+	/* para versões mais antigas do Hibernate ...  
     public static Connection getEntityManagerJDBCConnection() throws SQLException { 
     	EntityManager em = getEntityManager(); 
     	HibernateEntityManager hem = (HibernateEntityManager) em;
@@ -86,7 +87,5 @@ public class RelatorioUtil {
 	    return conexao;
 	} 
 	*/
-	
-	
-	
+
 }
