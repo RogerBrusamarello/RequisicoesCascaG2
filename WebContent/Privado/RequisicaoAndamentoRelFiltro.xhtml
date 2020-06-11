@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Relatório de Andamento de Requisição</title>
+		
+	<style type="text/css">
+		.ui-outputLabel {
+			color: #F2F5A9 !important;
+		}
+	</style>
+	
+</h:head>
+
+<h:body>
+	<h:outputText value="Filtrar Andamento de Requisições"
+		style="color: #FFBF00; font-weight: bolder; font-size: 20;" />
+	<p:separator />
+	<h:form id="formFiltro" target="_blank">
+		<p:growl></p:growl>
+		<p:panelGrid columns="2">
+
+			<p:outputLabel value="Requisição:" for="inputAndRequisicao" />
+			<p:autoComplete id="inputAndRequisicao" dropdown="true" multiple="false"
+				forceSelection="true" var="obj" itemLabel="#{obj.titulo}"
+				itemValue="#{obj}" value="#{requisicaoAndamentoRelFiltro.requisicao}"
+				converter="RequisicaoConverter"
+				completeMethod="#{requisicaoAndamentoRelFiltro.completeRequisicao}"
+				required="true" />
+
+			
+
+			<p:commandButton value="Gerar" icon="pi pi-save" ajax="false"
+				action="#{requisicaoAndamentoRelFiltro.gerar}"/>
+
+		</p:panelGrid>
+	</h:form>
+</h:body>
+</html>
