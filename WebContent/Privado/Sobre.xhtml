@@ -20,13 +20,17 @@
 			flex-wrap: wrap;
 			justify-content: center;
 		}
+		
+		.semBorda .ui-widget-content {
+			border: none !important;
+		}
 	</style>
 
 </h:head>
 
-<h:body>
+<h:body styleClass="semBorda">
 	<!-- Painel de exibição -->
-	<p:panel id="sobre" class="geral" visible="true">
+	<p:panel id="sobre" class="geral" visible="true" styleClass="semBorda">
 		<p:spacer width="0" height="20" />
 		<h:outputText class="geral" value="O que fazemos?"
 			style="color: #FFBF00; font-weight: bolder; font-size: 20;" />

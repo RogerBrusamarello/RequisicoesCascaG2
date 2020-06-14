@@ -27,51 +27,20 @@
 		<p:growl></p:growl>
 		<p:panelGrid columns="2">
 
-			<p:outputLabel value="Projeto:" for="inputProjeto" />
-			<p:autoComplete id="inputProjeto" dropdown="true" multiple="false"
+			<p:outputLabel value="Cliente:" for="inputCliente" />
+			<p:autoComplete id="inputCliente" dropdown="true" multiple="false"
 				forceSelection="true" var="obj" itemLabel="#{obj.nome}"
-				itemValue="#{obj}" value="#{requisicaoProgramadaRelFiltro.projeto}"
-				converter="ProjetoConverter"
-				completeMethod="#{requisicaoProgramadaRelFiltro.completeProjeto}"
+				itemValue="#{obj}" value="#{requisicaoClienteRelFiltro.cliente}"
+				converter="ClienteConverter"
+				completeMethod="#{requisicaoClienteRelFiltro.completeCliente}"
 				required="false" />
-
-			<p:outputLabel for="dataIni" value="Data Inicial:" />
-			<p:datePicker id="dataIni" required="true"
-				value="#{requisicaoProgramadaRelFiltro.dataIni}" readonly="false"
-				size="8" showIcon="true" pattern="dd/MM/yyyy" locale="de"
-				monthNavigator="true" yearNavigator="true">
-			</p:datePicker>
-
-			<p:outputLabel for="dataFim" value="Data Final:" />
-			<p:datePicker id="dataFim" required="true"
-				value="#{requisicaoProgramadaRelFiltro.dataFim}" readonly="false"
-				size="8" showIcon="true" pattern="dd/MM/yyyy" locale="de"
-				monthNavigator="true" yearNavigator="true">
-			</p:datePicker>
-			
-			<h:outputText value="Programada: " style="color: #F2F5A9;"/>
-			<p:selectBooleanButton id="value1" value="#{requisicaoProgramadaRelFiltro.statusProgramada}"
-				onLabel="Sim" offLabel="Não" onIcon="pi pi-check"
-				offIcon="pi pi-times" style="width:80px" />
-				
-			<h:outputText value="Finalizada: " style="color: #F2F5A9;"/>
-			<p:selectBooleanButton id="value2" value="#{requisicaoProgramadaRelFiltro.statusFinalizada}"
-				onLabel="Sim" offLabel="Não" onIcon="pi pi-check"
-				offIcon="pi pi-times" style="width:80px" />
 
 		</p:panelGrid>
 		
 		<p:spacer width="00" height="30" />
 		<p:commandButton value="Gerar" icon="pi pi-save" ajax="false"
-			action="#{requisicaoProgramadaRelFiltro.gerar}" />
+			action="#{requisicaoClienteRelFiltro.gerar}" />
 
-		<p:dialog id="dialog" header="Values" modal="true" resizable="false"
-			showEffect="fade" widgetVar="dlg">
-			<h:panelGrid columns="1" id="display">
-				<h:outputText value="Value 1: #{clienteRelFiltro.value1}" />
-				<h:outputText value="Value 2: #{clienteRelFiltro.value2}" />
-			</h:panelGrid>
-		</p:dialog>
 	</h:form>
 </h:body>
 </html>

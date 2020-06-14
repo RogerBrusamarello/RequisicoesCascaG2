@@ -89,7 +89,7 @@ public class HomeCon implements Serializable {
 		try {
 			@SuppressWarnings("rawtypes")
 			HashMap parameters = new HashMap();
-			RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Projeto/ProjetoClienteRel.jasper", parameters);
+			RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Projeto/ProjetoClienteGroupRel.jasper", parameters);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));

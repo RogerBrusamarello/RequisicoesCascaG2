@@ -73,7 +73,7 @@ public class RequisicaoProgramadaRelFiltro implements Serializable {
 
 			System.out.println(sql);
 
-			RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Professor/Requisicao/Requisicao2.jasper", parameters);
+			RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Requisicao/RequisicaoProgramadaRelGroup.jasper", parameters);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));

@@ -1,7 +1,6 @@
 package br.upf.ads.tedw.relatorios;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -20,36 +19,36 @@ import br.upf.ads.tedw.jpa.JPAUtil;
 
 @ManagedBean
 @RequestScoped
-public class RequisicaoRelFiltro implements Serializable {
+public class RequisicaoClienteRelFiltro implements Serializable {
 
-	SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
-
+	private static final long serialVersionUID = 1L;
 	private Date dataIni;
 	private Date dataFim;
 	private Projeto projeto;
+	private Cliente cliente;
 
 	@ManagedProperty(value = "#{loginController}")
 	private LoginController login;
 
-	public RequisicaoRelFiltro() {
+	public RequisicaoClienteRelFiltro() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<Projeto> completeProjeto(String query) {
+	public List<Cliente> completeCliente(String query) {
 		EntityManager em = JPAUtil.getEntityManager();
 		if (login.pessoaLogada instanceof Cliente) {
 			@SuppressWarnings("unchecked")
-			List<Projeto> results = em
-					.createQuery("from Projeto where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' "
+			List<Cliente> results = em
+					.createQuery("from Cliente where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' "
 							+ " and cliente.id = " + login.pessoaLogada.getId() + " order by nome")
 					.getResultList();
 			em.close();
 			return results;
 		} else {
 			@SuppressWarnings("unchecked")
-			List<Projeto> results = em.createQuery(
-					"from Projeto where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by nome")
+			List<Cliente> results = em.createQuery(
+					"from Cliente where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by nome")
 					.getResultList();
 			em.close();
 			return results;
@@ -60,21 +59,17 @@ public class RequisicaoRelFiltro implements Serializable {
 	@SuppressWarnings("unchecked")
 	public void gerar() {
 		try {
-
-			String dataI = formatador.format(dataIni);
-			String dataF = formatador.format(dataFim);
-
 			@SuppressWarnings("rawtypes")
 			HashMap parameters = new HashMap();
 
-			String sql = "WHERE projeto.id = " + projeto.getId() + " AND " + "(requisicao.datacriada BETWEEN '" + dataI
-					+ "' AND '" + dataF + "') ORDER BY requisicao.id";
-			parameters.put("filtro", sql);
+			String sql = (cliente != null ? "WHERE projeto.cliente.id = " + cliente.getId() + " " : "")
+					+ "ORDER BY requisicao.id";
+
+			parameters.put("filtroRequisicaoCliente", sql);
 
 			System.out.println(sql);
 
-			RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Requisicao/RequisicaoPorProjetoRelFiltro.jasper",
-					parameters);
+			//RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Requisicao/RequisicaoClienteRelGroup.jasper", parameters);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
@@ -111,6 +106,14 @@ public class RequisicaoRelFiltro implements Serializable {
 
 	public void setLogin(LoginController login) {
 		this.login = login;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 }

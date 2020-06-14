@@ -18,8 +18,6 @@ YmVkNztwZXNzb2EgLDIwMCwxNSxhNzY0MmQ5Yi0zNmRkLTQyZGMtYTEyMy0yZGM1ODdjN2E5Y2E7]]>
 			<style backcolor="#E6DAC3"/>
 		</conditionalStyle>
 	</style>
-	<parameter name="dataIni" class="java.util.Date"/>
-	<parameter name="dataFim" class="java.util.Date"/>
 	<parameter name="filtroAndRequisicao" class="java.lang.String">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
@@ -43,7 +41,6 @@ FROM requisicaoandamento
 	 requisicaoandamento.requisicao_id = requisicao.id 
 	INNER JOIN projeto ON 
 	 requisicao.projeto_id = projeto.id 
-	 WHERE (requisicaoandamento.data BETWEEN $P{dataIni} AND $P{dataFim}) 
 	 $P!{filtroAndRequisicao}]]>
 	</queryString>
 	<field name="data" class="java.sql.Date">
@@ -88,7 +85,7 @@ FROM requisicaoandamento
 	<group name="Group1">
 		<groupExpression><![CDATA[$F{req_titulo}]]></groupExpression>
 		<groupHeader>
-			<band height="49">
+			<band height="48">
 				<frame>
 					<reportElement mode="Opaque" x="-21" y="7" width="843" height="24" forecolor="#B89F7D" backcolor="#F2EBDF" uuid="ff649bda-bbd1-4c2d-bd67-21f69ad64bbf"/>
 					<rectangle>
@@ -152,7 +149,7 @@ FROM requisicaoandamento
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eaabae28-9e4a-40b6-b4b5-5c0df001042d"/>
 					</reportElement>
 					<textElement textAlignment="Center"/>
-					<text><![CDATA[Nome]]></text>
+					<text><![CDATA[Quem fez]]></text>
 				</staticText>
 			</band>
 		</groupHeader>
