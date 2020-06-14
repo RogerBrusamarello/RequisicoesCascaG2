@@ -8,14 +8,14 @@
 	<title>Relatório de Requisições Programadas</title>
 
 	<style type="text/css">
-.ui-outputLabel {
-	color: #F2F5A9 !important;
-}
-
-.ui-outputText {
-	color: #F2F5A9 !important;
-}
-</style>
+		.ui-outputLabel {
+			color: #F2F5A9 !important;
+		}
+		
+		.ui-outputText {
+			color: #F2F5A9 !important;
+		}
+	</style>
 
 </h:head>
 
@@ -48,30 +48,28 @@
 				size="8" showIcon="true" pattern="dd/MM/yyyy" locale="de"
 				monthNavigator="true" yearNavigator="true">
 			</p:datePicker>
-			
-			<h:outputText value="Programada: " style="color: #F2F5A9;"/>
-			<p:selectBooleanButton id="value1" value="#{requisicaoProgramadaRelFiltro.statusProgramada}"
+
+			<h:outputText value="Ignora Status: " style="color: #F2F5A9;" />
+			<p:toggleSwitch value="#{requisicaoProgramadaRelFiltro.ignoraStatus}" />
+
+			<h:outputText value="Programada: " style="color: #F2F5A9;" />
+			<p:selectBooleanButton id="value2"
+				value="#{requisicaoProgramadaRelFiltro.statusProgramada}"
 				onLabel="Sim" offLabel="Não" onIcon="pi pi-check"
 				offIcon="pi pi-times" style="width:80px" />
-				
-			<h:outputText value="Finalizada: " style="color: #F2F5A9;"/>
-			<p:selectBooleanButton id="value2" value="#{requisicaoProgramadaRelFiltro.statusFinalizada}"
+
+			<h:outputText value="Finalizada: " style="color: #F2F5A9;" />
+			<p:selectBooleanButton id="value3"
+				value="#{requisicaoProgramadaRelFiltro.statusFinalizada}"
 				onLabel="Sim" offLabel="Não" onIcon="pi pi-check"
 				offIcon="pi pi-times" style="width:80px" />
 
 		</p:panelGrid>
-		
+
 		<p:spacer width="00" height="30" />
 		<p:commandButton value="Gerar" icon="pi pi-save" ajax="false"
 			action="#{requisicaoProgramadaRelFiltro.gerar}" />
 
-		<p:dialog id="dialog" header="Values" modal="true" resizable="false"
-			showEffect="fade" widgetVar="dlg">
-			<h:panelGrid columns="1" id="display">
-				<h:outputText value="Value 1: #{clienteRelFiltro.value1}" />
-				<h:outputText value="Value 2: #{clienteRelFiltro.value2}" />
-			</h:panelGrid>
-		</p:dialog>
 	</h:form>
 </h:body>
 </html>

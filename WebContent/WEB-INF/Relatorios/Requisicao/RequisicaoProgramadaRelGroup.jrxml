@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RequisicaoAndamento" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="df013db5-f76e-44d3-b0df-bcbc46d93160">
-	<property name="com.jaspersoft.studio.data.sql.tables">
-		<![CDATA[cHJvamV0byAsMzk1LDQzMCxkZTA3MzBkMy01MTJhLTRlODUtOWYxNi0zYWQ4NTU0Yjg5YzA7cmVx
-dWlzaWNhbyAsMjAwLDMzMiw4NDgzMjgyOC01MjEwLTQ3YjQtYmZmMy02YjI0MDc1ZjUwYjk7cmVx
-dWlzaWNhb2FuZGFtZW50byAsMTUsMjAxLDI5MWE0MDhlLTZiYTctNDU1My1iODhjLTc4ZjkyN2Fi
-YmVkNztwZXNzb2EgLDIwMCwxNSxhNzY0MmQ5Yi0zNmRkLTQyZGMtYTEyMy0yZGM1ODdjN2E5Y2E7]]>
-	</property>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RequisicaoProgramadaRelGroup" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="df013db5-f76e-44d3-b0df-bcbc46d93160">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="aula"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
@@ -18,53 +13,39 @@ YmVkNztwZXNzb2EgLDIwMCwxNSxhNzY0MmQ5Yi0zNmRkLTQyZGMtYTEyMy0yZGM1ODdjN2E5Y2E7]]>
 			<style backcolor="#E6DAC3"/>
 		</conditionalStyle>
 	</style>
-	<parameter name="filtroAndRequisicao" class="java.lang.String">
+	<parameter name="filtroRequisicao" class="java.lang.String">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<queryString language="SQL">
-		<![CDATA[SELECT requisicaoandamento.data,
-	requisicaoandamento.id,
-	requisicaoandamento.descricao,
-	requisicaoandamento.horasrealizadas,
-	requisicaoandamento.status,
-	requisicaoandamento.titulo reqand_titulo,
-	pessoa.nome pes_nome,
+		<![CDATA[SELECT requisicao.id id_req,
+	requisicao.descricao descricao_req,
 	requisicao.titulo req_titulo,
-	requisicao.id,z
-	projeto.id,
-	projeto.nome proj_nome,
-	pessoa.id
-FROM requisicaoandamento
-	INNER JOIN pessoa ON 
-	 requisicaoandamento.pessoa_id = pessoa.id 
+	requisicaoprogramada.datainicio data_programada,
+	requisicaoandamento.status,
+	pessoa.nome pes_nome,
+	projeto.id id_proj,
+	projeto.nome proj_nome
+FROM projeto
 	INNER JOIN requisicao ON 
-	 requisicaoandamento.requisicao_id = requisicao.id 
-	INNER JOIN projeto ON 
 	 requisicao.projeto_id = projeto.id 
-	 $P!{filtroAndRequisicao}]]>
+	full outer JOIN requisicaoandamento ON 
+	 requisicaoandamento.requisicao_id = requisicao.id 
+	full outer JOIN requisicaoprogramada ON 
+	 requisicaoprogramada.requisicao_id = requisicao.id 
+	INNER JOIN pessoa ON 
+	 requisicao.criou_id = pessoa.id 
+	$P!{filtroRequisicao}]]>
 	</queryString>
-	<field name="data" class="java.sql.Date">
-		<property name="com.jaspersoft.studio.field.label" value="data"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="requisicaoandamento"/>
-	</field>
-	<field name="id" class="java.lang.Long">
+	<field name="id_req" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="requisicaoandamento"/>
 	</field>
-	<field name="descricao" class="java.lang.String">
+	<field name="descricao_req" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="descricao"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="requisicaoandamento"/>
-	</field>
-	<field name="horasrealizadas" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="horasrealizadas"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="requisicaoandamento"/>
 	</field>
 	<field name="status" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="status"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="requisicaoandamento"/>
-	</field>
-	<field name="reqand_titulo" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="reqand_titulo"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="requisicaoandamento"/>
 	</field>
 	<field name="pes_nome" class="java.lang.String">
@@ -76,14 +57,16 @@ FROM requisicaoandamento
 		<property name="com.jaspersoft.studio.field.tree.path" value="requisicao"/>
 	</field>
 	<field name="proj_nome" class="java.lang.String"/>
+	<field name="data_programada" class="java.sql.Date"/>
+	<field name="id_proj" class="java.lang.Long"/>
 	<variable name="quantidade" class="java.lang.Integer" calculation="Count">
-		<variableExpression><![CDATA[$F{id}]]></variableExpression>
+		<variableExpression><![CDATA[$F{id_proj}]]></variableExpression>
 	</variable>
 	<variable name="quantidadeGrupo" class="java.lang.Integer">
 		<variableExpression><![CDATA[$V{Group1_COUNT}]]></variableExpression>
 	</variable>
 	<group name="Group1">
-		<groupExpression><![CDATA[$F{req_titulo}]]></groupExpression>
+		<groupExpression><![CDATA[$F{proj_nome}]]></groupExpression>
 		<groupHeader>
 			<band height="48">
 				<frame>
@@ -99,56 +82,50 @@ FROM requisicaoandamento
 						<textElement>
 							<font isBold="true"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$F{proj_nome} + " - " +  $F{req_titulo}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{proj_nome}]]></textFieldExpression>
 					</textField>
 				</frame>
 				<staticText>
 					<reportElement style="Column header" x="0" y="33" width="35" height="15" forecolor="#736343" uuid="d7a1c1df-30a2-465c-b0d8-f08ae082a53c">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2aea7e91-d653-4247-8864-5943cc7c5a4c"/>
 					</reportElement>
-					<textElement textAlignment="Center"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<text><![CDATA[ID]]></text>
 				</staticText>
 				<staticText>
 					<reportElement style="Column header" x="36" y="33" width="153" height="15" forecolor="#736343" uuid="fc6510a6-b91a-4d7d-9744-2918a2fef6aa">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9b520de0-b198-4b36-a0d1-b3a10201de55"/>
 					</reportElement>
-					<textElement textAlignment="Center"/>
-					<text><![CDATA[Título]]></text>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[Requisição]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="Column header" x="189" y="33" width="153" height="15" forecolor="#736343" uuid="c53e4a6c-5e99-44fd-93b3-09c8b62df283">
+					<reportElement style="Column header" x="189" y="33" width="217" height="15" forecolor="#736343" uuid="c53e4a6c-5e99-44fd-93b3-09c8b62df283">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8b772c0a-08c8-4ce3-a1a2-9d8c8fc22312"/>
 					</reportElement>
-					<textElement textAlignment="Center"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<text><![CDATA[Descrição]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="Column header" x="425" y="33" width="48" height="15" forecolor="#736343" uuid="be3dde7a-832b-498b-9de5-97d341ddf366">
+					<reportElement style="Column header" x="406" y="33" width="107" height="15" forecolor="#736343" uuid="be3dde7a-832b-498b-9de5-97d341ddf366">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e1c4d271-cba3-44a7-be34-12abdea4817f"/>
 					</reportElement>
-					<textElement textAlignment="Center"/>
-					<text><![CDATA[Horas realizadas]]></text>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[Programada]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="Column header" x="474" y="33" width="43" height="15" forecolor="#736343" uuid="5e345857-780e-459f-97ef-68ea5983130f">
+					<reportElement style="Column header" x="513" y="33" width="87" height="15" forecolor="#736343" uuid="5e345857-780e-459f-97ef-68ea5983130f">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="74802911-c271-4757-acd7-a9daced95e90"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					</reportElement>
-					<textElement textAlignment="Center"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<text><![CDATA[Status]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="Column header" x="343" y="33" width="82" height="15" forecolor="#736343" uuid="938dd476-2968-4130-8043-694513078a05">
-						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="68173244-a18b-4fd4-9651-70bad6689351"/>
-					</reportElement>
-					<textElement textAlignment="Center"/>
-					<text><![CDATA[Data]]></text>
-				</staticText>
-				<staticText>
-					<reportElement style="Column header" x="517" y="33" width="284" height="15" forecolor="#736343" uuid="3c47dfd2-a0fa-4cd0-bf2e-362134aef229">
+					<reportElement style="Column header" x="600" y="33" width="200" height="15" forecolor="#736343" uuid="3c47dfd2-a0fa-4cd0-bf2e-362134aef229">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eaabae28-9e4a-40b6-b4b5-5c0df001042d"/>
 					</reportElement>
-					<textElement textAlignment="Center"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<text><![CDATA[Quem fez]]></text>
 				</staticText>
 			</band>
@@ -159,7 +136,7 @@ FROM requisicaoandamento
 					<reportElement x="0" y="7" width="798" height="20" forecolor="#0D05FF" uuid="21da6fe6-d146-43d4-a546-346f0b8edce7">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
-					<textElement>
+					<textElement verticalAlignment="Middle">
 						<font size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[(($V{quantidadeGrupo} == 1) ? ($V{quantidadeGrupo} + " registro encontrado!") : ($V{quantidadeGrupo} + " registros encontrados!"))]]></textFieldExpression>
@@ -182,8 +159,16 @@ FROM requisicaoandamento
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<text><![CDATA[Relatório de Andamento das Requisições]]></text>
+				<text><![CDATA[Relatório de Requisições Programadas]]></text>
 			</staticText>
+			<image>
+				<reportElement x="0" y="4" width="80" height="80" uuid="4fea41d1-7c6c-4955-a806-bb3227c85d30">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA["..//logo.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -207,49 +192,43 @@ FROM requisicaoandamento
 					<reportElement style="Detail" x="0" y="0" width="35" height="15" uuid="1bd27db0-dae9-4740-8381-18cbbcef859e">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2aea7e91-d653-4247-8864-5943cc7c5a4c"/>
 					</reportElement>
-					<textElement textAlignment="Center"/>
-					<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{id_req}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
 					<reportElement style="Detail" x="36" y="0" width="153" height="15" uuid="f9da95a1-b084-4683-96fd-45dcb0614c05">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9b520de0-b198-4b36-a0d1-b3a10201de55"/>
 					</reportElement>
-					<textElement textAlignment="Center"/>
-					<textFieldExpression><![CDATA[$F{reqand_titulo}]]></textFieldExpression>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{req_titulo}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
-					<reportElement style="Detail" x="189" y="0" width="153" height="15" uuid="a6477e5d-8f79-4c09-a481-f6265a3ca9d1">
+					<reportElement style="Detail" x="189" y="0" width="217" height="15" uuid="a6477e5d-8f79-4c09-a481-f6265a3ca9d1">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8b772c0a-08c8-4ce3-a1a2-9d8c8fc22312"/>
 					</reportElement>
-					<textElement textAlignment="Center"/>
-					<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
-				</textField>
-				<textField textAdjust="StretchHeight">
-					<reportElement style="Detail" x="425" y="0" width="48" height="15" uuid="d00ac933-dd0b-4420-b686-bf73137f1f4c">
-						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e1c4d271-cba3-44a7-be34-12abdea4817f"/>
-					</reportElement>
-					<textElement textAlignment="Center"/>
-					<textFieldExpression><![CDATA[$F{horasrealizadas}]]></textFieldExpression>
-				</textField>
-				<textField textAdjust="StretchHeight">
-					<reportElement style="Detail" x="474" y="0" width="43" height="15" uuid="c6e15c97-7066-4409-8a28-102a27bb0645">
-						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="74802911-c271-4757-acd7-a9daced95e90"/>
-					</reportElement>
-					<textElement textAlignment="Center"/>
-					<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{descricao_req}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight" pattern="dd/MM/yyyy">
-					<reportElement style="Detail" x="343" y="0" width="82" height="15" uuid="88a52539-7c94-4cc3-ab93-e8333c179ea5">
-						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="68173244-a18b-4fd4-9651-70bad6689351"/>
+					<reportElement style="Detail" x="406" y="0" width="107" height="15" uuid="d00ac933-dd0b-4420-b686-bf73137f1f4c">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e1c4d271-cba3-44a7-be34-12abdea4817f"/>
 					</reportElement>
-					<textElement textAlignment="Center"/>
-					<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{data_programada} == null ? "Não Programada" : $F{data_programada}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
-					<reportElement style="Detail" x="517" y="0" width="284" height="15" uuid="2e80fed5-7258-4bb3-a138-50f5c94eb0d6">
+					<reportElement style="Detail" x="513" y="0" width="87" height="15" uuid="c6e15c97-7066-4409-8a28-102a27bb0645">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="74802911-c271-4757-acd7-a9daced95e90"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{status} ==  null  ? "N" : $F{status}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Detail" x="600" y="0" width="200" height="15" uuid="2e80fed5-7258-4bb3-a138-50f5c94eb0d6">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eaabae28-9e4a-40b6-b4b5-5c0df001042d"/>
 					</reportElement>
-					<textElement textAlignment="Center"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{pes_nome}]]></textFieldExpression>
 				</textField>
 			</frame>

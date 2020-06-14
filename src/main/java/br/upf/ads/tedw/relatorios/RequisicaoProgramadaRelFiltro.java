@@ -1,6 +1,7 @@
 package br.upf.ads.tedw.relatorios;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -21,10 +22,13 @@ import br.upf.ads.tedw.jpa.JPAUtil;
 @RequestScoped
 public class RequisicaoProgramadaRelFiltro implements Serializable {
 
+	SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+
 	private static final long serialVersionUID = 1L;
 	private Date dataIni;
 	private Date dataFim;
 	private Projeto projeto;
+	private boolean ignoraStatus;
 	private boolean statusProgramada;
 	private boolean statusFinalizada;
 
@@ -60,20 +64,30 @@ public class RequisicaoProgramadaRelFiltro implements Serializable {
 	@SuppressWarnings("unchecked")
 	public void gerar() {
 		try {
+
+			String dataI = formatador.format(dataIni);
+			String dataF = formatador.format(dataFim);
+
 			@SuppressWarnings("rawtypes")
 			HashMap parameters = new HashMap();
 
 			String sql = "WHERE " + (projeto != null ? "requisicao.projeto_id = " + projeto.getId() + " AND " : "")
-					+ (statusProgramada == true ? " " : "")
-					+ (statusFinalizada == true ? "requisicaoandamento.status = 'F' AND "
-							: "requisicaoandamento.status = 'N' AND ")
-					+ "requisicao.datacriada BETWEEN " + dataIni + " AND " + dataFim + " " + "ORDER BY requisicao.id";
+					+ (ignoraStatus == true ? ""
+							: (statusProgramada == true ? "requisicaoprogramada.datainicio IS NOT NULL"
+									: "requisicaoprogramada.datainicio IS NULL")
+									+ " AND "
+									+ (statusFinalizada == true ? "requisicaoandamento.status = 'F'"
+											: "(requisicaoandamento.status = 'N' OR requisicaoandamento.requisicao_id IS NULL)")
+									+ " AND ")
+					+ "(requisicao.datacriada BETWEEN '" + dataI + "' AND '" + dataF + "') " + "ORDER BY requisicao.id";
 
-			parameters.put("filtroAndRequisicao", sql);
+			parameters.put("filtroRequisicao", sql);
 
 			System.out.println(sql);
 
-			RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Requisicao/RequisicaoProgramadaRelGroup.jasper", parameters);
+			RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Requisicao/RequisicaoProgramadaRelGroup.jasper",
+					parameters);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
@@ -126,6 +140,14 @@ public class RequisicaoProgramadaRelFiltro implements Serializable {
 
 	public void setStatusFinalizada(boolean statusFinalizada) {
 		this.statusFinalizada = statusFinalizada;
+	}
+
+	public boolean isIgnoraStatus() {
+		return ignoraStatus;
+	}
+
+	public void setIgnoraStatus(boolean ignoraStatus) {
+		this.ignoraStatus = ignoraStatus;
 	}
 
 }
