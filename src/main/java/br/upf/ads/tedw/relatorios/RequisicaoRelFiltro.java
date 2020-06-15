@@ -67,8 +67,8 @@ public class RequisicaoRelFiltro implements Serializable {
 			@SuppressWarnings("rawtypes")
 			HashMap parameters = new HashMap();
 
-			String sql = "WHERE projeto.id = " + projeto.getId() + " AND " + "(requisicao.datacriada BETWEEN '" + dataI
-					+ "' AND '" + dataF + "') ORDER BY requisicao.id";
+			String sql = "WHERE " + ((projeto == null) ? "" : "projeto.id = " + projeto.getId() + " AND ")
+					+ "(requisicao.datacriada BETWEEN '" + dataI + "' AND '" + dataF + "') ORDER BY requisicao.id";
 			parameters.put("filtro", sql);
 
 			System.out.println(sql);

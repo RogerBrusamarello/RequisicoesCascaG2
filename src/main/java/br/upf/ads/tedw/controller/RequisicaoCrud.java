@@ -81,6 +81,13 @@ public class RequisicaoCrud implements Serializable {
 		em.close();
 	}
 
+	@SuppressWarnings("unchecked")
+	public void carregarListaX() {
+		EntityManager em = JPAUtil.getEntityManager();
+		lista = em.createQuery("from Requisicao order by titulo").getResultList();
+		em.close();
+	}
+
 	public void incluir() {
 		editando = true;
 		selecionado = new Requisicao();
