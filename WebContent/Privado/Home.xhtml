@@ -20,8 +20,6 @@
 .ui-layout-north .ui-layout-unit-content {
 	overflow: visible !important;
 }
-
-
 </style>
 
 </h:head>
@@ -152,51 +150,62 @@
 					</p:submenu>
 
 					<p:submenu label="RELATÓRIOS"
-						rendered="#{loginController.permissao >= loginController.vlrUsuario}">
+						rendered="#{loginController.permissao >= loginController.vlrCliente}">
 						<p:submenu label="Pessoas"
 							rendered="#{loginController.permissao >= loginController.vlrUsuario}">
 
 							<p:menuitem value="Pessoas" target="_blank" icon="pi pi-id-card"
-								action="#{homeCon.relPessoas}" ajax="false" />
+								action="#{homeCon.relPessoas}" ajax="false"
+								rendered="#{loginController.permissao >= loginController.vlrAdministrador}" />
 
 							<p:menuitem value="Usuário" target="_blank" icon="pi pi-user"
-								action="#{homeCon.relUsuarios}" ajax="false" />
+								action="#{homeCon.relUsuarios}" ajax="false"
+								rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
 
 							<p:menuitem value="Administrador" target="_blank"
 								icon="pi pi-user-plus" action="#{homeCon.relAdministradores}"
-								ajax="false" />
+								ajax="false"
+								rendered="#{loginController.permissao >= loginController.vlrAdministrador}" />
 
 							<p:menuitem value="Cliente" icon="pi pi-users" target="centro"
-								url="../Privado/ClienteRelFiltro.xhtml" />
+								url="../Privado/ClienteRelFiltro.xhtml"
+								rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
 
 						</p:submenu>
 						<p:submenu label="Documentos"
 							rendered="#{loginController.permissao >= loginController.vlrCliente}">
 
 							<p:menuitem value="Projetos" target="_blank" icon="pi pi-file-o"
-								action="#{homeCon.relProjeto}" ajax="false"  rendered="true"/>
+								action="#{homeCon.relProjeto}" ajax="false"
+								rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
 
 							<p:menuitem value="Projeto (Filtro)" icon="pi pi-file-o"
-								target="centro" url="../Privado/ProjetoRelFiltro.xhtml"  rendered="false"/>
+								target="centro" url="../Privado/ProjetoRelFiltro.xhtml"
+								rendered="false" />
 
 							<p:menuitem value="Clientes do Projeto" target="_blank"
 								icon="pi pi-file-o" action="#{homeCon.relProjetoCliente}"
-								ajax="false" rendered="true"/>
+								ajax="false"
+								rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
 
 							<p:menuitem value="Requisições por Projeto" icon="pi pi-file-o"
-								target="centro" url="../Privado/RequisicaoRelFiltro.xhtml" rendered="true"/>
+								target="centro" url="../Privado/RequisicaoRelFiltro.xhtml"
+								rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
 
 							<p:menuitem value="Andamento de Requisições" target="centro"
 								icon="pi pi-file-o"
-								url="../Privado/RequisicaoAndamentoRelFiltro.xhtml" rendered="true"/>
+								url="../Privado/RequisicaoAndamentoRelFiltro.xhtml"
+								rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
 
 							<p:menuitem value="Requisições Progamadas" target="centro"
 								icon="pi pi-file-o"
-								url="../Privado/RequisicaoProgramadaRelFiltro.xhtml" rendered="true"/>
+								url="../Privado/RequisicaoProgramadaRelFiltro.xhtml"
+								rendered="#{loginController.permissao >= loginController.vlrUsuario}" />
 
 							<p:menuitem value="Requisições do Cliente" target="centro"
 								icon="pi pi-file-o"
-								url="../Privado/RequisicaoClienteRelFiltro.xhtml" rendered="true"/>
+								url="../Privado/RequisicaoClienteRelFiltro.xhtml"
+								rendered="#{loginController.permissao >= loginController.vlrCliente}" />
 
 							<p:menuitem value="X Usuários do Projeto" target="_blank"
 								icon="pi pi-file-o" action="#{homeCon.relProjetoUsuario}"
@@ -204,15 +213,15 @@
 
 							<p:menuitem value="X Requisição" target="_blank"
 								icon="pi pi-file-o" action="#{homeCon.relRequisicao}"
-								ajax="false" rendered="false"/>
+								ajax="false" rendered="false" />
 
 							<p:menuitem value="X Requisição Solicitante" target="_blank"
 								icon="pi pi-file-o" action="#{homeCon.relRequisicaoSolicitou}"
-								ajax="false" rendered="false"/>
+								ajax="false" rendered="false" />
 
 							<p:menuitem value="X Requisição Criador" target="_blank"
 								icon="pi pi-file-o" action="#{homeCon.relRequisicaoCriou}"
-								ajax="false" rendered="false"/>
+								ajax="false" rendered="false" />
 
 						</p:submenu>
 
@@ -228,7 +237,8 @@
 
 		<!-- Área para carregar os programas -->
 		<p:layoutUnit position="center">
-			<iframe name="centro" id="centro" style="width: 100%; height: 100%; border: none;" />
+			<iframe name="centro" id="centro"
+				style="width: 100%; height: 100%; border: none;" />
 		</p:layoutUnit>
 
 	</p:layout>

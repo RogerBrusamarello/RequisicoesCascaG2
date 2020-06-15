@@ -34,9 +34,8 @@ public class RequisicaoClienteRelFiltro implements Serializable {
 		EntityManager em = JPAUtil.getEntityManager();
 		if (login.pessoaLogada instanceof Cliente) {
 			@SuppressWarnings("unchecked")
-			List<Cliente> results = em
-					.createQuery("from Cliente where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' "
-							+ " and cliente.id = " + login.pessoaLogada.getId() + " order by nome")
+			List<Cliente> results = em.createQuery("FROM Cliente WHERE UPPER(nome) like " + "'"
+					+ query.trim().toUpperCase() + "%' " + " and id = " + login.pessoaLogada.getId() + " order by nome")
 					.getResultList();
 			em.close();
 			return results;
@@ -57,8 +56,11 @@ public class RequisicaoClienteRelFiltro implements Serializable {
 			@SuppressWarnings("rawtypes")
 			HashMap parameters = new HashMap();
 
-			String sql = ((cliente == null) ? "" : "WHERE projeto.cliente_id = " + cliente.getId())
-					+ " ORDER BY pessoa.nome, projeto.nome";
+			String sql = ((cliente == null)
+					? ((login.pessoaLogada instanceof Cliente)
+							? "WHERE projeto.cliente_id = " + login.pessoaLogada.getId()
+							: "")
+					: "WHERE projeto.cliente_id = " + cliente.getId()) + " ORDER BY pessoa.nome, projeto.nome";
 
 			parameters.put("filtroRequisicao", sql);
 
@@ -70,6 +72,10 @@ public class RequisicaoClienteRelFiltro implements Serializable {
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
 		}
+	}
+
+	public LoginController getLogin() {
+		return login;
 	}
 
 	public void setLogin(LoginController login) {
