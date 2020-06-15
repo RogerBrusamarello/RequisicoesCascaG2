@@ -1,7 +1,6 @@
 package br.upf.ads.tedw.relatorios;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,7 +12,6 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 
 import br.upf.ads.tedw.beans.Cliente;
-import br.upf.ads.tedw.beans.Projeto;
 import br.upf.ads.tedw.controller.LoginController;
 import br.upf.ads.tedw.jpa.JPAUtil;
 
@@ -22,9 +20,6 @@ import br.upf.ads.tedw.jpa.JPAUtil;
 public class RequisicaoClienteRelFiltro implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Date dataIni;
-	private Date dataFim;
-	private Projeto projeto;
 	private Cliente cliente;
 
 	@ManagedProperty(value = "#{loginController}")
@@ -62,46 +57,19 @@ public class RequisicaoClienteRelFiltro implements Serializable {
 			@SuppressWarnings("rawtypes")
 			HashMap parameters = new HashMap();
 
-			String sql = (cliente != null ? "WHERE projeto.cliente.id = " + cliente.getId() + " " : "")
-					+ "ORDER BY requisicao.id";
+			String sql = ((cliente == null) ? "" : "WHERE projeto.cliente_id = " + cliente.getId())
+					+ " ORDER BY pessoa.nome, projeto.nome";
 
-			parameters.put("filtroRequisicaoCliente", sql);
+			parameters.put("filtroRequisicao", sql);
 
 			System.out.println(sql);
 
-			//RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Requisicao/RequisicaoClienteRelGroup.jasper", parameters);
+			RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Requisicao/RequisicaoClienteRelGroup.jasper",
+					parameters);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
 		}
-	}
-
-	public Date getDataIni() {
-		return dataIni;
-	}
-
-	public void setDataIni(Date dataIni) {
-		this.dataIni = dataIni;
-	}
-
-	public Date getDataFim() {
-		return dataFim;
-	}
-
-	public void setDataFim(Date dataFim) {
-		this.dataFim = dataFim;
-	}
-
-	public Projeto getProjeto() {
-		return projeto;
-	}
-
-	public void setProjeto(Projeto projeto) {
-		this.projeto = projeto;
-	}
-
-	public LoginController getLogin() {
-		return login;
 	}
 
 	public void setLogin(LoginController login) {
