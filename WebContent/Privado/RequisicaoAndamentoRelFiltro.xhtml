@@ -8,10 +8,10 @@
 	<title>Relatório de Andamento de Requisição</title>
 
 	<style type="text/css">
-		.ui-outputLabel {
-			color: #F2F5A9 !important;
-		}
-	</style>
+.ui-outputLabel {
+	color: #F2F5A9 !important;
+}
+</style>
 
 </h:head>
 
@@ -20,6 +20,7 @@
 		style="color: #FFBF00; font-weight: bolder; font-size: 20;" />
 	<p:separator />
 	<h:form id="formFiltro" target="_blank">
+		
 		<p:growl></p:growl>
 		<p:panelGrid columns="2">
 
@@ -49,7 +50,7 @@
 
 		<p:spacer width="00" height="30" />
 		<p:commandButton value="Gerar" icon="pi pi-save" ajax="false"
-			action="#{requisicaoAndamentoRelFiltro.gerar}" />
+			action="#{requisicaoAndamentoRelFiltro.gerar}" disable="false" />
 
 	</h:form>
 </h:body>

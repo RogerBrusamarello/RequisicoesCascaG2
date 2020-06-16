@@ -34,15 +34,15 @@ public class RequisicaoClienteRelFiltro implements Serializable {
 		EntityManager em = JPAUtil.getEntityManager();
 		if (login.pessoaLogada instanceof Cliente) {
 			@SuppressWarnings("unchecked")
-			List<Cliente> results = em.createQuery("FROM Cliente WHERE UPPER(nome) like " + "'"
-					+ query.trim().toUpperCase() + "%' " + " and id = " + login.pessoaLogada.getId() + " order by nome")
+			List<Cliente> results = em.createQuery("FROM Cliente WHERE UPPER(nome) LIKE " + "'"
+					+ query.trim().toUpperCase() + "%' " + " and id = " + login.pessoaLogada.getId() + " ORDER BY nome")
 					.getResultList();
 			em.close();
 			return results;
 		} else {
 			@SuppressWarnings("unchecked")
 			List<Cliente> results = em.createQuery(
-					"from Cliente where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by nome")
+					"FROM Cliente WHERE UPPER(nome) LIKE " + "'" + query.trim().toUpperCase() + "%' " + "ORDER BY nome")
 					.getResultList();
 			em.close();
 			return results;
