@@ -39,7 +39,8 @@ public class Projeto implements Serializable {
 	private String nome;
 
 	@NotBlank(message = "Informe a descrição")
-	@Lob
+	//@Lob
+	@Column(columnDefinition = "text")
 	private String descricao;
 
 	@NotNull(message = "Selecione o Usuário")

@@ -1,5 +1,6 @@
 package br.upf.ads.tedw.jpa;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.EntityManager;
@@ -8,17 +9,26 @@ import br.upf.ads.tedw.beans.Administrador;
 import br.upf.ads.tedw.beans.Cliente;
 import br.upf.ads.tedw.beans.Projeto;
 import br.upf.ads.tedw.beans.Requisicao;
+import br.upf.ads.tedw.beans.RequisicaoAndamento;
+import br.upf.ads.tedw.beans.RequisicaoProgramada;
 import br.upf.ads.tedw.beans.Usuario;
 import br.upf.ads.tedw.controller.AdministradorCrud;
 import br.upf.ads.tedw.controller.ClienteCrud;
 import br.upf.ads.tedw.controller.ProjetoCrud;
+import br.upf.ads.tedw.controller.RequisicaoAndamentoCrud;
+import br.upf.ads.tedw.controller.RequisicaoCrud;
 import br.upf.ads.tedw.controller.UsuarioCrud;
 import br.upf.ads.tedw.suport.Email;
 
 public class CriarBase {
 
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args) throws Throwable {
 
+		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+		Date dataFormatada;
+		Integer horas;
+		
 		EntityManager em = JPAUtil.getEntityManager();
 		em.getTransaction().begin();
 
@@ -31,11 +41,14 @@ public class CriarBase {
 		Cliente c = new Cliente();
 		Projeto proj = new Projeto();
 		Requisicao req = new Requisicao();
-
+		RequisicaoProgramada reqProg = new RequisicaoProgramada();
+		RequisicaoAndamento reqAnd = new RequisicaoAndamento();
+		
 		ClienteCrud cc = new ClienteCrud();
 		UsuarioCrud uc = new UsuarioCrud();
 		AdministradorCrud ac = new AdministradorCrud();
 		ProjetoCrud pc = new ProjetoCrud();
+		RequisicaoCrud rc = new RequisicaoCrud();
 
 		/**
 		 * Pessoas
@@ -198,11 +211,124 @@ public class CriarBase {
 		req.setSolicitou(c);
 		req.setCriou(u);
 		em.merge(req);
+		
+		pc.carregarLista();
+		proj = pc.getLista().get(1);
+		uc.carregarLista();
+		u = uc.getLista().get(1);
+		cc.carregarLista();
+		c = cc.getLista().get(2);
+		
+		req.setTitulo("Requisição XPRO");
+		req.setDescricao("Incluir função X. Mais informações no decorrer");
+		req.setDataCriada(new Date());
+		req.setPrioridade(2);
+		req.setHorasPrevistas(10);
+		req.setProjeto(proj);
+		req.setSolicitou(c);
+		req.setCriou(u);
+		em.merge(req);
 
+		em.getTransaction().commit();
+		em.getTransaction().begin();
+		
 		/**
-		 * RequisicaoAndamento e RequisicaoProgramada não definidos...
+		 * RequisicaoProgramada 
 		 */
-
+		uc.carregarLista();
+		u = uc.getLista().get(1);
+		rc.carregarListaX();
+		req = rc.getLista().get(0);
+		
+		reqProg.setData(new Date());
+		dataFormatada = formatador.parse("16/06/2020");
+		reqProg.setDataInicio(dataFormatada);
+		dataFormatada = formatador.parse("23/06/2020");
+		reqProg.setDataTermino(dataFormatada);
+		reqProg.setRequisicao(req);
+		reqProg.setPessoa(u);
+		em.merge(reqProg);
+		
+		uc.carregarLista();
+		u = uc.getLista().get(1);
+		rc.carregarListaX();
+		req = rc.getLista().get(1);
+		
+		reqProg.setData(new Date());
+		dataFormatada = formatador.parse("18/06/2020");
+		reqProg.setDataInicio(dataFormatada);
+		dataFormatada = formatador.parse("25/06/2020");
+		reqProg.setDataTermino(dataFormatada);
+		reqProg.setRequisicao(req);
+		reqProg.setPessoa(u);
+		em.merge(reqProg);
+		
+		/**
+		 * RequisicaoAndamento 
+		 */
+		uc.carregarLista();
+		u = uc.getLista().get(1);
+		rc.carregarListaX();
+		req = rc.getLista().get(0);
+		
+		reqAnd.setRequisicao(req);
+		reqAnd.setPessoa(u);
+		dataFormatada = formatador.parse("20/06/2020");
+		reqAnd.setData(dataFormatada);
+		reqAnd.setTitulo("Codificação");
+		reqAnd.setDescricao("Função solicitada inserida com sucesso");
+		horas = 8;
+		reqAnd.setHorasRealizadas(horas);
+		req.setHorasRealizadas(req.getHorasRealizadas() + horas);
+		reqAnd.setStatus('N');
+		//req.setDataFinalizada(dataFormatada);
+		em.merge(reqAnd);
+		em.merge(req);
+		
+		em.getTransaction().commit();
+		em.getTransaction().begin();
+		
+		uc.carregarLista();
+		u = uc.getLista().get(1);
+		rc.carregarListaX();
+		req = rc.getLista().get(0);
+		
+		reqAnd.setRequisicao(req);
+		reqAnd.setPessoa(u);
+		dataFormatada = formatador.parse("22/06/2020");
+		reqAnd.setData(dataFormatada);
+		reqAnd.setTitulo("Teste Final do Projeto");
+		reqAnd.setDescricao("Testes realizados com sucesso.");
+		horas = 4;
+		reqAnd.setHorasRealizadas(horas);
+		req.setHorasRealizadas(req.getHorasRealizadas() + horas);
+		reqAnd.setStatus('F');
+		req.setDataFinalizada(dataFormatada);
+		em.merge(reqAnd);
+		em.merge(req);
+		
+		em.getTransaction().commit();
+		em.getTransaction().begin();
+		
+		uc.carregarLista();
+		u = uc.getLista().get(0);
+		rc.carregarListaX();
+		req = rc.getLista().get(2);
+		
+		reqAnd.setRequisicao(req);
+		reqAnd.setPessoa(u);
+		dataFormatada = formatador.parse("20/06/2020");
+		reqAnd.setData(dataFormatada);
+		reqAnd.setTitulo("Projeto da Função");
+		reqAnd.setDescricao("Requisitos discutidos e definidos");
+		horas = 4;
+		reqAnd.setHorasRealizadas(horas);
+		req.setHorasRealizadas(req.getHorasRealizadas() + horas);
+		reqAnd.setStatus('N');
+		//req.setDataFinalizada(dataFormatada);
+		em.merge(reqAnd);
+		em.merge(req);
+		
 		em.getTransaction().commit();
 		em.close();
 	}

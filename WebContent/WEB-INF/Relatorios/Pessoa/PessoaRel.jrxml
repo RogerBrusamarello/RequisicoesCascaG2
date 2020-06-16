@@ -107,42 +107,49 @@ FROM pessoa
 				<reportElement style="Column header" x="0" y="0" width="30" height="15" forecolor="#736343" uuid="d16ae7e4-0dfa-4a75-ab25-4ff6beb82131">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e984e40c-74e2-4e25-965c-dbc9ea2186d3"/>
 				</reportElement>
+				<textElement textAlignment="Left"/>
 				<text><![CDATA[id]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="30" y="0" width="170" height="15" forecolor="#736343" uuid="866df3ae-ab56-4997-bebd-5d626efa8ddd">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="33cd75c9-6404-4b5c-90fc-af06883e27e5"/>
 				</reportElement>
+				<textElement textAlignment="Left"/>
 				<text><![CDATA[Nome]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="200" y="0" width="142" height="15" forecolor="#736343" uuid="6f98c2ae-93c8-4031-993f-800e23328200">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a2de5be7-b6e1-4f03-a680-d3929461593b"/>
 				</reportElement>
+				<textElement textAlignment="Left"/>
 				<text><![CDATA[E-mail]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="342" y="0" width="114" height="15" forecolor="#736343" uuid="5201029a-da5e-4016-950d-c02dea33f63f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d6cbd9f7-a3e5-4b06-a193-666746f6b1b6"/>
 				</reportElement>
+				<textElement textAlignment="Left"/>
 				<text><![CDATA[Celular]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="456" y="0" width="104" height="15" forecolor="#736343" uuid="3b9aa2df-6143-48f9-8f8c-b7ffce641c5c">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a602b514-7ff8-4814-b970-0af88db72e63"/>
 				</reportElement>
+				<textElement textAlignment="Left"/>
 				<text><![CDATA[CPF]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="560" y="0" width="80" height="15" forecolor="#736343" uuid="d77d3ed0-58a3-41b4-a0b6-cb34a5bc0f1c">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4744633d-544b-4606-8b50-6970de08ad53"/>
 				</reportElement>
+				<textElement textAlignment="Left"/>
 				<text><![CDATA[RG]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="640" y="0" width="158" height="15" forecolor="#736343" uuid="c959a83b-aab2-44f3-ac8a-e3f45c409095">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="73d20143-5797-4275-9694-49fe277cb76b"/>
 				</reportElement>
+				<textElement textAlignment="Left"/>
 				<text><![CDATA[Outras Informações]]></text>
 			</staticText>
 		</band>
@@ -155,42 +162,49 @@ FROM pessoa
 					<reportElement style="Detail" x="0" y="0" width="30" height="15" uuid="5bee8631-8756-4959-8437-b5949240aa59">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e984e40c-74e2-4e25-965c-dbc9ea2186d3"/>
 					</reportElement>
+					<textElement textAlignment="Left"/>
 					<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
 					<reportElement style="Detail" x="30" y="0" width="170" height="15" uuid="c69e43a7-d08e-4a03-9df8-a19cf88b156d">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="33cd75c9-6404-4b5c-90fc-af06883e27e5"/>
 					</reportElement>
+					<textElement textAlignment="Left"/>
 					<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
 					<reportElement style="Detail" x="200" y="0" width="142" height="15" uuid="facbb890-c237-421d-9980-6fea64d37097">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a2de5be7-b6e1-4f03-a680-d3929461593b"/>
 					</reportElement>
+					<textElement textAlignment="Left"/>
 					<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
 					<reportElement style="Detail" x="342" y="0" width="114" height="15" uuid="8ba86a3a-525f-4d83-a752-5df9cf8b5a41">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d6cbd9f7-a3e5-4b06-a193-666746f6b1b6"/>
 					</reportElement>
+					<textElement textAlignment="Left"/>
 					<textFieldExpression><![CDATA[$F{celular}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
 					<reportElement style="Detail" x="456" y="0" width="104" height="15" uuid="51e7f5cf-8e66-40ec-a77e-12c9dc4491a5">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a602b514-7ff8-4814-b970-0af88db72e63"/>
 					</reportElement>
+					<textElement textAlignment="Left"/>
 					<textFieldExpression><![CDATA[$F{cpf}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
 					<reportElement style="Detail" x="560" y="0" width="80" height="15" uuid="bb52948f-034b-4ada-845f-f89e0bfaf045">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4744633d-544b-4606-8b50-6970de08ad53"/>
 					</reportElement>
+					<textElement textAlignment="Left"/>
 					<textFieldExpression><![CDATA[$F{rg}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
 					<reportElement style="Detail" x="640" y="0" width="158" height="15" uuid="2f645789-e9bd-4778-a252-c7ca241bc3a1">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="73d20143-5797-4275-9694-49fe277cb76b"/>
 					</reportElement>
+					<textElement textAlignment="Left"/>
 					<textFieldExpression><![CDATA[$F{outrasinformacoes}]]></textFieldExpression>
 				</textField>
 			</frame>

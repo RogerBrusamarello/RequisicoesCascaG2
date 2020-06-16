@@ -20,18 +20,22 @@ import br.upf.ads.tedw.jpa.JPAUtil;
 
 @ManagedBean
 @RequestScoped
-public class RequisicaoRelFiltro implements Serializable {
+public class RequisicaoProgramadaRelFiltro implements Serializable {
 
 	SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 
+	private static final long serialVersionUID = 1L;
 	private Date dataIni;
 	private Date dataFim;
 	private Projeto projeto;
+	private boolean ignoraStatus;
+	private boolean statusProgramada;
+	private boolean statusFinalizada;
 
 	@ManagedProperty(value = "#{loginController}")
 	private LoginController login;
 
-	public RequisicaoRelFiltro() {
+	public RequisicaoProgramadaRelFiltro() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -67,14 +71,23 @@ public class RequisicaoRelFiltro implements Serializable {
 			@SuppressWarnings("rawtypes")
 			HashMap parameters = new HashMap();
 
-			String sql = "WHERE " + ((projeto == null) ? "" : "projeto.id = " + projeto.getId() + " AND ")
-					+ "(requisicao.datacriada BETWEEN '" + dataI + "' AND '" + dataF + "') ORDER BY requisicao.id";
-			parameters.put("filtro", sql);
+			String sql = "WHERE " + (projeto != null ? "requisicao.projeto_id = " + projeto.getId() + " AND " : "")
+					+ (ignoraStatus == true ? ""
+							: (statusProgramada == true ? "requisicaoprogramada.datainicio IS NOT NULL"
+									: "requisicaoprogramada.datainicio IS NULL")
+									+ " AND "
+									+ (statusFinalizada == true ? "requisicaoandamento.status = 'F'"
+											: "(requisicaoandamento.status = 'N' OR requisicaoandamento.requisicao_id IS NULL)")
+									+ " AND ")
+					+ "(requisicao.datacriada BETWEEN '" + dataI + "' AND '" + dataF + "') " + "ORDER BY requisicao.id";
+
+			parameters.put("filtroRequisicao", sql);
 
 			System.out.println(sql);
 
-			RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Requisicao/RequisicaoPorProjetoRelFiltro.jasper",
+			RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Requisicao/RequisicaoProgramadaRelGroup.jasper",
 					parameters);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
@@ -111,6 +124,30 @@ public class RequisicaoRelFiltro implements Serializable {
 
 	public void setLogin(LoginController login) {
 		this.login = login;
+	}
+
+	public boolean isStatusProgramada() {
+		return statusProgramada;
+	}
+
+	public void setStatusProgramada(boolean statusProgramada) {
+		this.statusProgramada = statusProgramada;
+	}
+
+	public boolean isStatusFinalizada() {
+		return statusFinalizada;
+	}
+
+	public void setStatusFinalizada(boolean statusFinalizada) {
+		this.statusFinalizada = statusFinalizada;
+	}
+
+	public boolean isIgnoraStatus() {
+		return ignoraStatus;
+	}
+
+	public void setIgnoraStatus(boolean ignoraStatus) {
+		this.ignoraStatus = ignoraStatus;
 	}
 
 }

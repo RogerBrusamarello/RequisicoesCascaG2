@@ -1,7 +1,6 @@
 package br.upf.ads.tedw.relatorios;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -20,18 +19,16 @@ import br.upf.ads.tedw.jpa.JPAUtil;
 
 @ManagedBean
 @RequestScoped
-public class RequisicaoRelFiltro implements Serializable {
+public class ProjetoRelFiltro implements Serializable {
 
-	SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+	private static final long serialVersionUID = 1L;
 
-	private Date dataIni;
-	private Date dataFim;
 	private Projeto projeto;
 
 	@ManagedProperty(value = "#{loginController}")
 	private LoginController login;
 
-	public RequisicaoRelFiltro() {
+	public ProjetoRelFiltro() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -60,41 +57,19 @@ public class RequisicaoRelFiltro implements Serializable {
 	@SuppressWarnings("unchecked")
 	public void gerar() {
 		try {
-
-			String dataI = formatador.format(dataIni);
-			String dataF = formatador.format(dataFim);
-
 			@SuppressWarnings("rawtypes")
 			HashMap parameters = new HashMap();
+			// passar os parâmetros
+			parameters.put("projetoId", projeto.getId());
 
-			String sql = "WHERE " + ((projeto == null) ? "" : "projeto.id = " + projeto.getId() + " AND ")
-					+ "(requisicao.datacriada BETWEEN '" + dataI + "' AND '" + dataF + "') ORDER BY requisicao.id";
-			parameters.put("filtro", sql);
+			String sql = "and requisicao.id > 0 order by requisicao.id";
+			parameters.put("filtroId", sql);
 
-			System.out.println(sql);
-
-			RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Requisicao/RequisicaoPorProjetoRelFiltro.jasper",
-					parameters);
+			RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Projeto/ProjetoRequisicoesRel.jasper", parameters);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
 		}
-	}
-
-	public Date getDataIni() {
-		return dataIni;
-	}
-
-	public void setDataIni(Date dataIni) {
-		this.dataIni = dataIni;
-	}
-
-	public Date getDataFim() {
-		return dataFim;
-	}
-
-	public void setDataFim(Date dataFim) {
-		this.dataFim = dataFim;
 	}
 
 	public Projeto getProjeto() {

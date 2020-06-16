@@ -1,0 +1,46 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Relatório de Requisições do Cliente</title>
+
+	<style type="text/css">
+		.ui-outputLabel {
+			color: #F2F5A9 !important;
+		}
+		
+		.ui-outputText {
+			color: #F2F5A9 !important;
+		}
+	</style>
+
+</h:head>
+
+<h:body>
+	<h:outputText value="Relatório de Requisições do Cliente"
+		style="color: #FFBF00; font-weight: bolder; font-size: 20;" />
+	<p:separator />
+	<h:form id="formFiltro" target="_blank">
+		<p:growl></p:growl>
+		<p:panelGrid columns="2">
+
+			<p:outputLabel value="Cliente:" for="inputCliente" />
+			<p:autoComplete id="inputCliente" dropdown="true" multiple="false"
+				forceSelection="true" var="obj" itemLabel="#{obj.nome}"
+				itemValue="#{obj}" value="#{requisicaoClienteRelFiltro.cliente}"
+				converter="ClienteConverter"
+				completeMethod="#{requisicaoClienteRelFiltro.completeCliente}"
+				required="false" />
+
+		</p:panelGrid>
+
+		<p:spacer width="00" height="30" />
+		<p:commandButton value="Gerar" icon="pi pi-save" ajax="false"
+			action="#{requisicaoClienteRelFiltro.gerar}" />
+
+	</h:form>
+</h:body>
+</html>

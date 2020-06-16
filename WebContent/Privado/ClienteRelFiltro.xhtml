@@ -8,14 +8,14 @@
 	<title>Relatório de Clientes</title>
 
 	<style type="text/css">
-.ui-outputLabel {
-	color: #F2F5A9 !important;
-}
-
-.ui-outputText {
-	color: #F2F5A9 !important;
-}
-</style>
+		.ui-outputLabel {
+			color: #F2F5A9 !important;
+		}
+		
+		.ui-outputText {
+			color: #F2F5A9 !important;
+		}
+	</style>
 
 </h:head>
 
@@ -35,17 +35,18 @@
 			<p:inputText id="funcao" required="false"
 				value="#{clienteRelFiltro.funcao}" size="20" />
 
-			<h:outputText value="Agrupar por cargo: " style="color: #F2F5A9;"/>
+			<h:outputText value="Agrupar por função: " style="color: #F2F5A9;" />
 			<p:selectBooleanButton id="value1" value="#{clienteRelFiltro.value1}"
 				onLabel="Sim" offLabel="Não" onIcon="pi pi-check"
 				offIcon="pi pi-times" style="width:80px" />
 
-			<h:outputText value="Ordenar por código: " style="color: #F2F5A9;"/>
+			<h:outputText value="Ordenar por código: " style="color: #F2F5A9;" />
 			<p:selectBooleanButton id="value2" value="#{clienteRelFiltro.value2}"
 				onLabel="Sim" offLabel="Não" onIcon="pi pi-check"
 				offIcon="pi pi-times" style="width:80px" />
 
-			<h:outputText value="Pesquisar E-mail (Base nome): " style="color: #F2F5A9;"/>
+			<h:outputText value="Pesquisar E-mail (Base nome): "
+				style="color: #F2F5A9;" />
 			<p:selectBooleanButton id="value3" value="#{clienteRelFiltro.value3}"
 				onLabel="Sim" offLabel="Não" onIcon="pi pi-check"
 				offIcon="pi pi-times" style="width:80px" />
@@ -54,16 +55,8 @@
 
 		<p:spacer width="00" height="30" />
 		<p:commandButton value="Gerar" icon="pi pi-save" ajax="false"
-			action="#{clienteRelFiltro.gerar}" oncomplete="PF('dlg').show()" update="display" />
-
-		<p:dialog id="dialog" header="Values" modal="true" resizable="false"
-			showEffect="fade" widgetVar="dlg">
-			<h:panelGrid columns="1" id="display">
-				<h:outputText value="Value 1: #{clienteRelFiltro.value1}" />
-				<h:outputText value="Value 2: #{clienteRelFiltro.value2}" />
-				<h:outputText value="Value 3: #{clienteRelFiltro.value3}" />
-			</h:panelGrid>
-		</p:dialog>
+			action="#{clienteRelFiltro.gerar}" oncomplete="PF('dlg').show()"
+			update="display" />
 
 	</h:form>
 </h:body>

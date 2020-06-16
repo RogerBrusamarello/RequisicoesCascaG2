@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
@@ -19,9 +18,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
-
-import br.upf.ads.tedw.annotation.EnumValidate;
-import br.upf.ads.tedw.suport.Letra;
 
 /**
  * Entity implementation class for Entity: RequisicaoAndamento
@@ -63,7 +59,6 @@ public class RequisicaoAndamento implements Serializable {
 	// para null, reabrindo a requisição
 	// @StringOptionsValid(message = "Status valido", opcoes= {"F", "N"})
 	@Column(nullable = false)
-	@EnumValidate(enumClass = Letra.class, message = "Você deve informar um status válido.")
 	private Character status;
 
 	@ManyToOne(optional = false)

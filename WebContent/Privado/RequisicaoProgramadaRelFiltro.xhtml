@@ -1,0 +1,71 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Relatório de Requisições Programadas</title>
+
+	<style type="text/css">
+.ui-outputLabel {
+	color: #f2f5a9 !important;
+}
+
+.ui-outputText {
+	color: #f2f5a9 !important;
+}
+</style>
+</h:head>
+
+<h:body>
+	<h:outputText value="Relatório de Requisições Programadas"
+		style="color: #ffbf00; font-weight: bolder; font-size: 20;" />
+	<p:separator />
+	<h:form id="formFiltro" target="_blank">
+		<p:growl></p:growl>
+		<p:panelGrid columns="2">
+			<p:outputLabel value="Projeto:" for="inputProjeto" />
+			<p:autoComplete id="inputProjeto" dropdown="true" multiple="false"
+				forceSelection="true" var="obj" itemLabel="#{obj.nome}"
+				itemValue="#{obj}" value="#{requisicaoProgramadaRelFiltro.projeto}"
+				converter="ProjetoConverter"
+				completeMethod="#{requisicaoProgramadaRelFiltro.completeProjeto}"
+				required="false" />
+
+			<p:outputLabel for="dataIni" value="Data Inicial:" />
+			<p:datePicker id="dataIni" required="true"
+				value="#{requisicaoProgramadaRelFiltro.dataIni}" readonly="false"
+				size="8" showIcon="true" pattern="dd/MM/yyyy" locale="de"
+				monthNavigator="true" yearNavigator="true">
+			</p:datePicker>
+
+			<p:outputLabel for="dataFim" value="Data Final:" />
+			<p:datePicker id="dataFim" required="true"
+				value="#{requisicaoProgramadaRelFiltro.dataFim}" readonly="false"
+				size="8" showIcon="true" pattern="dd/MM/yyyy" locale="de"
+				monthNavigator="true" yearNavigator="true">
+			</p:datePicker>
+
+			<h:outputText value="Ignora Status: " style="color: #f2f5a9;" />
+			<p:toggleSwitch value="#{requisicaoProgramadaRelFiltro.ignoraStatus}"  />
+
+			<h:outputText value="Programada: " style="color: #f2f5a9;" />
+			<p:selectBooleanButton id="value2"
+				value="#{requisicaoProgramadaRelFiltro.statusProgramada}"
+				onLabel="Sim" offLabel="Não" onIcon="pi pi-check"
+				offIcon="pi pi-times" style="width: 80px;"
+				disabled="false" />
+
+			<h:outputText value="Finalizada: " style="color: #f2f5a9;" />
+			<p:selectBooleanButton id="value3"
+				value="#{requisicaoProgramadaRelFiltro.statusFinalizada}"
+				onLabel="Sim" offLabel="Não" onIcon="pi pi-check"
+				offIcon="pi pi-times" style="width: 80px;" disabled="false" />
+		</p:panelGrid>
+
+		<p:spacer width="00" height="30" />
+		<p:commandButton value="Gerar" icon="pi pi-save" ajax="false"
+			action="#{requisicaoProgramadaRelFiltro.gerar}" disabled="false" />
+	</h:form>
+</h:body>
+</html>

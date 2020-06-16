@@ -20,10 +20,11 @@ import br.upf.ads.tedw.jpa.JPAUtil;
 
 @ManagedBean
 @RequestScoped
-public class RequisicaoRelFiltro implements Serializable {
+public class RequisicaoAndamentoRelFiltro implements Serializable {
 
 	SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 
+	private static final long serialVersionUID = 1L;
 	private Date dataIni;
 	private Date dataFim;
 	private Projeto projeto;
@@ -31,7 +32,7 @@ public class RequisicaoRelFiltro implements Serializable {
 	@ManagedProperty(value = "#{loginController}")
 	private LoginController login;
 
-	public RequisicaoRelFiltro() {
+	public RequisicaoAndamentoRelFiltro() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -54,7 +55,6 @@ public class RequisicaoRelFiltro implements Serializable {
 			em.close();
 			return results;
 		}
-
 	}
 
 	@SuppressWarnings("unchecked")
@@ -66,15 +66,17 @@ public class RequisicaoRelFiltro implements Serializable {
 
 			@SuppressWarnings("rawtypes")
 			HashMap parameters = new HashMap();
+			// passar os parâmetros
 
-			String sql = "WHERE " + ((projeto == null) ? "" : "projeto.id = " + projeto.getId() + " AND ")
-					+ "(requisicao.datacriada BETWEEN '" + dataI + "' AND '" + dataF + "') ORDER BY requisicao.id";
-			parameters.put("filtro", sql);
+			//String sql = (projeto != null ? " AND requisicao.projeto_id = " + projeto.getId() : "");
+			String sql = "WHERE " + (projeto != null ? "requisicao.projeto_id = " + projeto.getId() + " AND " : "")
+					+ "(requisicaoandamento.data BETWEEN '" + dataI + "' AND '" + dataF + "') " + "ORDER BY projeto.id, requisicao.id";
+
+			parameters.put("filtroAndRequisicao", sql);
 
 			System.out.println(sql);
 
-			RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Requisicao/RequisicaoPorProjetoRelFiltro.jasper",
-					parameters);
+			RelatorioUtil.rodarRelatorioPDF("WEB-INF/Relatorios/Requisicao/RequisicaoAndamentoRel.jasper", parameters);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage("Erro", new FacesMessage(e.getMessage()));
