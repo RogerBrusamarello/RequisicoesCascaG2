@@ -37,6 +37,7 @@
 				value="#{requisicaoProgramadaRelFiltro.dataIni}" readonly="false"
 				size="8" showIcon="true" pattern="dd/MM/yyyy" locale="de"
 				monthNavigator="true" yearNavigator="true">
+				<p:ajax event="blur" update="botaoGerar" process="@form"></p:ajax>
 			</p:datePicker>
 
 			<p:outputLabel for="dataFim" value="Data Final:" />
@@ -44,6 +45,7 @@
 				value="#{requisicaoProgramadaRelFiltro.dataFim}" readonly="false"
 				size="8" showIcon="true" pattern="dd/MM/yyyy" locale="de"
 				monthNavigator="true" yearNavigator="true">
+				<p:ajax event="blur" update="botaoGerar" process="@form"></p:ajax>
 			</p:datePicker>
 
 			<h:outputText value="Ignora Status: " style="color: #f2f5a9;" />
@@ -64,8 +66,9 @@
 		</p:panelGrid>
 
 		<p:spacer width="00" height="30" />
-		<p:commandButton value="Gerar" icon="pi pi-save" ajax="false"
-			action="#{requisicaoProgramadaRelFiltro.gerar}" disabled="false" />
+		<p:commandButton id="botaoGerar" value="Gerar" icon="pi pi-save" ajax="false"
+		    disabled="#{not facesContext.postback or facesContext.validationFailed}"
+			action="#{requisicaoProgramadaRelFiltro.gerar}" />
 	</h:form>
 </h:body>
 </html>
