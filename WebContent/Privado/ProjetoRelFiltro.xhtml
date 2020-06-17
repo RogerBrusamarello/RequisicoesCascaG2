@@ -38,6 +38,7 @@
 				value="#{requisicaoRelFiltro.dataIni}" readonly="false" size="8"
 				showIcon="true" pattern="dd/MM/yyyy" locale="de"
 				monthNavigator="true" yearNavigator="true">
+				<p:ajax event="blur" update="botaoGerar" process="@form"></p:ajax>
 			</p:datePicker>
 
 			<p:outputLabel for="dataFim" value="Data Final:" />
@@ -45,12 +46,14 @@
 				value="#{requisicaoRelFiltro.dataFim}" readonly="false" size="8"
 				showIcon="true" pattern="dd/MM/yyyy" locale="de"
 				monthNavigator="true" yearNavigator="true">
+				<p:ajax event="blur" update="botaoGerar" process="@form"></p:ajax>
 			</p:datePicker>
 
 		</p:panelGrid>
 
 		<p:spacer width="00" height="30" />
-		<p:commandButton value="Gerar" icon="pi pi-save" ajax="false"
+		<p:commandButton id="botaoGerar" value="Gerar" icon="pi pi-save" ajax="false"
+		    disabled="#{not facesContext.postback or facesContext.validationFailed}"
 			action="#{requisicaoRelFiltro.gerar}" />
 
 	</h:form>
