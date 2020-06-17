@@ -21,7 +21,7 @@
 
 <h:body>
 	<h:outputText value="Relatório de Requisições do Cliente"
-		style="color: #FFBF00; font-weight: bolder; font-size: 20;" />
+		style="color: #ffbf00; font-weight: bolder; font-size: 20; font-family: Open Sans, Helvetica Neue, sans-serif;" />
 	<p:separator />
 	<h:form id="formFiltro" target="_blank">
 		<p:growl></p:growl>
@@ -38,7 +38,7 @@
 		</p:panelGrid>
 
 		<p:spacer width="00" height="30" />
-		<p:commandButton value="Gerar" icon="pi pi-save" ajax="false"
+		<p:commandButton id="botaoGerar" value="Gerar" icon="pi pi-save" ajax="false"
 			action="#{requisicaoClienteRelFiltro.gerar}" />
 
 	</h:form>

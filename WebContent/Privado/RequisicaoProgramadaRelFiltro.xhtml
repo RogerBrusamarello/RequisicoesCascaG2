@@ -19,7 +19,7 @@
 
 <h:body>
 	<h:outputText value="Relatório de Requisições Programadas"
-		style="color: #ffbf00; font-weight: bolder; font-size: 20;" />
+		style="color: #ffbf00; font-weight: bolder; font-size: 20; font-family: Open Sans, Helvetica Neue, sans-serif;" />
 	<p:separator />
 	<h:form id="formFiltro" target="_blank">
 		<p:growl></p:growl>
@@ -48,20 +48,25 @@
 				<p:ajax event="blur" update="botaoGerar" process="@form"></p:ajax>
 			</p:datePicker>
 
-			<h:outputText value="Ignora Status: " style="color: #f2f5a9;" />
-			<p:toggleSwitch value="#{requisicaoProgramadaRelFiltro.ignoraStatus}"  />
+			<h:outputText value="Ignorar Status: " style="color: #f2f5a9;" />
+			<p:toggleSwitch value="#{requisicaoProgramadaRelFiltro.ignoraStatus}"  >
+			<!-- <p:ajax event="blur" update="value1" process="@form"></p:ajax>
+				<p:ajax event="blur" update="value2" process="@form"></p:ajax> -->	
+			</p:toggleSwitch>
 
 			<h:outputText value="Programada: " style="color: #f2f5a9;" />
 			<p:selectBooleanButton id="value2"
 				value="#{requisicaoProgramadaRelFiltro.statusProgramada}"
 				onLabel="Sim" offLabel="Não" onIcon="pi pi-check"
 				offIcon="pi pi-times" style="width: 80px;"
+				
 				disabled="false" />
 
 			<h:outputText value="Finalizada: " style="color: #f2f5a9;" />
 			<p:selectBooleanButton id="value3"
 				value="#{requisicaoProgramadaRelFiltro.statusFinalizada}"
 				onLabel="Sim" offLabel="Não" onIcon="pi pi-check"
+				
 				offIcon="pi pi-times" style="width: 80px;" disabled="false" />
 		</p:panelGrid>
 
