@@ -23,7 +23,7 @@
 FROM requisicao
 	INNER JOIN projeto ON 
 	 requisicao.projeto_id = projeto.id
-WHERE projeto.id =  $P{projeto} ]]>
+WHERE projeto.id =  $P{projeto}]]>
 	</queryString>
 	<field name="id" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
@@ -141,25 +141,25 @@ WHERE projeto.id =  $P{projeto} ]]>
 		<band height="15" splitType="Stretch">
 			<frame>
 				<reportElement style="Row" mode="Opaque" x="0" y="0" width="802" height="15" uuid="fa7cec56-4ec1-48e6-a26e-7266a995d174"/>
-				<textField textAdjust="StretchHeight">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" x="0" y="0" width="80" height="15" uuid="3384eae1-fd39-46f3-86fd-97f828b5880f">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="37c3b17b-3b48-4d36-b64c-b74d9a970eb4"/>
 					</reportElement>
 					<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 				</textField>
-				<textField textAdjust="StretchHeight">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" x="80" y="0" width="300" height="15" uuid="5f634264-69ba-4197-8c17-47c554cb95aa">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c422a8cf-4e07-43e9-907b-4a2d91aa9cb6"/>
 					</reportElement>
 					<textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
 				</textField>
-				<textField textAdjust="StretchHeight">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" x="380" y="0" width="200" height="15" uuid="fb8b62d0-30f5-41b3-b38a-0ccb29992719">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fa089cfc-8299-47c8-9b89-b80722aae2dc"/>
 					</reportElement>
 					<textFieldExpression><![CDATA[$F{datacriada}]]></textFieldExpression>
 				</textField>
-				<textField textAdjust="StretchHeight">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" x="580" y="0" width="200" height="15" uuid="ee79393f-9368-4c9d-8d09-f7ec7ff76d0e">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ca78ec49-75e5-4aee-9f1a-56a7656d71e8"/>
 					</reportElement>

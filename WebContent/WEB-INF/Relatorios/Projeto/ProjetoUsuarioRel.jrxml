@@ -114,25 +114,25 @@ FROM projeto
 		<band height="15" splitType="Stretch">
 			<frame>
 				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="15" uuid="a98495d8-3c8d-4fa0-81f5-30c3efc2f766"/>
-				<textField textAdjust="StretchHeight">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" x="0" y="0" width="80" height="15" uuid="06f6aa41-ed1b-4a2a-a273-6031288b7308">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="69130ff2-cd7f-44dc-971c-ae548c1ae0dc"/>
 					</reportElement>
 					<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 				</textField>
-				<textField textAdjust="StretchHeight">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" x="80" y="0" width="196" height="15" uuid="3ecbb0ce-8a0c-4712-a639-883403962c54">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="75e129aa-d54b-461f-ad51-5e663444a177"/>
 					</reportElement>
 					<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
 				</textField>
-				<textField textAdjust="StretchHeight">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" x="276" y="0" width="138" height="15" uuid="4c7c9e08-d8f3-4ff4-b7e4-1664c1111a34">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="39c89701-28ac-47f4-a610-e946dcab7060"/>
 					</reportElement>
 					<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
 				</textField>
-				<textField textAdjust="StretchHeight">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" x="414" y="0" width="138" height="15" uuid="f9ec86a8-4c81-439f-ac36-754589945535">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d9b2fd2b-b4f0-414e-b60a-b70ad8ba1890"/>
 					</reportElement>

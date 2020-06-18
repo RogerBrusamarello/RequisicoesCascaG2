@@ -127,31 +127,31 @@ FROM requisicao]]>
 		<band height="15" splitType="Stretch">
 			<frame>
 				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="15" uuid="a98495d8-3c8d-4fa0-81f5-30c3efc2f766"/>
-				<textField textAdjust="StretchHeight">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" x="0" y="0" width="60" height="15" uuid="09cf1d0e-db37-46ff-b8fd-88b6a0a393b0">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="62c5a1f7-a04c-4b86-9e6c-4b1337e78048"/>
 					</reportElement>
 					<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 				</textField>
-				<textField textAdjust="StretchHeight">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" x="60" y="0" width="162" height="15" uuid="bc1b5cd5-4dcf-4d9a-b118-bdd2dcedb2b1">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="63df6704-a6b5-4391-9f79-ff87f13c67bf"/>
 					</reportElement>
 					<textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
 				</textField>
-				<textField textAdjust="StretchHeight">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" x="222" y="0" width="144" height="15" uuid="b9865321-1b66-4788-bf10-f48e135d1e01">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4827d838-d91b-4d4e-8af1-24327ef01e43"/>
 					</reportElement>
 					<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
 				</textField>
-				<textField textAdjust="StretchHeight">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" x="366" y="0" width="94" height="15" uuid="8efc9601-c994-432f-97cd-442ecbd75a6d">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c1f620d1-68b0-4fc7-8ccc-20b388b75d4a"/>
 					</reportElement>
 					<textFieldExpression><![CDATA[$F{datacriada}]]></textFieldExpression>
 				</textField>
-				<textField textAdjust="StretchHeight">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" x="460" y="0" width="95" height="15" uuid="e01271c3-0293-4161-af28-9f1705fcf2db">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8126c483-f5d7-4839-bd6f-06a0ff6fcfd1"/>
 					</reportElement>

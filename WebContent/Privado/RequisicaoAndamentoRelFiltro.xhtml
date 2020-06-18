@@ -19,7 +19,7 @@
 	<h:outputText value="Relatório de Andamento de Requisições"
 		style="color: #ffbf00; font-weight: bolder; font-size: 20; font-family: Open Sans, Helvetica Neue, sans-serif;" />
 	<p:separator />
-	<h:form id="formFiltro">
+	<h:form id="formFiltro" target="_blank">
 
 		<p:growl></p:growl>
 		<p:panelGrid columns="2">
@@ -54,8 +54,6 @@
 		<p:commandButton id="botaoGerar" value="Gerar" icon="pi pi-save"
 			ajax="false"
 			disabled="#{not facesContext.postback or facesContext.validationFailed}"
-			validateClient="true"
-			oncomplete="if (!args.validationFailed){ document.getElementById('formFiltro').target='_blank';}"
 			action="#{requisicaoAndamentoRelFiltro.gerar}" />
 
 	</h:form>

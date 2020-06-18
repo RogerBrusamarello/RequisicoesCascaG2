@@ -91,19 +91,19 @@ FROM projeto]]>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement style="Detail" x="0" y="0" width="50" height="15" uuid="aeaa5e3b-aabb-4dc6-b458-addd56120c93">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4545fd96-ff79-4810-8a69-34fe9bbc1ba6"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement style="Detail" x="50" y="0" width="230" height="15" uuid="3dd11b70-83ca-48f8-9939-50956443b676">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8d30511d-ef84-4d89-a983-01604670aa18"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement style="Detail" x="280" y="0" width="230" height="15" uuid="629fe3c1-732b-47f6-bf06-e55914e6038d">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8d30511d-ef84-4d89-a983-01604670aa18"/>
 				</reportElement>

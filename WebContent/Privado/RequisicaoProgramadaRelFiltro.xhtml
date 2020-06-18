@@ -47,32 +47,29 @@
 				monthNavigator="true" yearNavigator="true">
 				<p:ajax event="blur" update="botaoGerar" process="@form"></p:ajax>
 			</p:datePicker>
+			
+			<h:outputText value="Status (Programada): " for="consoleProgramada" style="color: #f2f5a9;" />
+			<p:selectOneRadio id="consoleProgramada" value="#{requisicaoProgramadaRelFiltro.statusProgramada}"
+				 required="true" style="color: white;" >
+				<f:selectItem itemLabel="Todas" itemValue="Todas"/>
+				<f:selectItem itemLabel="Sim" itemValue="Sim" />
+				<f:selectItem itemLabel="Não" itemValue="Não" />
+			</p:selectOneRadio>
+			
+			<h:outputText value="Status (Finalizada): " for="consoleFinalizada" style="color: #f2f5a9;" />
+			<p:selectOneRadio id="consoleFinalizada" value="#{requisicaoProgramadaRelFiltro.statusFinalizada}"
+				 required="true" style="color: white;" >
+				<f:selectItem itemLabel="Todas" itemValue="Todas"/>
+				<f:selectItem itemLabel="Sim" itemValue="Sim" />
+				<f:selectItem itemLabel="Não" itemValue="Não" />
+			</p:selectOneRadio>
 
-			<h:outputText value="Ignorar Status: " style="color: #f2f5a9;" />
-			<p:toggleSwitch value="#{requisicaoProgramadaRelFiltro.ignoraStatus}"  >
-			<!-- <p:ajax event="blur" update="value1" process="@form"></p:ajax>
-				<p:ajax event="blur" update="value2" process="@form"></p:ajax> -->	
-			</p:toggleSwitch>
-
-			<h:outputText value="Programada: " style="color: #f2f5a9;" />
-			<p:selectBooleanButton id="value2"
-				value="#{requisicaoProgramadaRelFiltro.statusProgramada}"
-				onLabel="Sim" offLabel="Não" onIcon="pi pi-check"
-				offIcon="pi pi-times" style="width: 80px;"
-				
-				disabled="false" />
-
-			<h:outputText value="Finalizada: " style="color: #f2f5a9;" />
-			<p:selectBooleanButton id="value3"
-				value="#{requisicaoProgramadaRelFiltro.statusFinalizada}"
-				onLabel="Sim" offLabel="Não" onIcon="pi pi-check"
-				
-				offIcon="pi pi-times" style="width: 80px;" disabled="false" />
 		</p:panelGrid>
 
 		<p:spacer width="00" height="30" />
-		<p:commandButton id="botaoGerar" value="Gerar" icon="pi pi-save" ajax="false"
-		    disabled="#{not facesContext.postback or facesContext.validationFailed}"
+		<p:commandButton id="botaoGerar" value="Gerar" icon="pi pi-save"
+			ajax="false"
+			disabled="#{not facesContext.postback or facesContext.validationFailed}"
 			action="#{requisicaoProgramadaRelFiltro.gerar}" />
 	</h:form>
 </h:body>

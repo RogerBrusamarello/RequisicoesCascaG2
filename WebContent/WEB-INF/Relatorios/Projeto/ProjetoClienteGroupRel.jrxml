@@ -153,21 +153,21 @@ FROM projeto
 		<band height="15" splitType="Stretch">
 			<frame>
 				<reportElement style="Row" mode="Opaque" x="0" y="-2" width="802" height="15" uuid="fa7cec56-4ec1-48e6-a26e-7266a995d174"/>
-				<textField textAdjust="StretchHeight">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" x="0" y="2" width="30" height="15" uuid="5bee8631-8756-4959-8437-b5949240aa59">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e984e40c-74e2-4e25-965c-dbc9ea2186d3"/>
 					</reportElement>
 					<textElement textAlignment="Left"/>
 					<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 				</textField>
-				<textField textAdjust="StretchHeight">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" x="30" y="2" width="350" height="15" uuid="c69e43a7-d08e-4a03-9df8-a19cf88b156d">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="33cd75c9-6404-4b5c-90fc-af06883e27e5"/>
 					</reportElement>
 					<textElement textAlignment="Left"/>
 					<textFieldExpression><![CDATA[$F{projeto_nome}]]></textFieldExpression>
 				</textField>
-				<textField textAdjust="StretchHeight">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" x="380" y="2" width="418" height="15" uuid="facbb890-c237-421d-9980-6fea64d37097">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a2de5be7-b6e1-4f03-a680-d3929461593b"/>
 					</reportElement>

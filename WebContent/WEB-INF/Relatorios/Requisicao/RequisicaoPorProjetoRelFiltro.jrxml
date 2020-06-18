@@ -123,7 +123,7 @@ FROM requisicao
 	</columnHeader>
 	<detail>
 		<band height="31" splitType="Stretch">
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="3" width="60" height="18" uuid="16644e21-222e-4300-b719-319117002a85">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8592c2e8-5789-4516-802b-782288f41b92"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -133,7 +133,7 @@ FROM requisicao
 				</textElement>
 				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="60" y="3" width="100" height="18" uuid="60c28d12-800e-47dc-9384-a6fd956449e1">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="15516e44-95f9-45e9-9463-755ab4eb769b"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -143,7 +143,7 @@ FROM requisicao
 				</textElement>
 				<textFieldExpression><![CDATA[$F{datacriada}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="160" y="3" width="180" height="18" uuid="7d254fc4-3ce1-4e92-a277-8a5d723915d7">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="821a7dec-1137-4082-bb6b-fb04b98cc8d9"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -153,7 +153,7 @@ FROM requisicao
 				</textElement>
 				<textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="347" y="3" width="203" height="18" uuid="496d6c34-30ab-4863-a485-f4dbba5e2933">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="821a7dec-1137-4082-bb6b-fb04b98cc8d9"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>

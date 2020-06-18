@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -29,8 +30,16 @@ public class RequisicaoProgramadaRelFiltro implements Serializable {
 	private Date dataFim;
 	private Projeto projeto;
 	private boolean ignoraStatus;
-	private boolean statusProgramada;
-	private boolean statusFinalizada;
+	private String statusProgramada;
+	private String statusFinalizada;
+	private String searchProgramada;
+	private String searchFinalizada;
+
+	@PostConstruct
+	public void init() {
+		statusProgramada = "Todas";
+		statusFinalizada = "Todas";
+	}
 
 	@ManagedProperty(value = "#{loginController}")
 	private LoginController login;
@@ -68,18 +77,39 @@ public class RequisicaoProgramadaRelFiltro implements Serializable {
 			String dataI = formatador.format(dataIni);
 			String dataF = formatador.format(dataFim);
 
+			System.out.println("Programada: " + statusProgramada);
+
+			if (statusProgramada.equals("Todas")) {
+				searchProgramada = "";
+			} else if (statusProgramada.equals("Sim")) {
+				searchProgramada = "requisicaoprogramada.datainicio IS NOT NULL";
+			} else if (statusProgramada.equals("Não")) {
+				searchProgramada = "requisicaoprogramada.datainicio IS NULL";
+			} else {
+				searchProgramada = "";
+			}
+
+			if (statusFinalizada.equals("Todas")) {
+				searchFinalizada = "";
+			} else if (statusFinalizada.equals("Sim")) {
+				searchFinalizada = "requisicaoandamento.status = 'F'";
+			} else if (statusFinalizada.equals("Não")) {
+				searchFinalizada = "(requisicaoandamento.status = 'N' OR requisicaoandamento.requisicao_id IS NULL)";
+			} else {
+				searchFinalizada = "";
+			}
+
 			@SuppressWarnings("rawtypes")
 			HashMap parameters = new HashMap();
 
 			String sql = "WHERE " + (projeto != null ? "requisicao.projeto_id = " + projeto.getId() + " AND " : "")
-					+ (ignoraStatus == true ? ""
-							: (statusProgramada == true ? "requisicaoprogramada.datainicio IS NOT NULL"
-									: "requisicaoprogramada.datainicio IS NULL")
-									+ " AND "
-									+ (statusFinalizada == true ? "requisicaoandamento.status = 'F'"
-											: "(requisicaoandamento.status = 'N' OR requisicaoandamento.requisicao_id IS NULL)")
-									+ " AND ")
-					+ "(requisicao.datacriada BETWEEN '" + dataI + "' AND '" + dataF + "') " + "ORDER BY requisicao.id";
+					+ searchProgramada
+					+ ((!statusProgramada.equals("Todas") && !statusFinalizada.equals("Todas")) ? " AND " : "")
+					+ searchFinalizada
+					+ ((!statusProgramada.equals("Todas") || !statusFinalizada.equals("Todas")) ? " AND " : "")
+					+ "(requisicao.datacriada BETWEEN '" + dataI + "' AND '" + dataF + "') "
+
+					+ "ORDER BY requisicao.id";
 
 			parameters.put("filtroRequisicao", sql);
 
@@ -126,28 +156,28 @@ public class RequisicaoProgramadaRelFiltro implements Serializable {
 		this.login = login;
 	}
 
-	public boolean isStatusProgramada() {
-		return statusProgramada;
-	}
-
-	public void setStatusProgramada(boolean statusProgramada) {
-		this.statusProgramada = statusProgramada;
-	}
-
-	public boolean isStatusFinalizada() {
-		return statusFinalizada;
-	}
-
-	public void setStatusFinalizada(boolean statusFinalizada) {
-		this.statusFinalizada = statusFinalizada;
-	}
-
 	public boolean isIgnoraStatus() {
 		return ignoraStatus;
 	}
 
 	public void setIgnoraStatus(boolean ignoraStatus) {
 		this.ignoraStatus = ignoraStatus;
+	}
+
+	public String getstatusProgramada() {
+		return statusProgramada;
+	}
+
+	public void setStatusProgramada(String statusProgramada) {
+		this.statusProgramada = statusProgramada;
+	}
+
+	public String getstatusFinalizada() {
+		return statusFinalizada;
+	}
+
+	public void setStatusFinalizada(String statusFinalizada) {
+		this.statusFinalizada = statusFinalizada;
 	}
 
 }

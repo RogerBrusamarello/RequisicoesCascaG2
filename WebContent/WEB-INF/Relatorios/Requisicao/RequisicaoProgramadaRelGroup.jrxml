@@ -188,35 +188,35 @@ FROM projeto
 		<band height="15" splitType="Stretch">
 			<frame>
 				<reportElement style="Row" mode="Opaque" x="0" y="0" width="802" height="15" uuid="fa7cec56-4ec1-48e6-a26e-7266a995d174"/>
-				<textField textAdjust="StretchHeight">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" x="0" y="0" width="35" height="15" uuid="1bd27db0-dae9-4740-8381-18cbbcef859e">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2aea7e91-d653-4247-8864-5943cc7c5a4c"/>
 					</reportElement>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{id_req}]]></textFieldExpression>
 				</textField>
-				<textField textAdjust="StretchHeight">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" x="36" y="0" width="153" height="15" uuid="f9da95a1-b084-4683-96fd-45dcb0614c05">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9b520de0-b198-4b36-a0d1-b3a10201de55"/>
 					</reportElement>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{req_titulo}]]></textFieldExpression>
 				</textField>
-				<textField textAdjust="StretchHeight">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" x="189" y="0" width="217" height="15" uuid="a6477e5d-8f79-4c09-a481-f6265a3ca9d1">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8b772c0a-08c8-4ce3-a1a2-9d8c8fc22312"/>
 					</reportElement>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{descricao_req}]]></textFieldExpression>
 				</textField>
-				<textField textAdjust="StretchHeight" pattern="dd/MM/yyyy">
+				<textField textAdjust="StretchHeight" pattern="dd/MM/yyyy" isBlankWhenNull="true">
 					<reportElement style="Detail" x="406" y="0" width="107" height="15" uuid="d00ac933-dd0b-4420-b686-bf73137f1f4c">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e1c4d271-cba3-44a7-be34-12abdea4817f"/>
 					</reportElement>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{data_programada} == null ? "Não Programada" : $F{data_programada}]]></textFieldExpression>
 				</textField>
-				<textField textAdjust="StretchHeight">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" x="513" y="0" width="87" height="15" uuid="c6e15c97-7066-4409-8a28-102a27bb0645">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="74802911-c271-4757-acd7-a9daced95e90"/>
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -224,7 +224,7 @@ FROM projeto
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{status} ==  null  ? "N" : $F{status}]]></textFieldExpression>
 				</textField>
-				<textField textAdjust="StretchHeight">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" x="600" y="0" width="200" height="15" uuid="2e80fed5-7258-4bb3-a138-50f5c94eb0d6">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eaabae28-9e4a-40b6-b4b5-5c0df001042d"/>
 					</reportElement>
